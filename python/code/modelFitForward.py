@@ -147,7 +147,7 @@ else:
     ''' SETUP '''
     Alpha = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
     #Betas = [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1]
-    Betas = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5]
+    Betas = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     nIterations = int(sys.argv[1])
     nStates  = 3
     nActions = 3
@@ -274,7 +274,7 @@ else:
 
                                     # the reward is the gain on the price times the number of shares sold
                                     reward_base = ((price - old_price) * volume)
-                                    reward = htan_custom(reward_base,1/500)
+                                    reward = htan_custom(1/500)
 
                                     # if all shares for the stock have been sold delete stock from portfolio
                                     # otherwise update the values (new_volume, old_price, new_total)
