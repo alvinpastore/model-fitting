@@ -111,7 +111,7 @@ def select_action(tempMLE):
     return tempMLE, MLEaction
 
 
-def saveMLEs(MLEs, players, randomMLEs, fileName):
+def saveMLEs(fileName):
 
     comma = ' , '
     outFile = open(fileName,'w')
@@ -124,7 +124,7 @@ def saveMLEs(MLEs, players, randomMLEs, fileName):
     outFile.close()
     print 'saved in '+str(fileName)
 
-def printMLEs(MLEs, randomMLEs):
+def printMLEs():
     for player in MLEs:
         print player
         print randomMLEs[player]
@@ -132,8 +132,8 @@ def printMLEs(MLEs, randomMLEs):
             for b in sorted(MLEs[player][a]):
                 print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' MLE: '+str(MLEs[player][a][b][0]) + ' P: ' + str(MLEs[player][a][b][1])
 
-def htan_custom(x,factor):
-    return (1-np.exp(-x*factor))/(1+np.exp(-x*factor))
+def htan_custom(factor):
+    return ( 1 - np.exp( - reward_base * factor )) / ( 1 + np.exp( - reward_base * factor ))
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
@@ -169,6 +169,8 @@ else:
 
     print
     print 'Version history \n' \
+          '1.0.1 testing scopes ' \
+          '1.0.0 migrated to GitHub\n' \
           '0.8.2 printing player id together with name\n' \
           '0.8.1 number of iteration to be passed as parameter when running from command line \n' \
           '0.8.0 restricted the range of param alpha max=1\n' \
@@ -354,11 +356,12 @@ else:
 
     close_DB()
 
+    printMLEs()
 
-    #printMLEs(MLEs,randomMLEs)
+    saveMLEs('results/results_'+str(nActions)+'act_'+str(nIterations)+'rep.csv')
 
-    saveMLEs(MLEs,players,randomMLEs,'results/results_'+str(nActions)+'act_'+str(nIterations)+'rep.csv')
 
+    # counting transactions
     #temp = 0
     #for p in total_sell_trans:
     #    temp += total_sell_trans[p]
