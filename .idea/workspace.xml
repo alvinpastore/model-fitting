@@ -1,57 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-0.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-10.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-11.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-12.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-13.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-14.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-15.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-16.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-17.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-18.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-19.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-20.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-21.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-22.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-23.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-24.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-25.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-26.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-27.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-28.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-29.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-3.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-30.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-31.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-32.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-33.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-34.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-35.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-36.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-37.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-38.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-39.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-40.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-41.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-42.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-43.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-44.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-45.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-5.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-7.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-9.eps" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/modelFitForward.py" afterPath="$PROJECT_DIR$/python/code/modelFitForward.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="" />
     <ignored path="model-fitting.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -76,7 +26,7 @@
       <file leaf-file-name="modelFitForward.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38726333" vertical-offset="315" max-vertical-offset="4620">
+            <state vertical-scroll-proportion="-0.61962134" vertical-offset="900" max-vertical-offset="4620">
               <caret line="122" column="74" selection-start-line="122" selection-start-column="74" selection-end-line="122" selection-end-column="74" />
               <folding>
                 <element signature="e#228#730#0" expanded="false" />
@@ -408,7 +358,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38726333" vertical-offset="315" max-vertical-offset="4620">
+        <state vertical-scroll-proportion="-0.61962134" vertical-offset="900" max-vertical-offset="4620">
           <caret line="122" column="74" selection-start-line="122" selection-start-column="74" selection-end-line="122" selection-end-column="74" />
           <folding>
             <element signature="e#228#730#0" expanded="false" />
