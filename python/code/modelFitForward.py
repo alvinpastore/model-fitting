@@ -1,5 +1,4 @@
 from __future__ import division
-import os
 import sys
 import MySQLdb
 import random
@@ -18,16 +17,16 @@ def get_next_state(wealth, pfolio):
         wealth -= float(pfolio[s][2])
 
     if wealth < 50000:
-        next_state = 0  #poor
+        nextState = 0  #poor
         #print "poor"
     elif wealth <= 100000:
-        next_state = 1  #mid
+        nextState = 1  #mid
         #print "mid"
     elif wealth > 100000:
-        next_state = 2  #rich
+        nextState = 2  #rich
         #print "rich" 
 
-    return next_state
+    return nextState
 
 
 def read_stock_file(path):
@@ -76,9 +75,11 @@ def select_players(table, cursor, db):
         names.append(r[0])
     return names
 
+
 def filter_players(all_players,threshold_file):
     t_players =  [line.rstrip('\n') for line in open(threshold_file,'r')]
     return list(set(all_players).intersection(set(t_players)))
+
 
 def select_transactions(table, name, cursor, db):
     # retrieve all transactions for each player
@@ -92,49 +93,59 @@ def select_transactions(table, name, cursor, db):
     player_transactions = cursor.fetchall()
     return player_transactions
 
-def select_action(tempMLE):
+
+def select_action(temporaryMLE):
     random_dice = random.random()
 
     if random_dice < prob_t[0]:
-        MLEaction = 0
+        MLE_act = 0
     elif prob_t[0] <= random_dice < (prob_t[0] + prob_t[1]):
-        MLEaction = 1
+        MLE_act = 1
     else:
-        MLEaction = 2
+        MLE_act = 2
 
-    if prob_t[MLEaction] > 0:
-        tempMLE += log(prob_t[MLEaction])
+    if prob_t[MLE_act] > 0:
+        temporaryMLE += log(prob_t[MLE_act])
     else:
-        tempMLE = 0
+        temporaryMLE = 0
 
-
-    return tempMLE, MLEaction
+    return temporaryMLE, MLE_act
 
 
 def saveMLEs(fileName):
-
     comma = ' , '
     outFile = open(fileName,'w')
     for n in sorted(MLEs):
-        outFile.write(str(players.index(n)) + comma + comma + comma + str(randomMLEs[n]) + comma + str(1/nActions) + comma + str(MLEs[n][1][0.1][2]) + '\n')
+        outFile.write(str(players.index(n)) + comma + comma + comma + comma + str(randomMLEs[n]) + comma + str(1/nActions) + comma + str(MLEs[n][min(Alpha)][min(Betas)][min(Gamma)][2]) + '\n')
         for a in sorted(MLEs[n]):
             for b in sorted(MLEs[n][a]):
-                #print 'MLE['+str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
-                outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(MLEs[n][a][b][0]) + comma + str(MLEs[n][a][b][1]) + comma + str(MLEs[n][a][b][2]) + '\n')
+                for g in sorted(MLEs[n][a][b]):
+                    #print 'MLE['+str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
+                    outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(g) + comma + str(MLEs[n][a][b][g][0]) + comma + str(MLEs[n][a][b][g][1]) + comma + str(MLEs[n][a][b][g][2]) + '\n')
     outFile.close()
     print 'saved in '+str(fileName)
 
+
 def printMLEs():
-    for player in MLEs:
-        print player
-        print randomMLEs[player]
-        for a in MLEs[player]:
-            for b in sorted(MLEs[player][a]):
-                print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' MLE: '+str(MLEs[player][a][b][0]) + ' P: ' + str(MLEs[player][a][b][1])
+    for pl in MLEs:
+        print pl
+        print randomMLEs[pl]
+        for a in MLEs[pl]:
+            for b in MLEs[pl][a]:
+                for g in sorted(MLEs[pl][a][b]):
+                    print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' gamma: ' + str(g) + ' MLE: '+str(MLEs[pl][a][b][g][0]) + ' P: ' + str(MLEs[pl][a][b][g][1])
+
 
 def htan_custom(factor):
     return ( 1 - np.exp( - reward_base * factor )) / ( 1 + np.exp( - reward_base * factor ))
 
+def build_filename():
+    fn =  str(nActions) + 'act_'
+    fn += str(nIterations) + 'rep_'
+    fn += str(min(Alpha)) + '-' + str(max(Alpha)) + '_alpha'
+    fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
+    fn += str(min(Gamma)) + '-' + str(max(Gamma)) + '_gamma'
+    return fn
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
@@ -146,8 +157,9 @@ else:
 
     ''' SETUP '''
     Alpha = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-    #Betas = [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1]
-    Betas = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    Betas = [0.01, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2]
+    Gamma = [0.01, 0.25, 0.5, 0.75, 1]
+
     nIterations = int(sys.argv[1])
     nStates  = 3
     nActions = 3
@@ -160,15 +172,18 @@ else:
     stock_risk = read_stock_file("../../data/risk_classified_stocks_"+str(nActions)+".txt")
 
     # connect to DB and get the cursor and the db
-    cursor_and_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
-    cursor = cursor_and_db[0]
-    db     = cursor_and_db[1]
+    c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
+    cursor = c_db[0]
+    db     = c_db[1]
 
     # retrieve players
-    players = sorted(filter_players(select_players('transactions', cursor, db),'players_threshold.txt'))
+    db_players = select_players('transactions', cursor, db)
+    players = sorted(filter_players(db_players,'players_threshold.txt'))
 
     print
     print 'Version history \n' \
+          '1.1.0 gamma is back\n' \
+          '1.0.2 beta range printed on save file\n' \
           '1.0.1 testing scopes ' \
           '1.0.0 migrated to GitHub\n' \
           '0.8.2 printing player id together with name\n' \
@@ -194,6 +209,8 @@ else:
         MLEs[p] = dict()
         for a in Alpha:
             MLEs[p][a] = dict()
+            for b in Betas:
+                MLEs[p][a][b] = dict()
 
     randomMLEs = dict()
 
@@ -213,152 +230,157 @@ else:
 
         for alpha in Alpha:
             for beta in Betas:
-                avgMLE = 0
-                avg_correct_actions = 0
+                for gamma in Gamma:
 
-                for iteration in xrange(nIterations):
+                    avgMLE = 0
+                    avg_correct_actions = 0
 
-                    Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
-                    tempMLE = 0
-                    randMLE = 0
-                    actionsAmount = 0
-                    correct_actions = 0
-                    for transaction in transactions:
+                    for iteration in xrange(nIterations):
+
+                        Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
+                        tempMLE = 0
+                        randMLE = 0
+                        actionsAmount = 0
+                        correct_actions = 0
+                        for transaction in transactions:
 
 
-                        # get only buy/sell actions
-                        if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
+                            # get only buy/sell actions
+                            if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
 
-                            name        = str(transaction[1])
-                            date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
-                            date        = datetime.strptime(date_string,'%Y %m %d')
-                            a_type      = str(transaction[3])
-                            stock       = str(transaction[4])
-                            volume      = int(transaction[5])
-                            price       = float(transaction[6])
-                            total       = float(transaction[7])
+                                name        = str(transaction[1])
+                                date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
+                                date        = datetime.strptime(date_string,'%Y %m %d')
+                                a_type      = str(transaction[3])
+                                stock       = str(transaction[4])
+                                volume      = int(transaction[5])
+                                price       = float(transaction[6])
+                                total       = float(transaction[7])
 
-                            if 'Buy' in a_type and stock:
-                                # save the stocks that have been purchased
-                                if stock in portfolio:
-                                    old_volume = portfolio[stock][0]
-                                    old_price  = portfolio[stock][1]
-                                    old_total  = portfolio[stock][2]
-                                    new_volume = volume + old_volume
-                                    new_price  = ((price * volume) + (old_volume * old_price)) / (volume + old_volume)
-                                    new_total  = old_total + (price * volume)
-                                    portfolio[stock] = (new_volume, new_price, new_total)
-                                else:
-                                    portfolio[stock] = (volume, price, total)
-
-                                # deduct money spent to purchase stock
-                                # (+ sign because the sign of the total is negative for purchases)
-                                money += total
-
-                                next_state = get_next_state(money,portfolio)
-
-                            elif 'Sell' in a_type and stock:
-
-                                if stock not in portfolio:
-                                    print ':::::::::::::::::::::::::::::::::::::::::::::::'
-                                    print player
-                                    print 'stock', stock
-                                    print 'portfolio', portfolio
-                                    # messed up player
-                                    break
-                                else:
-                                    actionsAmount += 1
-                                    old_volume = portfolio[stock][0]
-                                    old_price  = portfolio[stock][1]
-                                    old_total  = portfolio[stock][2]
-
-                                    # the reward is the gain on the price times the number of shares sold
-                                    reward_base = ((price - old_price) * volume)
-                                    reward = htan_custom(1/500)
-
-                                    # if all shares for the stock have been sold delete stock from portfolio
-                                    # otherwise update the values (new_volume, old_price, new_total)
-                                    new_volume = old_volume - volume
-                                    if new_volume <= 0:
-                                        del portfolio[stock]
+                                if 'Buy' in a_type and stock:
+                                    # save the stocks that have been purchased
+                                    if stock in portfolio:
+                                        old_volume = portfolio[stock][0]
+                                        old_price  = portfolio[stock][1]
+                                        old_total  = portfolio[stock][2]
+                                        new_volume = volume + old_volume
+                                        new_price  = ((price * volume) + (old_volume * old_price)) / (volume + old_volume)
+                                        new_total  = old_total + (price * volume)
+                                        portfolio[stock] = (new_volume, new_price, new_total)
                                     else:
-                                        portfolio[stock] = (new_volume, old_price, new_volume * old_price)
-                                        # old_price so it is possible to calculate margin for future sells
+                                        portfolio[stock] = (volume, price, total)
 
-                                    # update money with gain/loss from sell
+                                    # deduct money spent to purchase stock
+                                    # (+ sign because the sign of the total is negative for purchases)
                                     money += total
 
-                                    ''' SoftMax Action Selection '''
-                                    prob_t = [0] * nActions
+                                    next_state = get_next_state(money,portfolio)
 
-                                    for a in xrange(nActions):
-                                        prob_t[a] = np.exp(Q[state][a] * beta)
+                                elif 'Sell' in a_type and stock:
 
-                                    try:
-                                        prob_t = np.true_divide(prob_t, sum(prob_t))
-                                    except RuntimeWarning:
-                                        print '----------------------------'
-                                        print 'iteration',iteration
-                                        print 'Q['+str(Q[state][action])+'] + '+str(alpha)+ ' * ('+str(reward) + ' - ' + 'Q['+str(state)+']['+str(action)+']'
-
-                                        print 'player',player
-                                        print 'state: ',state
-                                        print 'action: ',action
-                                        print 'Q[state][action]: ',Q[state][action]
-                                        print 'exp(Q[s][a]): ',np.exp(Q[state][action])
-                                        print 'prob_t: ',prob_t
-                                        print 'sum(prob_t): ',sum(prob_t)
-                                        raw_input('Value error:  alpha=' + str(alpha) + ' beta=' + str(beta))
-
-
-                                    tempMLE,MLEaction = select_action(tempMLE)
-
-                                    if tempMLE == 0:
-                                        print 'Breaking because of prob('+str(MLEaction)+') =' + str(prob_t[MLEaction])
+                                    if stock not in portfolio:
+                                        print ':::::::::::::::::::::::::::::::::::::::::::::::'
+                                        print player
+                                        print 'stock', stock
+                                        print 'portfolio', portfolio
+                                        # messed up player
                                         break
+                                    else:
+                                        actionsAmount += 1
+                                        old_volume = portfolio[stock][0]
+                                        old_price  = portfolio[stock][1]
+                                        old_total  = portfolio[stock][2]
 
-                                    ''' softmax end '''
+                                        # the reward is the gain on the price times the number of shares sold
+                                        reward_base = ((price - old_price) * volume)
+                                        reward = htan_custom(1/500)
 
-                                    # select the action really picked by player
-                                    action = stock_risk[stock];
+                                        # if all shares for the stock have been sold delete stock from portfolio
+                                        # otherwise update the values (new_volume, old_price, new_total)
+                                        new_volume = old_volume - volume
+                                        if new_volume <= 0:
+                                            del portfolio[stock]
+                                        else:
+                                            portfolio[stock] = (new_volume, old_price, new_volume * old_price)
+                                            # old_price so it is possible to calculate margin for future sells
 
-                                    # Precision calculation (counting correctly predicted actions)
-                                    if MLEaction == action:
-                                        correct_actions += 1
+                                        # update money with gain/loss from sell
+                                        money += total
 
-                                    next_state = get_next_state(money,portfolio);
+                                        ''' SoftMax Action Selection '''
+                                        prob_t = [0] * nActions
 
-                                    ''' Qvalues update '''
-                                    #Q[state][action] = Q[state][action] + alpha * (reward + (gamma * max(Q[next_state]))  - Q[state][action])
-                                    #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
-                                    Q[state][action] = Q[state][action] + alpha * (reward - Q[state][action])
+                                        for a in xrange(nActions):
+                                            prob_t[a] = np.exp(Q[state][a] * beta)
 
-                                    #print 'Q['+str(state)+','+str(action)+'] = Q['+str(state)+','+str(action)+'] + '+str(alpha)+'*('+str(reward)+'-Q['+str(state)+','+str(action)+'])'
-                                    #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
-                                    #raw_input("iteration: "+str(iteration)+"  transaction: "+str(actionsAmount)+'\n')
+                                        try:
+                                            prob_t = np.true_divide(prob_t, sum(prob_t))
+                                        except RuntimeWarning:
+                                            print '----------------------------'
+                                            print 'iteration',iteration
+                                            print 'Q['+str(Q[state][action])+'] + '+str(alpha)+ ' * ('+str(reward) + ' - ' + 'Q['+str(state)+']['+str(action)+']'
 
-                                    state = next_state
+                                            print 'player',player
+                                            print 'state: ',state
+                                            print 'action: ',action
+                                            print 'Q[state][action]: ',Q[state][action]
+                                            print 'exp(Q[s][a]): ',np.exp(Q[state][action])
+                                            print 'prob_t: ',prob_t
+                                            print 'sum(prob_t): ',sum(prob_t)
+                                            raw_input('Value error:  alpha=' + str(alpha) + ' beta=' + str(beta))
 
-                    total_sell_trans[player] = actionsAmount
-                    avg_correct_actions += correct_actions
-                    avgMLE += tempMLE
 
-                avg_correct_actions /= nIterations
-                avgMLE /= nIterations
-                avgMLE = -avgMLE
-                randMLE = - actionsAmount * log(1/nActions)
-                randomMLEs[player] = randMLE
+                                        tempMLE,MLEaction = select_action(tempMLE)
 
-                precision = avg_correct_actions/actionsAmount
+                                        if tempMLE == 0:
+                                            print 'Breaking because of prob('+str(MLEaction)+') =' + str(prob_t[MLEaction])
+                                            break
 
-                MLEs[player][alpha][beta] = (avgMLE,precision,actionsAmount)
+                                        ''' softmax end '''
+
+                                        # select the action really picked by player
+                                        action = stock_risk[stock];
+
+                                        # Precision calculation (counting correctly predicted actions)
+                                        if MLEaction == action:
+                                            correct_actions += 1
+
+                                        next_state = get_next_state(money,portfolio);
+
+                                        ''' Qvalues update '''
+                                        #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
+
+                                        Q[state][action] += alpha * (reward + (gamma * max(Q[next_state])) - Q[state][action])
+                                        #Q[state][action] += alpha * (reward - Q[state][action])
+
+                                        #print 'Q['+str(state)+','+str(action)+'] = Q['+str(state)+','+str(action)+'] + '+str(alpha)+'*('+str(reward)+'-Q['+str(state)+','+str(action)+'])'
+                                        #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
+                                        #raw_input("iteration: "+str(iteration)+"  transaction: "+str(actionsAmount)+'\n')
+
+                                        state = next_state
+
+                        total_sell_trans[player] = actionsAmount
+                        avg_correct_actions += correct_actions
+                        avgMLE += tempMLE
+
+                    avg_correct_actions /= nIterations
+                    avgMLE /= nIterations
+                    avgMLE = -avgMLE
+                    randMLE = - actionsAmount * log(1/nActions)
+                    randomMLEs[player] = randMLE
+
+                    precision = avg_correct_actions/actionsAmount
+
+                    MLEs[player][alpha][beta][gamma] = (avgMLE,precision,actionsAmount)
+
         print str(actionsAmount) + ' transactions '
 
     close_DB()
 
     printMLEs()
 
-    saveMLEs('results/results_'+str(nActions)+'act_'+str(nIterations)+'rep.csv')
+    save_filename = build_filename()
+    saveMLEs('results/results_' + save_filename +'.csv')
 
 
     # counting transactions

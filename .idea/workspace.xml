@@ -2,8 +2,55 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-0.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-1.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-10.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-11.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-12.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-13.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-14.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-15.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-16.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-17.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-18.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-19.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-2.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-20.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-21.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-22.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-23.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-24.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-25.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-26.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-27.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-28.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-29.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-3.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-30.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-31.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-32.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-33.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-34.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-35.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-36.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-37.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-38.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-39.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-4.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-40.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-41.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-42.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-43.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-44.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-45.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-5.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-6.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-7.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-8.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs/g-9.eps" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/modelFitForward.py" afterPath="$PROJECT_DIR$/python/code/modelFitForward.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/results/results_3act_50rep.csv" afterPath="$PROJECT_DIR$/python/code/results/results_3act_50rep.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="model-fitting.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,12 +76,20 @@
       <file leaf-file-name="modelFitForward.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="4.9759035" vertical-offset="2509" max-vertical-offset="5595">
-              <caret line="360" column="74" selection-start-line="360" selection-start-column="74" selection-end-line="360" selection-end-column="74" />
+            <state vertical-scroll-proportion="0.38726333" vertical-offset="315" max-vertical-offset="4620">
+              <caret line="122" column="74" selection-start-line="122" selection-start-column="74" selection-end-line="122" selection-end-column="74" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
-                <marker date="1416416599000" expanded="true" signature="1683:1736" placeholder="SELECT DISTI..missing_value..." />
-                <marker date="1416416599000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+                <element signature="e#228#730#0" expanded="false" />
+                <element signature="e#764#1356#0" expanded="false" />
+                <element signature="e#1405#1549#0" expanded="false" />
+                <element signature="e#1572#1582#0" expanded="false" />
+                <element signature="e#1629#1896#0" expanded="false" />
+                <element signature="e#1951#2083#0" expanded="false" />
+                <element signature="e#2140#2526#0" expanded="false" />
+                <element signature="e#2566#2902#0" expanded="false" />
+                <element signature="e#4186#4274#0" expanded="false" />
+                <marker date="1416484191000" expanded="true" signature="1669:1722" placeholder="SELECT DISTI..missing_value..." />
+                <marker date="1416484191000" expanded="true" signature="2197:2281" placeholder="SELECT * FRO..missing_value..." />
               </folding>
             </state>
           </provider>
@@ -143,6 +198,156 @@
     </option>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="model-fitting" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -164,6 +369,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -175,7 +381,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -203,12 +408,20 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.9759035" vertical-offset="2509" max-vertical-offset="5595">
-          <caret line="360" column="74" selection-start-line="360" selection-start-column="74" selection-end-line="360" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.38726333" vertical-offset="315" max-vertical-offset="4620">
+          <caret line="122" column="74" selection-start-line="122" selection-start-column="74" selection-end-line="122" selection-end-column="74" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <marker date="1416416599000" expanded="true" signature="1683:1736" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1416416599000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+            <element signature="e#228#730#0" expanded="false" />
+            <element signature="e#764#1356#0" expanded="false" />
+            <element signature="e#1405#1549#0" expanded="false" />
+            <element signature="e#1572#1582#0" expanded="false" />
+            <element signature="e#1629#1896#0" expanded="false" />
+            <element signature="e#1951#2083#0" expanded="false" />
+            <element signature="e#2140#2526#0" expanded="false" />
+            <element signature="e#2566#2902#0" expanded="false" />
+            <element signature="e#4186#4274#0" expanded="false" />
+            <marker date="1416484191000" expanded="true" signature="1669:1722" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1416484191000" expanded="true" signature="2197:2281" placeholder="SELECT * FRO..missing_value..." />
           </folding>
         </state>
       </provider>
