@@ -189,6 +189,8 @@ else:
 
     print
     print 'Version history \n' \
+          '1.1.2 fixed bug of stock risk classification' \
+          '1.1.1 timing of process\n' \
           '1.1.0 gamma is back\n' \
           '1.0.2 beta range printed on save file\n' \
           '1.0.1 testing scopes ' \
