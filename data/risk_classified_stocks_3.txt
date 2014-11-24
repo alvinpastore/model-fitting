@@ -1,5 +1,5 @@
 
-LOW
+risk class 0
 Kazakhmys Plc~0.00536190679916
 Bunzl~0.0238681528833
 Admiral Group Plc~0.0242855078297
@@ -63,7 +63,7 @@ ITV Plc~0.0981868710685
 Morrison Wm Supermarkets~0.0984597882277
 Burberry Group~0.0988234753237
 
-MID
+risk class 1
 Antofagasta~0.10158796072
 BAE Systems~0.105892558912
 Severn Trent~0.10919912791
@@ -92,7 +92,7 @@ ARM Holdings~0.280965475357
 Prudential~0.290168364214
 Shire Plc~0.298596311722
 
-HIGH
+risk class 2
 British American Tobacco Plc~0.310310080512
 Diageo Plc~0.312991875354
 Royal Dutch Shell-B Shs~0.321734476815

@@ -4,6 +4,7 @@ import MySQLdb
 import random
 import numpy as np
 from datetime import datetime
+import time
 from math import log
 import warnings
 
@@ -149,6 +150,8 @@ def build_filename():
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
+t0 = time.time()
+
 if len(sys.argv) < 2:
     print 'Usage: python modelFitForward.py N\n' \
           'N = number of iterations for averaging'
@@ -157,8 +160,8 @@ else:
 
     ''' SETUP '''
     Alpha = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-    Betas = [0.01, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2]
-    Gamma = [0.01, 0.25, 0.5, 0.75, 1]
+    Betas = [0.01,  0.5,  1, 1.5, 2, 2.5, 3]
+    Gamma = [0.01, 0.25, 0.5, 0.75, 0.8 , 0.999]
 
     nIterations = int(sys.argv[1])
     nStates  = 3
@@ -170,6 +173,10 @@ else:
 
     # Read the stocks previously classified according to their risk (3 bins)
     stock_risk = read_stock_file("../../data/risk_classified_stocks_"+str(nActions)+".txt")
+
+    #for s in sorted(stock_risk):
+    #    print str(s) + ' ' + str(stock_risk[s])
+    #raw_input()
 
     # connect to DB and get the cursor and the db
     c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
@@ -242,8 +249,8 @@ else:
                         randMLE = 0
                         actionsAmount = 0
                         correct_actions = 0
+                        #tindex = 0
                         for transaction in transactions:
-
 
                             # get only buy/sell actions
                             if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
@@ -286,6 +293,8 @@ else:
                                         # messed up player
                                         break
                                     else:
+                                        #print 'transaction',tindex
+                                        #tindex+=1
                                         actionsAmount += 1
                                         old_volume = portfolio[stock][0]
                                         old_price  = portfolio[stock][1]
@@ -341,6 +350,11 @@ else:
                                         # select the action really picked by player
                                         action = stock_risk[stock];
 
+                                        #print 'state',state
+                                        #print 'real  a: ' + str(action)
+                                        #print 'model a: ' + str(MLEaction)
+                                        #raw_input()
+
                                         # Precision calculation (counting correctly predicted actions)
                                         if MLEaction == action:
                                             correct_actions += 1
@@ -356,6 +370,7 @@ else:
                                         #print 'Q['+str(state)+','+str(action)+'] = Q['+str(state)+','+str(action)+'] + '+str(alpha)+'*('+str(reward)+'-Q['+str(state)+','+str(action)+'])'
                                         #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
                                         #raw_input("iteration: "+str(iteration)+"  transaction: "+str(actionsAmount)+'\n')
+                                        #print Q
 
                                         state = next_state
 
@@ -382,6 +397,8 @@ else:
     save_filename = build_filename()
     saveMLEs('results/results_' + save_filename +'.csv')
 
+
+print time.time() - t0
 
     # counting transactions
     #temp = 0
