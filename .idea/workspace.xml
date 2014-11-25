@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python/code/modelFitNoGamma.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/modelFitForward.py" afterPath="$PROJECT_DIR$/python/code/modelFitForward.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="" />
     <ignored path="model-fitting.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
