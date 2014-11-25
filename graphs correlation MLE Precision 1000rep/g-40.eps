@@ -1,0 +1,3317 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%Creator: MATLAB, The MathWorks, Inc. Version 7.14.0.739 (R2012a). Operating System: Linux 3.2.0-70-generic #105-Ubuntu SMP Wed Sep 24 19:49:16 UTC 2014 x86_64.
+%%Title: graphs_correlation_MLE_Prec/g-40.eps
+%%CreationDate: 11/25/2014  10:41:41
+%%DocumentNeededFonts: Helvetica
+%%DocumentProcessColors: Cyan Magenta Yellow Black
+%%Extensions: CMYK
+%%Pages: 1
+%%BoundingBox:    52   199   548   602
+%%EndComments
+
+%%BeginProlog
+% MathWorks dictionary
+/MathWorks 160 dict begin
+% definition operators
+/bdef {bind def} bind def
+/ldef {load def} bind def
+/xdef {exch def} bdef
+/xstore {exch store} bdef
+% operator abbreviations
+/c  /clip ldef
+/cc /concat ldef
+/cp /closepath ldef
+/gr /grestore ldef
+/gs /gsave ldef
+/mt /moveto ldef
+/np /newpath ldef
+/cm /currentmatrix ldef
+/sm /setmatrix ldef
+/rm /rmoveto ldef
+/rl /rlineto ldef
+/s {show newpath} bdef
+/sc {setcmykcolor} bdef
+/sr /setrgbcolor ldef
+/sg /setgray ldef
+/w /setlinewidth ldef
+/j /setlinejoin ldef
+/cap /setlinecap ldef
+/rc {rectclip} bdef
+/rf {rectfill} bdef
+% page state control
+/pgsv () def
+/bpage {/pgsv save def} bdef
+/epage {pgsv restore} bdef
+/bplot /gsave ldef
+/eplot {stroke grestore} bdef
+% orientation switch
+/portraitMode 0 def /landscapeMode 1 def /rotateMode 2 def
+% coordinate system mappings
+/dpi2point 0 def
+% font control
+/FontSize 0 def
+/FMS {/FontSize xstore findfont [FontSize 0 0 FontSize neg 0 0]
+  makefont setfont} bdef
+/reencode {exch dup where {pop load} {pop StandardEncoding} ifelse
+  exch dup 3 1 roll findfont dup length dict begin
+  { 1 index /FID ne {def}{pop pop} ifelse } forall
+  /Encoding exch def currentdict end definefont pop} bdef
+/isroman {findfont /CharStrings get /Agrave known} bdef
+/FMSR {3 1 roll 1 index dup isroman {reencode} {pop pop} ifelse
+  exch FMS} bdef
+/csm {1 dpi2point div -1 dpi2point div scale neg translate
+ dup landscapeMode eq {pop -90 rotate}
+  {rotateMode eq {90 rotate} if} ifelse} bdef
+% line types: solid, dotted, dashed, dotdash
+/SO { [] 0 setdash } bdef
+/DO { [.5 dpi2point mul 4 dpi2point mul] 0 setdash } bdef
+/DA { [6 dpi2point mul] 0 setdash } bdef
+/DD { [.5 dpi2point mul 4 dpi2point mul 6 dpi2point mul 4
+  dpi2point mul] 0 setdash } bdef
+% macros for lines and objects
+/L {lineto stroke} bdef
+/MP {3 1 roll moveto 1 sub {rlineto} repeat} bdef
+/AP {{rlineto} repeat} bdef
+/PDlw -1 def
+/W {/PDlw currentlinewidth def setlinewidth} def
+/PP {closepath eofill} bdef
+/DP {closepath stroke} bdef
+/MR {4 -2 roll moveto dup  0 exch rlineto exch 0 rlineto
+  neg 0 exch rlineto closepath} bdef
+/FR {MR stroke} bdef
+/PR {MR fill} bdef
+/L1i {{currentfile picstr readhexstring pop} image} bdef
+/tMatrix matrix def
+/MakeOval {newpath tMatrix currentmatrix pop translate scale
+0 0 1 0 360 arc tMatrix setmatrix} bdef
+/FO {MakeOval stroke} bdef
+/PO {MakeOval fill} bdef
+/PD {currentlinewidth 2 div 0 360 arc fill
+   PDlw -1 eq not {PDlw w /PDlw -1 def} if} def
+/FA {newpath tMatrix currentmatrix pop translate scale
+  0 0 1 5 -2 roll arc tMatrix setmatrix stroke} bdef
+/PA {newpath tMatrix currentmatrix pop	translate 0 0 moveto scale
+  0 0 1 5 -2 roll arc closepath tMatrix setmatrix fill} bdef
+/FAn {newpath tMatrix currentmatrix pop translate scale
+  0 0 1 5 -2 roll arcn tMatrix setmatrix stroke} bdef
+/PAn {newpath tMatrix currentmatrix pop translate 0 0 moveto scale
+  0 0 1 5 -2 roll arcn closepath tMatrix setmatrix fill} bdef
+/vradius 0 def /hradius 0 def /lry 0 def
+/lrx 0 def /uly 0 def /ulx 0 def /rad 0 def
+/MRR {/vradius xdef /hradius xdef /lry xdef /lrx xdef /uly xdef
+  /ulx xdef newpath tMatrix currentmatrix pop ulx hradius add uly
+  vradius add translate hradius vradius scale 0 0 1 180 270 arc 
+  tMatrix setmatrix lrx hradius sub uly vradius add translate
+  hradius vradius scale 0 0 1 270 360 arc tMatrix setmatrix
+  lrx hradius sub lry vradius sub translate hradius vradius scale
+  0 0 1 0 90 arc tMatrix setmatrix ulx hradius add lry vradius sub
+  translate hradius vradius scale 0 0 1 90 180 arc tMatrix setmatrix
+  closepath} bdef
+/FRR {MRR stroke } bdef
+/PRR {MRR fill } bdef
+/MlrRR {/lry xdef /lrx xdef /uly xdef /ulx xdef /rad lry uly sub 2 div def
+  newpath tMatrix currentmatrix pop ulx rad add uly rad add translate
+  rad rad scale 0 0 1 90 270 arc tMatrix setmatrix lrx rad sub lry rad
+  sub translate rad rad scale 0 0 1 270 90 arc tMatrix setmatrix
+  closepath} bdef
+/FlrRR {MlrRR stroke } bdef
+/PlrRR {MlrRR fill } bdef
+/MtbRR {/lry xdef /lrx xdef /uly xdef /ulx xdef /rad lrx ulx sub 2 div def
+  newpath tMatrix currentmatrix pop ulx rad add uly rad add translate
+  rad rad scale 0 0 1 180 360 arc tMatrix setmatrix lrx rad sub lry rad
+  sub translate rad rad scale 0 0 1 0 180 arc tMatrix setmatrix
+  closepath} bdef
+/FtbRR {MtbRR stroke } bdef
+/PtbRR {MtbRR fill } bdef
+/stri 6 array def /dtri 6 array def
+/smat 6 array def /dmat 6 array def
+/tmat1 6 array def /tmat2 6 array def /dif 3 array def
+/asub {/ind2 exch def /ind1 exch def dup dup
+  ind1 get exch ind2 get sub exch } bdef
+/tri_to_matrix {
+  2 0 asub 3 1 asub 4 0 asub 5 1 asub
+  dup 0 get exch 1 get 7 -1 roll astore } bdef
+/compute_transform {
+  dmat dtri tri_to_matrix tmat1 invertmatrix 
+  smat stri tri_to_matrix tmat2 concatmatrix } bdef
+/ds {stri astore pop} bdef
+/dt {dtri astore pop} bdef
+/db {2 copy /cols xdef /rows xdef mul dup 3 mul string
+  currentfile exch readhexstring pop
+  dup 0 3 index getinterval /rbmap xdef
+  dup 2 index dup getinterval /gbmap xdef
+  1 index dup 2 mul exch getinterval /bbmap xdef pop pop}bdef
+/it {gs np dtri aload pop moveto lineto lineto cp c
+  cols rows 8 compute_transform 
+  rbmap gbmap bbmap true 3 colorimage gr}bdef
+/il {newpath moveto lineto stroke}bdef
+currentdict end def
+%%EndProlog
+
+%%BeginSetup
+MathWorks begin
+
+0 cap
+
+end
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+%%PageBoundingBox:    52   199   548   602
+MathWorks begin
+bpage
+%%EndPageSetup
+
+%%BeginObject: obj1
+bplot
+
+/dpi2point 12 def
+portraitMode 0216 7344 csm
+
+  413   110  5958  4845 MR c np
+85 dict begin %Colortable dictionary
+/c0 { 0.000000 0.000000 0.000000 sr} bdef
+/c1 { 1.000000 1.000000 1.000000 sr} bdef
+/c2 { 0.900000 0.000000 0.000000 sr} bdef
+/c3 { 0.000000 0.820000 0.000000 sr} bdef
+/c4 { 0.000000 0.000000 0.800000 sr} bdef
+/c5 { 0.910000 0.820000 0.320000 sr} bdef
+/c6 { 1.000000 0.260000 0.820000 sr} bdef
+/c7 { 0.000000 0.820000 0.820000 sr} bdef
+c0
+1 j
+1 sg
+   0    0 6913 5186 PR
+6 w
+0 4226 5356 0 0 -4226 899 4615 4 MP
+PP
+-5356 0 0 4226 5356 0 0 -4226 899 4615 5 MP stroke
+4 w
+DO
+SO
+6 w
+0 sg
+ 899 4615 mt 6255 4615 L
+ 899 4615 mt  899  389 L
+ 899 4615 mt  899 4561 L
+%%IncludeResource: font Helvetica
+/Helvetica /ISOLatin1Encoding 120 FMSR
+
+ 833 4760 mt 
+(34) s
+1434 4615 mt 1434 4561 L
+1368 4760 mt 
+(35) s
+1970 4615 mt 1970 4561 L
+1904 4760 mt 
+(36) s
+2505 4615 mt 2505 4561 L
+2439 4760 mt 
+(37) s
+3041 4615 mt 3041 4561 L
+2975 4760 mt 
+(38) s
+3577 4615 mt 3577 4561 L
+3511 4760 mt 
+(39) s
+4112 4615 mt 4112 4561 L
+4046 4760 mt 
+(40) s
+4648 4615 mt 4648 4561 L
+4582 4760 mt 
+(41) s
+5183 4615 mt 5183 4561 L
+5117 4760 mt 
+(42) s
+5719 4615 mt 5719 4561 L
+5653 4760 mt 
+(43) s
+6255 4615 mt 6255 4561 L
+6189 4760 mt 
+(44) s
+ 899 4615 mt  952 4615 L
+ 631 4659 mt 
+(0.32) s
+ 899 3910 mt  952 3910 L
+ 631 3954 mt 
+(0.34) s
+ 899 3206 mt  952 3206 L
+ 631 3250 mt 
+(0.36) s
+ 899 2502 mt  952 2502 L
+ 631 2546 mt 
+(0.38) s
+ 899 1797 mt  952 1797 L
+ 698 1841 mt 
+(0.4) s
+ 899 1093 mt  952 1093 L
+ 631 1137 mt 
+(0.42) s
+ 899  389 mt  952  389 L
+ 631  433 mt 
+(0.44) s
+gs 899 389 5357 4227 MR c np
+0 j
+gr
+
+gs 1273 1363 5026 3057 MR c np
+/c8 { 0.000000 0.000000 1.000000 sr} bdef
+c8
+  36   36 6225 4158 FO
+gr
+
+c8
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4112 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4049 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4253 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4055 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4210 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4213 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4344 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4346 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4169 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 3945 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4092 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4321 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4096 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4192 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4215 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4316 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4010 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4281 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4087 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4145 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4189 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4160 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4121 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4058 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4181 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4195 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4085 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4211 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4319 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4158 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4176 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4075 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 3983 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4111 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4082 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4143 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4059 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4202 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4224 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4176 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4128 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4070 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4214 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4010 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4165 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4158 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4120 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4062 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4112 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4026 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4021 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4153 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4136 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4113 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6225 4131 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6224 4003 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6224 4068 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6224 4125 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6224 4039 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6224 4115 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6224 4033 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6222 4031 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6222 4206 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6221 4043 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6220 3987 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6219 3967 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6219 4004 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6216 4101 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6216 3945 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6216 4018 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6215 4209 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6215 3924 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6214 3943 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6214 3859 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6214 4057 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6213 4077 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6213 3981 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6210 3896 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6210 3957 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6209 4127 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6208 3965 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6208 3998 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6207 4073 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6207 3908 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6206 3909 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6205 3957 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6204 3962 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6204 4074 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6203 3964 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6202 4070 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6202 3942 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6201 3982 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6200 3841 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6200 4000 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6199 3949 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6198 3867 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6198 3878 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6197 3915 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6196 3949 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6195 3936 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6192 4114 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6191 3938 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6189 3950 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6189 3909 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6189 3732 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6189 3952 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6188 4036 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6188 3871 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6187 3856 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6187 3815 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6186 3923 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6184 3975 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6183 3810 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6182 3957 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6182 3756 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6181 3798 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6181 3794 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6180 3783 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6179 3891 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6179 4141 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6178 3883 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6176 3871 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6174 3805 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6171 3854 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6167 3794 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6165 3859 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6165 3721 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6165 3674 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6162 3842 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6161 3777 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6161 3687 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6161 3860 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6160 3739 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6158 3739 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6158 3760 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6157 3602 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6156 3712 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6153 3735 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6152 3790 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6150 3715 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6150 3886 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6150 3764 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6148 3932 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6144 3888 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6140 3598 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6139 3738 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6139 3700 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6138 3650 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6138 3621 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6136 3728 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6135 3709 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6130 3593 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6130 3713 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6129 3691 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6129 3831 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6128 3622 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6127 3699 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6125 3789 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6124 3665 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6123 3674 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6123 3699 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6121 3822 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6121 3949 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6119 3680 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6118 3599 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6117 3716 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6116 3649 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6115 3462 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6114 3738 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6113 4071 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6112 3738 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6111 3622 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6110 3560 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6108 3514 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6103 3415 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6101 3671 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6100 3577 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6097 3673 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6095 3545 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6091 3583 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6083 3683 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6081 3917 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6080 3682 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6079 3552 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6079 3618 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6076 3636 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6075 3598 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6073 3654 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6072 3808 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6067 3532 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6066 3425 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6063 3716 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6056 3544 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6056 3392 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6052 3716 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6051 3532 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6050 3521 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6050 3601 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6046 4025 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6045 4155 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6041 3752 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6038 3564 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6036 3539 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6032 3402 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6026 3358 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6025 3593 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6024 3420 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6021 3509 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6018 3347 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6017 3545 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6015 3479 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6014 3513 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6012 3521 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6012 3411 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6007 3645 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6007 3783 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6005 3479 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6005 3437 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6004 3296 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6003 3463 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 6002 3611 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5997 3445 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5989 3541 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5987 3577 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5985 3386 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5980 3833 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5979 3514 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5978 3444 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5977 3282 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5971 3447 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5961 3680 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5953 3421 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5946 3319 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5935 3598 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5934 3415 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5929 3341 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5927 3337 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5927 3427 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5926 3849 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5917 3245 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5915 3547 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5914 3228 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5914 3422 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5907 3621 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5901 3326 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5899 3394 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5896 3353 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5887 3206 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5873 3705 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5872 3359 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5872 3257 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5870 3380 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5865 3245 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5865 3315 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5864 3317 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5864 3247 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5856 3746 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5855 3864 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5841 3450 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5839 3310 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5835 3543 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5834 3805 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5831 3307 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5830 3261 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5826 3797 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5819 3632 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5819 3035 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5814 3264 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5814 3294 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5814 3385 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5806 3760 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5802 3213 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5800 3230 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5791 3273 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5790 3326 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5786 3285 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5769 3201 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5757 3138 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5756 3172 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5755 3198 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5747 3130 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5743 3643 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5743 3150 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5739 3190 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5737 3512 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5734 3321 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5727 3084 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5701 3142 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5696 3974 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5695 3141 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5690 3077 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5680 3105 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5680 3794 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5677 3205 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5676 3243 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5672 3630 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5663 3111 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5659 3507 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5652 2987 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5651 3063 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5645 3160 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5644 3005 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5636 2848 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5621 3570 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5612 3142 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5611 3210 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5598 3950 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5596 2949 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5583 3587 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5576 2907 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5551 3717 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5542 3024 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5540 2838 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5536 3135 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5535 3099 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5535 2916 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5529 3168 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5519 2796 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5518 2823 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5517 3063 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5517 2944 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5513 3149 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5506 3074 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5498 3038 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5492 3429 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5480 2872 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5476 3356 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5443 2953 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5442 2876 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5428 3493 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5416 2725 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5405 3364 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5399 2980 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5399 2848 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5394 3005 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5376 3216 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5376 2921 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5368 3829 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5358 2844 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5341 2740 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5335 3622 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5331 2624 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5309 3175 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5281 2621 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5276 3827 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5255 2662 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5249 3127 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5244 2816 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5243 2844 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5241 2963 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5237 2700 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5224 3580 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5213 2605 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5211 2865 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5204 2742 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5186 2716 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5181 2637 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5161 3071 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5148 3760 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5110 2586 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5100 2744 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5093 3509 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5073 2659 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5066 3073 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 5020 2544 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4999 2481 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4991 2755 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4985 2576 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4946 2573 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4935 3834 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4929 2433 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4888 2827 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4888 2695 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4884 2719 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4873 2445 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4856 3540 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4847 2475 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4814 2294 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4782 2579 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4748 2428 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4735 2677 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4724 3003 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4720 2678 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4705 2592 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4667 2358 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4664 2319 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4663 2461 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4647 2476 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4577 2450 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4530 2523 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4515 2265 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4409 2381 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4350 2229 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4318 2510 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4286 2417 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4278 2207 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4247 2080 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4245 2306 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4227 2197 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4147 2465 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4104 2029 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 4092 2133 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3897 2222 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3860 2387 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3826 1964 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3822 2366 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3775 2406 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3452 2261 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3341 2154 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3330 2110 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3328 1968 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 3064 2034 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 2916 1950 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 2832 2045 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 2577 1664 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 2413 1761 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 2407 1769 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 1931 1492 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 1850 1486 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+gr
+
+gs 1273 1363 5026 3057 MR c np
+  36   36 1346 1436 FO
+gr
+
+gs 899 389 5357 4227 MR c np
+/c9 { 1.000000 0.000000 0.000000 sr} bdef
+c9
+1 1 2 1 1 1 1 1 1 0 -1 0 4 2 1 1 
+1 1 1 1 3 2 1 1 1 0 1 1 1 1 1 0 
+1 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 
+1 1 1 1 3 1 1 1 2 1 1 1 1 1 1 1 
+2 1 1 0 1 1 1 1 1 0 1 1 1 1 2 1 
+2 1 3 3 4 3 2 1 3 2 1 1 1 1 2 1 
+1 1 1 0 3 2 1 1 2 1 0 1 2 0 4 4 
+4 3 1 0 1 0 -1 0 3 2 1 1 5 3 1 1 
+1 0 1 1 2 2 1 1 1 0 2 1 2 2 1 0 
+1 1 1 1 1 0 1 2 1 0 1 1 1 0 1 1 
+2 2 5 3 2 2 1 0 3 2 2 1 4 3 8 6 
+2 1 1 1 1 1 3 2 1 0 2 2 1 0 5 4 
+1 0 3 3 7 4 6056 3697 100 MP stroke
+0 1 4 3 1 0 1 1 4 3 1 0 4 3 3 2 
+2 1 4 3 6 4 1 1 1 1 3 2 3 2 1 0 
+2 2 1 0 2 2 5 3 0 1 2 1 1 1 1 0 
+1 1 5 3 8 6 2 1 2 2 5 3 1 1 1 0 
+1 1 6 5 10 7 8 5 7 5 11 7 1 1 5 3 
+2 2 1 1 9 6 2 1 1 1 7 5 6 4 2 1 
+3 2 9 6 14 10 1 1 2 1 5 4 1 0 8 6 
+1 1 14 10 2 1 4 2 1 1 3 2 1 1 4 3 
+7 4 0 1 5 3 8 5 4 4 2 0 9 7 1 1 
+4 3 17 11 12 9 1 0 1 1 8 5 4 3 4 3 
+2 1 3 2 7 5 26 18 5 3 1 2 5 2 10 8 
+3 1 1 1 4 3 9 7 4 2 7 5 1 1 6 4 
+1 1 8 5 15 10 5621 3396 100 MP stroke
+9 7 1 1 13 8 2 2 13 9 7 5 25 17 9 6 
+2 2 4 2 1 1 6 4 10 7 1 1 1 1 4 2 
+7 5 8 5 6 5 12 8 4 3 33 23 1 0 14 10 
+12 8 11 8 6 4 5 4 18 12 8 6 10 7 17 12 
+6 3 4 3 22 15 28 20 5 3 21 15 6 4 5 3 
+1 1 2 2 4 3 13 8 11 8 2 2 7 4 18 13 
+5 3 20 14 13 9 38 26 10 8 7 4 20 14 7 5 
+46 32 21 14 8 6 6 4 39 27 11 7 6 5 41 28 
+4 3 11 7 17 12 9 6 33 23 32 23 34 23 13 9 
+11 8 4 3 15 9 38 27 3 2 1 1 16 11 70 48 
+47 33 15 10 106 74 59 41 32 22 32 22 8 5 31 22 
+2 1 18 12 80 56 43 30 12 8 195 135 37 26 34 23 
+4 3 47 32 323 224 3452 1894 100 MP stroke
+111 77 11 7 2 2 264 183 148 102 84 58 255 176 164 114 
+6 4 476 330 81 56 504 349 1346 436 13 MP stroke
+gr
+
+c9
+0 sg
+2255  294 mt 
+(Player: 40, Avg Prec: 0.35288, Max Prec: 0.41025) s
+3453 4903 mt 
+(MLE) s
+ 549 2750 mt  -90 rotate
+(Precision) s
+90 rotate
+ 882 4658 mt 
+( ) s
+6239  431 mt 
+( ) s
+1 sg
+0 334 1111 0 0 -334 959 783 4 MP
+PP
+-1111 0 0 334 1111 0 0 -334 959 783 5 MP stroke
+4 w
+DO
+SO
+6 w
+0 sg
+ 959  783 mt 2070  783 L
+ 959  449 mt 2070  449 L
+ 959  783 mt  959  449 L
+2070  783 mt 2070  449 L
+ 959  783 mt 2070  783 L
+ 959  783 mt  959  449 L
+ 959  783 mt 2070  783 L
+ 959  449 mt 2070  449 L
+ 959  783 mt  959  449 L
+2070  783 mt 2070  449 L
+1432  585 mt 
+(Scatter) s
+gs 959 449 1112 335 MR c np
+0 j
+gs 1140 469 147 147 MR c np
+c8
+  36   36 1213  542 FO
+gr
+
+c8
+gr
+
+c8
+0 sg
+1432  732 mt 
+(Regression) s
+gs 959 449 1112 335 MR c np
+c9
+364 0 1031 689 2 MP stroke
+gr
+
+c9
+
+end %%Color Dict
+
+eplot
+%%EndObject
+
+epage
+end
+
+showpage
+
+%%Trailer
+%%EOF

@@ -189,7 +189,7 @@ else:
 
     print
     print 'Version history \n' \
-          '1.1.2 fixed bug of stock risk classification' \
+          '1.1.2 fixed bug of stock risk classification\n' \
           '1.1.1 timing of process\n' \
           '1.1.0 gamma is back\n' \
           '1.0.2 beta range printed on save file\n' \
@@ -400,7 +400,7 @@ else:
     saveMLEs('results/results_' + save_filename +'.csv')
 
 
-print time.time() - t0
+print str((time.time() - t0)/60) + 'minutes'
 
     # counting transactions
     #temp = 0

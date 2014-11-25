@@ -2,608 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-0.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-10.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-11.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-12.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-13.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-14.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-15.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-16.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-17.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-18.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-19.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-20.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-21.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-22.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-23.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-24.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-25.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-26.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-27.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-28.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-29.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-3.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-30.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-31.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-32.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-33.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-34.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-35.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-36.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-37.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-38.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-39.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-40.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-41.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-42.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-43.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-44.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-45.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-5.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-7.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/g-9.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 1000rep alpha[0.1-1] beta [0.05,0.5] nogamma/results_3act_1000rep.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-0_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-10_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-11_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-12_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-13_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-14_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-15_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-16_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-17_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-18_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-19_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-1_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-20_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-21_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-22_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-23_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-24_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-25_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-26_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-27_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-28_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-29_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-2_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-30_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-31_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-32_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-33_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-34_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-35_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-36_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-37_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-38_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-39_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-3_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-40_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-41_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-42_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-43_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-44_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-45_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-4_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-5_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-6_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-7_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-8_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-0.01.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-0.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-0.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-0.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-0.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-1.2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-1.4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-1.6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-1.8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /g-9_b-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 100rep alpha[0.01-1] beta[0.01-2] gamma[0.01-1] /results_3act_100rep_0.1-1_alpha0.01-2_beta0.01-1_gamma.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-0.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-1.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-10.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-11.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-12.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-13.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-14.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-15.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-16.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-17.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-18.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-19.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-2.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-20.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-21.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-22.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-23.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-24.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-25.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-26.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-27.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-28.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-29.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-3.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-30.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-31.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-32.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-33.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-34.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-35.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-36.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-37.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-38.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-39.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-4.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-40.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-41.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-42.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-43.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-44.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-45.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-5.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-6.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-7.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-8.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/g-9.eps" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/graphs 50rep alpha[0.1-1] beta [0.05,1] nogamma/results_3act_50rep.csv" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python/code/modelFitNoGamma.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/alvin.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/modelFitForward.py" afterPath="$PROJECT_DIR$/python/code/modelFitForward.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="model-fitting.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -629,25 +31,29 @@
       <file leaf-file-name="modelFitForward.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.346154" vertical-offset="2327" max-vertical-offset="6045">
-              <caret line="191" column="55" selection-start-line="191" selection-start-column="55" selection-end-line="191" selection-end-column="55" />
+            <state vertical-scroll-proportion="-3.3846154" vertical-offset="2912" max-vertical-offset="6045">
+              <caret line="211" column="22" selection-start-line="211" selection-start-column="22" selection-end-line="211" selection-end-column="22" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#1584#1594#0" expanded="false" />
                 <element signature="e#2152#2538#0" expanded="false" />
-                <marker date="1416829335000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
-                <marker date="1416829335000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+                <marker date="1416853670000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
+                <marker date="1416853670000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WordCount.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$USER_HOME$/Downloads/hadoop-1.2.1/src/examples/python/WordCount.py">
+      <file leaf-file-name="modelFitNoGamma.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/python/code/modelFitNoGamma.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.31625834" vertical-offset="2011" max-vertical-offset="5910">
+              <caret line="153" column="40" selection-start-line="153" selection-start-column="40" selection-end-line="153" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+                <marker date="1416916662000" expanded="true" signature="1685:1738" placeholder="SELECT DISTI..missing_value..." />
+                <marker date="1416916662000" expanded="true" signature="2202:2287" placeholder="SELECT * FRO..missing_value..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -666,6 +72,7 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/python/code/modelFitForward.py" />
+        <option value="$PROJECT_DIR$/python/code/modelFitNoGamma.py" />
       </list>
     </option>
   </component>
@@ -689,7 +96,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -700,47 +107,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model-fitting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model-fitting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model-fitting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="python" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model-fitting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model-fitting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -973,31 +340,45 @@
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#1584#1594#0" expanded="false" />
             <element signature="e#2152#2538#0" expanded="false" />
-            <marker date="1416829335000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1416829335000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.346154" vertical-offset="2327" max-vertical-offset="6045">
-          <caret line="191" column="55" selection-start-line="191" selection-start-column="55" selection-end-line="191" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#1584#1594#0" expanded="false" />
-            <element signature="e#2152#2538#0" expanded="false" />
-            <marker date="1416829335000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1416829335000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+            <marker date="1416853670000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1416853670000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Downloads/hadoop-1.2.1/src/examples/python/WordCount.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="-0.070437565" vertical-offset="126" max-vertical-offset="1140">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+          <folding>
+            <element signature="e#789#826#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.3846154" vertical-offset="2912" max-vertical-offset="6045">
+          <caret line="211" column="22" selection-start-line="211" selection-start-column="22" selection-end-line="211" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#1584#1594#0" expanded="false" />
+            <element signature="e#2152#2538#0" expanded="false" />
+            <marker date="1416853670000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1416853670000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/code/modelFitNoGamma.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31625834" vertical-offset="2011" max-vertical-offset="5910">
+          <caret line="153" column="40" selection-start-line="153" selection-start-column="40" selection-end-line="153" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <marker date="1416916662000" expanded="true" signature="1685:1738" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1416916662000" expanded="true" signature="2202:2287" placeholder="SELECT * FRO..missing_value..." />
+          </folding>
         </state>
       </provider>
     </entry>
