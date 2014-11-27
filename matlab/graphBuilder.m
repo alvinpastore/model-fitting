@@ -45,20 +45,21 @@ for playerID = 0:playersAmount-1
         %%%hold on;
         %%%mesh(x, y, r)
 
-        prec = mean(player_subresults(:,6));
+        avgprec = mean(player_subresults(:,6));
+        maxprec = max(player_subresults(:,6));
         transactions = player_subresults(1,7);
-        title(['Player: ',num2str(playerID),', Beta: ',num2str(b),', Precision: ',num2str(prec),', Actions: ',num2str(transactions)]);
+        title(['Player: ',num2str(playerID),', Beta: ',num2str(b),', Avg Prec: ',num2str(avgprec),', Max Prec: ',num2str(maxprec),', Actions: ',num2str(transactions)]);
         xlabel('alpha')
         ylabel('gamma')
 
 
         caxis([min(player_subresults_plot),max(player_subresults_plot)]);
         colorbar
-        fileName = ['graphs2\g-',num2str(playerID),'.eps'];
+        fileName = ['graphs_gamma\g-',num2str(playerID),'_b-',num2str(b),'.eps'];
         print(fig,'-depsc',fileName)
         clear title xlabel ylabel;
         if ismember(playerID,better_than_random)
-            disp(['Player: ',num2str(playerID),', Beta: ',num2str(b),', highest prec: ',num2str(max(player_subresults(:,6))),', Actions: ',num2str(transactions)])
+            disp(['Player: ',num2str(playerID),', Beta: ',num2str(b),', highest prec: ',num2str(maxprec),', Actions: ',num2str(transactions)])
 
         end
         %%%hold off;

@@ -273,8 +273,8 @@ else:
                                         old_price  = portfolio[stock][1]
                                         old_total  = portfolio[stock][2]
                                         new_volume = volume + old_volume
-                                        new_price  = ((price * volume) + (old_volume * old_price)) / (volume + old_volume)
-                                        new_total  = old_total + (price * volume)
+                                        new_price  = (total + old_total) / (volume + old_volume)
+                                        new_total  = old_total + total
                                         portfolio[stock] = (new_volume, new_price, new_total)
                                     else:
                                         portfolio[stock] = (volume, price, total)
