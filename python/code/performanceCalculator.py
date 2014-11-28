@@ -1,5 +1,5 @@
 from __future__ import division
-import sys
+import operator
 import MySQLdb
 import random
 import numpy as np
@@ -123,9 +123,13 @@ for player in players:
                     # messed up player
                     break
                 else:
+
+
                     old_volume = portfolio[stock][0]
                     old_price  = portfolio[stock][1]
                     old_total  = portfolio[stock][2]
+
+
 
                     # if all shares for the stock have been sold delete stock from portfolio
                     # otherwise update the values (new_volume, old_price, new_total)
@@ -133,15 +137,51 @@ for player in players:
                     if new_volume <= 0:
                         del portfolio[stock]
                     else:
-                        portfolio[stock] = (new_volume, old_price, new_volume * old_price)
+
+                        new_total = new_volume * old_price
+                        # the asset (selling power) is still
+                        # the old price (which is the avg of all the buying prices normalised on the volumes)
+                        # times the new amount of stocks held
+
+                        portfolio[stock] = (new_volume, old_price, new_total)
                         # old_price so it is possible to calculate margin for future sells
+
+
+                    # if 'smart money' in player and 'Hammerson' in stock:
+                    #     print 'old_price',old_price
+                    #     print 'old_volume',old_volume
+                    #     print 'old_total',old_total
+                    #     print 'price',price
+                    #     print 'volume',volume
+                    #     print 'total',total
+                    #     print 'new_volume',new_volume
+                    #     print 'new_total',new_total
+                    #     print
+                    #     print 'Hammerson' in portfolio
+                    #     raw_input(transaction)
+
                     # update money with gain/loss from sell
                     money += total
-    #TODO calculate the holdings as positive asset
-    performances[player] = money
+        # holdings = 0
+        # for s in portfolio:
+        #     holdings += portfolio[s][2]
+        # print transaction
+        # print 'holdings',-holdings
+        # print 'money',money
+        # raw_input()
 
-for pl in sorted(performances):
-    print str(pl) + ': ' + str(performances[pl])
+
+    assets = 0
+    for s in portfolio:
+        assets += portfolio[s][2]
+
+    # assets values are negative for holdings
+    performances[player] = money - assets
+
+
+
+for pl in sorted(performances.items(), key=operator.itemgetter(1)):
+    print str(pl[0]) + ': ' + str(pl[1])
 
 print
 

@@ -189,6 +189,7 @@ else:
 
     print
     print 'Version history \n' \
+          '1.1.3 fixed new_total for buy bug\n' \
           '1.1.2 fixed bug of stock risk classification\n' \
           '1.1.1 timing of process\n' \
           '1.1.0 gamma is back\n' \
@@ -394,7 +395,7 @@ else:
 
     close_DB()
 
-    printMLEs()
+    #printMLEs()
 
     save_filename = build_filename()
     saveMLEs('results/results_' + save_filename +'.csv')

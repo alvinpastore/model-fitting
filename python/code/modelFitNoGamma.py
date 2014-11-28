@@ -186,6 +186,7 @@ else:
 
     print
     print 'Version history \n' \
+          '0.0.2 fixed new_total for buy bug\n' \
           '0.0.1 branching modelFitForward for no Gamma testing \n'
 
     print 'nIterations',nIterations
@@ -290,6 +291,9 @@ else:
                                     if new_volume <= 0:
                                         del portfolio[stock]
                                     else:
+                                        # the asset (selling power) is still
+                                        # the old price (which is the avg of all the buying prices normalised on the volumes)
+                                        # times the new amount of stocks held
                                         portfolio[stock] = (new_volume, old_price, new_volume * old_price)
                                         # old_price so it is possible to calculate margin for future sells
 
@@ -372,7 +376,7 @@ else:
 
     close_DB()
 
-    printMLEs()
+    #printMLEs()
 
     save_filename = build_filename()
     saveMLEs('results/results_' + save_filename +'.csv')
