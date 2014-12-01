@@ -79,7 +79,9 @@ for player in players:
 
     for transaction in transactions:
 
+
         if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
+
 
             name = str(transaction[1])
             date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
@@ -90,6 +92,7 @@ for player in players:
             price       = float(transaction[6])
             total       = float(transaction[7])
             if 'Buy' in a_type and stock:
+
                 # save the stocks that have been purchased
                 if stock in portfolio:
                     old_volume = portfolio[stock][0]
@@ -115,6 +118,7 @@ for player in players:
                 # (+ sign because the sign of the total is negative for purchases)
                 money += total
             elif 'Sell' in a_type and stock:
+
                 if stock not in portfolio:
                     print ':::::::::::::::::::::::::::::::::::::::::::::::'
                     print player
@@ -124,12 +128,9 @@ for player in players:
                     break
                 else:
 
-
                     old_volume = portfolio[stock][0]
                     old_price  = portfolio[stock][1]
                     old_total  = portfolio[stock][2]
-
-
 
                     # if all shares for the stock have been sold delete stock from portfolio
                     # otherwise update the values (new_volume, old_price, new_total)
@@ -147,28 +148,10 @@ for player in players:
                         # old_price so it is possible to calculate margin for future sells
 
 
-                    # if 'smart money' in player and 'Hammerson' in stock:
-                    #     print 'old_price',old_price
-                    #     print 'old_volume',old_volume
-                    #     print 'old_total',old_total
-                    #     print 'price',price
-                    #     print 'volume',volume
-                    #     print 'total',total
-                    #     print 'new_volume',new_volume
-                    #     print 'new_total',new_total
-                    #     print
-                    #     print 'Hammerson' in portfolio
-                    #     raw_input(transaction)
+
 
                     # update money with gain/loss from sell
                     money += total
-        # holdings = 0
-        # for s in portfolio:
-        #     holdings += portfolio[s][2]
-        # print transaction
-        # print 'holdings',-holdings
-        # print 'money',money
-        # raw_input()
 
 
     assets = 0
@@ -179,7 +162,7 @@ for player in players:
     performances[player] = money - assets
 
 
-
+print
 for pl in sorted(performances.items(), key=operator.itemgetter(1)):
     print str(pl[0]) + ': ' + str(pl[1])
 

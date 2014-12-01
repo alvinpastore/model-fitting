@@ -159,8 +159,8 @@ if len(sys.argv) < 2:
 else:
 
     ''' SETUP '''
-    Alpha = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-    Betas = [0.01,  0.5,  1, 1.5, 2, 2.5, 3]
+    Alpha = [0.1, 0.25, 0.5, 0.75, 1]
+    Betas = [0.01, 2, 4, 6, 8, 10]
     Gamma = [0.01, 0.25, 0.5, 0.75, 0.8 , 0.999]
 
     nIterations = int(sys.argv[1])
@@ -189,6 +189,8 @@ else:
 
     print
     print 'Version history \n' \
+          '1.1.5 extend beta to 10\n' \
+          '1.1.4 extend beta to 5\n' \
           '1.1.3 fixed new_total for buy bug\n' \
           '1.1.2 fixed bug of stock risk classification\n' \
           '1.1.1 timing of process\n' \

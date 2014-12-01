@@ -2,6 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="defe213f-3e55-4701-af98-64e478ea24ab" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_1000rep.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_10rep.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_10rep_0.1-1_alpha0.01-3_beta_noGamma.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_200rep.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_2rep.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_2rep_0.05-1_beta.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_2rep_0.1-1_alpha0.01-2_beta0.01-1_gamma.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_2rep_0.1-1_alpha0.01-3_beta0.01-0.999_gamma.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_3rep_0.1-1_alpha0.01-3_beta0.01-0.999_gamma.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/python/code/results/results_3act_50rep.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/modelFitForward.py" afterPath="$PROJECT_DIR$/python/code/modelFitForward.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/modelFitNoGamma.py" afterPath="$PROJECT_DIR$/python/code/modelFitNoGamma.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/code/performanceCalculator.py" afterPath="$PROJECT_DIR$/python/code/performanceCalculator.py" />
@@ -21,47 +31,23 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="performanceCalculator.py" pinned="false" current="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/python/code/performanceCalculator.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="1.1722338" vertical-offset="1547" max-vertical-offset="2940">
-                    <caret line="178" column="14" selection-start-line="178" selection-start-column="14" selection-end-line="178" selection-end-column="14" />
-                    <folding>
-                      <element signature="e#0#31#0" expanded="true" />
-                      <marker date="1417175845000" expanded="true" signature="459:512" placeholder="SELECT DISTI..missing_value..." />
-                      <marker date="1417175845000" expanded="true" signature="1007:1092" placeholder="SELECT * FRO..missing_value..." />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="model-fitting" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="modelFitForward.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="modelFitForward.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6993318" vertical-offset="5162" max-vertical-offset="6060">
-              <caret line="397" column="5" selection-start-line="397" selection-start-column="5" selection-end-line="397" selection-end-column="5" />
+            <state vertical-scroll-proportion="-3.3846154" vertical-offset="2162" max-vertical-offset="6090">
+              <caret line="161" column="35" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#1584#1594#0" expanded="false" />
                 <element signature="e#2152#2538#0" expanded="false" />
-                <marker date="1417188931000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
-                <marker date="1417188931000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+                <marker date="1417433502000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
+                <marker date="1417433502000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
               </folding>
             </state>
           </provider>
@@ -70,26 +56,26 @@
       <file leaf-file-name="modelFitNoGamma.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/code/modelFitNoGamma.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.357143" vertical-offset="4941" max-vertical-offset="5970">
-              <caret line="378" column="5" selection-start-line="378" selection-start-column="5" selection-end-line="378" selection-end-column="5" />
+            <state vertical-scroll-proportion="-6.785714" vertical-offset="1980" max-vertical-offset="5985">
+              <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <marker date="1417188924000" expanded="true" signature="1685:1738" placeholder="SELECT DISTI..missing_value..." />
-                <marker date="1417188924000" expanded="true" signature="2202:2287" placeholder="SELECT * FRO..missing_value..." />
+                <marker date="1417200306000" expanded="true" signature="1685:1738" placeholder="SELECT DISTI..missing_value..." />
+                <marker date="1417200306000" expanded="true" signature="2202:2287" placeholder="SELECT * FRO..missing_value..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="performanceCalculator.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="performanceCalculator.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/code/performanceCalculator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1578" max-vertical-offset="2940">
-              <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.60618997" vertical-offset="1742" max-vertical-offset="2685">
+              <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <marker date="1417175845000" expanded="true" signature="459:512" placeholder="SELECT DISTI..missing_value..." />
-                <marker date="1417175845000" expanded="true" signature="1007:1092" placeholder="SELECT * FRO..missing_value..." />
+                <marker date="1417434909000" expanded="true" signature="459:512" placeholder="SELECT DISTI..missing_value..." />
+                <marker date="1417434909000" expanded="true" signature="1007:1092" placeholder="SELECT * FRO..missing_value..." />
               </folding>
             </state>
           </provider>
@@ -108,9 +94,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/python/code/performanceCalculator.py" />
         <option value="$PROJECT_DIR$/python/code/modelFitNoGamma.py" />
         <option value="$PROJECT_DIR$/python/code/modelFitForward.py" />
+        <option value="$PROJECT_DIR$/python/code/performanceCalculator.py" />
       </list>
     </option>
   </component>
@@ -148,7 +134,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/python/code/performanceCalculator.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="Errors" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -378,8 +364,8 @@
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#1584#1594#0" expanded="false" />
             <element signature="e#2152#2538#0" expanded="false" />
-            <marker date="1417188931000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1417188931000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+            <marker date="1417433502000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1417433502000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
           </folding>
         </state>
       </provider>
@@ -404,40 +390,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/code/performanceCalculator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1578" max-vertical-offset="2940">
-          <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <marker date="1417175845000" expanded="true" signature="459:512" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1417175845000" expanded="true" signature="1007:1092" placeholder="SELECT * FRO..missing_value..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/python/code/modelFitNoGamma.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.357143" vertical-offset="4941" max-vertical-offset="5970">
-          <caret line="378" column="5" selection-start-line="378" selection-start-column="5" selection-end-line="378" selection-end-column="5" />
+        <state vertical-scroll-proportion="-6.785714" vertical-offset="1980" max-vertical-offset="5985">
+          <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-            <marker date="1417188924000" expanded="true" signature="1685:1738" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1417188924000" expanded="true" signature="2202:2287" placeholder="SELECT * FRO..missing_value..." />
+            <marker date="1417200306000" expanded="true" signature="1685:1738" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1417200306000" expanded="true" signature="2202:2287" placeholder="SELECT * FRO..missing_value..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python/code/modelFitForward.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6993318" vertical-offset="5162" max-vertical-offset="6060">
-          <caret line="397" column="5" selection-start-line="397" selection-start-column="5" selection-end-line="397" selection-end-column="5" />
+        <state vertical-scroll-proportion="-3.3846154" vertical-offset="2162" max-vertical-offset="6090">
+          <caret line="161" column="35" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#1584#1594#0" expanded="false" />
             <element signature="e#2152#2538#0" expanded="false" />
-            <marker date="1417188931000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
-            <marker date="1417188931000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+            <marker date="1417433502000" expanded="true" signature="1681:1734" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1417433502000" expanded="true" signature="2209:2293" placeholder="SELECT * FRO..missing_value..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/code/performanceCalculator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60618997" vertical-offset="1742" max-vertical-offset="2685">
+          <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <marker date="1417434909000" expanded="true" signature="459:512" placeholder="SELECT DISTI..missing_value..." />
+            <marker date="1417434909000" expanded="true" signature="1007:1092" placeholder="SELECT * FRO..missing_value..." />
           </folding>
         </state>
       </provider>
