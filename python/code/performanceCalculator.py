@@ -65,7 +65,8 @@ players = sorted(filter_players(db_players,'players_threshold.txt'))
 performances = dict()
 print
 print 'Version history \n' \
-    '0.0.1 first draft for calculating performance \n'
+      '0.0.2 saving perfs in files (ids and names)\n' \
+      '0.0.1 first draft for calculating performance \n' \
 
 for player in players:
     print '\n' + str(players.index(player)) +' : '+ str(player)
@@ -159,14 +160,21 @@ for player in players:
         assets += portfolio[s][2]
 
     # assets values are negative for holdings
-    performances[player] = money - assets
+    performances[player] = (money - assets)/1000
 
 
+outFileNames = open('results/performances_names.csv','w')
+outFileIds   = open('results/performances_ids.csv','w')
 print
 for pl in sorted(performances.items(), key=operator.itemgetter(1)):
     print str(pl[0]) + ': ' + str(pl[1])
-
+    outFileNames.write(str(pl[0] + ',' + str(pl[1])+ '\n'))
+    outFileIds.write(str(players.index(pl[0])) + ',' + str(pl[1])+ '\n')
 print
+outFileNames.close()
+outFileIds.close()
+print 'saved in \'results/performances_names.csv\''
+print 'saved in \'results/performances_ids.csv\''
 
 
 close_DB()
