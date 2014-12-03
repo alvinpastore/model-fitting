@@ -157,8 +157,8 @@ if len(sys.argv) < 2:
 else:
 
     ''' SETUP '''
-    Alpha = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-    Betas = [0.01, 1, 2, 3, 4, 5, 6, 7, 8 ,9, 10]
+    Alpha = [0.1,0.25,0.5,0.75,1]
+    Betas = [0.01,  5,  10, 15, 20]
 
     nIterations = int(sys.argv[1])
     nStates  = 3
@@ -186,6 +186,7 @@ else:
 
     print
     print 'Version history \n' \
+          '0.0.4 extend beta to 20\n' \
           '0.0.3 extend beta to 5\n' \
           '0.0.2 fixed new_total for buy bug\n' \
           '0.0.1 branching modelFitForward for no Gamma testing \n'

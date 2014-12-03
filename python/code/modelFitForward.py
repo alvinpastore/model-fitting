@@ -160,7 +160,7 @@ else:
 
     ''' SETUP '''
     Alpha = [0.1, 0.25, 0.5, 0.75, 1]
-    Betas = [0.01, 2, 4, 6, 8, 10]
+    Betas = [0.01, 5, 10, 15, 20]
     Gamma = [0.01, 0.25, 0.5, 0.75, 0.999]
 
     nIterations = int(sys.argv[1])
@@ -189,6 +189,7 @@ else:
 
     print
     print 'Version history \n' \
+          '1.1.6 extend beta to 20\n' \
           '1.1.5 extend beta to 10\n' \
           '1.1.4 extend beta to 5\n' \
           '1.1.3 fixed new_total for buy bug\n' \
