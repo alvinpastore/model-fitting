@@ -4,6 +4,7 @@
       <w>htan</w>
       <w>pname</w>
       <w>qvalues</w>
+      <w>softmax</w>
     </words>
   </dictionary>
 </component>
