@@ -28,9 +28,11 @@ def select_players(table, cursor, db):
         names.append(r[0])
     return names
 
-def filter_players(all_players,threshold_file):
-    t_players =  [line.rstrip('\n') for line in open(threshold_file,'r')]
+
+def filter_players(all_players, threshold_file):
+    t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
+
 
 def close_DB():
     db.close()
@@ -41,7 +43,7 @@ def select_transactions(table, pname):
     query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(pname) + '"' + 'ORDER BY date, type'
     try:
         cursor.execute(query)
-    except MySQLdb.Error, e:
+    except MySQLdb.Error:
         print "Error in QUERY", query
         raw_input("press any key to continue")
     db.commit()
@@ -61,7 +63,7 @@ db     = c_db[1]
 
 # retrieve players
 db_players = select_players('transactions', cursor, db)
-players = sorted(filter_players(db_players,'players_threshold.txt'))
+players = sorted(filter_players(db_players, 'players_threshold.txt'))
 performances = dict()
 print
 print 'Version history \n' \
@@ -69,7 +71,7 @@ print 'Version history \n' \
       '0.0.1 first draft for calculating performance \n' \
 
 for player in players:
-    print '\n' + str(players.index(player)) +' : '+ str(player)
+    print '\n' + str(players.index(player)) + ' : ' + str(player)
 
     money = 100000
     # retrieve the transactions for each player
@@ -80,13 +82,11 @@ for player in players:
 
     for transaction in transactions:
 
-
         if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
-
 
             name = str(transaction[1])
             date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
-            date        = datetime.strptime(date_string,'%Y %m %d')
+            date        = datetime.strptime(date_string, '%Y %m %d')
             a_type      = str(transaction[3])
             stock       = str(transaction[4])
             volume      = int(transaction[5])
@@ -148,33 +148,29 @@ for player in players:
                         portfolio[stock] = (new_volume, old_price, new_total)
                         # old_price so it is possible to calculate margin for future sells
 
-
-
-
                     # update money with gain/loss from sell
                     money += total
-
 
     assets = 0
     for s in portfolio:
         assets += portfolio[s][2]
 
     # assets values are negative for holdings
-    performances[player] = (money - assets)/1000
+    performances[player] = (money - assets) / 1000
 
 
-outFileNames = open('results/performances_names.csv','w')
-outFileIds   = open('results/performances_ids.csv','w')
+outFileNames = open('results/performances_names.csv', 'w')
+outFileIds   = open('results/performances_ids.csv', 'w')
 print
 for pl in sorted(performances.items(), key=operator.itemgetter(1)):
     print str(pl[0]) + ': ' + str(pl[1])
-    outFileNames.write(str(pl[0] + ',' + str(pl[1])+ '\n'))
-    outFileIds.write(str(players.index(pl[0])) + ',' + str(pl[1])+ '\n')
+    outFileNames.write(str(pl[0] + ',' + str(pl[1]) + '\n'))
+    outFileIds.write(str(players.index(pl[0])) + ',' + str(pl[1]) + '\n')
 print
 outFileNames.close()
 outFileIds.close()
-print 'saved in \'results/performances_names.csv\''
-print 'saved in \'results/performances_ids.csv\''
+print 'saved in ' + outFileNames
+print 'saved in ' + outFileIds
 
 
 close_DB()

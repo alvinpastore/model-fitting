@@ -77,7 +77,7 @@ def select_players(table, cursor, db):
     return names
 
 
-def filter_players(all_players,  threshold_file):
+def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
 
@@ -138,7 +138,8 @@ def printMLEs():
 
 
 def htan_custom(factor):
-    return ( 1 - np.exp( - reward_base * factor )) / ( 1 + np.exp( - reward_base * factor ))
+    return (1 - np.exp(- reward_base * factor)) / (1 + np.exp(- reward_base * factor ))
+
 
 def build_filename():
     fn = str(nActions) + 'act_'
@@ -191,7 +192,7 @@ else:
 
     print
     print 'Version history \n' \
-          '1.2.3 capping transactions at 25 (not needed to revert to greedy?)' \
+          '1.2.3 capping transactions at CAP (not needed to revert to greedy?)' \
           '1.2.2 fixed bugs\n' \
           '1.2.0 softmax reverts to greedy in case of numerical issues\n' \
           '1.1.8 investigating numerical issues\n' \
@@ -234,7 +235,6 @@ else:
 
     randomMLEs = dict()
     for player in players:
-
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
         # RL set-up
@@ -332,6 +332,7 @@ else:
 
                                             ''' SoftMax Action Selection '''
                                             '''
+                                            #TODO divide all terms by highest (normalise only in case of numerical issues)
                                             terms = [0] * nActions
 
                                             overflow = False
