@@ -194,7 +194,7 @@ else:
     print 'Version history \n' \
           '0.0.1 Branching code for players testings and investigations'
 
-    print 'nIterations',nIterations
+    print 'nIterations' , nIterations
     print 'total players: ' + str(len(players))
     investigatedPlayers = list()
     investigatedPlayers.append('EnterTheDragon')
@@ -210,14 +210,12 @@ else:
 
     randomMLEs = dict()
 
-
     for player in investigatedPlayers:
 
         print '\n' + str(player)
         # RL set-up
         money = 100000
         state = 1
-
 
         # retrieve the transactions for each player
         transactions = select_transactions('transactions', player, cursor, db)
@@ -229,13 +227,13 @@ else:
             for beta in Betas:
                 for gamma in Gamma:
 
-                    print "A,B,G: "+str(alpha)+' '+str(beta)+' '+str(gamma)
+                    print "A,B,G: " + str(alpha) + ' ' + str(beta) + ' ' + str(gamma)
 
                     avgMLE = 0
                     avg_correct_actions = 0
 
                     for iteration in xrange(nIterations):
-                        print '/n iteration:'+str(iteration)
+                        print '/n iteration:' + str(iteration)
 
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
                         tempMLE = 0
@@ -249,8 +247,8 @@ else:
                             if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
 
                                 name        = str(transaction[1])
-                                date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
-                                date        = datetime.strptime(date_string,'%Y %m %d')
+                                date_string = str(transaction[2]).split(' ')[0].replace('-' , ' ')
+                                date        = datetime.strptime(date_string , '%Y %m %d')
                                 a_type      = str(transaction[3])
                                 stock       = str(transaction[4])
                                 volume      = int(transaction[5])
@@ -274,7 +272,7 @@ else:
                                     # (+ sign because the sign of the total is negative for purchases)
                                     money += total
 
-                                    next_state = get_next_state(money,portfolio)
+                                    next_state = get_next_state(money , portfolio)
 
                                 elif 'Sell' in a_type and stock:
 

@@ -17,7 +17,7 @@ def get_next_state(wealth, pfolio):
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
 
-    if wealth < 50000:
+    if wealth < 90000:
         nextState = 0  #poor
         #print "poor"
     elif wealth <= 100000:
@@ -163,7 +163,7 @@ else:
 
     ''' SETUP '''
     Alpha = [0.1, 0.25, 0.5, 0.75, 1]
-    Betas = [10, 15, 20, 25, 30, 35]
+    Betas = [10, 20, 30, 40]
     Gamma = [0.01, 0.25, 0.5, 0.75, 0.999]
 
     nIterations = int(sys.argv[1])
@@ -192,7 +192,8 @@ else:
 
     print
     print 'Version history \n' \
-          '1.2.3 capping transactions at CAP (not needed to revert to greedy?)' \
+          '1.2.4 extend beta to 40 and cap to 35/45, raise poor threshold to 90k\n' \
+          '1.2.3 capping transactions at CAP (not needed to revert to greedy?)\n' \
           '1.2.2 fixed bugs\n' \
           '1.2.0 softmax reverts to greedy in case of numerical issues\n' \
           '1.1.8 investigating numerical issues\n' \
@@ -384,6 +385,8 @@ else:
 
                                             ''' SoftMax Action Selection '''
                                             terms = [0] * nActions
+
+                                            overflow = False
 
                                             for a in xrange(nActions):
                                                 try:
