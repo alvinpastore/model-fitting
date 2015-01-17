@@ -17,7 +17,7 @@ def get_next_state(wealth, pfolio):
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
 
-    if wealth < 90000:
+    if wealth < 60000:
         nextState = 0  #poor
         #print "poor"
     elif wealth <= 100000:
@@ -192,7 +192,7 @@ else:
 
     print
     print 'Version history \n' \
-          '1.2.4 extend beta to 40 and cap to 35/45, raise poor threshold to 90k\n' \
+          '1.2.4 extend beta to 40 and raise poor threshold to 60k\n' \
           '1.2.3 capping transactions at CAP (not needed to revert to greedy?)\n' \
           '1.2.2 fixed bugs\n' \
           '1.2.0 softmax reverts to greedy in case of numerical issues\n' \
@@ -385,21 +385,21 @@ else:
 
                                             ''' SoftMax Action Selection '''
                                             terms = [0] * nActions
-
-                                            overflow = False
-
                                             for a in xrange(nActions):
                                                 try:
                                                     terms[a] = np.exp(Q[state][a] * beta)
                                                 except RuntimeWarning:
-                                                    print 'action n:', actionsAmount
-                                                    print '\nRuntimeWarning'
-                                                    terms[a] = np.exp(709)
+                                                    #print 'prima' ,terms
+                                                    #print '-----\n RuntimeWarning: overflow encountered at transaction', actionsAmount
+                                                    for act in xrange(nActions):
+                                                        terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
+                                                    #print 'terms calculated with max normalisation'
+                                                    #print terms
+                                                # the following raises exception only if the previous try raises exception
+                                                denominator = sum(terms)
+                                                terms = np.true_divide(terms, denominator)
 
-                                            try:
-                                                terms = np.true_divide(terms, sum(terms))
-                                            except RuntimeWarning:
-                                                raw_input('Value error:  alpha=' + str(alpha) + ' beta=' + str(beta))
+
 
                                             tempMLE, MLEaction = select_action(tempMLE)
 
@@ -466,7 +466,7 @@ else:
     saveMLEs('results/results_' + save_filename +'.csv')
 
 
-print str((time.time() - t0)/ 60) + 'minutes'
+print str((time.time() - t0) / 60) + 'minutes'
 
     # counting transactions
     #temp = 0

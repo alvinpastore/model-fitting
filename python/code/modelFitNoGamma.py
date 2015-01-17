@@ -18,7 +18,7 @@ def get_next_state(wealth, pfolio):
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
 
-    if wealth < 50000:
+    if wealth < 60000:
         nextState = 0  # poor
         #print "poor"
     elif wealth <= 100000:
@@ -79,7 +79,7 @@ def select_players(table, cursor, db):
 
 
 def filter_players(all_players,threshold_file):
-    t_players =  [line.rstrip('\n') for line in open(threshold_file,'r')]
+    t_players = [line.rstrip('\n') for line in open(threshold_file,'r')]
     return list(set(all_players).intersection(set(t_players)))
 
 
@@ -162,7 +162,7 @@ else:
 
     ''' SETUP '''
     Alpha = [0.1, 0.25, 0.5, 0.75, 1]
-    Betas = [10, 15, 20, 25, 30, 35]
+    Betas = [10, 20, 30, 40]
 
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
@@ -190,7 +190,7 @@ else:
 
     print
     print 'Version history \n' \
-          '0.0.5 extend beta to 35\n' \
+          '0.0.5 extend beta to 40 and raise poor threshold to 60k\n' \
           '0.0.4 extend beta to 20\n' \
           '0.0.3 extend beta to 5\n' \
           '0.0.2 fixed new_total for buy bug\n' \
@@ -379,6 +379,7 @@ else:
                 MLEs[player][alpha][beta] = (avgMLE, precision, actionsAmount)
 
         print str(actionsAmount) + ' transactions '
+        print str((time.time() - t0) / 60) + 'minutes'
 
     close_DB()
 
@@ -388,7 +389,7 @@ else:
     saveMLEs('results/results_' + save_filename + '.csv')
 
 
-print str((time.time() - t0) / 60) + 'minutes'
+print 'total: ' + str((time.time() - t0) / 60) + 'minutes'
 
     # counting transactions
     #temp = 0
