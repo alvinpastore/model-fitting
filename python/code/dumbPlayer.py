@@ -123,11 +123,10 @@ for player in players:
     correct_actions = [0, 0, 0]
 
     for transaction in transactions:
-
-        if 'Sell' in transaction[3]:
-            print transaction
-            raw_input()
+        stock = str(transaction[4])
+        if 'Sell' in transaction[3] and stock:
             stock = str(transaction[4])
+
             actionsAmount += 1
 
             action = stock_risk[stock]
@@ -136,7 +135,7 @@ for player in players:
                 if dA == action:
                     correct_actions[dA] += 1
 
-    dumbPlayer.append(np.true_divite(correct_actions,actionsAmount))
+    dumbPlayer.append(np.true_divide(correct_actions, actionsAmount))
     print str(actionsAmount) + ' transactions '
 
 close_DB()
