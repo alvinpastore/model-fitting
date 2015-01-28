@@ -110,7 +110,8 @@ print players
 
 
 # data structure that contains the MLEs
-dumbPlayer = []
+dumbPlayers = []
+dpActions = []
 dumbAction = [0, 1, 2]
 for player in players:
 
@@ -134,14 +135,19 @@ for player in players:
             for dA in dumbAction:
                 if dA == action:
                     correct_actions[dA] += 1
-
-    dumbPlayer.append(np.true_divide(correct_actions, actionsAmount))
+    player_summary = list(np.true_divide(correct_actions, actionsAmount))
+    player_summary.append(actionsAmount)
+    dumbPlayers.append(player_summary)
     print str(actionsAmount) + ' transactions '
 
 close_DB()
 
-for dp in dumbPlayer:
-    print dp
+outfile = open('results/dumb_players.csv', 'w')
 
+print 'pid \t dp1 \t dp2 \t dp3 \t amount'
+for dp in dumbPlayers:
+    outfile.write('%d , %0.3f , %0.3f , %0.3f , %d\n' % (dumbPlayers.index(dp), dp[0], dp[1], dp[2], dp[3]))
+    print '%d \t %0.3f \t %0.3f \t %0.3f \t %d' % (dumbPlayers.index(dp), dp[0], dp[1], dp[2], dp[3])
 
+outfile.close()
 print str((time.time() - t0) / 60) + 'minutes'
