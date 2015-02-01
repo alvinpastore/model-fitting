@@ -124,17 +124,18 @@ for player in players:
     correct_actions = [0, 0, 0]
 
     for transaction in transactions:
-        stock = str(transaction[4])
-        if 'Sell' in transaction[3] and stock:
+        if actionsAmount < 25:
             stock = str(transaction[4])
+            if 'Sell' in transaction[3] and stock:
+                stock = str(transaction[4])
 
-            actionsAmount += 1
+                actionsAmount += 1
 
-            action = stock_risk[stock]
+                action = stock_risk[stock]
 
-            for dA in dumbAction:
-                if dA == action:
-                    correct_actions[dA] += 1
+                for dA in dumbAction:
+                    if dA == action:
+                        correct_actions[dA] += 1
     player_summary = list(np.true_divide(correct_actions, actionsAmount))
     player_summary.append(actionsAmount)
     dumbPlayers.append(player_summary)
@@ -142,7 +143,7 @@ for player in players:
 
 close_DB()
 
-outfile = open('results/dumb_players.csv', 'w')
+outfile = open('results/dumb_players_25CAP.csv', 'w')
 
 print 'pid \t dp1 \t dp2 \t dp3 \t amount'
 for dp in dumbPlayers:

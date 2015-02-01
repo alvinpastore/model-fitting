@@ -399,8 +399,6 @@ else:
                                                 denominator = sum(terms)
                                                 terms = np.true_divide(terms, denominator)
 
-
-
                                             tempMLE, MLEaction = select_action(tempMLE)
 
                                             if tempMLE == 0:
@@ -412,32 +410,14 @@ else:
                                             # select the action really picked by player
                                             action = stock_risk[stock]
 
-                                            #print 'state',state
-                                            #print 'real  a: ' + str(action)
-                                            #print 'model a: ' + str(MLEaction)
-                                            #raw_input()
-
                                             # Precision calculation (counting correctly predicted actions)
                                             if MLEaction == action:
                                                 correct_actions += 1
 
-                                            #if 'IJB01' in player:
-                                                #print 'action',action
-                                                #print 'MLEaction',MLEaction
-                                                #raw_input()
-
                                             next_state = get_next_state(money, portfolio);
 
                                             ''' Qvalues update '''
-                                            #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
-
                                             Q[state][action] += alpha * (reward + (gamma * max(Q[next_state])) - Q[state][action])
-                                            #Q[state][action] += alpha * (reward - Q[state][action])
-
-                                            #print 'Q['+str(state)+','+str(action)+'] = Q['+str(state)+','+str(action)+'] + '+str(alpha)+'*('+str(reward)+'-Q['+str(state)+','+str(action)+'])'
-                                            #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
-                                            #raw_input("iteration: "+str(iteration)+"  transaction: "+str(actionsAmount)+'\n')
-                                            #print Q
 
                                             state = next_state
 
