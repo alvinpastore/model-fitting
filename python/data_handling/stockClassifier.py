@@ -8,8 +8,7 @@ import pylab as P
 
 ''' MAIN '''
 # date of last transactions 27 May 2014
-rootdir = sys.argv[1]
-binsAmount = 5
+
 betas = {
     'Aberdeen Asset Management Plc':    1.8614156817,
     'Admiral Group Plc':                0.5677173239,
@@ -140,14 +139,13 @@ betas = {
     #Xstrata
 }
 
-bins = dict()
-
-for i in xrange(binsAmount):
-    bins[i] = list()
-
-
 all_stock = []
 highest_std = 8582946964.77
+rootdir    = sys.argv[1]
+binsAmount = sys.argv[2]
+
+bins = {i: [] for i in xrange(binsAmount)}
+
 for folder, subs, files in os.walk(rootdir):
 
     for fileName in files:
@@ -162,7 +160,7 @@ for folder, subs, files in os.walk(rootdir):
                 closePoints = (companyName, [])
                 
                 # 1:   remove first line (description of columns)
-                # 250: get the close prices of the past year (sometimes history might not be enough)
+                # 250: get the close prices of the past year (sometimes history might not be enough to get to 250)
                 for line in content[1:250]: 
                     line = line.split(",")
                     
@@ -174,13 +172,13 @@ for folder, subs, files in os.walk(rootdir):
                     closePoints[1].append((line[0], capitalization))
 
                 # this is the list of cap values
-                # zip creates two lists according to the tuples: date list and cap list (check if can remove the dates)
+                # zip creates two lists according to the tuples: date list and cap list (TODO  remove the dates? )
                 cap = np.asarray(zip(*closePoints[1])[1])
                 stddev = np.std(cap, ddof=1)
                 print stddev / highest_std
                 print
                 
-                # run the code first time to estimate the highest std dev (8582946964.77)
+                # code was run the first time to estimate the highest std dev (8582946964.77)
                 # highest_std = max([stddev,highest_std]) estimate highest stdev (to normalise)
                 
                 # TODO improve the measure including a moving window of the return average
@@ -200,6 +198,12 @@ for folder, subs, files in os.walk(rootdir):
                 # pool of all stocks riskiness to plot distribution
                 all_stock.append(riskiness)  
 
+                # extends to all number of bins
+                # riskiness into j-th bin if in range [j/N, j+1/N]
+                for j in xrange(binsAmount + 1):
+                    if j / binsAmount < riskiness  < (j + 1) / binsAmount:
+                                bins[j].append((companyName, riskiness))
+
                 '''
                 # Classify stocks  5 BINS
                 if riskiness < 0.05:                        # lowest
@@ -214,16 +218,18 @@ for folder, subs, files in os.walk(rootdir):
                     bins[4].append((companyName,riskiness))
                 '''
 
+                '''
                 # classify stock  3 BINS
+                # thresholds are hand picked (stocks must be evenly distributed in N bins)
                 if riskiness > 0.3:
                     high_risk.append((companyName, riskiness))
                 elif riskiness < 0.1:
                     low_risk.append((companyName, riskiness))
                 else:  # 2 <= riskiness <= 10
                     mid_risk.append((companyName, riskiness))
+                '''
 
-
-outFile = open(rootdir + "risk_classified_stocks_" + str(binsAmount) + ".txt", "w")
+outFile = open(rootdir + "risk_classified_stocks_uniform" + str(binsAmount) + ".txt", "w")
 
 for i in sorted(bins.keys()):
     print '\nrisk class ' + str(i) + '\n'

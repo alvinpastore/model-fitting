@@ -177,9 +177,6 @@ else:
     # Read the stocks previously classified according to their risk (3 bins)
     stock_risk = read_stock_file("../../data/risk_classified_stocks_" + str(nActions) + ".txt")
 
-    #for s in sorted(stock_risk):
-    #    print str(s) + ' ' + str(stock_risk[s])
-    #raw_input()
 
     # connect to DB and get the cursor and the db
     c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
@@ -261,7 +258,7 @@ else:
                         tempMLE = 0
                         actionsAmount = 0
                         correct_actions = 0
-                        #tindex = 0
+
                         for transaction in transactions:
 
                             # CAP transactions amount
@@ -308,8 +305,7 @@ else:
                                             # messed up player
                                             break
                                         else:
-                                            #print 'transaction',tindex
-                                            #tindex+=1
+
                                             actionsAmount += 1
                                             old_volume = portfolio[stock][0]
                                             old_price  = portfolio[stock][1]
@@ -393,8 +389,8 @@ else:
                                                     #print '-----\n RuntimeWarning: overflow encountered at transaction', actionsAmount
                                                     for act in xrange(nActions):
                                                         terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
-                                                    #print 'terms calculated with max normalisation'
-                                                    #print terms
+                                                    #print 'terms calculated with max normalisation', terms
+
                                                 # the following raises exception only if the previous try raises exception
                                                 denominator = sum(terms)
                                                 terms = np.true_divide(terms, denominator)
@@ -428,7 +424,6 @@ else:
                     avg_correct_actions /= nIterations
                     avgMLE /= nIterations
                     avgMLE = -avgMLE
-                    #print avgMLE
                     randMLE = - actionsAmount * log(1 / nActions)
                     randomMLEs[player] = randMLE
 
