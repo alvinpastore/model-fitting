@@ -3,8 +3,18 @@ import os
 import sys
 import numpy as np
 import operator
-import matplotlib.pyplot as plt
-import pylab as P
+
+
+''' FUNCTIONS '''
+# generator of chunks for the bins
+
+
+def chunks(l, n):
+    # generator of chunks for the bins
+    """ Yield successive n-sized chunks from l.
+    """
+    for i in xrange(0, len(l), n):
+        yield l[i: i + n]
 
 ''' MAIN '''
 # date of last transactions 27 May 2014
@@ -139,10 +149,10 @@ betas = {
     #Xstrata
 }
 
-all_stock = []
+all_stock = {}
 highest_std = 8582946964.77
 rootdir    = sys.argv[1]
-binsAmount = sys.argv[2]
+binsAmount = int(sys.argv[2])
 
 bins = {i: [] for i in xrange(binsAmount)}
 
@@ -196,8 +206,9 @@ for folder, subs, files in os.walk(rootdir):
                 riskiness = abs(betas[companyName] * stddev / highest_std)
                 
                 # pool of all stocks riskiness to plot distribution
-                all_stock.append(riskiness)  
+                all_stock[companyName] = riskiness
 
+                ''' This unbalances the bins size
                 # extends to all number of bins
                 # riskiness into j-th bin if in range [j/N, j+1/N]
                 for j in xrange(binsAmount + 1):
@@ -205,32 +216,33 @@ for folder, subs, files in os.walk(rootdir):
                                 bins[j].append((companyName, riskiness))
 
                 '''
-                # Classify stocks  5 BINS
-                if riskiness < 0.05:                        # lowest
-                    bins[0].append((companyName,riskiness))
-                elif 0.05 < riskiness < 0.065:              # mid low
-                    bins[1].append((companyName,riskiness))
-                elif 0.065 < riskiness < 0.1:               # mid
-                    bins[2].append((companyName,riskiness))
-                elif 0.1 < riskiness < 0.23:                # mid high
-                    bins[3].append((companyName,riskiness))
-                elif riskiness > 0.23:                      # highest
-                    bins[4].append((companyName,riskiness))
-                '''
 
-                '''
-                # classify stock  3 BINS
-                # thresholds are hand picked (stocks must be evenly distributed in N bins)
-                if riskiness > 0.3:
-                    high_risk.append((companyName, riskiness))
-                elif riskiness < 0.1:
-                    low_risk.append((companyName, riskiness))
-                else:  # 2 <= riskiness <= 10
-                    mid_risk.append((companyName, riskiness))
-                '''
+# sort all the stocks according to their riskiness
+sorted_stocks = sorted(all_stock.items(), key=operator.itemgetter(1))
+print sorted_stocks
+
+
+stock_bins = list(chunks(sorted_stocks, int(round(len(sorted_stocks) / binsAmount))))
+#for item in separated:
+#    for jtem in item:
+#        print jtem
+#    print
+
+#print len(sorted_stocks)
+#print sum([len(item) for item in separated])
+
 
 outFile = open(rootdir + "risk_classified_stocks_uniform" + str(binsAmount) + ".txt", "w")
 
+for stock_bin in stock_bins:
+    outFile.write(str(len(stock_bin)) + '\n')
+    for item in stock_bin:
+        outFile.write(str(item[0]) + '\t' + str(item[1]) +'\n')
+
+outFile.close()
+
+
+'''
 for i in sorted(bins.keys()):
     print '\nrisk class ' + str(i) + '\n'
     outFile.write('\nrisk class ' + str(i) + '\n')
@@ -240,52 +252,6 @@ for i in sorted(bins.keys()):
         print c
         outFile.write((str(c[0]) + '~' + str(c[1]) + '\n'))
 
-outFile.close()
-
-
 '''
-print "\nLOW\n"     
-outFile.write("\nLOW\n")           
-for c in sorted(low_risk, key=lambda risk: risk[1]):
-    print c
-    outFile.write(str(c[0])+" "+str(c[1])+"\n")
 
-print "\nMID\n"
-outFile.write("\nMID\n")
-for c in sorted(mid_risk, key=lambda risk: risk[1]):
-    print c
-    outFile.write(str(c[0])+" "+str(c[1])+"\n")
 
-print "\nHIGH\n"
-outFile.write("\nHIGH\n")
-for c in sorted(high_risk, key=lambda risk: risk[1]):
-    print c
-    outFile.write(str(c[0])+" "+str(c[1])+"\n")
-'''
-#print "\nbetas\n"h
-#for c in sorted(betas.iteritems(), key=operator.itemgetter(1)):
-    #print c
-
-#out = open('stocks_risks.csv','w')
-#for s in all_stock:
-#    print s
-#    out.write(str(s)+'\n')
-
-#out.close()
-'''
-P.figure()
-hbins = []
-
-for i in range(100):
-    hbins.append(float(i/100))
-
-risks = sorted(all_stock)
-#binwidth = 0
-
-P.hist(risks,hbins)
-P.title("FTSE 100 Riskiness Histogram")
-P.ylabel("Frequency (amount of stocks)")
-P.xlabel("Riskiness (Beta-StDev combined)")
-P.savefig('foo.jpg')
-P.show()
-'''
