@@ -14,3 +14,7 @@
 python/.idea/.name
 
 python/.idea/python.iml
+
+.idea/workspace.xml
+
+*.xml
