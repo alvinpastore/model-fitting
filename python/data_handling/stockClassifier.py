@@ -238,14 +238,15 @@ rand_bins = {i: [] for i in xrange(binsAmount)}
 bin_idx = 0
 
 # keep adding to the i-th bin till its full (bin size < stock amount / bins amount)
-while len(rand_bins[bin_idx]) < (len(all_stock) / binsAmount) and len(betas) > 0:
-    random_stock = random.choice(betas.keys())
-    print random_stock
-    print len(betas)
-    rand_bins[bin_idx].append(betas.pop(random_stock))
-    print len(betas)
-    print str(len(rand_bins[0])) + ' ' + str(len(rand_bins[1])) + ' ' + str(len(rand_bins[2])) + '\n'
-bin_idx += 1
+while len(betas) > 0:
+    while len(rand_bins[bin_idx]) < (len(all_stock) / binsAmount):
+        random_stock = random.choice(betas.keys())
+        print random_stock
+        print len(betas)
+        rand_bins[bin_idx].append(betas.pop(random_stock))
+        print len(betas)
+        print str(len(rand_bins[0])) + ' ' + str(len(rand_bins[1])) + ' ' + str(len(rand_bins[2])) + '\n'
+    bin_idx += 1
 
 print rand_bins
 for b in rand_bins:
