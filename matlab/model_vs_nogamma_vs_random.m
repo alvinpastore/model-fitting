@@ -7,7 +7,7 @@ playersAmount = size(players,1);
 p_random = 1/3;
 
 performances = zeros(playersAmount,5);
-
+prova = zeros(playersAmount,2);
 for playerID = 0:playersAmount-1
     
     % search for player best model precision
@@ -16,8 +16,8 @@ for playerID = 0:playersAmount-1
     
     % search for player best nogamma precision
     p_nogamma_lines = find(res_nogamma(:,1) == playerID); 
-    p_nogamma_best  = max(res_nogamma(p_nogamma_lines,5));
-    
+    p_nogamma_best  = max(res_nogamma(p_nogamma_lines,6));
+    prova(playerID+1,:) = [p_model_best,p_nogamma_best];
     % calculate improvement rates (over gamma and over random model)
     improvementRate1 = ((p_model_best-p_nogamma_best)/p_nogamma_best);
     improvementRate2 = ((p_model_best-p_random)/p_random);
@@ -31,17 +31,17 @@ for playerID = 0:playersAmount-1
 end
 
 % calculate avg improvement performance
-avg_improvement = mean(performances(:,5));
+avg_improvement = mean(performances(:,4));
 
 % print unsorted bar chart
 fig=figure(1);
 hold on
-bar(performances(:,1),performances(:,5));
+bar(performances(:,1),performances(:,4));
 plot(0:0.01:46,avg_improvement,'-r');
 title(['Precision Improvement, Avg: ',num2str(avg_improvement)]);
 xlabel('Players')
 ylabel('Improvement over Random')
-axis([-1 46 min(performances(:,5)) max(performances(:,5))]);
+axis([-1 46 min(performances(:,4)) max(performances(:,4))]);
 hold off
 fileName = 'graphs_improvements\g_RLRM_unsorted.eps';
 print(fig,'-depsc',fileName)
@@ -52,12 +52,12 @@ sorted_performances = sortrows(performances,5);
 % print sorted bar chart
 fig=figure(2);
 hold on
-bar(performances(:,1),sorted_performances(:,5));
+bar(performances(:,1),sorted_performances(:,4));
 plot(0:0.01:46,avg_improvement,'-r');
 title(['Precision Improvement, Avg: ',num2str(avg_improvement)]);
 xlabel('Players')
 ylabel('Improvement over Random')
-axis([-1 46 min(performances(:,5)) max(performances(:,5))]);
+axis([-1 46 min(performances(:,4)) max(performances(:,4))]);
 set(gca,'Xtick',0:1:45);
 set(gca,'XtickLabel',sorted_performances(:,1));
 hold off
