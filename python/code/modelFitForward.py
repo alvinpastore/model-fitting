@@ -10,6 +10,7 @@ import warnings
 
 ''' ---- FUNCTIONS ---- '''
 
+
 def get_next_state(wealth, pfolio):
     # at the end of each player trial check the total amount of money
     for s in pfolio:
@@ -18,58 +19,61 @@ def get_next_state(wealth, pfolio):
         wealth -= float(pfolio[s][2])
 
     if wealth < 60000:
-        nextState = 0  #poor
-        #print "poor"
+        nextState = 0  # poor
+        # print "poor"
     elif wealth <= 100000:
-        nextState = 1  #mid
-        #print "mid"
+        nextState = 1  # mid
+        # print "mid"
     elif wealth > 100000:
-        nextState = 2  #rich
-        #print "rich" 
+        nextState = 2  #r ich
+        # print "rich"
 
     return nextState
 
 
-def read_stock_file(path):
-    stock_list_file = open(path, 'r')
-    stocks = dict()
-    risk_flag = 0
-    separator = "risk class "
-    for line in stock_list_file:
-        if separator + str(0) in line:
-            risk_flag = 0
-        elif separator + str(1) in line:
-            risk_flag = 1
-        elif separator + str(2) in line:
-            risk_flag = 2
-        elif separator + str(3) in line:
-            risk_flag = 3
-        elif separator + str(4) in line:
-            risk_flag = 4
-        elif line.strip():
-            stocks[line.split("~")[0]] = risk_flag
+def read_stock_file(b_type, b_amount):
+    path = "../../data/risk_classified_stocks/"
+    if 'u' in b_type:
+        path += 'uniform_'
+    elif 's' in b_type:
+        path += 'skewed_'
+    else:
+        print 'Risk distribution bin-type not valid'
+        sys.exit()
+    if 'r' in b_type:
+        path += 'random_'
 
-    stock_list_file.close()
+    path += str(b_amount) + '.txt'
+
+    stocks = dict()
+    risk_idx = -1
+    with open(path, 'r') as stock_list_file:
+        for line in stock_list_file:
+            if '~' in line:
+                stocks[line.split('~')[0]] = risk_idx
+            else:
+                risk_idx += 1
+
     return stocks
 
 
 def connect_DB(host, user, pw, database):
     # Open Database connection
-    db = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    cursor = db.cursor()
-    return cursor, db
+    d = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
+    c = d.cursor()
+    return c, d
 
 
 def close_DB():
     db.close()
 
 
-def select_players(table, cursor, db):
+def select_players(table, c, d):
 
     # Execute SQL query
-    cursor.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    db.commit()
-    results = cursor.fetchall()
+    c.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
+    d.commit()
+    results = c.fetchall()
     # get the list of names of the players
     names = []
     for r in results:
@@ -82,16 +86,16 @@ def filter_players(all_players, threshold_file):
     return list(set(all_players).intersection(set(t_players)))
 
 
-def select_transactions(table, name, cursor, db):
+def select_transactions(table, n, c, d):
     # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(name) + '"' + 'ORDER BY date, type'
+    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(n) + '"' + 'ORDER BY date, type'
     try:
-        cursor.execute(query)
+        c.execute(query)
     except MySQLdb.Error:
         print "Error in QUERY", query
         raw_input("press any key to continue")
-    db.commit()
-    player_transactions = cursor.fetchall()
+    d.commit()
+    player_transactions = c.fetchall()
     return player_transactions
 
 
@@ -117,12 +121,19 @@ def saveMLEs(fileName):
     comma = ' , '
     outFile = open(fileName, 'w')
     for n in sorted(MLEs):
-        outFile.write(str(players.index(n)) + comma + comma + comma + comma + str(randomMLEs[n]) + comma + str(1/nActions) + comma + str(MLEs[n][min(Alpha)][min(Betas)][min(Gamma)][2]) + '\n')
+        outFile.write(str(players.index(n)) + comma + comma + comma + comma + str(randomMLEs[n]) + comma +
+                      str(1 / nActions) + comma + str(MLEs[n][min(Alpha)][min(Betas)][min(Gamma)][2]) + '\n')
         for a in sorted(MLEs[n]):
             for b in sorted(MLEs[n][a]):
                 for g in sorted(MLEs[n][a][b]):
-                    #print 'MLE['+str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
-                    outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(g) + comma + str(MLEs[n][a][b][g][0]) + comma + str(MLEs[n][a][b][g][1]) + comma + str(MLEs[n][a][b][g][2]) + '\n')
+
+                    # print 'MLE[' + str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + \
+                    #       str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
+
+                    outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(g) +
+                                  comma + str(MLEs[n][a][b][g][0]) +
+                                  comma + str(MLEs[n][a][b][g][1]) +
+                                  comma + str(MLEs[n][a][b][g][2]) + '\n')
     outFile.close()
     print 'saved in ' + str(fileName)
 
@@ -134,11 +145,12 @@ def printMLEs():
         for a in MLEs[pl]:
             for b in MLEs[pl][a]:
                 for g in sorted(MLEs[pl][a][b]):
-                    print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' gamma: ' + str(g) + ' MLE: ' + str(MLEs[pl][a][b][g][0]) + ' P: ' + str(MLEs[pl][a][b][g][1])
+                    print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' gamma: ' + str(g) + \
+                          ' MLE: ' + str(MLEs[pl][a][b][g][0]) + ' P: ' + str(MLEs[pl][a][b][g][1])
 
 
 def htan_custom(factor):
-    return (1 - np.exp(- reward_base * factor)) / (1 + np.exp(- reward_base * factor ))
+    return (1 - np.exp(- reward_base * factor)) / (1 + np.exp(- reward_base * factor))
 
 
 def build_filename():
@@ -147,17 +159,21 @@ def build_filename():
     fn += str(min(Alpha)) + '-' + str(max(Alpha)) + '_alpha'
     fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
     fn += str(min(Gamma)) + '-' + str(max(Gamma)) + '_gamma'
-    fn += str()
+    fn += '_' + bin_type
     return fn
+
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 t0 = time.time()
 
-if len(sys.argv) < 3:
-    print 'Usage: python modelFitForward.py N CAP\n' \
+if len(sys.argv) < 4:
+    print 'Usage: python modelFitForward.py N C u[r]|s[r] B\n' \
           'N = number of iterations for averaging\n'\
-          'CAP = number of max transactions to consider'
+          'C = number of max transactions to consider (min = 16)\n' \
+          'u = uniform risk distribution [r] random\n' \
+          's = skewed  risk distribution [r] random\n' \
+          'B = number of bins'
 
 else:
 
@@ -168,15 +184,15 @@ else:
 
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
+    bin_type = sys.argv[3]
     nStates  = 3
-    nActions = 3
+    nActions = int(sys.argv[4])
     total_sell_trans = dict()
 
     warnings.simplefilter("error", RuntimeWarning)
 
     # Read the stocks previously classified according to their risk (3 bins)
-    stock_risk = read_stock_file("../../data/risk_classified_stocks_" + str(nActions) + ".txt")
-
+    stock_risk = read_stock_file(bin_type, nActions)
 
     # connect to DB and get the cursor and the db
     c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
@@ -189,6 +205,7 @@ else:
 
     print
     print 'Version history \n' \
+          '1.2.5 adapt code to new bins\n' \
           '1.2.4 extend beta to 40 and raise poor threshold to 60k\n' \
           '1.2.3 capping transactions at CAP (not needed to revert to greedy?)\n' \
           '1.2.2 fixed bugs\n' \
@@ -293,7 +310,7 @@ else:
                                         # (+ sign because the sign of the total is negative for purchases)
                                         money += total
 
-                                        next_state = get_next_state(money,portfolio)
+                                        next_state = get_next_state(money, portfolio)
 
                                     elif 'Sell' in a_type and stock:
 
@@ -328,77 +345,27 @@ else:
                                             money += total
 
                                             ''' SoftMax Action Selection '''
-                                            '''
-                                            #TODO divide all terms by highest (normalise only in case of numerical issues)
-                                            terms = [0] * nActions
-
-                                            overflow = False
-                                            for a in xrange(nActions):
-                                                try:
-                                                    terms[a] = np.exp(Q[state][a] * beta)
-                                                except RuntimeWarning:
-                                                    print 'action n:', actionsAmount
-                                                    print '\nRuntimeWarning'
-                                                    terms[a] = np.exp(709)
-                                                    overflow = True
-
-                                            if not overflow:
-                                                try:
-                                                    terms = np.true_divide(terms, sum(terms))
-                                                except RuntimeWarning:
-                                                    print
-                                                    print 'terms', terms
-                                                    print 'Q[state]', Q[state]
-
-                                                tempMLE, MLEaction = select_action(tempMLE)
-
-                                            else:
-                                                MLEaction = int(Q[state].index(max(Q[state])))
-                                                # print 'iteration', iteration
-                                                # print 'transaction', actionsAmount
-                                                # print 'Q[state]', Q[state]
-                                                # print 'MLEaction', MLEaction
-                                                # print 'terms', terms
-                                                if terms[MLEaction] > 0:
-                                                    tempMLE += log(terms[MLEaction])
-                                                else:
-                                                    tempMLE = 0
-                                            #if tempMLE < 0:
-                                                # print 'MLE minore di 0         <<<<<<<<<<<<<'
-                                                # print 'iteration', iteration
-                                                # print 'transaction', actionsAmount
-                                                # print 'Q[state]', Q[state]
-                                                # print 'MLEaction', MLEaction
-                                                # print 'terms', terms
-
-                                            if tempMLE == 0:
-                                                print 'MLE maggiore di 0       >>>>>>>>>>>>>>'
-                                                raw_input('Breaking because of terms(' + str(MLEaction) + ') =' + str(terms[MLEaction]))
-                                                break
-                                            '''
-
-                                            ''' softmax end '''
-
-                                            ''' SoftMax Action Selection '''
                                             terms = [0] * nActions
                                             for a in xrange(nActions):
                                                 try:
                                                     terms[a] = np.exp(Q[state][a] * beta)
                                                 except RuntimeWarning:
-                                                    #print 'prima' ,terms
-                                                    #print '-----\n RuntimeWarning: overflow encountered at transaction', actionsAmount
+
+                                                    # print 'RuntimeWarning: ' \
+                                                    #      'overflow encountered at transaction', actionsAmount
                                                     for act in xrange(nActions):
                                                         terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
-                                                    #print 'terms calculated with max normalisation', terms
+                                                    # print 'terms calculated with max normalisation', terms
 
-                                                # the following raises exception only if the previous try raises exception
+                                                # the following raises except only if the previous try raises except
                                                 denominator = sum(terms)
                                                 terms = np.true_divide(terms, denominator)
 
                                             tempMLE, MLEaction = select_action(tempMLE)
 
                                             if tempMLE == 0:
-                                                print 'Breaking because of prob(' + str(MLEaction) + ') =' + str(terms[MLEaction])
+                                                print 'Breaking because of prob(' + str(MLEaction) + ') =' \
+                                                      + str(terms[MLEaction])
                                                 break
 
                                             ''' softmax end '''
@@ -410,10 +377,11 @@ else:
                                             if MLEaction == action:
                                                 correct_actions += 1
 
-                                            next_state = get_next_state(money, portfolio);
+                                            next_state = get_next_state(money, portfolio)
 
                                             ''' Qvalues update '''
-                                            Q[state][action] += alpha * (reward + (gamma * max(Q[next_state])) - Q[state][action])
+                                            TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
+                                            Q[state][action] += alpha * TD_error
 
                                             state = next_state
 
@@ -438,13 +406,64 @@ else:
     printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/results_' + save_filename +'.csv')
+    # TODO  remove NEW from filename
+    saveMLEs('results/results_NEW' + save_filename + '.csv')
 
 
 print str((time.time() - t0) / 60) + 'minutes'
 
-    # counting transactions
-    #temp = 0
-    #for p in total_sell_trans:
-    #    temp += total_sell_trans[p]
-    #print temp
+# counting transactions
+# temp = 0
+# for p in total_sell_trans:
+#    temp += total_sell_trans[p]
+# print temp
+
+''' OLD SOFTMAX
+
+#TODO divide all terms by highest (normalise only in case of numerical issues)
+terms = [0] * nActions
+
+overflow = False
+for a in xrange(nActions):
+    try:
+        terms[a] = np.exp(Q[state][a] * beta)
+    except RuntimeWarning:
+        print 'action n:', actionsAmount
+        print '\nRuntimeWarning'
+        terms[a] = np.exp(709)
+        overflow = True
+
+if not overflow:
+    try:
+        terms = np.true_divide(terms, sum(terms))
+    except RuntimeWarning:
+        print
+        print 'terms', terms
+        print 'Q[state]', Q[state]
+
+    tempMLE, MLEaction = select_action(tempMLE)
+
+else:
+    MLEaction = int(Q[state].index(max(Q[state])))
+    # print 'iteration', iteration
+    # print 'transaction', actionsAmount
+    # print 'Q[state]', Q[state]
+    # print 'MLEaction', MLEaction
+    # print 'terms', terms
+    if terms[MLEaction] > 0:
+        tempMLE += log(terms[MLEaction])
+    else:
+        tempMLE = 0
+#if tempMLE < 0:
+    # print 'MLE minore di 0         <<<<<<<<<<<<<'
+    # print 'iteration', iteration
+    # print 'transaction', actionsAmount
+    # print 'Q[state]', Q[state]
+    # print 'MLEaction', MLEaction
+    # print 'terms', terms
+
+if tempMLE == 0:
+    print 'MLE maggiore di 0       >>>>>>>>>>>>>>'
+    raw_input('Breaking because of terms(' + str(MLEaction) + ') =' + str(terms[MLEaction]))
+    break
+'''

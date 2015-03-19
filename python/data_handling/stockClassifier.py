@@ -20,7 +20,7 @@ def chunks(l, n):
 def write_bins(file_path, sbins):
     outFile = open(file_path, "w")
     for sbin in sbins:
-        outFile.write('\n' + str(len(sbin)) + '\n')
+        outFile.write(str(len(sbin)) + '\n')
         for s in sbin:
             outFile.write(str(s[0]) + '~' + str(s[1]) + '\n')
     outFile.close()
