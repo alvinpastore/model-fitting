@@ -1,4 +1,3 @@
-results = untitled;
 players = unique(results(:,1));
 
 tmp = unique(results(:,2));
@@ -55,7 +54,7 @@ for playerID = 0:playersAmount-1
 
         caxis([min(player_subresults_plot),max(player_subresults_plot)]);
         colorbar
-        fileName = ['graphs_gamma\g-',num2str(playerID),'_b-',num2str(b),'.eps'];
+        fileName = ['graphs/g-',num2str(playerID),'_b-',num2str(b),'.eps'];
         print(fig,'-depsc',fileName)
         clear title xlabel ylabel;
         if ismember(playerID,better_than_random)
