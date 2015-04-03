@@ -18,3 +18,5 @@ python/.idea/python.iml
 .idea/workspace.xml
 
 *.xml
+
+*.eps
