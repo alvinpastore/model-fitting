@@ -13,18 +13,15 @@ for playerID = 0:playersAmount-1
     p_model_lines = find(res_model(:,1) == playerID); 
     p_model_best  = max(res_model(p_model_lines,6));
     
-    % search for player best nogamma precision
-    p_nogamma_lines = find(res_nogamma(:,1) == playerID); 
-    p_nogamma_best  = max(res_nogamma(p_nogamma_lines,6));
-    % calculate improvement rates (over gamma and over random model)
-    improvementRate1 = ((p_model_best-p_nogamma_best)/p_nogamma_best)*100;
+    % search for player best alternative model precision
+    p_alternative_lines = find(res_alternative(:,1) == playerID); 
+    p_alternative_best  = max(res_alternative(p_alternative_lines,6));
+    % calculate improvement rates (over alternative model and over random model)
+    improvementRate1 = ((p_model_best-p_alternative_best)/p_alternative_best)*100;
     improvementRate2 = ((p_model_best-p_random)/p_random)*100;
     
-    % print to console
-    %disp(['P: ',num2str(playerID),', RL: ',num2str(p_model_best),', NoG: ',num2str(p_nogamma_best),', RL-NG:',num2str(improvementRate1),', RL-RM:',num2str(improvementRate2)]);
-    
     % populate performances matrix
-    performances(playerID+1,:) = [playerID p_model_best p_nogamma_best improvementRate1 improvementRate2];
+    performances(playerID+1,:) = [playerID p_model_best p_alternative_best improvementRate1 improvementRate2];
     
 end
 
@@ -41,8 +38,8 @@ xlabel('Players')
 ylabel('Improvement over Random Bins')
 axis([-1 46 min(performances(:,4)) max(performances(:,4))]);
 hold off
-fileName = 'graphs_improvements\g_RL_RandBins_unsorted.eps';
-print(fig,'-depsc',fileName)
+fileName = 'graphs_improvements\g_RL_RandBins_unsorted.png';
+print(fig,'-dpng',fileName)
     
 % sort according to the improvement 
 sorted_performances = sortrows(performances,4);
@@ -59,6 +56,6 @@ axis([-1 46 min(performances(:,4)) max(performances(:,4))]);
 set(gca,'Xtick',0:1:45);
 set(gca,'XtickLabel',sorted_performances(:,1));
 hold off
-fileName = 'graphs_improvements\g_RL_RandBins_sorted.eps';
-print(fig,'-depsc',fileName)
+fileName = 'graphs_improvements\g_RL_RandBins_sorted.png';
+print(fig,'-dpng',fileName)
 
