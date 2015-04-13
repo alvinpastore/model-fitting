@@ -71,7 +71,7 @@ def select_transactions(table, name, cursor, db):
         cursor.execute(query)
     except MySQLdb.Error:
         print "Error in QUERY", query
-        raw_input("press any key to continue")
+        raw_input("press any key to continuea")
     db.commit()
     player_transactions = cursor.fetchall()
     return player_transactions
