@@ -1,10 +1,6 @@
 
-.idea/*
+.idea/
 
-*.xml
-
-python/.idea/.name
-
-python/.idea/python.iml
+python/.idea/
 
 *.eps
