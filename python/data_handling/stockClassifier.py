@@ -119,7 +119,6 @@ else:
         print b
         print
 
-
     ''' RANDOM BINS '''
     rand_bins = [[] for x in xrange(bins_amount)]
     bin_idx = 0
