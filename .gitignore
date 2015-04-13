@@ -1,22 +1,10 @@
 
-.idea/workspace.xml
-
-.idea/workspace.xml
-
-.idea/model-fitting.iml
-
-.idea/misc.xml
-
-*.xml
+.idea/*
 
 *.xml
 
 python/.idea/.name
 
 python/.idea/python.iml
-
-.idea/workspace.xml
-
-*.xml
 
 *.eps
