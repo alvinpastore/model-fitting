@@ -32,7 +32,7 @@ avg_improvement = mean(performances(:,4));
 fig=figure(1);
 hold on
 bar(performances(:,1),performances(:,4));
-plot(0:0.01:46,avg_improvement,'-r');
+plot([-1 46],[avg_improvement avg_improvement],'-r','LineWidth',2);
 title(['Precision Improvement, Avg: ',num2str(avg_improvement)]);
 xlabel('Players')
 ylabel('Improvement over Random Bins')
@@ -48,7 +48,7 @@ sorted_performances = sortrows(performances,4);
 fig=figure(2);
 hold on
 bar(performances(:,1),sorted_performances(:,4));
-plot(0:0.01:46,avg_improvement,'-r');
+plot([-1 46],[avg_improvement avg_improvement],'-r','LineWidth',2);
 title(['Precision Improvement, Avg: ',num2str(avg_improvement)]);
 xlabel('Players')
 ylabel('Improvement over Random Bins')
