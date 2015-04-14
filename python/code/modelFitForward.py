@@ -18,6 +18,8 @@ def get_next_state(wealth, pfolio):
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
 
+    nextState = - 1
+
     if wealth < 60000:
         nextState = 0  # poor
         # print "poor"
@@ -25,7 +27,7 @@ def get_next_state(wealth, pfolio):
         nextState = 1  # mid
         # print "mid"
     elif wealth > 100000:
-        nextState = 2  #r ich
+        nextState = 2  # rich
         # print "rich"
 
     return nextState
@@ -178,6 +180,7 @@ if len(sys.argv) < 4:
 else:
 
     ''' SETUP '''
+    HTAN_SIGMA = 500
     Alpha = [0.1, 0.25, 0.5, 0.75, 1]
     Betas = [10, 20, 30, 40]
     Gamma = [0.01, 0.25, 0.5, 0.75, 0.999]
@@ -186,7 +189,7 @@ else:
     CAP = int(sys.argv[2])
     bin_type = sys.argv[3]
     nStates  = 3
-    nActions = int(sys.argv[4])
+    nActions = int(sys.argv[4])  # number of bins is the same of number of actions
     total_sell_trans = dict()
 
     warnings.simplefilter("error", RuntimeWarning)
@@ -249,6 +252,7 @@ else:
                 MLEs[p][a][b] = dict()
 
     randomMLEs = dict()
+
     for player in players:
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
@@ -285,7 +289,7 @@ else:
                                 if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
 
                                     name        = str(transaction[1])
-                                    date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
+                                    date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
                                     date        = datetime.strptime(date_string, '%Y %m %d')
                                     a_type      = str(transaction[3])
                                     stock       = str(transaction[4])
@@ -330,7 +334,7 @@ else:
 
                                             # the reward is the gain on the price times the number of shares sold
                                             reward_base = ((price - old_price) * volume)
-                                            reward = htan_custom(1 / 500)
+                                            reward = htan_custom(1 / HTAN_SIGMA)
 
                                             # if all shares for the stock have been sold delete stock from portfolio
                                             # otherwise update the values (new_volume, old_price, new_total)
@@ -400,17 +404,18 @@ else:
                     MLEs[player][alpha][beta][gamma] = (avgMLE, precision, actionsAmount)
 
         print str(actionsAmount) + ' transactions '
+        print str((time.time() - t0) / 60) + 'minutes'
 
     close_DB()
 
-    printMLEs()
+    # printMLEs()
 
     save_filename = build_filename()
     # TODO  remove NEW from filename
     saveMLEs('results/results_NEW' + save_filename + '.csv')
 
 
-print str((time.time() - t0) / 60) + 'minutes'
+print 'total: ' + str((time.time() - t0) / 60) + 'minutes'
 
 # counting transactions
 # temp = 0
