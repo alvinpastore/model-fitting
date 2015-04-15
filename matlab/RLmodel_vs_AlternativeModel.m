@@ -1,7 +1,13 @@
 % Setting for the comparison 
+
 % 4 compare against alternative model
 % 5 compare against random model
-CONFIG_COMPARISON = 5;
+CONFIG_COMPARISON = 4;
+
+% 0 for alternative models
+% 1 for nogamma models (less columns in results)
+NOGAMMA_COMPARISON = 1;
+
 
 % get list of players from model results
 players = unique(res_model(:,1));
@@ -19,7 +25,7 @@ for playerID = 0:playersAmount-1
     
     % search for player best alternative model precision
     p_alternative_lines = find(res_alternative(:,1) == playerID); 
-    p_alternative_best  = max(res_alternative(p_alternative_lines,6));
+    p_alternative_best  = max(res_alternative(p_alternative_lines,(6-NOGAMMA_COMPARISON)));
     % calculate improvement rates (over alternative model and over random model)
     improv_rate_altern = ((p_model_best-p_alternative_best)/p_alternative_best)*100;
     improv_rate_random = ((p_model_best-p_random)/p_random)*100;
