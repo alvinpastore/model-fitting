@@ -61,7 +61,7 @@ db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
 # retrieve players
 db_players = db.select_players('transactions')
-players = sorted(filter_players(db_players, 'players_threshold.txt'))
+players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
 
 print 'total players: ' + str(len(players))
