@@ -61,9 +61,9 @@ def read_stock_file(b_type, b_amount):
 
 def connect_DB(host, user, pw, database):
     # Open Database connection
-    dBase = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    curs = dBase.cursor()
-    return curs, dBase
+    d = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
+    c = d.cursor()
+    return c, d
 
 
 def close_DB():
@@ -189,7 +189,7 @@ else:
 
     warnings.simplefilter("error", RuntimeWarning)
 
-    # Read the stocks previously classified according to their risk (3 bins)
+    # Read the stocks previously classified according to their risk
     stock_risk = read_stock_file(bin_type, nActions)
 
     # connect to DB and get the cursor and the db

@@ -12,46 +12,49 @@ import warnings
 
 
 
-def read_stock_file(path):
-    stock_list_file = open(path, 'r')
-    stocks = dict()
-    risk_flag = 0
-    separator = "risk class "
-    for line in stock_list_file:
-        if separator + str(0) in line:
-            risk_flag = 0
-        elif separator + str(1) in line:
-            risk_flag = 1
-        elif separator + str(2) in line:
-            risk_flag = 2
-        elif separator + str(3) in line:
-            risk_flag = 3
-        elif separator + str(4) in line:
-            risk_flag = 4
-        elif line.strip():
-            stocks[line.split("~")[0]] = risk_flag
+def read_stock_file(b_type, b_amount):
+    path = "../../data/risk_classified_stocks/"
+    if 'u' in b_type:
+        path += 'uniform_'
+    elif 's' in b_type:
+        path += 'skewed_'
+    else:
+        print 'Risk distribution bin-type not valid'
+        sys.exit()
+    if 'r' in b_type:
+        path += 'random_'
 
-    stock_list_file.close()
+    path += str(b_amount) + '.txt'
+
+    stocks = dict()
+    risk_idx = -1
+    with open(path, 'r') as stock_list_file:
+        for line in stock_list_file:
+            if '~' in line:
+                stocks[line.split('~')[0]] = risk_idx
+            else:
+                risk_idx += 1
+
     return stocks
 
 
 def connect_DB(host, user, pw, database):
     # Open Database connection
-    db = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    cursor = db.cursor()
-    return cursor, db
+    d = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
+    c = d.cursor()
+    return c, d
 
 
 def close_DB():
     db.close()
 
 
-def select_players(table, cursor, db):
+def select_players(table, c, d):
 
     # Execute SQL query
-    cursor.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    db.commit()
-    results = cursor.fetchall()
+    c.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
+    d.commit()
+    results = c.fetchall()
     # get the list of names of the players
     names = []
     for r in results:
@@ -64,37 +67,38 @@ def filter_players(all_players, threshold_file):
     return list(set(all_players).intersection(set(t_players)))
 
 
-def select_transactions(table, name, cursor, db):
+def select_transactions(table, n, c, d):
     # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(name) + '"' + 'ORDER BY date, type'
+    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(n) + '"' + 'ORDER BY date, type'
     try:
-        cursor.execute(query)
+        c.execute(query)
     except MySQLdb.Error:
         print "Error in QUERY", query
         raw_input("press any key to continue")
-    db.commit()
-    player_transactions = cursor.fetchall()
+    d.commit()
+    player_transactions = c.fetchall()
     return player_transactions
-
-
-
-
-
-
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 t0 = time.time()
 
-# Read the stocks previously classified according to their risk (3 bins)
-stock_risk = read_stock_file("../../data/risk_classified_stocks_" + str(3) + ".txt")
+# max transactions amount
+CAP = 25
+bin_type = sys.argv[1]
+nActions = 3
+
+# Read the stocks previously classified according to their risk
+stock_risk = read_stock_file(bin_type, nActions)
 
 
 # connect to DB and get the cursor and the db
 c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
 cursor = c_db[0]
 db     = c_db[1]
+
+
 
 # retrieve players
 db_players = select_players('transactions', cursor, db)
@@ -124,7 +128,7 @@ for player in players:
     correct_actions = [0, 0, 0]
 
     for transaction in transactions:
-        if actionsAmount < 25:
+        if actionsAmount < CAP:
             stock = str(transaction[4])
             if 'Sell' in transaction[3] and stock:
                 stock = str(transaction[4])
@@ -136,19 +140,30 @@ for player in players:
                 for dA in dumbAction:
                     if dA == action:
                         correct_actions[dA] += 1
+
     player_summary = list(np.true_divide(correct_actions, actionsAmount))
     player_summary.append(actionsAmount)
     dumbPlayers.append(player_summary)
+
     print str(actionsAmount) + ' transactions '
 
 close_DB()
 
-outfile = open('results/dumb_players_25CAP.csv', 'w')
+filename = 'results/dumb_players_25CAP_' + bin_type + '.csv'
+outfile = open(filename, 'w')
 
 print 'pid \t dp1 \t dp2 \t dp3 \t amount'
-for dp in dumbPlayers:
-    outfile.write('%d , %0.3f , %0.3f , %0.3f , %d\n' % (dumbPlayers.index(dp), dp[0], dp[1], dp[2], dp[3]))
-    print '%d \t %0.3f \t %0.3f \t %0.3f \t %d' % (dumbPlayers.index(dp), dp[0], dp[1], dp[2], dp[3])
+for dpi in xrange(len(dumbPlayers)):
+    outfile.write('%d , %0.3f , %0.3f , %0.3f , %d\n' % (dpi, dumbPlayers[dpi][0],
+                                                         dumbPlayers[dpi][1],
+                                                         dumbPlayers[dpi][2],
+                                                         dumbPlayers[dpi][3]))
+
+    print '%d \t %0.3f \t %0.3f \t %0.3f \t %d' % (dpi, dumbPlayers[dpi][0],
+                                                   dumbPlayers[dpi][1],
+                                                   dumbPlayers[dpi][2],
+                                                   dumbPlayers[dpi][3])
 
 outfile.close()
-print str((time.time() - t0) / 60) + 'minutes'
+print 'written to ', filename
+print str((time.time() - t0)) + ' seconds'

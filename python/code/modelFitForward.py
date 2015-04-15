@@ -194,7 +194,7 @@ else:
 
     warnings.simplefilter("error", RuntimeWarning)
 
-    # Read the stocks previously classified according to their risk (3 bins)
+    # Read the stocks previously classified according to their risk
     stock_risk = read_stock_file(bin_type, nActions)
 
     # connect to DB and get the cursor and the db
