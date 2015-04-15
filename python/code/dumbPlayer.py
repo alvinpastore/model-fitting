@@ -1,15 +1,14 @@
 from __future__ import division
 import sys
-import MySQLdb
 import random
 import numpy as np
 from datetime import datetime
 import time
 from math import log
 import warnings
+from DatabaseHandler import DatabaseHandler
 
 ''' ---- FUNCTIONS ---- '''
-
 
 
 def read_stock_file(b_type, b_amount):
@@ -38,46 +37,10 @@ def read_stock_file(b_type, b_amount):
     return stocks
 
 
-def connect_DB(host, user, pw, database):
-    # Open Database connection
-    d = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    c = d.cursor()
-    return c, d
-
-
-def close_DB():
-    db.close()
-
-
-def select_players(table, c, d):
-
-    # Execute SQL query
-    c.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    d.commit()
-    results = c.fetchall()
-    # get the list of names of the players
-    names = []
-    for r in results:
-        names.append(r[0])
-    return names
-
-
 def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
 
-
-def select_transactions(table, n, c, d):
-    # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(n) + '"' + 'ORDER BY date, type'
-    try:
-        c.execute(query)
-    except MySQLdb.Error:
-        print "Error in QUERY", query
-        raw_input("press any key to continue")
-    d.commit()
-    player_transactions = c.fetchall()
-    return player_transactions
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
@@ -93,20 +56,13 @@ nActions = 3
 stock_risk = read_stock_file(bin_type, nActions)
 
 
-# connect to DB and get the cursor and the db
-c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
-cursor = c_db[0]
-db     = c_db[1]
-
-
+# connect to DB
+db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
 # retrieve players
-db_players = select_players('transactions', cursor, db)
+db_players = db.select_players('transactions')
 players = sorted(filter_players(db_players, 'players_threshold.txt'))
 
-print
-print 'Version history \n' \
-      'branch for testing dumb players \n'
 
 print 'total players: ' + str(len(players))
 
@@ -122,7 +78,7 @@ for player in players:
     print '\n' + str(players.index(player)) + ' : ' + str(player)
 
     # retrieve the transactions for each player
-    transactions = select_transactions('transactions', player, cursor, db)
+    transactions = db.select_transactions('transactions', player)
 
     actionsAmount = 0
     correct_actions = [0, 0, 0]
@@ -147,7 +103,7 @@ for player in players:
 
     print str(actionsAmount) + ' transactions '
 
-close_DB()
+db.close()
 
 filename = 'results/dumb_players_25CAP_' + bin_type + '.csv'
 outfile = open(filename, 'w')

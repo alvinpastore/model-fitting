@@ -1,13 +1,12 @@
 from __future__ import division
 import sys
-import MySQLdb
 import random
 import numpy as np
 from datetime import datetime
 import time
 from math import log
 import warnings
-
+from DatabaseHandler import DatabaseHandler
 ''' ---- FUNCTIONS ---- '''
 
 
@@ -59,46 +58,9 @@ def read_stock_file(b_type, b_amount):
     return stocks
 
 
-def connect_DB(host, user, pw, database):
-    # Open Database connection
-    d = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    c = d.cursor()
-    return c, d
-
-
-def close_DB():
-    db.close()
-
-
-def select_players(table, c, d):
-
-    # Execute SQL query
-    c.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    d.commit()
-    results = c.fetchall()
-    # get the list of names of the players
-    names = []
-    for r in results:
-        names.append(r[0])
-    return names
-
-
 def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
-
-
-def select_transactions(table, n, c, d):
-    # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(n) + '"' + 'ORDER BY date, type'
-    try:
-        c.execute(query)
-    except MySQLdb.Error:
-        print "Error in QUERY", query
-        raw_input("press any key to continue")
-    d.commit()
-    player_transactions = c.fetchall()
-    return player_transactions
 
 
 def select_action(temporaryMLE):
@@ -169,13 +131,24 @@ def build_filename():
 
 t0 = time.time()
 
-if len(sys.argv) < 4:
-    print 'Usage: python modelFitForward.py N C u[r]|s[r] B\n' \
+if len(sys.argv) < 5:
+    print 'Usage: python modelFitForward.py   N   C  u[r]|s[r]  B\n' \
           'N = number of iterations for averaging\n'\
-          'C = number of max transactions to consider (min = 16)\n' \
+          'C = number of max transactions to consider (min = 16, max = 107)\n' \
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random\n' \
           'B = number of bins'
+
+elif int(sys.argv[2]) < 16 or int(sys.argv[2]) > 107:
+    print 'C = number of max transactions to consider (min = 16, max = 107)'
+
+elif sys.argv[3] not in ['u', 'ur', 's', 'sr']:
+    print 'Use one of the following risk distribution options:\n' \
+          'u = uniform risk distribution [r] random\n' \
+          's = skewed  risk distribution [r] random'
+
+elif int(sys.argv[4]) != 3:
+    print 'use 3 bins, other configuration to be implemented in next versions'
 
 else:
 
@@ -197,17 +170,16 @@ else:
     # Read the stocks previously classified according to their risk
     stock_risk = read_stock_file(bin_type, nActions)
 
-    # connect to DB and get the cursor and the db
-    c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
-    cursor = c_db[0]
-    db     = c_db[1]
+    # connect to DB
+    db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
     # retrieve players
-    db_players = select_players('transactions', cursor, db)
+    db_players = db.select_players('transactions')
     players = sorted(filter_players(db_players, 'players_threshold.txt'))
 
     print
     print 'Version history \n' \
+          '1.3.0 rearranged database code in self contained class\n' \
           '1.2.5 adapt code to new bins\n' \
           '1.2.4 extend beta to 40 and raise poor threshold to 60k\n' \
           '1.2.3 capping transactions at CAP (not needed to revert to greedy?)\n' \
@@ -254,6 +226,7 @@ else:
     randomMLEs = dict()
 
     for player in players:
+        ti = time.time()
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
         # RL set-up
@@ -261,8 +234,7 @@ else:
         state = 1
 
         # retrieve the transactions for each player
-        transactions = select_transactions('transactions', player, cursor, db)
-
+        transactions = db.select_transactions('transactions', player)
         # store the stocks purchased for future estimation of reward
         portfolio = dict()
 
@@ -404,9 +376,10 @@ else:
                     MLEs[player][alpha][beta][gamma] = (avgMLE, precision, actionsAmount)
 
         print str(actionsAmount) + ' transactions '
-        print str((time.time() - t0) / 60) + 'minutes'
 
-    close_DB()
+        print str((time.time() - ti) / 60) + ' minutes'
+
+    db.close()
 
     # printMLEs()
 
@@ -414,8 +387,7 @@ else:
     # TODO  remove NEW from filename
     saveMLEs('results/results_NEW' + save_filename + '.csv')
 
-
-print 'total: ' + str((time.time() - t0) / 60) + 'minutes'
+    print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
 
 # counting transactions
 # temp = 0
