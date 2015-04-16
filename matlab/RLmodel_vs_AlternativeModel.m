@@ -6,7 +6,7 @@ CONFIG_COMPARISON = 4;
 
 % 0 for alternative models
 % 1 for nogamma models (less columns in results)
-NOGAMMA_COMPARISON = 1;
+NOGAMMA_COMPARISON = 0;
 
 
 % get list of players from model results
