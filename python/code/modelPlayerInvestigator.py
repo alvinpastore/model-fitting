@@ -1,6 +1,6 @@
 from __future__ import division
 import sys
-import MySQLdb
+from DatabaseHandler import DatabaseHandler
 import random
 import numpy as np
 from datetime import datetime
@@ -10,6 +10,7 @@ import warnings
 
 ''' ---- FUNCTIONS ---- '''
 
+
 def get_next_state(wealth, pfolio):
     # at the end of each player trial check the total amount of money
     for s in pfolio:
@@ -17,96 +18,64 @@ def get_next_state(wealth, pfolio):
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
 
-    if wealth < 50000:
-        nextState = 0  #poor
-        #print "poor"
+    nextState = - 1
+
+    if wealth < 60000:
+        nextState = 0  # poor
+        # print "poor"
     elif wealth <= 100000:
-        nextState = 1  #mid
-        #print "mid"
+        nextState = 1  # mid
+        # print "mid"
     elif wealth > 100000:
-        nextState = 2  #rich
-        #print "rich"
+        nextState = 2  # rich
+        # print "rich"
 
     return nextState
 
 
-def read_stock_file(path):
-    stock_list_file = open(path, 'r')
-    stocks = dict()
-    risk_flag = 0
-    separator = "risk class "
-    for line in stock_list_file:
-        if separator + str(0) in line:
-            risk_flag = 0
-        elif separator + str(1) in line:
-            risk_flag = 1
-        elif separator + str(2) in line:
-            risk_flag = 2
-        elif separator + str(3) in line:
-            risk_flag = 3
-        elif separator + str(4) in line:
-            risk_flag = 4
-        elif line.strip():
-            stocks[line.split("~")[0]] = risk_flag
+def read_stock_file(b_type, b_amount):
+    path = "../../data/risk_classified_stocks/"
+    if 'u' in b_type:
+        path += 'uniform_'
+    elif 's' in b_type:
+        path += 'skewed_'
+    else:
+        print 'Risk distribution bin-type not valid'
+        sys.exit()
+    if 'r' in b_type:
+        path += 'random_'
 
-    stock_list_file.close()
+    path += str(b_amount) + '.txt'
+
+    stocks = dict()
+    risk_idx = -1
+    with open(path, 'r') as stock_list_file:
+        for line in stock_list_file:
+            if '~' in line:
+                stocks[line.split('~')[0]] = risk_idx
+            else:
+                risk_idx += 1
+
     return stocks
 
 
-def connect_DB(host, user, pw, database):
-    # Open Database connection
-    db = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    cursor = db.cursor()
-    return cursor, db
-
-
-def close_DB():
-    db.close()
-
-
-def select_players(table, cursor, db):
-
-    # Execute SQL query
-    cursor.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    db.commit()
-    results = cursor.fetchall()
-    # get the list of names of the players
-    names = []
-    for r in results:
-        names.append(r[0])
-    return names
-
-
-def filter_players(all_players,threshold_file):
-    t_players =  [line.rstrip('\n') for line in open(threshold_file,'r')]
+def filter_players(all_players, threshold_file):
+    t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
-
-
-def select_transactions(table, name, cursor, db):
-    # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(name) + '"' + 'ORDER BY date, type'
-    try:
-        cursor.execute(query)
-    except MySQLdb.Error, e:
-        print "Error in QUERY", query
-        raw_input("press any key to continue")
-    db.commit()
-    player_transactions = cursor.fetchall()
-    return player_transactions
 
 
 def select_action(temporaryMLE):
     random_dice = random.random()
 
-    if random_dice < prob_t[0]:
+    if random_dice < terms[0]:
         MLE_act = 0
-    elif prob_t[0] <= random_dice < (prob_t[0] + prob_t[1]):
+    elif terms[0] <= random_dice < (terms[0] + terms[1]):
         MLE_act = 1
     else:
         MLE_act = 2
 
-    if prob_t[MLE_act] > 0:
-        temporaryMLE += log(prob_t[MLE_act])
+    if terms[MLE_act] > 0:
+        temporaryMLE += log(terms[MLE_act])
     else:
         temporaryMLE = 0
 
@@ -115,38 +84,49 @@ def select_action(temporaryMLE):
 
 def saveMLEs(fileName):
     comma = ' , '
-    outFile = open(fileName,'w')
+    outFile = open(fileName, 'w')
     for n in sorted(MLEs):
-        outFile.write(str(players.index(n)) + comma + comma + comma + comma + str(randomMLEs[n]) + comma + str(1/nActions) + comma + str(MLEs[n][min(Alpha)][min(Betas)][min(Gamma)][2]) + '\n')
+        outFile.write(str(players.index(n)) + comma + comma + comma + comma + str(randomMLEs[n]) + comma +
+                      str(1 / nActions) + comma + str(MLEs[n][min(Alpha)][min(Betas)][min(Gamma)][2]) + '\n')
         for a in sorted(MLEs[n]):
             for b in sorted(MLEs[n][a]):
                 for g in sorted(MLEs[n][a][b]):
-                    #print 'MLE['+str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
-                    outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(g) + comma + str(MLEs[n][a][b][g][0]) + comma + str(MLEs[n][a][b][g][1]) + comma + str(MLEs[n][a][b][g][2]) + '\n')
+
+                    # print 'MLE[' + str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + \
+                    #       str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
+
+                    outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(g) +
+                                  comma + str(MLEs[n][a][b][g][0]) +
+                                  comma + str(MLEs[n][a][b][g][1]) +
+                                  comma + str(MLEs[n][a][b][g][2]) + '\n')
     outFile.close()
-    print 'saved in '+str(fileName)
+    print 'saved in ' + str(fileName)
 
 
 def printMLEs():
-    for pl in MLEs:
-        print pl
+    for pl in sorted(MLEs):
+        print '\n' + pl
         print randomMLEs[pl]
         for a in MLEs[pl]:
             for b in MLEs[pl][a]:
                 for g in sorted(MLEs[pl][a][b]):
-                    print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' gamma: ' + str(g) + ' MLE: '+str(MLEs[pl][a][b][g][0]) + ' P: ' + str(MLEs[pl][a][b][g][1])
+                    print '\t alpha: ' + str(a) + ' beta: ' + str(b) + ' gamma: ' + str(g) + \
+                          ' MLE: ' + str(MLEs[pl][a][b][g][0]) + ' P: ' + str(MLEs[pl][a][b][g][1])
 
 
 def htan_custom(factor):
-    return ( 1 - np.exp( - reward_base * factor )) / ( 1 + np.exp( - reward_base * factor ))
+    return (1 - np.exp(- reward_base * factor)) / (1 + np.exp(- reward_base * factor))
+
 
 def build_filename():
-    fn =  str(nActions) + 'act_'
+    fn = str(nActions) + 'act_'
     fn += str(nIterations) + 'rep_'
     fn += str(min(Alpha)) + '-' + str(max(Alpha)) + '_alpha'
     fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
     fn += str(min(Gamma)) + '-' + str(max(Gamma)) + '_gamma'
+    fn += '_' + bin_type
     return fn
+
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
@@ -159,43 +139,38 @@ if len(sys.argv) < 2:
 else:
 
     ''' SETUP '''
-    #Alpha = [0.1, 0.25, 0.5, 0.75, 1]
-    #Betas = [0.01, 2, 4, 6, 8, 10]
-    #Gamma = [0.01, 0.25, 0.5, 0.75, 0.999]
-    Alpha = [ 1]
+    # Alpha = [0.1, 0.25, 0.5, 0.75, 1]
+    # Betas = [0.01, 2, 4, 6, 8, 10]
+    # Gamma = [0.01, 0.25, 0.5, 0.75, 0.999]
+    Alpha = [1]
     Betas = [10]
-    Gamma = [0.25,0.9]
-
-    nIterations = int(sys.argv[1])
+    Gamma = [0.25]
+    bin_type = 'u'
     nStates  = 3
     nActions = 3
+    nIterations = int(sys.argv[1])
     total_sell_trans = dict()
-
 
     warnings.simplefilter("error", RuntimeWarning)
 
-    # Read the stocks previously classified according to their risk (3 bins)
-    stock_risk = read_stock_file("../../data/risk_classified_stocks_"+str(nActions)+".txt")
+    # Read the stocks previously classified according to their risk
+    stock_risk = read_stock_file(bin_type, nActions)
 
-    #for s in sorted(stock_risk):
-    #    print str(s) + ' ' + str(stock_risk[s])
-    #raw_input()
-
-    # connect to DB and get the cursor and the db
-    c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
-    cursor = c_db[0]
-    db     = c_db[1]
+    # connect to DB
+    db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
     # retrieve players
-    db_players = select_players('transactions', cursor, db)
-    players = sorted(filter_players(db_players,'players_threshold.txt'))
+    db_players = db.select_players('transactions')
+    players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
     print
     print 'Version history \n' \
+          '1.0.0 modified to match modelFitForward structure (extensible bin-size-independent)\n' \
           '0.0.1 Branching code for players testings and investigations'
 
-    print 'nIterations' , nIterations
+
     print 'total players: ' + str(len(players))
+
     investigatedPlayers = list()
     investigatedPlayers.append('EnterTheDragon')
 
@@ -218,7 +193,7 @@ else:
         state = 1
 
         # retrieve the transactions for each player
-        transactions = select_transactions('transactions', player, cursor, db)
+        transactions = db.select_transactions('transactions', player)
 
         # store the stocks purchased for future estimation of reward
         portfolio = dict()
@@ -233,14 +208,13 @@ else:
                     avg_correct_actions = 0
 
                     for iteration in xrange(nIterations):
-                        print '/n iteration:' + str(iteration)
+
 
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
                         tempMLE = 0
                         randMLE = 0
                         actionsAmount = 0
                         correct_actions = 0
-                        #tindex = 0
                         for transaction in transactions:
 
                             # get only buy/sell actions
@@ -284,8 +258,6 @@ else:
                                         # messed up player
                                         break
                                     else:
-                                        #print 'transaction',tindex
-                                        #tindex+=1
                                         actionsAmount += 1
                                         old_volume = portfolio[stock][0]
                                         old_price  = portfolio[stock][1]
@@ -308,58 +280,43 @@ else:
                                         money += total
 
                                         ''' SoftMax Action Selection '''
-                                        prob_t = [0] * nActions
-
+                                        terms = [0] * nActions
                                         for a in xrange(nActions):
-                                            prob_t[a] = np.exp(Q[state][a] * beta)
+                                            try:
+                                                terms[a] = np.exp(Q[state][a] * beta)
+                                            except RuntimeWarning:
 
-                                        try:
-                                            prob_t = np.true_divide(prob_t, sum(prob_t))
-                                        except RuntimeWarning:
-                                            print '----------------------------'
-                                            print 'iteration',iteration
-                                            print 'Q['+str(Q[state][action])+'] + '+str(alpha)+ ' * ('+str(reward) + ' - ' + 'Q['+str(state)+']['+str(action)+']'
+                                                # print 'RuntimeWarning: ' \
+                                                #      'overflow encountered at transaction', actionsAmount
+                                                for act in xrange(nActions):
+                                                    terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
+                                                # print 'terms calculated with max normalisation', terms
 
-                                            print 'player',player
-                                            print 'state: ',state
-                                            print 'action: ',action
-                                            print 'Q[state][action]: ',Q[state][action]
-                                            print 'exp(Q[s][a]): ',np.exp(Q[state][action])
-                                            print 'prob_t: ',prob_t
-                                            print 'sum(prob_t): ',sum(prob_t)
-                                            raw_input('Value error:  alpha=' + str(alpha) + ' beta=' + str(beta))
+                                            # the following raises except only if the previous try raises except
+                                            denominator = sum(terms)
+                                            terms = np.true_divide(terms, denominator)
 
-
-                                        tempMLE,MLEaction = select_action(tempMLE)
+                                        tempMLE, MLEaction = select_action(tempMLE)
 
                                         if tempMLE == 0:
-                                            print 'Breaking because of prob('+str(MLEaction)+') =' + str(prob_t[MLEaction])
+                                            print 'Breaking because of prob(' + str(MLEaction) + ') =' \
+                                                  + str(terms[MLEaction])
                                             break
 
                                         ''' softmax end '''
 
                                         # select the action really picked by player
-                                        action = stock_risk[stock];
+                                        action = stock_risk[stock]
 
-                                        #print 'Model Action:',MLEaction
-                                        #print 'Real  Action:',action
                                         # Precision calculation (counting correctly predicted actions)
                                         if MLEaction == action:
                                             correct_actions += 1
-                                        #print 'Correct actions:',correct_actions
-                                        #raw_input()
-                                        next_state = get_next_state(money,portfolio);
+
+                                        next_state = get_next_state(money, portfolio)
 
                                         ''' Qvalues update '''
-                                        #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
-
-                                        Q[state][action] += alpha * (reward + (gamma * max(Q[next_state])) - Q[state][action])
-                                        #Q[state][action] += alpha * (reward - Q[state][action])
-
-                                        #print 'Q['+str(state)+','+str(action)+'] = Q['+str(state)+','+str(action)+'] + '+str(alpha)+'*('+str(reward)+'-Q['+str(state)+','+str(action)+'])'
-                                        #print 'Q[state:'+str(state)+'][action:'+str(action)+']: ' + str(Q[state][action])
-                                        #raw_input("iteration: "+str(iteration)+"  transaction: "+str(actionsAmount)+'\n')
-                                        #print Q
+                                        TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
+                                        Q[state][action] += alpha * TD_error
 
                                         state = next_state
 
@@ -370,27 +327,21 @@ else:
                     avg_correct_actions /= nIterations
                     avgMLE /= nIterations
                     avgMLE = -avgMLE
-                    randMLE = - actionsAmount * log(1/nActions)
+                    randMLE = - actionsAmount * log(1 / nActions)
                     randomMLEs[player] = randMLE
 
-                    precision = avg_correct_actions/actionsAmount
+                    precision = avg_correct_actions / actionsAmount
 
-                    MLEs[player][alpha][beta][gamma] = (avgMLE,precision,actionsAmount)
+                    MLEs[player][alpha][beta][gamma] = (avgMLE, precision, actionsAmount)
 
         print str(actionsAmount) + ' transactions '
 
-    close_DB()
+    db.close()
 
     printMLEs()
 
-    #save_filename = build_filename()
-    #saveMLEs('results/results_' + save_filename +'.csv')
+    # save_filename = build_filename()
+    # saveMLEs('results/results_' + save_filename +'.csv')
 
 
-print str((time.time() - t0)/60) + 'minutes'
-
-    # counting transactions
-    #temp = 0
-    #for p in total_sell_trans:
-    #    temp += total_sell_trans[p]
-    #print temp
+print str((time.time() - t0) / 60) + 'minutes'
