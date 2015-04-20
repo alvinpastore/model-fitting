@@ -179,6 +179,7 @@ else:
 
     print
     print 'Version history \n' \
+          '1.4.0 fixed bug of price (used to have only 2 decimal digits from crawling, now is calculated)\n' \
           '1.3.0 rearranged database code in self contained class\n' \
           '1.2.5 adapt code to new bins\n' \
           '1.2.4 extend beta to 40 and raise poor threshold to 60k\n' \
@@ -266,8 +267,10 @@ else:
                                     a_type      = str(transaction[3])
                                     stock       = str(transaction[4])
                                     volume      = int(transaction[5])
-                                    price       = float(transaction[6])
                                     total       = float(transaction[7])
+                                    # price       = float(transaction[6])
+                                    # deprecated: decimal precision incorrect for average price calculation
+                                    price = abs(total / volume)
 
                                     if 'Buy' in a_type and stock:
                                         # save the stocks that have been purchased
@@ -276,7 +279,7 @@ else:
                                             old_price  = portfolio[stock][1]
                                             old_total  = portfolio[stock][2]
                                             new_volume = volume + old_volume
-                                            new_price  = (total + old_total) / (volume + old_volume)
+                                            new_price  = abs((total + old_total) / (volume + old_volume))
                                             new_total  = old_total + total
                                             portfolio[stock] = (new_volume, new_price, new_total)
                                         else:

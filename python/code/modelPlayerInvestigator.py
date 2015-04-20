@@ -168,7 +168,6 @@ else:
           '1.0.0 modified to match modelFitForward structure (extensible bin-size-independent)\n' \
           '0.0.1 Branching code for players testings and investigations'
 
-
     print 'total players: ' + str(len(players))
 
     investigatedPlayers = list()
@@ -209,7 +208,6 @@ else:
 
                     for iteration in xrange(nIterations):
 
-
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
                         tempMLE = 0
                         randMLE = 0
@@ -221,13 +219,17 @@ else:
                             if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
 
                                 name        = str(transaction[1])
-                                date_string = str(transaction[2]).split(' ')[0].replace('-' , ' ')
-                                date        = datetime.strptime(date_string , '%Y %m %d')
+                                date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
+                                date        = datetime.strptime(date_string, '%Y %m %d')
                                 a_type      = str(transaction[3])
                                 stock       = str(transaction[4])
                                 volume      = int(transaction[5])
-                                price       = float(transaction[6])
                                 total       = float(transaction[7])
+                                # price       = float(transaction[6])
+                                # deprecated: decimal precision incorrect for average price calculation
+                                price = abs(total / volume)
+
+                                sto = (stock[:6] + '..') if len(stock) > 6 else stock
 
                                 if 'Buy' in a_type and stock:
                                     # save the stocks that have been purchased
@@ -236,7 +238,16 @@ else:
                                         old_price  = portfolio[stock][1]
                                         old_total  = portfolio[stock][2]
                                         new_volume = volume + old_volume
-                                        new_price  = (total + old_total) / (volume + old_volume)
+                                        new_price  = abs((total + old_total) / (volume + old_volume))
+
+                                        if 'Lloyds' in stock:
+                                            print 'price: ' + str(price) + '\tnew price: ' + str(new_price) + '\n'
+
+                                        if new_price < 0:
+                                            print '\n(total + old_total) / (volume + old_volume)'
+                                            print '('+str(total)+' + '+str(old_total)+') / ('+str(volume ) +'+ '+str(old_volume)+')'
+                                            print 'new price: '+str(new_price)+'\n'
+
                                         new_total  = old_total + total
                                         portfolio[stock] = (new_volume, new_price, new_total)
                                     else:
@@ -246,7 +257,13 @@ else:
                                     # (+ sign because the sign of the total is negative for purchases)
                                     money += total
 
-                                    next_state = get_next_state(money , portfolio)
+                                    next_state = get_next_state(money, portfolio)
+                                    if 'Lloyds' in stock:
+                                        print 'Buy: ' + sto + '\tdate: ' + str(date) + \
+                                            '\t price: ' + str(price) + '\tcost: ' + str(total) + '\t volume: ' + str(volume) + '\n'
+
+                                    # if 'HSBC' in stock:
+                                       # print portfolio[stock]
 
                                 elif 'Sell' in a_type and stock:
 
@@ -265,7 +282,13 @@ else:
 
                                         # the reward is the gain on the price times the number of shares sold
                                         reward_base = ((price - old_price) * volume)
-                                        reward = htan_custom(1/500)
+                                        reward = htan_custom(1 / 500)
+
+                                        if 'Lloyds' in stock:
+                                            print 'Sell: ' + sto + '\tdate: ' + str(date) + \
+                                              '\t price: ' + str(price) + '\treward: ' + str(reward_base)
+                                            #print '\n reward_base = ((price - old_price) * volume) '
+                                            #print str(reward_base) + '=(' + str(price) + ' - ' + str(old_price) + ') * ' + str(volume) + '\n'
 
                                         # if all shares for the stock have been sold delete stock from portfolio
                                         # otherwise update the values (new_volume, old_price, new_total)
