@@ -29,11 +29,22 @@ def write_bins(file_path, sbins):
 def read_betas(file_path):
     bs = {}
     with open(file_path, 'r') as betas_file:
-        for line in betas_file:
-            if '~' in line:
-                stock_beta = line.split('~')
+        for file_line in betas_file:
+            if '~' in file_line:
+                stock_beta = file_line.split('~')
                 bs[stock_beta[0]] = float(stock_beta[1].strip())
     return bs
+
+
+def replaceName(cn, rNames):
+
+    print "\nCompany name before:", cn
+
+    for name in rNames:
+        cn = cn.replace(name, rNames[name])
+
+    print "Company name after:", cn
+    return cn
 
 ''' MAIN '''
 # date of last transactions 27 May 2014
@@ -50,11 +61,41 @@ else:
 
     bins = {i: [] for i in xrange(bins_amount)}
 
+    """
+    International Consolidated Airlines Group Plc
+    International Consolidated Air
+
+    Marks&Spencer Group
+    Marks&amp;Spencer Group
+
+    Tate & Lyle
+    Tate &amp; Lyle
+
+    Legal & General
+    Legal &amp; General
+
+    Smith & Nephew
+    Smith &amp; Nephew
+
+    Sports Direct International Plc
+    Sports Direct International Pl
+
+    Whitbread A
+    Whitbread 'A'
+    """
+    repNames = {"International Consolidated Airlines Group Plc": "International Consolidated Air",
+                "&": "&amp;",
+                "Sports Direct International Plc": "Sports Direct International Pl",
+                "Whitbread A": "Whitbread 'A'"
+                }
+
     for folder, subs, files in os.walk(rootdir):
 
         for fileName in files:
             if "csv" in fileName:
                 companyName = fileName[:-4]
+                companyName = replaceName(companyName, repNames)
+
                 # print "file:", companyName
 
                 with open(os.path.join(folder, fileName), 'r') as dataFile:
@@ -114,10 +155,10 @@ else:
     sorted_stocks = sorted(all_stock.items(), key=operator.itemgetter(1))
     stock_bins = list(chunks(sorted_stocks, bin_size))
 
-    for b in stock_bins:
-        print len(b)
-        print b
-        print
+    # for b in stock_bins:
+    #     print len(b)
+    #     print b
+    #     print
 
     ''' RANDOM BINS '''
     rand_bins = [[] for x in xrange(bins_amount)]
