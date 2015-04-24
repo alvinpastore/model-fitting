@@ -51,7 +51,7 @@ HSBC Holdings Plc~1.0683109824
 IMI~1.0062208533
 Imperial Tobacco~0.557887117
 InterContinental Hotels Group~1.0832355751
-International Consolidated Airlines Group Plc~1.3851118667
+International Consolidated Air~1.3851118667
 #International Consolidated Airlines Group Plc
 Intertek Group~0.7406525048
 ITV Plc~1.1714598299
@@ -63,11 +63,11 @@ Kazakhmys Plc~0.1313617422
 Kingfisher~1.1109288264
 
 Land Securities Group~1.0002726287
-Legal & General~1.0850554697
+Legal &amp; General~1.0850554697
 Lloyds Banking Group Plc~1.1061522366
 London Stock Exchange Group~1.0850460656
 
-Marks&Spencer Group~0.9915195102
+Marks&amp;Spencer Group~0.9915195102
 Meggitt Plc~ 0.8426412696
 Melrose Industries~1.1971070228
 Morrison Wm Supermarkets~0.6583179962
@@ -103,14 +103,14 @@ Schroders Plc~1.3571141423
 Serco Group~ 0.3961846876
 Severn Trent~0.6577750017
 Shire Plc~1.0270952984
-Smith & Nephew~0.8055034833
+Smith &amp; Nephew~0.8055034833
 Smiths Group Plc~0.9857029494
 SSE~0.5091014583
 Standard Chartered~1.2781790058
 Standard Life Plc~1.3642416864
-Sports Direct International Plc~0.9829517882
+Sports Direct International Pl~0.9829517882
 
-Tate & Lyle~ 0.8082734292
+Tate &amp; Lyle~ 0.8082734292
 Tesco~0.7880015691
 TUI Travel Plc~1.1352705265
 Tullow Oil Plc~0.9462655357
@@ -121,7 +121,7 @@ United Utilities Group~ 0.6196763053
 Vedanta Resources Plc~1.4892322229
 Vodafone Group Plc~0.9261171421
 Weir Group~1.0583879707
-Whitbread A~1.0901994939
+Whitbread 'A'~1.0901994939
 Wolseley~1.2198770193
 Wood Group (John)~1.0737378523
 WPP Plc~1.2424510311
