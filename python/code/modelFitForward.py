@@ -147,8 +147,8 @@ elif sys.argv[3] not in ['u', 'ur', 's', 'sr']:
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random'
 
-elif int(sys.argv[4]) != 3:
-    print 'use 3 bins, other configuration to be implemented in next versions'
+elif int(sys.argv[4]) < 3 or int(sys.argv[4]) > 4:
+    print 'use 3 or 4 bins, other configuration to be implemented in next versions'
 
 else:
 
@@ -179,6 +179,7 @@ else:
 
     print
     print 'Version history \n' \
+          '1.5.0 adapting code for 4 bins' \
           '1.4.0 fixed bug of price (used to have only 2 decimal digits from crawling, now is calculated)\n' \
           '1.3.0 rearranged database code in self contained class\n' \
           '1.2.5 adapt code to new bins\n' \

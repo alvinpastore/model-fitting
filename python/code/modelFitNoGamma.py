@@ -144,8 +144,8 @@ elif sys.argv[3] not in ['u', 'ur', 's', 'sr']:
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random'
 
-elif int(sys.argv[4]) != 3:
-    print 'use 3 bins, other configuration to be implemented in next versions'
+elif int(sys.argv[4]) < 3 or int(sys.argv[4]) > 4:
+    print 'use 3 or 4 bins, other configuration to be implemented in next versions'
 
 else:
 
@@ -197,6 +197,7 @@ else:
     randomMLEs = dict()
 
     for player in players:
+        ti = time.time()
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
         # RL set-up
@@ -351,7 +352,7 @@ else:
                 MLEs[player][alpha][beta] = (avgMLE, precision, actionsAmount)
 
         print str(actionsAmount) + ' transactions '
-        print str((time.time() - t0) / 60) + 'minutes'
+        print str((time.time() - ti) / 60) + ' minutes'
 
     db.close()
 
