@@ -45,81 +45,88 @@ def filter_players(all_players, threshold_file):
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
-t0 = time.time()
+if len(sys.argv) < 4:
+    print 'Usage: python dumbPlayer.py   C   B   A \n\n' \
+          'C = transactions CAP\n' \
+          'B = bin type (u for uniform, s for skewed)\n'\
+          'A = number of actions\n'
 
-# max transactions amount
-CAP = 25
-bin_type = sys.argv[1]
-nActions = 3
+elif int(sys.argv[1]) < 16 or int(sys.argv[1]) > 107:
+    print 'C = number of max transactions to consider (min = 16, max = 107)'
 
-# Read the stocks previously classified according to their risk
-stock_risk = read_stock_file(bin_type, nActions)
+else:
+    t0 = time.time()
 
+    # max transactions amount
+    CAP = int(sys.argv[1])
+    bin_type = sys.argv[2]
+    nActions = int(sys.argv[3])
 
-# connect to DB
-db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
+    # Read the stocks previously classified according to their risk
+    stock_risk = read_stock_file(bin_type, nActions)
 
-# retrieve players
-db_players = db.select_players('transactions')
-players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
+    # connect to DB
+    db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
+    # retrieve players
+    db_players = db.select_players('transactions')
+    players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-print 'total players: ' + str(len(players))
+    print 'total players: ' + str(len(players))
 
-print players
+    # print players
 
+    # data structure that contains the MLEs
+    dumbPlayers = []
+    dpActions = []
+    dumbAction = [i for i in xrange(nActions)]
 
-# data structure that contains the MLEs
-dumbPlayers = []
-dpActions = []
-dumbAction = [0, 1, 2]
-for player in players:
+    for player in players:
 
-    print '\n' + str(players.index(player)) + ' : ' + str(player)
+        print '\n' + str(players.index(player)) + ' : ' + str(player)
 
-    # retrieve the transactions for each player
-    transactions = db.select_transactions('transactions', player)
+        # retrieve the transactions for each player
+        transactions = db.select_transactions('transactions', player)
 
-    actionsAmount = 0
-    correct_actions = [0, 0, 0]
+        actionsAmount = 0
+        correct_actions = [0] * nActions
 
-    for transaction in transactions:
-        if actionsAmount < CAP:
-            stock = str(transaction[4])
-            if 'Sell' in transaction[3] and stock:
+        for transaction in transactions:
+            if actionsAmount < CAP:
                 stock = str(transaction[4])
+                if 'Sell' in transaction[3] and stock:
+                    stock = str(transaction[4])
 
-                actionsAmount += 1
+                    actionsAmount += 1
 
-                action = stock_risk[stock]
+                    action = stock_risk[stock]
 
-                for dA in dumbAction:
-                    if dA == action:
-                        correct_actions[dA] += 1
+                    for dA in dumbAction:
+                        if dA == action:
+                            correct_actions[dA] += 1
 
-    player_summary = list(np.true_divide(correct_actions, actionsAmount))
-    player_summary.append(actionsAmount)
-    dumbPlayers.append(player_summary)
+        player_summary = list(np.true_divide(correct_actions, actionsAmount))
+        player_summary.append(actionsAmount)
+        dumbPlayers.append(player_summary)
 
-    print str(actionsAmount) + ' transactions '
+        print str(actionsAmount) + ' transactions '
 
-db.close()
+    db.close()
 
-filename = 'results/dumb_players_25CAP_' + bin_type + '.csv'
-outfile = open(filename, 'w')
+    filename = 'results/dumb_players_25CAP_' + bin_type + '_' + str(nActions) + '.csv'
+    outfile = open(filename, 'w')
+    comma = ", "
 
-print 'pid \t dp1 \t dp2 \t dp3 \t amount'
-for dpi in xrange(len(dumbPlayers)):
-    outfile.write('%d , %0.3f , %0.3f , %0.3f , %d\n' % (dpi, dumbPlayers[dpi][0],
-                                                         dumbPlayers[dpi][1],
-                                                         dumbPlayers[dpi][2],
-                                                         dumbPlayers[dpi][3]))
+    for dpi in xrange(len(dumbPlayers)):
 
-    print '%d \t %0.3f \t %0.3f \t %0.3f \t %d' % (dpi, dumbPlayers[dpi][0],
-                                                   dumbPlayers[dpi][1],
-                                                   dumbPlayers[dpi][2],
-                                                   dumbPlayers[dpi][3])
+        line = str(dpi) + comma
+        for column in dumbPlayers[dpi]:
+            line += "\t" + str(round(column, 3)) + comma
+        line = line.rstrip(comma) + "\n"
 
-outfile.close()
-print 'written to ', filename
-print str((time.time() - t0)) + ' seconds'
+        print line
+        outfile.write(line)
+
+    outfile.close()
+    print 'written to ', filename
+    print str((time.time() - t0)) + ' seconds'
