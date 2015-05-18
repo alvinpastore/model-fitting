@@ -67,12 +67,15 @@ def filter_players(all_players, threshold_file):
 def select_action(temporaryMLE):
     random_dice = random.random()
 
-    if random_dice < terms[0]:
-        MLE_act = 0
-    elif terms[0] <= random_dice < (terms[0] + terms[1]):
-        MLE_act = 1
-    else:
-        MLE_act = 2
+    bin_idx = 0
+    term_idx = 0
+
+    while term_idx < nActions:
+        bin_idx += terms[term_idx]
+        term_idx += 1
+        if random_dice < bin_idx:
+            MLE_act = term_idx - 1
+            break
 
     if terms[MLE_act] > 0:
         temporaryMLE += log(terms[MLE_act])
@@ -144,9 +147,6 @@ elif sys.argv[3] not in ['u', 'ur', 's', 'sr']:
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random'
 
-elif int(sys.argv[4]) < 3 or int(sys.argv[4]) > 4:
-    print 'use 3 or 4 bins, other configuration to be implemented in next versions'
-
 else:
 
     ''' SETUP '''
@@ -175,6 +175,8 @@ else:
 
     print
     print 'Version history \n' \
+          '1.6.0 fixed bug on actions selection (extended to nActions)\n' \
+          '1.5.0 adapted code for 4/5 bins\n' \
           '1.4.0 fixed bug of price (used to have only 2 decimal digits from crawling, now is calculated)\n' \
           '1.3.0 rearranged database code in self contained class\n' \
           '1.0.0 modified to match modelFitForward structure (extensible bin-size-independent)\n' \
