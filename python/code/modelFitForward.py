@@ -33,6 +33,7 @@ def get_next_state(wealth, pfolio):
 
 
 def read_stock_file(b_type, b_amount):
+    file_number = -1
     path = "../../data/risk_classified_stocks/"
     if 'u' in b_type:
         path += 'uniform_'
@@ -43,8 +44,10 @@ def read_stock_file(b_type, b_amount):
         sys.exit()
     if 'r' in b_type:
         path += 'random_'
+        file_number = int(b_type.split("r")[1])
+        print file_number
 
-    path += str(b_amount) + '.txt'
+    path += str(b_amount) + '.txt' if file_number < 0 else str(b_amount) + '_' + str(file_number) + '.txt'
 
     stocks = dict()
     risk_idx = -1
@@ -135,20 +138,22 @@ def build_filename():
 t0 = time.time()
 
 if len(sys.argv) < 5:
-    print 'Usage: python modelFitForward.py   N   C  u[r]|s[r]  B\n' \
+    print 'Usage: python modelFitForward.py   N   C  u[rX]|s[rX]  B\n' \
           'N = number of iterations for averaging\n'\
           'C = number of max transactions to consider (min = 16, max = 107)\n' \
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random\n' \
+          'X = random file number\n' \
           'B = number of bins'
 
 elif int(sys.argv[2]) < 16 or int(sys.argv[2]) > 107:
     print 'C = number of max transactions to consider (min = 16, max = 107)'
 
-elif sys.argv[3] not in ['u', 'ur', 's', 'sr']:
+elif sys.argv[3].strip("0123456789") not in ['u', 'ur', 's', 'sr']:
     print 'Use one of the following risk distribution options:\n' \
           'u = uniform risk distribution [r] random\n' \
-          's = skewed  risk distribution [r] random'
+          's = skewed  risk distribution [r] random\n' \
+          'X = file number (ur0, ur1, ur...)'
 
 else:
 
@@ -391,7 +396,7 @@ else:
 
     save_filename = build_filename()
     # TODO  remove NEW from filename
-    saveMLEs('results/results_NEW' + save_filename + '.csv')
+    saveMLEs('results/results_RANDOM' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
 
