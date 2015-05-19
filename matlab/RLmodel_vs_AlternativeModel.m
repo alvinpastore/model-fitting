@@ -12,7 +12,7 @@ NOGAMMA_COMPARISON = 0;
 ACTIONS_AMOUNT = 5;
 
 % name of ALTERNATIVE MODEL
-ALTERNATIVE_MODEL = 'Dumb Player 5';
+ALTERNATIVE_MODEL = 'Scrambled bins (10-fold average)';
 
 MODEL_DESCRIPTION = [num2str(ACTIONS_AMOUNT),' actions vs '];
 
