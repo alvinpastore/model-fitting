@@ -39,7 +39,8 @@ def filter_players(all_players, threshold_file):
 def calculate_risk():
     print "Loading the stock riskiness dictionary..."
     risk_dict = dict()
-    with open("../../data/risk_classified_stocks/uniform_3.txt", 'r') as risk_file:
+    risk_classified_stock_file = "../../data/risk_classified_stocks/uniform_" + nActions + ".csv"
+    with open(risk_classified_stock_file, 'r') as risk_file:
         content = risk_file.readlines()
         for line in content:
             line = line.strip().split('~')
@@ -48,12 +49,25 @@ def calculate_risk():
     print "Done"
     return risk_dict
 
+
+def save_vectors(filename):
+    with open(filename, "w") as outfile:
+        for pl in sorted(ar_vectors.keys()):
+            for srr in ar_vectors[pl]:  # srr = stock_risk_reward tuple
+                print "{0} {1}  \t{2}  {3} ".format(players.index(pl), pl, srr[1], srr[2])
+                outfile.write("{0} , {1} , {2}\n".format(players.index(pl), srr[1], srr[2]))
+
+
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 
 t0 = time.time()
 
+if len(sys.argv) < 3:
+    print "usage: python arVectors CAP nActions"
+
 HTAN_SIGMA = 500
-CAP = 25
+CAP = int(sys.argv[1])
+nActions = sys.argv[2]  # read as a string so it can be used in the stock risk filename
 ar_vectors = dict()
 stock_risk = calculate_risk()
 
@@ -121,6 +135,7 @@ for player in players:
 
                         # the reward is the gain on the price times the number of shares sold
                         reward_base = ((price - old_price) * volume)
+
                         reward = htan_custom(1 / HTAN_SIGMA)
 
                         # store in the action_reward vector the stock's name, riskiness and the reward obtained
@@ -137,11 +152,10 @@ for player in players:
                             # times the new amount of stocks held
                             portfolio[stock] = (new_volume, old_price, new_volume * old_price)
                             # old_price so it is possible to calculate margin for future sells
+db.close()
 
-for arv in ar_vectors:
-    print str(arv) + " " + str(ar_vectors[arv])
-    print
+save_vectors("results/ar_vectors.txt")
 
 print "there are " + str(len(ar_vectors)) + " action vectors\n"
-db.close()
+
 print 'total: ' + str((time.time() - t0)) + 'seconds'
