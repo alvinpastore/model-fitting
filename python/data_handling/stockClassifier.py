@@ -52,13 +52,14 @@ def random_bins(stocks, b_amount, b_size, bs, n):
     rand_bins = [[] for _ in xrange(b_amount)]
     bin_idx = 0
     larger_bins = len(bs) % b_amount
-    print "larger_bins", larger_bins
+    # print "larger_bins", larger_bins
+
     # keep adding to the i-th bin till its full (bin size < stock amount / bins amount)
     while len(bs) > 0:
-        print "\nlarger bins", larger_bins
+        # print "\nlarger bins", larger_bins
         random_bin_size = b_size + 1 if larger_bins > 0 else b_size
 
-        print "r bin size", random_bin_size
+        # print "r bin size", random_bin_size
 
         while len(rand_bins[bin_idx]) < random_bin_size and len(bs) > 0:
             random_stock = random.choice(bs.keys())
@@ -79,13 +80,15 @@ def random_bins(stocks, b_amount, b_size, bs, n):
 ''' MAIN '''
 # date of last transactions 27 May 2014
 
-if len(sys.argv) < 3:
-    print 'Usage: python stockClassifier.py -betas_rootdir -bins_amount\n'
+if len(sys.argv) < 2:
+    print 'Usage: python stockClassifier.py bins_amount [n] (generate n random bins)\n'
 else:
     all_stock = {}
     highest_std = 8582946964.77
-    rootdir    = sys.argv[1]
-    bins_amount = int(sys.argv[2])
+    bins_amount = int(sys.argv[1])
+    RANDOM = int(sys.argv[2]) if len(sys.argv) > 2 else False
+
+    rootdir = '../../data/'
     betas = read_betas(rootdir + 'betas.txt')
     bin_size = int(math.floor(len(betas) / bins_amount))
 
@@ -191,8 +194,9 @@ else:
     #     print
 
     # Save bins to file
-    # write_bins(rootdir + "risk_classified_stocks/" + "uniform_"        + str(bins_amount) + ".txt", stock_bins)
+    write_bins(rootdir + "risk_classified_stocks/" + "uniform_" + str(bins_amount) + ".txt", stock_bins)
 
-    for i in range(0, 10):
-        b_copy = betas.copy()
-        random_bins(all_stock, bins_amount, bin_size, b_copy, i)
+    if RANDOM:
+        for i in range(0, RANDOM):
+            b_copy = betas.copy()
+            random_bins(all_stock, bins_amount, bin_size, b_copy, i)
