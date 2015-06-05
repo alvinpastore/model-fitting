@@ -78,7 +78,7 @@ William Hill~0.164545456731
 BT Group Plc~0.169928815357
 CRH~0.177433601737
 Tesco~0.179049823254
-15
+16
 Coca-Cola HBC~0.180336069412
 Aberdeen Asset Management Plc~0.18479338688
 International Consolidated Air~0.192767483387
@@ -94,8 +94,8 @@ ARM Holdings~0.280965475357
 Prudential~0.290168364214
 Shire Plc~0.298596311722
 British American Tobacco Plc~0.310310080512
-15
 Diageo Plc~0.312991875354
+16
 Royal Dutch Shell-B Shs~0.321734476815
 SABMiller Plc~0.325910945419
 GlaxoSmithKline~0.337433953198
@@ -110,6 +110,5 @@ HSBC Holdings Plc~0.57169465418
 Lloyds Banking Group Plc~0.636048700799
 Barclays~0.63756136826
 Rio Tinto~0.722407488584
-2
 AstraZeneca Plc~0.844101307449
 Vodafone Group Plc~0.9261171421
