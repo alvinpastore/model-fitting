@@ -1,28 +1,38 @@
-from collections import OrderedDict
+import timeit
+import sys
 
+
+# my solution (fastest)
 def in_array1(array1, array2):
+    return sorted({w1 for w2 in array2 for w1 in array1 if w1 in w2})
+
+
+def in_array2(array1, array2):
+    return sorted(list(set([s1 for s1 in array1 for s2 in array2 if s1 in s2])))
+
+
+def in_array3(array1, array2):
+    # your code
     res = []
-    for w1 in array1:
-        for w2 in array2:
-            if w1 in w2:
-                res.append(w1)
+    for a1 in array1:
+        for a2 in array2:
+            if a1 in a2 and not a1 in res:
+                res.append(a1)
+    res.sort()
     return res
 
 
-def in_array(array1, array2):
-    return list(OrderedDict.fromkeys([w1 for w2 in array2 for w1 in array1 if w1 in w2]))
-
-#[[w1 if w1 in w2 for w2 in a2] for w1 in a1]
+def in_array4(a1, a2):
+    return sorted({sub for sub in a1 if any(sub in s for s in a2)})
 
 
-a1 = ["live", "arp", "strong"]
-a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+n = int(sys.argv[1])
 
-a3 = ['cod', 'code', 'wars', 'ewar']
-a4 = ['lively', 'alive', 'harp', 'sharp', 'armstrong', 'codewars']
-
-r1 = ['arp', 'live', 'strong']
-r2 = ['cod', 'code', 'ewar', 'wars']
-
-print in_array(a3, a4)
-print in_array(a3, a4) == r2
+print timeit.timeit('in_array1(["cod", "code", "wars", "ewar", "ar"],["lively", "alive", "harp", "sharp", "armstrong", "codewars"])',
+                    'from __main__ import in_array1',number=n)
+print timeit.timeit('in_array2(["cod", "code", "wars", "ewar", "ar"],["lively", "alive", "harp", "sharp", "armstrong", "codewars"])',
+                    'from __main__ import in_array2',number=n)
+print timeit.timeit('in_array3(["cod", "code", "wars", "ewar", "ar"],["lively", "alive", "harp", "sharp", "armstrong", "codewars"])',
+                    'from __main__ import in_array3',number=n)
+print timeit.timeit('in_array4(["cod", "code", "wars", "ewar", "ar"],["lively", "alive", "harp", "sharp", "armstrong", "codewars"])',
+                    'from __main__ import in_array4',number=n)
