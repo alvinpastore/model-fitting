@@ -8,11 +8,14 @@ CONFIG_COMPARISON = 4;
 % 1 for nogamma models (less columns in results (5 instead of 6))
 NOGAMMA_COMPARISON = 0;
 
+% Dumb player number (0 for no dumb player)
+DUMB_PLAYER = 7;
+
 % number of actions for RANDOM COMPARISON
-ACTIONS_AMOUNT = 5;
+ACTIONS_AMOUNT = 7;
 
 % name of ALTERNATIVE MODEL
-ALTERNATIVE_MODEL = 'Scrambled bins (10-fold average)';
+ALTERNATIVE_MODEL = ['Dumb Player ' num2str(DUMB_PLAYER)];
 
 MODEL_DESCRIPTION = [num2str(ACTIONS_AMOUNT),' actions vs '];
 
@@ -43,7 +46,12 @@ for playerID = 0:playersAmount-1
     
     % search for player best alternative model precision
     p_alternative_lines = find(res_alternative(:,1) == playerID); 
-    p_alternative_best  = max(res_alternative(p_alternative_lines,(6-NOGAMMA_COMPARISON)));
+    if DUMB_PLAYER < 1
+        ALTERNATIVE_COLUMN = 6 - NOGAMMA_COMPARISON;
+    else
+        ALTERNATIVE_COLUMN = DUMB_PLAYER + 1;
+    end
+    p_alternative_best  = max(res_alternative(p_alternative_lines, ALTERNATIVE_COLUMN));
     
     
     if p_alternative_best == 0
