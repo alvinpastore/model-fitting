@@ -118,7 +118,8 @@ def htan_custom(factor):
 
 
 def build_filename():
-    fn = str(nActions) + 'act_'
+    fn = str(CAP) + 'cap_'
+    fn += str(nActions) + 'act_'
     fn += str(nIterations) + 'rep_'
     fn += str(min(Alpha)) + '-' + str(max(Alpha)) + '_alpha'
     fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
