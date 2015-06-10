@@ -17,8 +17,9 @@ def integerise(values):
 
 
 path = 'results/'
-
-filename = 'results_RANDOM5act_1000rep_0.1-1_alpha10-40_beta0.01-0.999_gamma_ur'
+nActions = '7'
+nRandomFiles = 10
+filename = 'results_RANDOM' + nActions + 'act_5000rep_0.1-1_alpha10-40_beta0.01-0.999_gamma_ur'
 out_lines = [[0] * 7] * 4646
 
 for i in xrange(10):
@@ -33,10 +34,9 @@ for i in xrange(10):
         # print lines[line_idx]
         out_lines[line_idx] = map(add, out_lines[line_idx], integerise(lines[line_idx].split(",")))
 
-
 with open(path + filename + ".csv", "w") as out_file:
     for line in out_lines:
-        line[:] = [round(x / 10, 3) for x in line]
+        line[:] = [round(x / nRandomFiles, 3) for x in line]
         out_file.write(str(line).replace("[", "").replace("]", "") + '\n')
 
 out_file.close()
