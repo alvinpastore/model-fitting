@@ -3,6 +3,7 @@ import sys
 import random
 import time
 from math import log
+from math import sqrt
 from DatabaseHandler import DatabaseHandler
 
 ''' ---- FUNCTIONS ---- '''
@@ -39,6 +40,7 @@ def filter_players(all_players, threshold_file):
     return list(set(all_players).intersection(set(t_players)))
 
 
+
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
@@ -53,6 +55,7 @@ elif int(sys.argv[1]) < 16 or int(sys.argv[1]) > 107:
     print 'C = number of max transactions to consider (min = 16, max = 107)'
 
 else:
+
     t0 = time.time()
 
     # max transactions amount
@@ -71,20 +74,29 @@ else:
     db_players = db.select_players('transactions')
     players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-    print 'total players: ' + str(len(players))
+    #print 'total players: ' + str(len(players))
 
     # data structure that contains the MLEs and precisions
     randomPlayers = []
+    outfile = open('test_random' + str(nActions) + '.csv', 'w')
 
     for player in players:
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
+        outfile.write(str(players.index(player)) + ", ")
 
         # retrieve the transactions for each player
         transactions = db.select_transactions('transactions', player)
 
         avg_MLE = 0
         avg_correct_actions = 0
+
+        # running variance setup
+        # Knuth Welford
+        # https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
+        n = 0
+        mean = 0
+        M2 = 0
 
         for rep in xrange(repetitions):
 
@@ -103,7 +115,7 @@ else:
 
                         action = stock_risk[stock]
 
-                        random_action = random.randint(1, nActions)
+                        random_action = random.randint(0, nActions - 1)
 
                         # update MLE
                         tempMLE += log(1 / nActions)
@@ -114,6 +126,13 @@ else:
 
             avg_MLE += tempMLE
             avg_correct_actions += correctActions
+            local_precision = correctActions / actionsAmount * 100
+
+            # running variance calculations
+            n += 1
+            delta = local_precision - mean
+            mean = mean + delta / n
+            M2 = M2 + delta * (local_precision - mean)
 
         avg_MLE /= repetitions
         avg_MLE = -avg_MLE
@@ -121,13 +140,16 @@ else:
         analytical_MLE = - actionsAmount * log(1 / nActions)
 
         precision = avg_correct_actions / (actionsAmount * repetitions)
-        if precision > 1 / nActions:
-            print "##########################################################################"
 
-        print "nMLE: {0:.3f} \naMLE: {1:.3f}\nPrec: {2:.2f}%".format(avg_MLE, analytical_MLE, precision * 100)
+        variance = M2 / n
+        std_dev = sqrt(variance)
+        print std_dev
+        outfile.write("{0:.3f}, {1:.3f}\n".format(precision, std_dev))
+        # print "nMLE: {0:.3f} \naMLE: {1:.3f}\nPrec: {2:.2f}%\nVar: {3:.2f}\nStdev: {4:.2f}".\
+        #    format(avg_MLE, analytical_MLE, precision * 100, variance, std_dev)
 
-        print str(actionsAmount) + ' transactions '
+        # print str(actionsAmount) + ' transactions '
 
     db.close()
-
+    outfile.close()
 print str((time.time() - t0)) + ' seconds'
