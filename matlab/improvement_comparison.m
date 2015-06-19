@@ -1,6 +1,7 @@
 
 tic;
 
+
 % get all the variables in the workspace
 all_results = who;
 
@@ -29,8 +30,9 @@ for i = 1:length(all_results)
         
         % use the actions to calculate random precision
         ACTIONS_AMOUNT = str2double(current_results(4:end));
-        p_random = 1/ACTIONS_AMOUNT;
         
+        p_random = 1/ACTIONS_AMOUNT;
+        disp(['random precision: ' , num2str(p_random)]);
         
         
         % for every player calculate best model and compare with random
@@ -53,16 +55,29 @@ for i = 1:length(all_results)
     
 end
 
-
-% get rid of all void lines (players not in the intersection)
-
+% get rid of all void performances lines (instantiated in the beginning
+% because of the collection of all the variables in the workspace)
 performances = performances(~cellfun('isempty',performances)); 
 
+% get only the improvement columns from the calculated performances
 plot_perf = [];
 for k = 1:length(performances)
     plot_perf = [plot_perf, performances{k}(:,3)];
 end
-plot_perf(:,5) = 0:size(plot_perf,1)-1;
+
+
+% A(:,[i,j])=A(:,[j,i]);
+% swap column for model 5 and model 3 so the order is descending. 
+% works only for 10-3-4-5 -> 10-5-4-3
+%plot_perf(:,[2,4]) = plot_perf(:,[4,2]);
+%plot_perf = fliplr(flipud(plot_perf));
+
+% general solution:
+% 10,2,3  shifted of -1 (one to the left) according to cols becomes 2,3,10
+plot_perf = circshift(plot_perf,-1,2);
+
+% add ids as last column
+plot_perf(:,size(plot_perf,2)+1) = 0:size(plot_perf,1)-1;
 
 %% Unsorted
 %figure();
@@ -73,22 +88,18 @@ plot_perf(:,5) = 0:size(plot_perf,1)-1;
 
 %% Sorted
 % sort according to the improvement of the model in column 
-%1 res10
-%2 res3
-%3 res4
-%4 res5
-MODEL_ORDER_CRITERION = 1;
-sorted_performances = sortrows(plot_perf,MODEL_ORDER_CRITERION);
+% the higher the MOC the higher the actions in the model (ie 1 = 10actions)
+% size(sorted_performances,2) means order by id
+%MODEL_ORDER_CRITERION = size(plot_perf,2);
+MODEL_ORDER_CRITERION = size(plot_perf,2)-1;
+sorted_performances = sortrows(plot_perf,-MODEL_ORDER_CRITERION);
 
-% A(:,[i,j])=A(:,[j,i]);
-% swap column 5 and 3 so the order is descending. works only for 10-5-4-3
-sorted_performances(:,[2,4]) = sorted_performances(:,[4,2]);
-sorted_performances = fliplr(flipud(sorted_performances));
+%sorted_performances = flipud(sorted_performances);
 
 figure(1);
 handle = gca(1);
 
-bar_handle = bar3(sorted_performances(:,2:end));
+bar_handle = bar3(sorted_performances(:,1:end-1));
 
 alpha(0.4);
 
@@ -99,12 +110,14 @@ bright_yellow = [1,0.9,0];
 azure = [0,0.5,0.7];
 redd = [0.8,0.2,0.2];
 
-set(bar_handle(1),'FaceColor',redd)
-set(bar_handle(2),'FaceColor',bright_yellow)
-set(bar_handle(3),'FaceColor',azure)
-set(bar_handle(4),'FaceColor',violet)
+col = {redd; bright_yellow; azure; violet; dark_grey_blue; light_purple};
 
-axis([0 5 0 47 min(min(plot_perf))-10, max(max(plot_perf))+10]);
+for handle_idx = 1:length(bar_handle)
+    set(bar_handle(handle_idx),'FaceColor',col{handle_idx})
+end
+
+
+axis([0 size(sorted_performances,2) 0 47 min(min(plot_perf))-10, max(max(plot_perf))+10]);
 %zlim([min(min(plot_perf))-10, max(max(plot_perf))+10]);
 
 %set(gca,'Ytick',1:46);
@@ -116,12 +129,12 @@ set(gca,'XTick',[]);
 ylab = ylabel('Players','FontSize',25);
 zlab = zlabel('% Improvement','FontSize',25);
 
-l{1}=' 10 Actions'; l{2}=' 5 Actions'; l{3}=' 4 Actions'; l{4}=' 3 Actions'; 
-hLegend = legend(bar_handle,l,'Location',[0.7 0.5 0 0]);
-set(hLegend,'FontSize',24);
+%l{1}=' 3 Actions'; l{2}=' 4 Actions'; l{3}=' 5 Actions'; l{4}=' 10 Actions'; 
+%hLegend = legend(bar_handle,l,'Location',[0.7 0.5 0 0]);
+%set(hLegend,'FontSize',24);
 
 %set(handle,'FontName','Hiragino Kaku Gothic Pro');
 
-writePDF1000ppi(gcf, 'prova');
+%writePDF1000ppi(gcf, 'prova');
 
 toc
