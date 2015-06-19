@@ -54,6 +54,7 @@ def random_bins(stocks, b_amount, b_size, bs, n):
     larger_bins = len(bs) % b_amount
     # print "larger_bins", larger_bins
 
+
     # keep adding to the i-th bin till its full (bin size < stock amount / bins amount)
     while len(bs) > 0:
         # print "\nlarger bins", larger_bins
@@ -83,6 +84,9 @@ def random_bins(stocks, b_amount, b_size, bs, n):
 if len(sys.argv) < 2:
     print 'Usage: python stockClassifier.py bins_amount [n] (generate n random bins)\n'
 else:
+    print 'The ordered bins are buggy: 107/4: 4bins of 26 and 1 of 3'
+    print 'Random bins are fine 3 bins of 27 and one of 26'
+    
     all_stock = {}
     highest_std = 8582946964.77
     bins_amount = int(sys.argv[1])
