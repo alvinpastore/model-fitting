@@ -154,7 +154,7 @@ for player in players:
                             # old_price so it is possible to calculate margin for future sells
 db.close()
 
-save_vectors("results/ar_vectors.txt")
+save_vectors("results/ar_vectors/ar_vectors.txt")
 
 print "there are " + str(len(ar_vectors)) + " action vectors\n"
 
