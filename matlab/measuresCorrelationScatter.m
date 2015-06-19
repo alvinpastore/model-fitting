@@ -36,7 +36,7 @@ for playerID = 0:playersAmount-1
 
     %caxis([min(player_subresults_plot),max(player_subresults_plot)]);
     %colorbar
-    fileName = ['graphs_correlation_MLE_Prec\g-',num2str(playerID),'.eps'];
+    %fileName = ['graphs_correlation_MLE_Prec\g-',num2str(playerID),'.eps'];
     print(fig,'-depsc',fileName)
     clear  title xlabel ylabel;
     
