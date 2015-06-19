@@ -15,7 +15,7 @@ for playerID = 0:playersAmount-1
     correlations(playerID+1,:)  = [playerID R P];
     
     % interesting p-values
-    if P < 0.06
+    if P < 1
         disp(playerID);
         % sort vectors according to riskiness, keep association across rewards
         p = polyfit(risk_vector,reward_vector,1);
@@ -28,8 +28,8 @@ for playerID = 0:playersAmount-1
         plot(risk_vector,pp,'-b');
         
         title(['Player: ',num2str(playerID), '  -  P-value ', num2str(P)]);
-        xlabel('Risk')
-        ylabel('Reward')
+        xlabel('Risk');
+        ylabel('Reward');
         legend('Scatter','Regression','Location','NorthWest')
         hold off
         
