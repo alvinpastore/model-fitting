@@ -17,18 +17,19 @@ def integerise(values):
 
 
 path = 'results/'
-nActions = '7'
+nActions = '3'
 nRandomFiles = 10
-filename = 'results_RANDOM' + nActions + 'act_5000rep_0.1-1_alpha10-40_beta0.01-0.999_gamma_ur'
+filename = 'results_25cap_' + nActions + 'act_1000rep_0.1-1_alpha10-40_beta0.01-0.999_gamma_ur'
 out_lines = [[0] * 7] * 4646
 
-for i in xrange(10):
+''' TODO starts from 0 usually'''
+for i in xrange(1, 10):
     print "\nfile", i
     iFilename = filename + str(i) + ".csv"
 
     lines = [line.rstrip('\n') for line in open(path + iFilename, 'r')]
     for line_idx in xrange(len(lines)):
-        print "\nline", line_idx
+        # print "\nline", line_idx
 
         # print out_lines[line_idx]
         # print lines[line_idx]
