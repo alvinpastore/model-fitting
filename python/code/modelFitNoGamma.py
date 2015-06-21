@@ -176,6 +176,7 @@ else:
 
     print
     print 'Version history \n' \
+          '2.0.0 fixed bug where money was not reset after iteration\n' \
           '1.6.0 fixed bug on actions selection (extended to nActions)\n' \
           '1.5.0 adapted code for 4/5 bins\n' \
           '1.4.0 fixed bug of price (used to have only 2 decimal digits from crawling, now is calculated)\n' \
@@ -203,9 +204,6 @@ else:
         ti = time.time()
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
-        # RL set-up
-        money = 100000
-        state = 1
 
         # retrieve the transactions for each player
         transactions = db.select_transactions('transactions', player)
@@ -221,7 +219,12 @@ else:
 
                 for iteration in xrange(nIterations):
 
+                    # RL set-up
                     Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
+                    money = 100000
+                    state = 1
+
+                    # Measures set-up
                     tempMLE = 0
                     randMLE = 0
                     actionsAmount = 0

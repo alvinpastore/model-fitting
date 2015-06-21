@@ -16,14 +16,11 @@ def get_next_state(wealth, pfolio):
         # add total value of remaining stocks to money
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
-
-    if wealth < 60000:
+        print 'wealth',wealth
+    if wealth < 100000:
         return 0  # poor
-    elif wealth <= 100000:
-        return 1  # mid
-    else:  # wealth > 100000
-        return 2  # rich
-
+    else:
+        return 1  # rich
 
 
 def read_stock_file(b_type, b_amount):
@@ -161,7 +158,7 @@ else:
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
     bin_type = sys.argv[3]
-    nStates  = 3
+    nStates  = 2
     nActions = int(sys.argv[4])  # number of bins is the same of number of actions
     total_sell_trans = dict()
 
@@ -178,42 +175,7 @@ else:
 
     print
     print 'Version history \n' \
-          '2.0.0 fixed bug where money was not reset after iteration\n' \
-          '1.6.0 fixed bug on actions selection (extended to nActions)\n' \
-          '1.5.1 adapting code for 5 bins\n' \
-          '1.5.0 adapting code for 4 bins\n' \
-          '1.4.0 fixed bug of price (used to have only 2 decimal digits from crawling, now is calculated)\n' \
-          '1.3.0 rearranged database code in self contained class\n' \
-          '1.2.5 adapt code to new bins\n' \
-          '1.2.4 extend beta to 40 and raise poor threshold to 60k\n' \
-          '1.2.3 capping transactions at CAP (not needed to revert to greedy?)\n' \
-          '1.2.2 fixed bugs\n' \
-          '1.2.0 softmax reverts to greedy in case of numerical issues\n' \
-          '1.1.8 investigating numerical issues\n' \
-          '1.1.7 reduce beta to 15\n' \
-          '1.1.6 extend beta to 20\n' \
-          '1.1.5 extend beta to 10\n' \
-          '1.1.4 extend beta to 5\n' \
-          '1.1.3 fixed new_total for buy bug\n' \
-          '1.1.2 fixed bug of stock risk classification\n' \
-          '1.1.1 timing of process\n' \
-          '1.1.0 gamma is back\n' \
-          '1.0.2 beta range printed on save file\n' \
-          '1.0.1 testing scopes ' \
-          '1.0.0 migrated to GitHub\n' \
-          '0.8.2 printing player id together with name\n' \
-          '0.8.1 number of iteration to be passed as parameter when running from command line \n' \
-          '0.8.0 restricted the range of param alpha max=1\n' \
-          '0.7.9 widened the range of parameters\n' \
-          '0.7.8 pruned players with less than 15 actions \n' \
-          '0.7.7 back to 3 actions, rearranged code \n' \
-          '0.7.6 created a separate function for printing MLEs to console \n' \
-          '0.7.5 counting the total transactions \n' \
-          '0.7.4 stocks classified in 5 bins (5 actions)\n' \
-          '0.7.3 pruned players with less than 8 actions \n' \
-          '0.7.2 saving 1000 iterations \n' \
-          '0.7.1 fixed bug in update rule (gamma = 0 not 1) \n' \
-          '0.7.0 reward through custom hyperbolic tangent function \n'
+          '1.0.0 branching for 2 states (needs conflation in final version)\n'
 
     print 'nIterations', nIterations
     print 'total players: ' + str(len(players))
@@ -247,11 +209,12 @@ else:
                     avg_correct_actions = 0
 
                     for iteration in xrange(nIterations):
+                        raw_input()
 
                         # RL set-up
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
                         money = 100000
-                        state = 1
+                        state = 0
 
                         # Measures set-up
                         tempMLE = 0
@@ -368,6 +331,18 @@ else:
                                             TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
                                             Q[state][action] += alpha * TD_error
 
+                                            print
+                                            print 'player',player
+                                            print 'iteration',iteration
+                                            print 'money',money
+                                            print 'state',state
+                                            print 'stock',stock
+                                            print 'action',action
+                                            print 'MLEact',MLEaction
+
+                                            for q in Q:
+                                                print q
+                                            raw_input()
                                             state = next_state
 
                         total_sell_trans[player] = actionsAmount
@@ -394,7 +369,7 @@ else:
 
     save_filename = build_filename()
     # TODO  remove NEW from filename
-    saveMLEs('results/results_' + save_filename + '.csv')
+    saveMLEs('results/results_2states' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
 
