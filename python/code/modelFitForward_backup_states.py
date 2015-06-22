@@ -10,12 +10,20 @@ from DatabaseHandler import DatabaseHandler
 ''' ---- FUNCTIONS ---- '''
 
 
-def get_next_state(wealth):
-    # wealth is the profit up to this moment (calculated as sum of rewards)
-    if wealth < 0:
+def get_next_state(wealth, pfolio):
+    # at the end of each player trial check the total amount of money
+    for s in pfolio:
+        # add total value of remaining stocks to money
+        # (- because sign of total in portfolio is negative for assets)
+        wealth -= float(pfolio[s][2])
+
+    if wealth < 60000:
         return 0  # poor
-    else:
-        return 1  # rich
+    elif wealth <= 100000:
+        return 1  # mid
+    else:  # wealth > 100000
+        return 2  # rich
+
 
 
 def read_stock_file(b_type, b_amount):
@@ -153,7 +161,7 @@ else:
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
     bin_type = sys.argv[3]
-    nStates  = 2
+    nStates  = 3
     nActions = int(sys.argv[4])  # number of bins is the same of number of actions
     total_sell_trans = dict()
 
@@ -170,8 +178,6 @@ else:
 
     print
     print 'Version history \n' \
-          '3.0.0 changed states to 2 because money cannot be used as a proxy for states,' \
-          'using accumulated reward as proxy for state discretisation (above 0 rich, below 0 poor)\n' \
           '2.0.0 fixed bug where money was not reset after iteration\n' \
           '1.6.0 fixed bug on actions selection (extended to nActions)\n' \
           '1.5.1 adapting code for 5 bins\n' \
@@ -244,7 +250,7 @@ else:
 
                         # RL set-up
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
-                        profit = 0
+                        money = 100000
                         state = 1
 
                         # Measures set-up
@@ -284,14 +290,11 @@ else:
                                         else:
                                             portfolio[stock] = (volume, price, total)
 
-                                        ''' NO NEED TO CHANGE STATE SINCE IT DEPENDS ON PROFIT CHANGE
-                                        (only sells can modify it)
                                         # deduct money spent to purchase stock
                                         # (+ sign because the sign of the total is negative for purchases)
-                                        # money += total
+                                        money += total
 
-                                        # next_state = get_next_state(money, portfolio)
-                                        '''
+                                        next_state = get_next_state(money, portfolio)
 
                                     elif 'Sell' in a_type and stock:
 
@@ -322,8 +325,8 @@ else:
                                                 portfolio[stock] = (new_volume, old_price, new_volume * old_price)
                                                 # old_price so it is possible to calculate margin for future sells
 
-                                            # update profit with reward from sell
-                                            profit += reward
+                                            # update money with gain/loss from sell
+                                            money += total
 
                                             ''' SoftMax Action Selection '''
                                             terms = [0] * nActions
@@ -359,12 +362,11 @@ else:
                                             if MLEaction == action:
                                                 correct_actions += 1
 
-                                            next_state = get_next_state(profit)
+                                            next_state = get_next_state(money, portfolio)
 
                                             ''' Qvalues update '''
                                             TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
                                             Q[state][action] += alpha * TD_error
-
 
                                             state = next_state
 
@@ -392,7 +394,7 @@ else:
 
     save_filename = build_filename()
     # TODO  remove NEW from filename
-    saveMLEs('results/results_NEWSTATES_' + save_filename + '.csv')
+    saveMLEs('results/results_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
 
