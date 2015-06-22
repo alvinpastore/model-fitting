@@ -2,7 +2,7 @@ plot_variance = @(x,lower,upper,color) set(fill([x,x(end:-1:1)],[upper,lower(end
 
 tic;
 close all;
-models = [3,4,5,7,10];
+models = [2,3,4,5,7,10];
 
 
 % data structure to hold the performances of all the results available

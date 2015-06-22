@@ -2,17 +2,17 @@
 
 % 4 compare against alternative model (including nogamma)
 % 5 compare against random model
-CONFIG_COMPARISON = 4;
+CONFIG_COMPARISON = 5;
 
 % 0 for other models
 % 1 for nogamma models (less columns in results (5 instead of 6))
 NOGAMMA_COMPARISON = 0;
 
 % Dumb player number (0 for no dumb player)
-DUMB_PLAYER = 7;
+DUMB_PLAYER = 0;
 
 % number of actions for RANDOM COMPARISON
-ACTIONS_AMOUNT = 7;
+ACTIONS_AMOUNT = 10;
 
 % name of ALTERNATIVE MODEL
 ALTERNATIVE_MODEL = ['Dumb Player ' num2str(DUMB_PLAYER)];

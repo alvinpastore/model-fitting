@@ -86,7 +86,7 @@ if len(sys.argv) < 2:
 else:
     print 'The ordered bins are buggy: 107/4: 4bins of 26 and 1 of 3'
     print 'Random bins are fine 3 bins of 27 and one of 26'
-    
+
     all_stock = {}
     highest_std = 8582946964.77
     bins_amount = int(sys.argv[1])

@@ -16,7 +16,6 @@ def get_next_state(wealth, pfolio):
         # add total value of remaining stocks to money
         # (- because sign of total in portfolio is negative for assets)
         wealth -= float(pfolio[s][2])
-        print 'wealth',wealth
     if wealth < 100000:
         return 0  # poor
     else:
@@ -209,7 +208,7 @@ else:
                     avg_correct_actions = 0
 
                     for iteration in xrange(nIterations):
-                        raw_input()
+
 
                         # RL set-up
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
@@ -330,7 +329,7 @@ else:
                                             ''' Qvalues update '''
                                             TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
                                             Q[state][action] += alpha * TD_error
-
+                                            '''
                                             print
                                             print 'player',player
                                             print 'iteration',iteration
@@ -343,6 +342,7 @@ else:
                                             for q in Q:
                                                 print q
                                             raw_input()
+                                            '''
                                             state = next_state
 
                         total_sell_trans[player] = actionsAmount
