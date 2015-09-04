@@ -54,7 +54,6 @@ def random_bins(stocks, b_amount, b_size, bs, n):
     larger_bins = len(bs) % b_amount
     # print "larger_bins", larger_bins
 
-
     # keep adding to the i-th bin till its full (bin size < stock amount / bins amount)
     while len(bs) > 0:
         # print "\nlarger bins", larger_bins
@@ -70,12 +69,8 @@ def random_bins(stocks, b_amount, b_size, bs, n):
         bin_idx += 1
         larger_bins -= 1
 
-    # for b in rand_bins:
-    #    print len(b)
-    #    print b
-    #    print
 
-    write_bins(rootdir + "risk_classified_stocks/" + "uniform_random_"
+    write_bins(rootdir + "risk_classified_stocks/" + str(bins_amount) + "/uniform_random_"
                + str(bins_amount) + "_" + str(n) + ".txt", rand_bins)
 
 ''' MAIN '''
@@ -197,10 +192,11 @@ else:
     #     print b
     #     print
 
-    # Save bins to file
-    write_bins(rootdir + "risk_classified_stocks/" + "uniform_" + str(bins_amount) + ".txt", stock_bins)
-
     if RANDOM:
         for i in range(0, RANDOM):
             b_copy = betas.copy()
             random_bins(all_stock, bins_amount, bin_size, b_copy, i)
+    else:
+        # Save bins to file
+        write_bins(rootdir + "risk_classified_stocks/" + str(bins_amount) +
+                   "/uniform_" + str(bins_amount) + ".txt", stock_bins)
