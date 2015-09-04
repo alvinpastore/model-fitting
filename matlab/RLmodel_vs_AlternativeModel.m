@@ -2,7 +2,7 @@
 
 % 4 compare against alternative model (including nogamma)
 % 5 compare against random model
-CONFIG_COMPARISON = 5;
+CONFIG_COMPARISON = 4;
 
 % 0 for other models
 % 1 for nogamma models (less columns in results (5 instead of 6))
@@ -12,10 +12,11 @@ NOGAMMA_COMPARISON = 0;
 DUMB_PLAYER = 0;
 
 % number of actions for RANDOM COMPARISON
-ACTIONS_AMOUNT = 10;
+ACTIONS_AMOUNT = 3;
 
 % name of ALTERNATIVE MODEL
-ALTERNATIVE_MODEL = ['Dumb Player ' num2str(DUMB_PLAYER)];
+ALTERNATIVE_MODEL = ['Scrambled Bins'];
+%['Dumb Player ' num2str(DUMB_PLAYER)];
 
 MODEL_DESCRIPTION = [num2str(ACTIONS_AMOUNT),' actions vs '];
 
