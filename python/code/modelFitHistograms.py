@@ -1,227 +1,212 @@
 from __future__ import division
-import os
 import sys
-import MySQLdb
 import random
 import numpy as np
 from datetime import datetime
+import time
 from math import log
-import operator
-
+import warnings
+from DatabaseHandler import DatabaseHandler
 ''' ---- FUNCTIONS ---- '''
-def read_stock_file(path):
-    stock_list_file = open(path, 'r')
+
+
+def read_stock_file(b_type, b_amount):
+    file_number = -1
+    path = "../../data/risk_classified_stocks/"
+    if 'u' in b_type:
+        path += 'uniform_'
+    elif 's' in b_type:
+        path += 'skewed_'
+    else:
+        print 'Risk distribution bin-type not valid'
+        sys.exit()
+    if 'r' in b_type:
+        path += 'random_'
+        file_number = int(b_type.split("r")[1])
+        print file_number
+
+    path += str(b_amount) + '.txt' if file_number < 0 else str(b_amount) + '_' + str(file_number) + '.txt'
+
     stocks = dict()
-    risk_flag = 0
+    risk_idx = -1
+    with open(path, 'r') as stock_list_file:
+        for line in stock_list_file:
+            if '~' in line:
+                stocks[line.split('~')[0]] = risk_idx
+            else:
+                risk_idx += 1
 
-    for line in stock_list_file:
-        if "LOW" in line:
-            risk_flag = 0
-        elif "MID" in line:
-            risk_flag = 1
-        elif "HIGH" in line:
-            risk_flag = 2
-        elif line.strip():
-            stocks[line.split("~")[0]] = risk_flag
-
-    stock_list_file.close()
     return stocks
 
-def connect_DB(host, user, pw, database):
-    # Open Database connection
-    db = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    cursor = db.cursor()
-    return cursor, db
-
-
-def close_DB():
-    db.close()
-
-
-def select_players(table, cursor, db):
-
-    # Execute SQL query
-    cursor.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    db.commit()
-    results = cursor.fetchall()
-    # get the list of names of the players
-    names = []
-    for r in results:
-        names.append(r[0])
-    return names
-
-
-def select_transactions(table, name, cursor, db):
-    # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(name) + '"' + 'ORDER BY date, type'
-    try:
-        cursor.execute(query)
-    except MySQLdb.Error, e:
-        print "Error in QUERY", query
-        raw_input("press any key to continue")
-    db.commit()
-    player_transactions = cursor.fetchall()
-    return player_transactions
-
-def filter_players(all_players,threshold_file):
-    t_players =  [line.rstrip('\n') for line in open(threshold_file,'r')]
+def filter_players(all_players, threshold_file):
+    t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
 
-def select_action():
+def select_action(temporaryMLE):
     random_dice = random.random()
 
-    if random_dice < 1/3:
-        MLEaction = 0
-    elif 1/3 <= random_dice < 2/3:
-        MLEaction = 1
-    else:
-        MLEaction = 2
+    bin_idx = 0
+    term_idx = 0
 
-    return MLEaction
+    while term_idx < nActions:
+        bin_idx += terms[term_idx]
+        term_idx += 1
+        if random_dice < bin_idx:
+            MLE_act = term_idx - 1
+            break
+
+    if terms[MLE_act] > 0:
+        temporaryMLE += log(terms[MLE_act])
+    else:
+        temporaryMLE = 0
+
+    return temporaryMLE, MLE_act
+
+
+def htan_custom(xx, factor):
+    return (1 - np.exp(- xx * factor)) / (1 + np.exp(- xx * factor))
+
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
+t0 = time.time()
 
-# Read the stocks previously classified according to their risk
-stock_risk = read_stock_file("../../data/risk_classified_stocks_3.txt")
+if len(sys.argv) < 3:
+    print 'Usage: python modelFitHistograms.py  C  B\n' \
+          'C = number of max transactions to consider (min = 16, max = 107)\n' \
+          'B = number of bins'
 
-# connect to DB and get the cursor and the db
-cursor_and_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
-cursor = cursor_and_db[0]
-db     = cursor_and_db[1]
+elif int(sys.argv[1]) < 16 or int(sys.argv[1]) > 107:
+    print 'C = number of max transactions to consider (min = 16, max = 107)'
 
-# retrieve players
-players = filter_players(select_players('transactions', cursor, db),'players_threshold')
+else:
 
-print 'Version 0.1'
-print 'total players: ' + str(len(players))
+    ''' SETUP '''
+    HTAN_REWARD_SIGMA = 500
+    CAP = int(sys.argv[1])
+    nActions = int(sys.argv[2])
+    bin_type = 'u'
 
+    # Read the stocks previously classified according to their risk
+    stock_risk = read_stock_file(bin_type, nActions)
+    # connect to DB
+    db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
+    # retrieve players
+    db_players = db.select_players('transactions')
+    players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-rewards = dict()
-actions = list()
+    print 'Version history \n' \
+          '1.0.0 code rewritten, generalised actions/states number, database access, ' \
+          'now recording profit along with reward and actions\n' \
+          '0.0.1 first version'
 
-randomMLEs = dict()
+    print 'total players: ' + str(len(players))
 
-for player in players:
+    player_statistics = {}
 
-    print player
-    #actions[player] = dict()
+    for player in players:
+        ti = time.time()
 
-    # retrieve the transactions for each player
-    transactions = select_transactions('transactions', player, cursor, db)
+        playerID = players.index(player)
 
-    # store the stocks purchased for future estimation of reward
-    portfolio = dict()
+        # structure to store reward_base, reward and profit
+        player_statistics[playerID] = []
+        profit = 0
+        actionsAmount = 0
 
-    actions_amount = 0
-    correct_actions = 0
-    for transaction in transactions:
+        print '\n' + str(playerID) + ' : ' + str(player)
 
-        # get only buy/sell actions
-        if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
+        # retrieve the transactions for each player
+        transactions = db.select_transactions('transactions', player)
 
-            name        = str(transaction[1])
-            date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
-            date        = datetime.strptime(date_string,'%Y %m %d')
-            type        = str(transaction[3])
-            stock       = str(transaction[4])
-            volume      = int(transaction[5])
-            price       = float(transaction[6])
-            total       = float(transaction[7])
+        # store the stocks purchased for future estimation of reward
+        portfolio = dict()
 
-            if 'Buy' in type and stock:
-                # save the stocks that have been purchased
-                if stock in portfolio:
-                    old_volume = portfolio[stock][0]
-                    old_price  = portfolio[stock][1]
-                    old_total  = portfolio[stock][2]
-                    new_volume = volume + old_volume
-                    new_price  = ((price * volume) + (old_volume * old_price)) / (volume + old_volume)
-                    new_total  = old_total + (price * volume)
-                    portfolio[stock] = (new_volume, new_price, new_total)
-                else:
-                    portfolio[stock] = (volume, price, total)
+        for transaction in transactions:
 
-                # deduct money spent to purchase stock
-                # (+ sign because the sign of the total is negative for purchases)
+            # CAP transactions amount
+            if actionsAmount < CAP:
 
-            elif 'Sell' in type and stock:
+                # get only buy/sell actions
+                if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
 
-                if stock not in portfolio:
-                    print ':::::::::::::::::::::::::::::::::::::::::::::::'
-                    print player
-                    print 'stock', stock
-                    print 'portfolio', portfolio
-                    # messed up player
-                    break
-                else:
-                    actions_amount += 1
+                    name        = str(transaction[1])
+                    date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
+                    date        = datetime.strptime(date_string, '%Y %m %d')
+                    a_type      = str(transaction[3])
+                    stock       = str(transaction[4])
+                    volume      = int(transaction[5])
+                    total       = float(transaction[7])
+                    # price       = float(transaction[6])
+                    # deprecated: decimal precision incorrect for average price calculation
+                    price = abs(total / volume)
 
-                    old_volume = portfolio[stock][0]
-                    old_price  = portfolio[stock][1]
-                    old_total  = portfolio[stock][2]
+                    if 'Buy' in a_type and stock:
+                        # save the stocks that have been purchased
+                        if stock in portfolio:
+                            old_volume = portfolio[stock][0]
+                            old_price  = portfolio[stock][1]
+                            old_total  = portfolio[stock][2]
+                            new_volume = volume + old_volume
+                            new_price  = abs((total + old_total) / (volume + old_volume))
+                            new_total  = old_total + total
+                            portfolio[stock] = (new_volume, new_price, new_total)
+                        else:
+                            portfolio[stock] = (volume, price, total)
 
-                    '''
-                    # the reward is the gain on the price times the number of shares sold
-                    reward = round(((price - old_price) * volume),0)
+                        ''' NO NEED TO CHANGE STATE SINCE IT DEPENDS ON PROFIT CHANGE
+                        (only sells can modify it)
+                        # deduct money spent to purchase stock
+                        # (+ sign because the sign of the total is negative for purchases)
+                        # money += total
 
-                    if reward in rewards:
-                        rewards[reward] += 1
-                    else:
-                        rewards[reward] = 1
-                    '''
+                        # next_state = get_next_state(money, portfolio)
+                        '''
 
-                    # select the action really picked by player
-                    action = stock_risk[stock]
+                    elif 'Sell' in a_type and stock:
 
-                    correct_actions_temp = 0
-                    repetitions = 100000
-                    for i in xrange(repetitions):
-                        random_action = select_action()
+                        if stock not in portfolio:
+                            print player
+                            print 'stock', stock
+                            print 'portfolio', portfolio
+                            # messed up player
+                            break
+                        else:
 
-                        # Precision calculation (counting correctly predicted actions)
-                        if random_action == action:
-                            correct_actions_temp += 1
+                            actionsAmount += 1
+                            old_volume = portfolio[stock][0]
+                            old_price  = portfolio[stock][1]
+                            old_total  = portfolio[stock][2]
 
-                    #print 'correct_actions_temp',correct_actions_temp
-                    correct_actions += correct_actions_temp / repetitions
-                    #print 'correct_actions',correct_actions
-                    #print 'actions_amount',actions_amount
-                    #raw_input()
+                            # the reward is the gain on the price times the number of shares sold
+                            reward_base = ((price - old_price) * volume)
+                            reward = htan_custom(reward_base, 1 / HTAN_REWARD_SIGMA)
 
-    actions.append((player, correct_actions/actions_amount , actions_amount))
+                            # if all shares for the stock have been sold delete stock from portfolio
+                            # otherwise update the values (new_volume, old_price, new_total)
+                            new_volume = old_volume - volume
+                            if new_volume <= 0:
+                                del portfolio[stock]
+                            else:
+                                portfolio[stock] = (new_volume, old_price, new_volume * old_price)
+                                # old_price so it is possible to calculate margin for future sells
 
+                            # update profit with reward from sell
+                            profit += reward
 
+                            # select the action really picked by player
+                            action = stock_risk[stock]
 
-#rewards_file = open('histogram_rewards.csv','w')
-actions_file = open('histogram_actions_nostring.csv','w')
-#print str(len(rewards))
-#for r in sorted(rewards):
-#    print str(int(r)) + ' ' +  str(rewards[r])
-    #rewards_file.write(str(int(r)) + ' , ' +  str(rewards[r]) + '\n')
+                            player_statistics[playerID].append((reward_base, reward, profit))
 
+        print str((time.time() - ti) / 60) + ' minutes'
 
-for t in sorted(actions, key=lambda tup: tup[2]):
-    print t
-    #actions_file.write(str(players.index(t[0]))+' , ' +str(t[1]) + ' , ' + str(t[2]) + '\n')
+    db.close()
+    print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
 
-#for p in sorted(actions.values(), key=operator.itemgetter(1)):
-#    print p
-#    print p[0]
-#    print p[1]
-#    print p[2]
-#    raw_input()
-#    print str(p[0]) + ' ' + str(p['total']) + ' ' + str(p['precision'])
-#    actions_file.write(str(p[0]) + ' , ' + str(p[1]['total']) + ' , ' +  str(p[1]['precision']) + '\n')
-
-#for act in actions:
-#    print str(act) + ":" + str(actions[act]['precision']) + " vs " + str(actions[act]['total'])
-
-
-#rewards_file.close()
-actions_file.close()
-close_DB()
-
-
+    with open('results/stats/players_stats_' + str(CAP) + 'cap_' + str(nActions) + 'act.csv', 'w') as out_file:
+        for p in player_statistics:
+            for item in player_statistics[p]:
+                out_file.write(str(p) + ", " + str(item[0]) + ", " + str(item[1]) + ", " + str(item[2]) + "\n")

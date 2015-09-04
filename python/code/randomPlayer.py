@@ -2,15 +2,15 @@ from __future__ import division
 import sys
 import random
 import time
-from math import log
-from math import sqrt
+from math import log, sqrt
+
 from DatabaseHandler import DatabaseHandler
 
 ''' ---- FUNCTIONS ---- '''
 
 
 def read_stock_file(b_type, b_amount):
-    path = "../../data/risk_classified_stocks/"
+    path = "../../data/risk_classified_stocks/" + str(b_amount) + "/"
     if 'u' in b_type:
         path += 'uniform_'
     elif 's' in b_type:
@@ -38,8 +38,6 @@ def read_stock_file(b_type, b_amount):
 def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
-
-
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
@@ -74,16 +72,19 @@ else:
     db_players = db.select_players('transactions')
     players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-    #print 'total players: ' + str(len(players))
+    # print 'total players: ' + str(len(players))
 
     # data structure that contains the MLEs and precisions
     randomPlayers = []
-    outfile = open('test_random' + str(nActions) + '.csv', 'w')
+
+    '''outfile = open('test_random' + str(nActions) + '.csv', 'w')'''
+    # save data points for central limit theorem demonstration
+    CLT_P_file = open('results/CLT/CLT_P_' + str(nActions) + '.csv', 'w')
 
     for player in players:
 
         print '\n' + str(players.index(player)) + ' : ' + str(player)
-        outfile.write(str(players.index(player)) + ", ")
+        '''outfile.write(str(players.index(player)) + ", ")'''
 
         # retrieve the transactions for each player
         transactions = db.select_transactions('transactions', player)
@@ -115,6 +116,7 @@ else:
 
                         action = stock_risk[stock]
 
+                        # nActions - 1 because we start counting from 0
                         random_action = random.randint(0, nActions - 1)
 
                         # update MLE
@@ -122,17 +124,20 @@ else:
 
                         # update precision
                         if random_action == action:
-                            correctActions += 1
+                            correct_actions += 1
 
             avg_MLE += tempMLE
-            avg_correct_actions += correctActions
-            local_precision = correctActions / actionsAmount * 100
+            avg_correct_actions += correct_actions
+            local_precision = correct_actions / actionsAmount * 100
 
             # running variance calculations
             n += 1
             delta = local_precision - mean
             mean = mean + delta / n
             M2 = M2 + delta * (local_precision - mean)
+
+            # store precision of each iteration
+            CLT_P_file.write(str(local_precision) + ", ")
 
         avg_MLE /= repetitions
         avg_MLE = -avg_MLE
@@ -143,13 +148,17 @@ else:
 
         variance = M2 / n
         std_dev = sqrt(variance)
-        print std_dev
-        outfile.write("{0:.3f}, {1:.3f}\n".format(precision, std_dev))
+
+        '''outfile.write("{0:.3f}, {1:.3f}\n".format(precision, std_dev))'''
+        CLT_P_file.write(str(actionsAmount) + "\n")
+
         # print "nMLE: {0:.3f} \naMLE: {1:.3f}\nPrec: {2:.2f}%\nVar: {3:.2f}\nStdev: {4:.2f}".\
         #    format(avg_MLE, analytical_MLE, precision * 100, variance, std_dev)
 
         # print str(actionsAmount) + ' transactions '
 
     db.close()
-    outfile.close()
-print str((time.time() - t0)) + ' seconds'
+    '''outfile.close()'''
+    CLT_P_file.close()
+
+    print str((time.time() - t0)) + ' seconds'
