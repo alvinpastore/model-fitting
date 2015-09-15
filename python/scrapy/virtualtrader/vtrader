@@ -1,0 +1,879 @@
+
+
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="utf-8" />
+    <!--[if lt IE 9]><script src="/Javascript/html5.js"></script><![endif]-->
+
+
+    
+    <script src="/webservice/minify.ashx?type=js&files=/javascript/jquery.js,/Javascript/jquery.ui.js,/Javascript/jquery.tab.js,/Javascript/jquery.combobox.js,/Javascript/follow.js,/Javascript/highstock.js,/Javascript/Base.js,/Javascript/Lib.js,/Javascript/bootstrap.min.js,/Javascript/cookie.js&version=635324744914443923"></script><link rel="stylesheet" href="/App_Themes/Default/minify.ashx?type=css&files=/App_Themes/Default/Default.css,/App_Themes/Default/UBB.css,/App_Themes/Default/ComboBox.css,/App_Themes/Default/Forum.css,/App_Themes/Default/Fonts.css,/App_Themes/Default/Overlay.css,/App_Themes/Default/Cookie.css,/App_Themes/Default/Follow.css&version=635324744914443923" type="text/css" media="all"></link>
+        
+    <link href="http://img.iex.nl/_VT.net/VirtualTrader.co.uk/default.css" rel="stylesheet" type="text/css" /><meta property="fb:app_id" content="388213491249043" /><!-- HEAD -->
+
+<!--[if IE 9]>
+<style>
+    * {letter-spacing: -0.5px;}
+	.gradient { filter: none; }
+</style>
+<![endif]-->
+
+<script src="http://img.iex.nl/_VT.net/Roularta/javascript/css_browser_selector.js"></script>
+<script src="http://img.iex.nl/_VT.net/VirtualTrader.co.uk/javascript/fancybox/jquery.fancybox-1.2.6.pack.js"></script>
+<link href="http://img.iex.nl/_VT.net/VirtualTrader.co.uk/javascript/fancybox/jquery.fancybox-1.2.6.css" rel="stylesheet" type="text/css">
+
+<script>
+  $(function() {
+    $( ".ClientTab" ).enableTabs();
+    $("a.zoom").fancybox({		
+      'zoomOpacity'			: true,
+      'overlayShow'			: true,
+      'overlayColor'			: '#333',
+      'overlayOpacity'		: '0.6'
+    });
+  }); 
+</script>
+
+<!-- Facebook Javascript -->
+<script>    
+  	(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=388213491249043";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Twitter Javascript -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> 
+
+<link rel="icon" type="image/x-icon" href="http://img.iex.nl/_VT.net/VirtualTrader.co.uk/images/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="http://img.iex.nl/_VT.net/VirtualTrader.co.uk/images/favicon.ico" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+<meta property="og:description" content="Virtualtrader, Master the Stock Market. Trade in securities, stocks and manage your own portfolio." /> 
+<meta property="og:image" content="http://img.iex.nl/_VT.net/VirtualTrader.co.uk/images/fb-icon_VirtualTrader.png" />
+<meta property="og:title" content="Virtual Trader - UK's Largest Investment Game" />
+
+<meta name="viewport" content="width=1010">
+
+<script type='text/javascript'>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function() {
+  var gads = document.createElement('script');
+  gads.async = true;
+  gads.type = 'text/javascript';
+  var useSSL = 'https:' == document.location.protocol;
+  gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+  var node = document.getElementsByTagName('script')[0];
+  node.parentNode.insertBefore(gads, node);
+  })();
+</script>
+
+<script type='text/javascript'>
+  googletag.cmd.push(function() {
+  googletag.defineSlot('/4087761/VirtualTrader_Leaderboard', [728, 90], 'div-gpt-ad-1369912610403-0').addService(googletag.pubads());
+  googletag.defineSlot('/4087761/VirtualTrader_Rectangle2', [300, 250], 'div-gpt-ad-1369912610403-1').addService(googletag.pubads());
+  googletag.pubads().collapseEmptyDivs();
+  googletag.pubads().enableSingleRequest();
+  googletag.enableServices();
+  });
+</script>
+
+
+<!-- /HEAD -->
+
+<link href="http://virtualtrader.co.uk/vtrader/Ranking.aspx" rel="canonical" /><meta property="og:type" content="article" /><meta property="og:url" content="http://virtualtrader.co.uk/vtrader/Ranking.aspx" /><meta property="og:locale" content="nl_NL" /><title>
+	Ranking | VirtualTrader.co.uk
+</title></head>
+<body>
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+        //Base variables
+        var IsLoggedOn = false;
+        var CurrentUserId = 0;
+        var EventFollowingHash = 6715;
+        var AjaxSource = 'http://www.iex.nl';
+    </script>
+
+    <form name="aspnetForm" method="post" action="/vtrader/Ranking.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTQxNTU5NDkxMQ9kFgJmD2QWCmYPZBYCAgUPFgIeBFRleHQFshg8IS0tIEhFQUQgLS0+DQoNCjwhLS1baWYgSUUgOV0+DQo8c3R5bGU+DQogICAgKiB7bGV0dGVyLXNwYWNpbmc6IC0wLjVweDt9DQoJLmdyYWRpZW50IHsgZmlsdGVyOiBub25lOyB9DQo8L3N0eWxlPg0KPCFbZW5kaWZdLS0+DQoNCjxzY3JpcHQgc3JjPSJodHRwOi8vaW1nLmlleC5ubC9fVlQubmV0L1JvdWxhcnRhL2phdmFzY3JpcHQvY3NzX2Jyb3dzZXJfc2VsZWN0b3IuanMiPjwvc2NyaXB0Pg0KPHNjcmlwdCBzcmM9Imh0dHA6Ly9pbWcuaWV4Lm5sL19WVC5uZXQvVmlydHVhbFRyYWRlci5jby51ay9qYXZhc2NyaXB0L2ZhbmN5Ym94L2pxdWVyeS5mYW5jeWJveC0xLjIuNi5wYWNrLmpzIj48L3NjcmlwdD4NCjxsaW5rIGhyZWY9Imh0dHA6Ly9pbWcuaWV4Lm5sL19WVC5uZXQvVmlydHVhbFRyYWRlci5jby51ay9qYXZhc2NyaXB0L2ZhbmN5Ym94L2pxdWVyeS5mYW5jeWJveC0xLjIuNi5jc3MiIHJlbD0ic3R5bGVzaGVldCIgdHlwZT0idGV4dC9jc3MiPg0KDQo8c2NyaXB0Pg0KICAkKGZ1bmN0aW9uKCkgew0KICAgICQoICIuQ2xpZW50VGFiIiApLmVuYWJsZVRhYnMoKTsNCiAgICAkKCJhLnpvb20iKS5mYW5jeWJveCh7CQkNCiAgICAgICd6b29tT3BhY2l0eScJCQk6IHRydWUsDQogICAgICAnb3ZlcmxheVNob3cnCQkJOiB0cnVlLA0KICAgICAgJ292ZXJsYXlDb2xvcicJCQk6ICcjMzMzJywNCiAgICAgICdvdmVybGF5T3BhY2l0eScJCTogJzAuNicNCiAgICB9KTsNCiAgfSk7IA0KPC9zY3JpcHQ+DQoNCjwhLS0gRmFjZWJvb2sgSmF2YXNjcmlwdCAtLT4NCjxzY3JpcHQ+ICAgIA0KICAJKGZ1bmN0aW9uIChkLCBzLCBpZCkgew0KICAgICAgICB2YXIganMsIGZqcyA9IGQuZ2V0RWxlbWVudHNCeVRhZ05hbWUocylbMF07DQogICAgICAgIGlmIChkLmdldEVsZW1lbnRCeUlkKGlkKSkgcmV0dXJuOw0KICAgICAgICBqcyA9IGQuY3JlYXRlRWxlbWVudChzKTsganMuaWQgPSBpZDsNCiAgICAgICAganMuc3JjID0gIi8vY29ubmVjdC5mYWNlYm9vay5uZXQvZW5fVVMvYWxsLmpzI3hmYm1sPTEmYXBwSWQ9Mzg4MjEzNDkxMjQ5MDQzIjsNCiAgICAgICAgZmpzLnBhcmVudE5vZGUuaW5zZXJ0QmVmb3JlKGpzLCBmanMpOw0KICAgIH0gKGRvY3VtZW50LCAnc2NyaXB0JywgJ2ZhY2Vib29rLWpzc2RrJykpOw0KPC9zY3JpcHQ+DQoNCjwhLS0gVHdpdHRlciBKYXZhc2NyaXB0IC0tPg0KPHNjcmlwdD4hZnVuY3Rpb24oZCxzLGlkKXt2YXIganMsZmpzPWQuZ2V0RWxlbWVudHNCeVRhZ05hbWUocylbMF07aWYoIWQuZ2V0RWxlbWVudEJ5SWQoaWQpKXtqcz1kLmNyZWF0ZUVsZW1lbnQocyk7anMuaWQ9aWQ7anMuc3JjPSIvL3BsYXRmb3JtLnR3aXR0ZXIuY29tL3dpZGdldHMuanMiO2Zqcy5wYXJlbnROb2RlLmluc2VydEJlZm9yZShqcyxmanMpO319KGRvY3VtZW50LCJzY3JpcHQiLCJ0d2l0dGVyLXdqcyIpOzwvc2NyaXB0PiANCg0KPGxpbmsgcmVsPSJpY29uIiB0eXBlPSJpbWFnZS94LWljb24iIGhyZWY9Imh0dHA6Ly9pbWcuaWV4Lm5sL19WVC5uZXQvVmlydHVhbFRyYWRlci5jby51ay9pbWFnZXMvZmF2aWNvbi5pY28iIC8+DQo8bGluayByZWw9InNob3J0Y3V0IGljb24iIHR5cGU9ImltYWdlL3gtaWNvbiIgaHJlZj0iaHR0cDovL2ltZy5pZXgubmwvX1ZULm5ldC9WaXJ0dWFsVHJhZGVyLmNvLnVrL2ltYWdlcy9mYXZpY29uLmljbyIgLz4NCjxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9OSIgLz4NCg0KPG1ldGEgcHJvcGVydHk9Im9nOmRlc2NyaXB0aW9uIiBjb250ZW50PSJWaXJ0dWFsdHJhZGVyLCBNYXN0ZXIgdGhlIFN0b2NrIE1hcmtldC4gVHJhZGUgaW4gc2VjdXJpdGllcywgc3RvY2tzIGFuZCBtYW5hZ2UgeW91ciBvd24gcG9ydGZvbGlvLiIgLz4gDQo8bWV0YSBwcm9wZXJ0eT0ib2c6aW1hZ2UiIGNvbnRlbnQ9Imh0dHA6Ly9pbWcuaWV4Lm5sL19WVC5uZXQvVmlydHVhbFRyYWRlci5jby51ay9pbWFnZXMvZmItaWNvbl9WaXJ0dWFsVHJhZGVyLnBuZyIgLz4NCjxtZXRhIHByb3BlcnR5PSJvZzp0aXRsZSIgY29udGVudD0iVmlydHVhbCBUcmFkZXIgLSBVSydzIExhcmdlc3QgSW52ZXN0bWVudCBHYW1lIiAvPg0KDQo8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9MTAxMCI+DQoNCjxzY3JpcHQgdHlwZT0ndGV4dC9qYXZhc2NyaXB0Jz4NCiAgdmFyIGdvb2dsZXRhZyA9IGdvb2dsZXRhZyB8fCB7fTsNCiAgZ29vZ2xldGFnLmNtZCA9IGdvb2dsZXRhZy5jbWQgfHwgW107DQogIChmdW5jdGlvbigpIHsNCiAgdmFyIGdhZHMgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKTsNCiAgZ2Fkcy5hc3luYyA9IHRydWU7DQogIGdhZHMudHlwZSA9ICd0ZXh0L2phdmFzY3JpcHQnOw0KICB2YXIgdXNlU1NMID0gJ2h0dHBzOicgPT0gZG9jdW1lbnQubG9jYXRpb24ucHJvdG9jb2w7DQogIGdhZHMuc3JjID0gKHVzZVNTTCA/ICdodHRwczonIDogJ2h0dHA6JykgKyAnLy93d3cuZ29vZ2xldGFnc2VydmljZXMuY29tL3RhZy9qcy9ncHQuanMnOw0KICB2YXIgbm9kZSA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCdzY3JpcHQnKVswXTsNCiAgbm9kZS5wYXJlbnROb2RlLmluc2VydEJlZm9yZShnYWRzLCBub2RlKTsNCiAgfSkoKTsNCjwvc2NyaXB0Pg0KDQo8c2NyaXB0IHR5cGU9J3RleHQvamF2YXNjcmlwdCc+DQogIGdvb2dsZXRhZy5jbWQucHVzaChmdW5jdGlvbigpIHsNCiAgZ29vZ2xldGFnLmRlZmluZVNsb3QoJy80MDg3NzYxL1ZpcnR1YWxUcmFkZXJfTGVhZGVyYm9hcmQnLCBbNzI4LCA5MF0sICdkaXYtZ3B0LWFkLTEzNjk5MTI2MTA0MDMtMCcpLmFkZFNlcnZpY2UoZ29vZ2xldGFnLnB1YmFkcygpKTsNCiAgZ29vZ2xldGFnLmRlZmluZVNsb3QoJy80MDg3NzYxL1ZpcnR1YWxUcmFkZXJfUmVjdGFuZ2xlMicsIFszMDAsIDI1MF0sICdkaXYtZ3B0LWFkLTEzNjk5MTI2MTA0MDMtMScpLmFkZFNlcnZpY2UoZ29vZ2xldGFnLnB1YmFkcygpKTsNCiAgZ29vZ2xldGFnLnB1YmFkcygpLmNvbGxhcHNlRW1wdHlEaXZzKCk7DQogIGdvb2dsZXRhZy5wdWJhZHMoKS5lbmFibGVTaW5nbGVSZXF1ZXN0KCk7DQogIGdvb2dsZXRhZy5lbmFibGVTZXJ2aWNlcygpOw0KICB9KTsNCjwvc2NyaXB0Pg0KDQoNCjwhLS0gL0hFQUQgLS0+DQoNCmQCAQ8WAh8ABQQ2NzE1ZAICDxYCHwAFEWh0dHA6Ly93d3cuaWV4Lm5sZAIDEGRkFgICAw8WAh4FY2xhc3MFLnZ0cmFkZXJfcmFua2luZyBDb250YWluZXIgIHZ0bmV0IElzTm90TG9nZ2VkT24WDAIBD2QWAgIBD2QWAmYPZBYEAgIPZBYCZg8WAh8BBQxQZXJzb25hbE1lbnUWAgIBDxYCHgtfIUl0ZW1Db3VudAICFgQCAQ9kFgICAQ8WAh8BBRtzaWduLXVwIGhhc05vQ2hpbGRyZW4gRmlyc3QWBAIBDw8WAh4LTmF2aWdhdGVVcmwFFH4vbWVtYmVyL3NpZ251cC5hc3B4ZBYCZg8VAQdTaWduIFVwZAIDDxYEHwIC/////w8eB1Zpc2libGVoZAICD2QWAgIBDxYCHwEFGWxvZy1pbiBoYXNOb0NoaWxkcmVuIExhc3QWBAIBDw8WAh8DBRN+L21lbWJlci9sb2dpbi5hc3B4ZBYCZg8VAQZMb2cgSW5kAgMPFgQfAgL/////Dx8EaGQCBA9kFgJmDxYCHwEFFE1haW5NZW51IFdpdGhTdWJNZW51FgICAQ8WAh8CAgcWDgIBD2QWAgIBDxYCHwEFGGhvbWUgaGFzTm9DaGlsZHJlbiBGaXJzdBYEAgEPDxYCHwMFDn4vZGVmYXVsdC5hc3B4ZBYCZg8VAQRIb21lZAIDDxYEHwIC/////w8fBGhkAgIPZBYCAgEPFgIfAQUWcG9ydGZvbGlvcyBoYXNDaGlsZHJlbhYEAgEPDxYCHwMFGX4vdnRyYWRlci9Qb3J0Zm9saW9zLmFzcHhkFgJmDxUBClBvcnRmb2xpb3NkAgMPFgIfAgIDFgYCAQ9kFgICAQ8WAh8BBRNteS1wb3J0Zm9saW9zIEZpcnN0FgICAQ8PFgIfAwUZfi92dHJhZGVyL3BvcnRmb2xpb3MuYXNweGQWAmYPFQENTXkgUG9ydGZvbGlvc2QCAg9kFgICAQ8WAh8BBQxteS13YXRjaGxpc3QWAgIBDw8WAh8DBRd+L21lbWJlci93YXRjaGxpc3QuYXNweGQWAmYPFQEMTXkgV2F0Y2hsaXN0ZAIDD2QWAgIBDxYCHwEFEW1ha2UtYS10cmFkZSBMYXN0FgICAQ8PFgIfAwUZfi90cmFuc2FjdGllL2RlZmF1bHQuYXNweGQWAmYPFQEMTWFrZSBhIFRyYWRlZAIDD2QWAgIBDxYCHwEFE3RyYWRlIGhhc05vQ2hpbGRyZW4WBAIBDw8WAh8DBRl+L3RyYW5zYWN0aWUvZGVmYXVsdC5hc3B4ZBYCZg8VAQVUcmFkZWQCAw8WBB8CAv////8PHwRoZAIED2QWAgIBDxYCHwEFGnJhbmtpbmcgaGFzQ2hpbGRyZW4gYWN0aXZlFgQCAQ8PFgIfAwUWfi92dHJhZGVyL1JhbmtpbmcuYXNweGQWAmYPFQEHUmFua2luZ2QCAw8WAh8CAgIWBAIBD2QWAgIBDxYCHwEFFG92ZXJhbGwgYWN0aXZlIEZpcnN0FgICAQ8PFgIfAwUWfi92dHJhZGVyL1JhbmtpbmcuYXNweGQWAmYPFQEHT3ZlcmFsbGQCAg9kFgICAQ8WAh8BBQxsZWFndWVzIExhc3QWAgIBDw8WAh8DBSV+L3Z0cmFkZXIvMTAxOzA7MC9SYW5raW5nTGVhZ3Vlcy5hc3B4ZBYCZg8VAQdMZWFndWVzZAIFD2QWAgIBDxYCHwEFE2ZvcnVtIGhhc05vQ2hpbGRyZW4WBAIBDw8WAh8DBRR+L0ZvcnVtL2RlZmF1bHQuYXNweGQWAmYPFQEFRm9ydW1kAgMPFgQfAgL/////Dx8EaGQCBg9kFgICAQ8WAh8BBRdpbmZvcm1hdGlvbiBoYXNDaGlsZHJlbhYEAgEPDxYCHwMFGX4vaW5mb3JtYXRpb24vcHJpemVzLmFzcHhkFgJmDxUBC0luZm9ybWF0aW9uZAIDDxYCHwICAxYGAgEPZBYCAgEPFgIfAQUMcHJpemVzIEZpcnN0FgICAQ8PFgIfAwUZfi9pbmZvcm1hdGlvbi9wcml6ZXMuYXNweGQWAmYPFQEGUHJpemVzZAICD2QWAgIBDxYCHwEFBXJ1bGVzFgICAQ8PFgIfAwUYfi9pbmZvcm1hdGlvbi9ydWxlcy5hc3B4ZBYCZg8VAQVSdWxlc2QCAw9kFgICAQ8WAh8BBQhmYXEgTGFzdBYCAgEPDxYCHwMFFn4vaW5mb3JtYXRpb24vZmFxLmFzcHhkFgJmDxUBA0ZBUWQCBw9kFgICAQ8WAh8BBRt1bml2ZXJzaXR5IGhhc0NoaWxkcmVuIExhc3QWBAIBDw8WAh8DBRl+L3VuaXZlcnNpdHkvZGVmYXVsdC5hc3B4ZBYCZg8VAQpVbml2ZXJzaXR5ZAIDDxYCHwICBBYIAgEPZBYCAgEPFgIfAQUaaW52ZXN0aW5nLXRoZS1iYXNpY3MgRmlyc3QWAgIBDw8WAh8DBRh+L3VuaXZlcnNpdHkvYmFzaWNzLmFzcHhkFgJmDxUBFiBJbnZlc3Rpbmc6IFRoZSBCYXNpY3NkAgIPZBYCAgEPFgIfAQUKc3RyYXRlZ2llcxYCAgEPDxYCHwMFHH4vdW5pdmVyc2l0eS9zdHJhdGVnaWVzLmFzcHhkFgJmDxUBClN0cmF0ZWdpZXNkAgMPZBYCAgEPFgIfAQUNdHJhZGVyLXRyaWNrcxYCAgEPDxYCHwMFHn4vdW5pdmVyc2l0eS90cmFkZXJ0cmlja3MuYXNweGQWAmYPFQENVHJhZGVyIFRyaWNrc2QCBA9kFgICAQ8WAh8BBQ9kaWN0aW9uYXJ5IExhc3QWAgIBDw8WAh8DBRx+L3VuaXZlcnNpdHkvZGljdGlvbmFyeS5hc3B4ZBYCZg8VAQpEaWN0aW9uYXJ5ZAIDD2QWAgIBD2QWAmYPZBYCAgEPZBYCZg9kFgICAQ8WAh8CAgcWDgIBD2QWAgIBDxYCHwEFGGhvbWUgaGFzTm9DaGlsZHJlbiBGaXJzdBYEAgEPDxYCHwMFDn4vZGVmYXVsdC5hc3B4ZBYCZg8VAQRIb21lZAIDDxYEHwIC/////w8fBGhkAgIPZBYCAgEPFgIfAQUWcG9ydGZvbGlvcyBoYXNDaGlsZHJlbhYEAgEPDxYCHwMFGX4vdnRyYWRlci9Qb3J0Zm9saW9zLmFzcHhkFgJmDxUBClBvcnRmb2xpb3NkAgMPFgIfAgIDFgYCAQ9kFgICAQ8WAh8BBRNteS1wb3J0Zm9saW9zIEZpcnN0FgICAQ8PFgIfAwUZfi92dHJhZGVyL3BvcnRmb2xpb3MuYXNweGQWAmYPFQENTXkgUG9ydGZvbGlvc2QCAg9kFgICAQ8WAh8BBQxteS13YXRjaGxpc3QWAgIBDw8WAh8DBRd+L21lbWJlci93YXRjaGxpc3QuYXNweGQWAmYPFQEMTXkgV2F0Y2hsaXN0ZAIDD2QWAgIBDxYCHwEFEW1ha2UtYS10cmFkZSBMYXN0FgICAQ8PFgIfAwUZfi90cmFuc2FjdGllL2RlZmF1bHQuYXNweGQWAmYPFQEMTWFrZSBhIFRyYWRlZAIDD2QWAgIBDxYCHwEFE3RyYWRlIGhhc05vQ2hpbGRyZW4WBAIBDw8WAh8DBRl+L3RyYW5zYWN0aWUvZGVmYXVsdC5hc3B4ZBYCZg8VAQVUcmFkZWQCAw8WBB8CAv////8PHwRoZAIED2QWAgIBDxYCHwEFGnJhbmtpbmcgaGFzQ2hpbGRyZW4gYWN0aXZlFgQCAQ8PFgIfAwUWfi92dHJhZGVyL1JhbmtpbmcuYXNweGQWAmYPFQEHUmFua2luZ2QCAw8WAh8CAgIWBAIBD2QWAgIBDxYCHwEFFG92ZXJhbGwgYWN0aXZlIEZpcnN0FgICAQ8PFgIfAwUWfi92dHJhZGVyL1JhbmtpbmcuYXNweGQWAmYPFQEHT3ZlcmFsbGQCAg9kFgICAQ8WAh8BBQxsZWFndWVzIExhc3QWAgIBDw8WAh8DBSV+L3Z0cmFkZXIvMTAxOzA7MC9SYW5raW5nTGVhZ3Vlcy5hc3B4ZBYCZg8VAQdMZWFndWVzZAIFD2QWAgIBDxYCHwEFE2ZvcnVtIGhhc05vQ2hpbGRyZW4WBAIBDw8WAh8DBRR+L0ZvcnVtL2RlZmF1bHQuYXNweGQWAmYPFQEFRm9ydW1kAgMPFgQfAgL/////Dx8EaGQCBg9kFgICAQ8WAh8BBRdpbmZvcm1hdGlvbiBoYXNDaGlsZHJlbhYEAgEPDxYCHwMFGX4vaW5mb3JtYXRpb24vcHJpemVzLmFzcHhkFgJmDxUBC0luZm9ybWF0aW9uZAIDDxYCHwICAxYGAgEPZBYCAgEPFgIfAQUMcHJpemVzIEZpcnN0FgICAQ8PFgIfAwUZfi9pbmZvcm1hdGlvbi9wcml6ZXMuYXNweGQWAmYPFQEGUHJpemVzZAICD2QWAgIBDxYCHwEFBXJ1bGVzFgICAQ8PFgIfAwUYfi9pbmZvcm1hdGlvbi9ydWxlcy5hc3B4ZBYCZg8VAQVSdWxlc2QCAw9kFgICAQ8WAh8BBQhmYXEgTGFzdBYCAgEPDxYCHwMFFn4vaW5mb3JtYXRpb24vZmFxLmFzcHhkFgJmDxUBA0ZBUWQCBw9kFgICAQ8WAh8BBRt1bml2ZXJzaXR5IGhhc0NoaWxkcmVuIExhc3QWBAIBDw8WAh8DBRl+L3VuaXZlcnNpdHkvZGVmYXVsdC5hc3B4ZBYCZg8VAQpVbml2ZXJzaXR5ZAIDDxYCHwICBBYIAgEPZBYCAgEPFgIfAQUaaW52ZXN0aW5nLXRoZS1iYXNpY3MgRmlyc3QWAgIBDw8WAh8DBRh+L3VuaXZlcnNpdHkvYmFzaWNzLmFzcHhkFgJmDxUBFiBJbnZlc3Rpbmc6IFRoZSBCYXNpY3NkAgIPZBYCAgEPFgIfAQUKc3RyYXRlZ2llcxYCAgEPDxYCHwMFHH4vdW5pdmVyc2l0eS9zdHJhdGVnaWVzLmFzcHhkFgJmDxUBClN0cmF0ZWdpZXNkAgMPZBYCAgEPFgIfAQUNdHJhZGVyLXRyaWNrcxYCAgEPDxYCHwMFHn4vdW5pdmVyc2l0eS90cmFkZXJ0cmlja3MuYXNweGQWAmYPFQENVHJhZGVyIFRyaWNrc2QCBA9kFgICAQ8WAh8BBQ9kaWN0aW9uYXJ5IExhc3QWAgIBDw8WAh8DBRx+L3VuaXZlcnNpdHkvZGljdGlvbmFyeS5hc3B4ZBYCZg8VAQpEaWN0aW9uYXJ5ZAIFD2QWAgIBDxYCHwICBBYIZg9kFgQCAQ8PFgQeB1Rvb2xUaXAFBEhvbWUf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" />
+</div>
+
+
+<script src="/ScriptResource.axd?d=u-RGddGUh--NaFzsc3FMpUOAP8svpICYEoW39NAfImFmCP6MFgwjpDEX5K7pGRxPeJ2TTDRqHn3-VNcziGUesuwTU7Kf3QWp45BafhMt-TRFSbOMvi3yNXsg6p6DTHuxqiSY-n1vrCFaDxeK2OMJBW-iTiZuhjQ6mHDA62OMcT01&amp;t=ca758f3" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAfC3UHOPVPOVRO4+NVnDiI8wKSjXbgoTzLrFyq24cgKdyR3QZd7n8tIWM3wOsgTmRAuM88w+qu2nCBRLmI2+HFQ/uxVoeDDaFhR27ZWrplc2eppaeuYNkTL073xS6e5ATFS7i5ixFn2xI+xbFWEJlO5jUIdmx1pCm6zR17fAaJG3NMOJye40s8hOju7illWe0k=" />
+</div>
+        
+        <div id="ctl00_Container" class="vtrader_ranking Container  vtnet IsNotLoggedOn">
+            <header>
+                
+                    <div class="hgroup">
+	<div class="PageContainer">
+		<div class="LikeButton">
+			<div class="fb-like" data-href="http://www.virtualtrader.co.uk" data-send="false" data-layout="button_count" data-width="145" data-show-faces="false" data-font="arial"></div>
+		</div>
+		<a class="Logo" href="/">Homepage - Virtual Trader</a>
+		<div class="NavigationTop">  <nav id="ctl00_HeaderContent_ctl00_DynamicControl_3_nav" class="PersonalMenu">
+    <ul class="Level_1">
+        
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_3_repMenu_ctl01_li" class="sign-up hasNoChildren First">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_3_repMenu_ctl01_linkMainItem" href="../member/signup.aspx"><span>Sign Up</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_3_repMenu_ctl02_li" class="log-in hasNoChildren Last">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_3_repMenu_ctl02_linkMainItem" href="../member/login.aspx"><span>Log In</span></a>
+                    
+                </li>
+            
+            
+    </ul>
+</nav> 
+			<div class="FacebookLogin"><a href="/social/facebook/auth.aspx" class="FacebookLoginButton">Login with Facebook</a></div>
+			
+			
+		</div>
+		
+      <!-- VirtualTrader_Leaderboard -->
+      <div id='div-gpt-ad-1369912610403-0' class="Leaderboard">
+        <script type='text/javascript'>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1369912610403-0'); });
+        </script>
+      </div>
+
+      
+	</div>
+	<div class="PageContainer">
+       <div class="MainMenuContainer">
+			<nav id="ctl00_HeaderContent_ctl00_DynamicControl_5_nav" class="MainMenu WithSubMenu">
+    <ul class="Level_1">
+        
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl01_li" class="home hasNoChildren First">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl01_linkMainItem" href="../default.aspx"><span>Home</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_li" class="portfolios hasChildren">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_linkMainItem" href="Portfolios.aspx"><span>Portfolios</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_repSubMenu_ctl01_li" class="my-portfolios First">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_repSubMenu_ctl01_linkSubItem" href="portfolios.aspx"><span>My Portfolios</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_repSubMenu_ctl02_li" class="my-watchlist">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_repSubMenu_ctl02_linkSubItem" href="../member/watchlist.aspx"><span>My Watchlist</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_repSubMenu_ctl03_li" class="make-a-trade Last">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl02_repSubMenu_ctl03_linkSubItem" href="../transactie/default.aspx"><span>Make a Trade</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl03_li" class="trade hasNoChildren">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl03_linkMainItem" href="../transactie/default.aspx"><span>Trade</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl04_li" class="ranking hasChildren active">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl04_linkMainItem" href="Ranking.aspx"><span>Ranking</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl04_repSubMenu_ctl01_li" class="overall active First">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl04_repSubMenu_ctl01_linkSubItem" href="Ranking.aspx"><span>Overall</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl04_repSubMenu_ctl02_li" class="leagues Last">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl04_repSubMenu_ctl02_linkSubItem" href="101;0;0/RankingLeagues.aspx"><span>Leagues</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl05_li" class="forum hasNoChildren">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl05_linkMainItem" href="../Forum/default.aspx"><span>Forum</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_li" class="information hasChildren">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_linkMainItem" href="../information/prizes.aspx"><span>Information</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_repSubMenu_ctl01_li" class="prizes First">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_repSubMenu_ctl01_linkSubItem" href="../information/prizes.aspx"><span>Prizes</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_repSubMenu_ctl02_li" class="rules">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_repSubMenu_ctl02_linkSubItem" href="../information/rules.aspx"><span>Rules</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_repSubMenu_ctl03_li" class="faq Last">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl06_repSubMenu_ctl03_linkSubItem" href="../information/faq.aspx"><span>FAQ</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+                <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_li" class="university hasChildren Last">
+                    <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_linkMainItem" href="../university/default.aspx"><span>University</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl01_li" class="investing-the-basics First">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl01_linkSubItem" href="../university/basics.aspx"><span> Investing: The Basics</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl02_li" class="strategies">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl02_linkSubItem" href="../university/strategies.aspx"><span>Strategies</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl03_li" class="trader-tricks">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl03_linkSubItem" href="../university/tradertricks.aspx"><span>Trader Tricks</span></a>
+                            </li>
+                        
+                            <li id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl04_li" class="dictionary Last">
+                                <a id="ctl00_HeaderContent_ctl00_DynamicControl_5_repMenu_ctl07_repSubMenu_ctl04_linkSubItem" href="../university/dictionary.aspx"><span>Dictionary</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+            
+    </ul>
+</nav>
+			<div class="SearchBox">
+	
+
+    <input name="ctl00$HeaderContent$ctl00$DynamicControl_7$txtQuery" type="text" value="Search portfolio" id="ctl00_HeaderContent_ctl00_DynamicControl_7_txtQuery" class="WithInnerText" />
+
+    <a id="ctl00_HeaderContent_ctl00_DynamicControl_7_cmdSearch" class="Button" href="javascript:__doPostBack(&#39;ctl00$HeaderContent$ctl00$DynamicControl_7$cmdSearch&#39;,&#39;&#39;)">Search</a>
+
+
+</div>
+			<div class="Dummy"><!-- --></div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+                
+            </header>
+            <div id="ContentWrapper">
+                <div class="PageContainer">
+                    <aside id="LeftContent">
+                        
+                            <nav id="ctl00_LeftContent_ctl00_DynamicControl_2_nav">
+    <ul class="Level_1">
+        
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl01_li" class="home hasNoChildren First">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl01_linkMainItem" href="../default.aspx"><span>Home</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_li" class="portfolios hasChildren">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_linkMainItem" href="Portfolios.aspx"><span>Portfolios</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_repSubMenu_ctl01_li" class="my-portfolios First">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_repSubMenu_ctl01_linkSubItem" href="portfolios.aspx"><span>My Portfolios</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_repSubMenu_ctl02_li" class="my-watchlist">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_repSubMenu_ctl02_linkSubItem" href="../member/watchlist.aspx"><span>My Watchlist</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_repSubMenu_ctl03_li" class="make-a-trade Last">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl02_repSubMenu_ctl03_linkSubItem" href="../transactie/default.aspx"><span>Make a Trade</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl03_li" class="trade hasNoChildren">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl03_linkMainItem" href="../transactie/default.aspx"><span>Trade</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl04_li" class="ranking hasChildren active">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl04_linkMainItem" href="Ranking.aspx"><span>Ranking</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl04_repSubMenu_ctl01_li" class="overall active First">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl04_repSubMenu_ctl01_linkSubItem" href="Ranking.aspx"><span>Overall</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl04_repSubMenu_ctl02_li" class="leagues Last">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl04_repSubMenu_ctl02_linkSubItem" href="101;0;0/RankingLeagues.aspx"><span>Leagues</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl05_li" class="forum hasNoChildren">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl05_linkMainItem" href="../Forum/default.aspx"><span>Forum</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_li" class="information hasChildren">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_linkMainItem" href="../information/prizes.aspx"><span>Information</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_repSubMenu_ctl01_li" class="prizes First">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_repSubMenu_ctl01_linkSubItem" href="../information/prizes.aspx"><span>Prizes</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_repSubMenu_ctl02_li" class="rules">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_repSubMenu_ctl02_linkSubItem" href="../information/rules.aspx"><span>Rules</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_repSubMenu_ctl03_li" class="faq Last">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl06_repSubMenu_ctl03_linkSubItem" href="../information/faq.aspx"><span>FAQ</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+                <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_li" class="university hasChildren Last">
+                    <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_linkMainItem" href="../university/default.aspx"><span>University</span></a>
+                    
+                            <ul class="Level_2">
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl01_li" class="investing-the-basics First">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl01_linkSubItem" href="../university/basics.aspx"><span> Investing: The Basics</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl02_li" class="strategies">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl02_linkSubItem" href="../university/strategies.aspx"><span>Strategies</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl03_li" class="trader-tricks">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl03_linkSubItem" href="../university/tradertricks.aspx"><span>Trader Tricks</span></a>
+                            </li>
+                        
+                            <li id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl04_li" class="dictionary Last">
+                                <a id="ctl00_LeftContent_ctl00_DynamicControl_2_repMenu_ctl07_repSubMenu_ctl04_linkSubItem" href="../university/dictionary.aspx"><span>Dictionary</span></a>
+                            </li>
+                        
+                            </ul>
+                        
+                </li>
+            
+            
+    </ul>
+</nav>
+
+
+                        
+                    </aside>
+                    <div id="TopContent">
+                        
+<div class="BreadCrumb">
+    
+            <a title="Home" href="../">Home</a>
+            
+        &raquo;
+            
+            <span>Ranking</span>
+        &raquo;
+            
+            <span>VTPrijs</span>
+        &raquo;
+            
+            <span>Overall Ranking</span>
+        
+</div>
+                        
+                    </div>
+                    <div id="MiddleContent">
+                        
+    
+    <h1>Overall Ranking</h1>
+
+
+    
+    <div class="TabContainer">
+        <ul id="ctl00_MiddleContent_PortfolioRanking_PeriodTabs" class="ContentTab Tabs PortfolioRanking">
+    <li class="active RankingAlltime">
+        <a id="ctl00_MiddleContent_PortfolioRanking_cmdPeriodTabAllTime" href="javascript:__doPostBack(&#39;ctl00$MiddleContent$PortfolioRanking$cmdPeriodTabAllTime&#39;,&#39;&#39;)">All time</a>
+    </li>
+    <li class="RankingMonth">
+        <a id="ctl00_MiddleContent_PortfolioRanking_cmdPeriodTabMonth" href="javascript:__doPostBack(&#39;ctl00$MiddleContent$PortfolioRanking$cmdPeriodTabMonth&#39;,&#39;&#39;)">Month</a>
+    </li>
+    <li class="RankingWeek">
+        <a id="ctl00_MiddleContent_PortfolioRanking_cmdPeriodTabWeek" href="javascript:__doPostBack(&#39;ctl00$MiddleContent$PortfolioRanking$cmdPeriodTabWeek&#39;,&#39;&#39;)">Week</a>
+    </li>
+    <li class="RankingDay">
+        <a id="ctl00_MiddleContent_PortfolioRanking_cmdPeriodTabDay" href="javascript:__doPostBack(&#39;ctl00$MiddleContent$PortfolioRanking$cmdPeriodTabDay&#39;,&#39;&#39;)">Today</a>
+    </li>
+</ul>
+
+<div class="TabContent">
+
+    
+        <h2>
+            VTPrijs
+        </h2>
+    
+    
+    
+    <div id="ctl00_MiddleContent_PortfolioRanking_PagingSubline1" class="PagingSubline">
+
+        <div class="ContentLeft">
+            
+            <span id="ctl00_MiddleContent_PortfolioRanking_lblFirst1">&laquo; First</span>
+        
+                
+        </div>
+
+        <div class="ContentRight">
+            
+            <span id="ctl00_MiddleContent_PortfolioRanking_lblPrevious1">&laquo; Previous</span>
+            |
+            <a id="ctl00_MiddleContent_PortfolioRanking_linkNext1" class="active" href="111;2;0/ranking.aspx">Next &raquo;</a>
+            
+        </div>
+        <div class="Dummy"><!-- --></div>
+    </div>
+
+    
+            <table class="ContentTable PortfolioRanking">
+                <thead>
+                    <tr>
+                        <td class="Position">Position</td>
+                        <td class="Name">Portfolio name</td>
+                        <td style="text-align:right;" class="Worth">Net value</td>
+                        <td style="text-align:right;" class="Historical">History</td>
+                        <td style="text-align:right;" class="ReturnAbsolute">Return</td>
+                        <td style="text-align:right;" class="Return">% Return</td>	 	
+                    </tr>
+                </thead>
+                <tbody>
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl01_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl01_lblRank">1</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/751287/spurks.aspx">spurks</a></td>
+	<td style="text-align:right;" class="Worth">208,933.63</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+108,933.63</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+108.93%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl02_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl02_lblRank">2</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/787486/Hunga.aspx">Hunga</a></td>
+	<td style="text-align:right;" class="Worth">204,189.64</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+104,189.64</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+104.19%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl03_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl03_lblRank">3</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/732323/diendinh.aspx">diendinh</a></td>
+	<td style="text-align:right;" class="Worth">197,881.59</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+97,881.59</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+97.88%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl04_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl04_lblRank">4</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/587664/Dids.aspx">Dids</a></td>
+	<td style="text-align:right;" class="Worth">184,849.18</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+84,849.18</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+84.85%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl05_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl05_lblRank">5</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/789236/Ben1964.aspx">Ben1964</a></td>
+	<td style="text-align:right;" class="Worth">181,084.32</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+81,084.32</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+81.08%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl06_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl06_lblRank">6</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/743328/daz1974.aspx">daz1974</a></td>
+	<td style="text-align:right;" class="Worth">172,945.61</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+72,945.61</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+72.95%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl07_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl07_lblRank">7</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/783800/EAP.aspx">EAP</a></td>
+	<td style="text-align:right;" class="Worth">171,397.90</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+71,397.90</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+71.40%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl08_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl08_lblRank">8</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/751712/kito123455.aspx">kito123455</a></td>
+	<td style="text-align:right;" class="Worth">165,164.79</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+65,164.79</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+65.16%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl09_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl09_lblRank">9</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/752115/gLoRyHuNtEr.aspx">gLoRyHuNtEr</a></td>
+	<td style="text-align:right;" class="Worth">164,846.49</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+64,846.49</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+64.85%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl10_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl10_lblRank">10</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/789036/MrMaxwell.aspx">MrMaxwell</a></td>
+	<td style="text-align:right;" class="Worth">163,199.03</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+63,199.03</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+63.20%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl11_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl11_lblRank">11</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/640017/kmk7.aspx">kmk7</a></td>
+	<td style="text-align:right;" class="Worth">162,413.03</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+62,413.03</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+62.41%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl12_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl12_lblRank">12</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/727197/3rbi94.aspx">3rbi94</a></td>
+	<td style="text-align:right;" class="Worth">159,139.71</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+59,139.71</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+59.14%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl13_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl13_lblRank">13</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/742799/Golden-Yak.aspx">Golden Yak</a></td>
+	<td style="text-align:right;" class="Worth">157,304.85</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+57,304.85</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+57.30%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl14_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl14_lblRank">14</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/785370/jhms.aspx">jhms</a></td>
+	<td style="text-align:right;" class="Worth">157,273.96</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+57,273.96</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+57.27%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl15_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl15_lblRank">15</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/751407/Davs1992.aspx">Davs1992</a></td>
+	<td style="text-align:right;" class="Worth">152,517.41</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+52,517.41</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+52.52%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl16_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl16_lblRank">16</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/697247/TheTaffer.aspx">TheTaffer</a></td>
+	<td style="text-align:right;" class="Worth">147,152.11</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+47,152.11</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+47.15%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl17_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl17_lblRank">17</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/745085/Walls-Holdings.aspx">Walls Holdings</a></td>
+	<td style="text-align:right;" class="Worth">142,452.46</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+42,452.46</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+42.45%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl18_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl18_lblRank">18</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/752444/gwb62.aspx">gwb62</a></td>
+	<td style="text-align:right;" class="Worth">142,317.32</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+42,317.32</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+42.32%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl19_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl19_lblRank">19</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/732628/trevorthecat.aspx">trevorthecat</a></td>
+	<td style="text-align:right;" class="Worth">142,210.93</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+42,210.93</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+42.21%</span></td>
+</tr>
+
+        
+                <tr id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl20_TableRow" class="">
+	<td class="Position">
+                        <span id="ctl00_MiddleContent_PortfolioRanking_repPortfolios_ctl20_lblRank">20</span>
+                        
+                    </td>
+	<td class="Name"><a href="/vtrader/portfolio/740809/VT-Transactions-Plus.aspx">VT Transactions Plus</a></td>
+	<td style="text-align:right;" class="Worth">141,595.11</td>
+	<td style="text-align:right;" class="Historical">100,000.00</td>
+	<td style="text-align:right;" class="ReturnAbsolute"><span class="ValueUp">+41,595.11</span></td>
+	<td style="text-align:right;" class="Return"><span class="ValueUp">+41.60%</span></td>
+</tr>
+
+        
+    
+                </tbody>
+            </table>
+        
+
+    <div id="ctl00_MiddleContent_PortfolioRanking_PagingSubline2" class="PagingSubline">
+
+        <div class="ContentLeft">
+            
+            <span id="ctl00_MiddleContent_PortfolioRanking_lblFirst2">&laquo; First</span>        
+                
+        </div>
+
+        <div class="ContentRight">
+            
+            <span id="ctl00_MiddleContent_PortfolioRanking_lblPrevious2">&laquo; Previous</span>
+            |
+            <a id="ctl00_MiddleContent_PortfolioRanking_linkNext2" class="active" href="111;2;0/ranking.aspx">Next &raquo;</a>
+            
+        </div>
+        <div class="Dummy"><!-- --></div>
+    </div>
+    
+
+
+</div>
+
+    </div>
+
+
+                    </div>
+                    <aside id="RightContent">
+                        
+                            <div class="StatsBlock">
+	<table class="StatsTable">
+      	<tbody>
+            <tr>
+                <td class="Label Left">Number of Portfolios:</td>
+                <td class="Label NoBorderRight">Portfolios w/ Postive Return:</td>
+            </tr>
+            <tr>
+                <td class="Stats Left"><span id="ctl00_RightContent_ctl00_DynamicControl_2_lblValue">3,429</span></td>
+                <td class="Stats NoBorderRight"><span id="ctl00_RightContent_ctl00_DynamicControl_4_lblValue">2,568</span></td>
+            </tr>
+            <tr>
+                <td class="Label Left">Average Gain:</td>
+                <td class="Label NoBorderRight">Total Holdings Value:</td>
+            </tr>
+            <tr>
+                <td class="Stats Left"><span id="ctl00_RightContent_ctl00_DynamicControl_6_lblValue" class="ValueUp">1.56%</span></td>
+                <td class="Stats NoBorderRight"><span id="ctl00_RightContent_ctl00_DynamicControl_8_lblValue">100,194,829</span></td>
+            </tr>      
+            <tr>
+                <td class="Label Left">Total Cash Value:</td>
+              	<td class="Label NoBorderRight">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="Stats Left Bottom"><span id="ctl00_RightContent_ctl00_DynamicControl_10_lblValue">248,051,521</span></td>
+              	<td class="Stats Bottom NoBorderRight">&nbsp;</td>
+            </tr>      
+      </tbody>
+  </table>
+</div>
+<!-- VirtualTrader_Rectangle -->
+<div id='div-gpt-ad-1369912610403-1' class="Rectangle">
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1369912610403-1'); });
+</script>
+</div>
+
+
+                        
+                    </aside>
+                    <div class="Dummy"><!-- --></div>
+                </div>
+            </div>
+            <footer>
+                
+                    <div class="PageContainer">
+  	<div class="FooterCredentials">
+    	<nav id="ctl00_FooterContent_ctl00_DynamicControl_2_nav" class="FooterMenu">
+    <ul class="Level_1">
+        
+            
+                <li id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl01_li" class="rules hasNoChildren First">
+                    <a id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl01_linkMainItem" href="/information/rules.aspx"><span>Rules</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl02_li" class="faq hasNoChildren">
+                    <a id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl02_linkMainItem" href="/information/faq.aspx"><span>FAQ</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl03_li" class="about hasNoChildren">
+                    <a id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl03_linkMainItem" href="/about.aspx"><span>About</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl04_li" class="advertising hasNoChildren">
+                    <a id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl04_linkMainItem" href="/advertising.aspx"><span>Advertising</span></a>
+                    
+                </li>
+            
+                <li id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl05_li" class="corporate-solutions hasNoChildren Last">
+                    <a id="ctl00_FooterContent_ctl00_DynamicControl_2_repMenu_ctl05_linkMainItem" href="/corporate-solutions.aspx"><span>Corporate Solutions</span></a>
+                    
+                </li>
+            
+            
+    </ul>
+</nav>
+  	</div>
+  	<div class="FooterCredentials">
+      &copy; 2013 Free Media Group - <a href="/disclaimer.aspx" title="Disclaimer">Disclaimer</a> - <a href="/privacy.aspx" title="Privacy Statement">Privacy Statement</a>
+  	</div>
+</div>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12320319-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+ 
+                
+            </footer>
+       </div>
+    </form>
+    <!-- WEB4: 00:00:00.0780205 - 1199 -->
+</body>
+</html>
