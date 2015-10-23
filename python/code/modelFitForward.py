@@ -51,6 +51,7 @@ def read_stock_file(b_type, b_amount):
         print file_number
 
     path += str(b_amount) + '.txt' if file_number < 0 else str(b_amount) + '_' + str(file_number) + '.txt'
+    print 'stock file: ', path
 
     stocks = dict()
     risk_idx = -1
@@ -209,6 +210,7 @@ else:
     print
     '''
     print 'Version history \n' \
+          '4.0.0 fixed bug (new_volume * old_price changes the sign of the total). added negative sign\n' \
           '3.4.0 parameters are loaded from fitting.cfg configuration file\n' \
           '3.3.1 saving precision in % directly (to keep consistency with stdev)\n' \
           '3.3.0 calculating variance on the go and storing it in the csv\n' \
@@ -270,8 +272,7 @@ else:
 
     randomMLEs = dict()
 
-    # TODO change name
-    MLE_dist = open('results/MLE_FULL_' +
+    MLE_dist = open('results/MLE_' +
                     str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
 
     for player in players:
@@ -299,7 +300,10 @@ else:
                     mean, MLE_mean = 0, 0
                     M2, MLE_M2 = 0, 0
 
-                    MLE_dist.write('\n' + str(players.index(player)) + ', ' + str(alpha) + ', ' + str(beta) + ', ' + str(gamma) + ', ')
+                    MLE_dist.write('\n' + str(players.index(player)) + ', '
+                                   + str(alpha) + ', '
+                                   + str(beta)  + ', '
+                                   + str(gamma) + ', ')
 
                     for iteration in xrange(nIterations):
 
@@ -333,6 +337,7 @@ else:
                                     price = abs(total / volume)
 
                                     if 'Buy' in a_type and stock:
+
                                         # save the stocks that have been purchased
                                         if stock in portfolio:
                                             old_volume = portfolio[stock][0]
@@ -379,7 +384,12 @@ else:
                                             if new_volume <= 0:
                                                 del portfolio[stock]
                                             else:
-                                                portfolio[stock] = (new_volume, old_price, new_volume * old_price)
+                                                new_total = - (new_volume * old_price)
+                                                # the asset (selling power) is still the old price
+                                                # (which is the avg of all the buying prices normalised on the volumes)
+                                                # times the new amount of stocks held
+
+                                                portfolio[stock] = (new_volume, old_price, new_total)
                                                 # old_price so it is possible to calculate margin for future sells
 
                                             # update profit with reward from sell
@@ -470,6 +480,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/full_after_exp' + save_filename + '.csv')
+    saveMLEs('results/Negative_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'

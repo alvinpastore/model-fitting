@@ -1,5 +1,6 @@
 from __future__ import division
 import operator
+import sys
 import MySQLdb
 import random
 import numpy as np
@@ -7,26 +8,7 @@ from datetime import datetime
 import time
 from math import log
 import warnings
-
-
-def connect_DB(host, user, pw, database):
-    # Open Database connection
-    dBase = MySQLdb.connect(host=host, user=user, passwd=pw, db=database)
-    curs = dBase.cursor()
-    return curs, dBase
-
-
-def select_players(table, cursor, db):
-
-    # Execute SQL query
-    cursor.execute('SELECT DISTINCT name FROM ' + table + ' ORDER BY name')
-    db.commit()
-    results = cursor.fetchall()
-    # get the list of names of the players
-    names = []
-    for r in results:
-        names.append(r[0])
-    return names
+from DatabaseHandler import DatabaseHandler
 
 
 def filter_players(all_players, threshold_file):
@@ -34,145 +16,161 @@ def filter_players(all_players, threshold_file):
     return list(set(all_players).intersection(set(t_players)))
 
 
-def close_DB():
-    db.close()
+def htan_custom(xx, factor):
+    return (1 - np.exp(- xx * factor)) / (1 + np.exp(- xx * factor))
 
 
-def select_transactions(table, pname):
-    # retrieve all transactions for each player
-    query = 'SELECT *  FROM '  + table + ' WHERE name="' + str(pname) + '"' + 'ORDER BY date, type'
-    try:
-        cursor.execute(query)
-    except MySQLdb.Error:
-        print "Error in QUERY", query
-        raw_input("press any key to continue")
-    db.commit()
-    player_transactions = cursor.fetchall()
-    return player_transactions
+def save_performances(file_path, perfs):
+    perf_file = open(file_path + '/profit_performances.csv', 'w')
+
+    for pl in sorted(perfs.items(), key=operator.itemgetter(1)):
+        print str(players.index(pl[0])) + '\t' + str(pl[0]) + '\t' + str(pl[1])
+        perf_file.write(str(pl[0]) + ',' + str(players.index(pl[0])) + ',' + str(pl[1]) + '\n')
+
+    perf_file.close()
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 t0 = time.time()
 
-# connect to DB and get the cursor and the db
-c_db = connect_DB('localhost', 'root', 'root', 'virtualtrader')
-cursor = c_db[0]
-db     = c_db[1]
+if len(sys.argv) < 2 or int(sys.argv[1]) < 16 or int(sys.argv[1]) > 107:
+    print 'Usage: python performanceCalculator.py   C  \n' \
+          'C = number of max transactions to consider (min = 16, max = 107)'
 
+CAP = int(sys.argv[1])
+
+# connect to DB
+db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
 # retrieve players
-db_players = select_players('transactions', cursor, db)
-players = sorted(filter_players(db_players, 'players_threshold.txt'))
+db_players = db.select_players('transactions')
+players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
+profit = 0
+HTAN_REWARD_SIGMA = 500
 performances = dict()
+
 print
 print 'Version history \n' \
-      '0.0.2 saving perfs in files (ids and names)\n' \
+      '2.0.0 using profit(relative) instead of money (absolute wealth)\n' \
+      '1.0.0 unified with DatabaseHandler module\n' \
+      '0.0.2 saving performances in files (ids and names)\n' \
       '0.0.1 first draft for calculating performance \n' \
 
 for player in players:
     print '\n' + str(players.index(player)) + ' : ' + str(player)
 
-    money = 100000
     # retrieve the transactions for each player
-    transactions = select_transactions('transactions', player)
+    transactions = db.select_transactions('transactions', player)
 
     # store the stocks purchased for future estimation of reward
     portfolio = dict()
-
+    actionsAmount = 0
+    profit = 0
     for transaction in transactions:
 
-        if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
+        # CAP transactions amount
+        if actionsAmount < CAP:
 
-            name = str(transaction[1])
-            date_string = str(transaction[2]).split(' ')[0].replace('-',' ')
-            date        = datetime.strptime(date_string, '%Y %m %d')
-            a_type      = str(transaction[3])
-            stock       = str(transaction[4])
-            volume      = int(transaction[5])
-            price       = float(transaction[6])
-            total       = float(transaction[7])
-            if 'Buy' in a_type and stock:
+            if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
 
-                # save the stocks that have been purchased
-                if stock in portfolio:
-                    old_volume = portfolio[stock][0]
-                    old_price  = portfolio[stock][1]
-                    old_total  = portfolio[stock][2]
-                    new_volume = volume + old_volume
-                    new_price  = (total + old_total) / (volume + old_volume)
-                    new_total  = old_total + total
+                name        = str(transaction[1])
+                date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
+                date        = datetime.strptime(date_string, '%Y %m %d')
+                a_type      = str(transaction[3])
+                stock       = str(transaction[4])
+                volume      = int(transaction[5])
+                total       = float(transaction[7])
+                # price       = float(transaction[6])
+                # deprecated: decimal precision incorrect for average price calculation
+                price = abs(total / volume)
 
-                    #if 'niktai' in player and 'Rolls' in stock:
-                    #    print 'old_price',old_price
-                    #    print 'old_volume',old_volume
-                    #    print 'old_total',old_total
-                    #    print 'price',price
-                    #    print 'volume',volume
-                    #    print 'total',total
-                    #    print 'new_total',new_total
-                    portfolio[stock] = (new_volume, new_price, new_total)
-                else:
-                    portfolio[stock] = (volume, price, total)
+                ''' PRINT TRANSACTIONS DETAILS '''
+                #print name + " " + a_type + " " + stock + " " + str(total)
+                #for s in portfolio:
+                #    print str(s) + " " + str(portfolio[s])
+                #raw_input()
+                if 'Buy' in a_type and stock:
 
-                # deduct money spent to purchase stock
-                # (+ sign because the sign of the total is negative for purchases)
-                money += total
-            elif 'Sell' in a_type and stock:
+                    # save the stocks that have been purchased
+                    if stock in portfolio:
+                        old_volume = portfolio[stock][0]
+                        old_price  = portfolio[stock][1]
+                        old_total  = portfolio[stock][2]
+                        new_volume = volume + old_volume
+                        new_price  = abs((total + old_total) / (volume + old_volume))
+                        new_total  = old_total + total
 
-                if stock not in portfolio:
-                    print ':::::::::::::::::::::::::::::::::::::::::::::::'
-                    print player
-                    print 'stock', stock
-                    print 'portfolio', portfolio
-                    # messed up player
-                    break
-                else:
+                        portfolio[stock] = (new_volume, new_price, new_total)
 
-                    old_volume = portfolio[stock][0]
-                    old_price  = portfolio[stock][1]
-                    old_total  = portfolio[stock][2]
+                    else:
+                        portfolio[stock] = (volume, price, total)
 
-                    # if all shares for the stock have been sold delete stock from portfolio
-                    # otherwise update the values (new_volume, old_price, new_total)
-                    new_volume = old_volume - volume
-                    if new_volume <= 0:
-                        del portfolio[stock]
+                    ''' NO NEED TO CHANGE STATE SINCE IT DEPENDS ON PROFIT CHANGE
+                    (only sells can modify it)
+                    # deduct money spent to purchase stock
+                    # (+ sign because the sign of the total is negative for purchases)
+                    # money += total
+
+                    # next_state = get_next_state(money, portfolio)
+                    '''
+
+                elif 'Sell' in a_type and stock:
+
+                    if stock not in portfolio:
+                        print ':::::::::::::::::::::::::::::::::::::::::::::::'
+                        print player
+                        print 'stock', stock
+                        print 'portfolio', portfolio
+                        # messed up player
+                        break
                     else:
 
-                        new_total = new_volume * old_price
-                        # the asset (selling power) is still
-                        # the old price (which is the avg of all the buying prices normalised on the volumes)
-                        # times the new amount of stocks held
+                        actionsAmount += 1
+                        old_volume = portfolio[stock][0]
+                        old_price  = portfolio[stock][1]
+                        old_total  = portfolio[stock][2]
 
-                        portfolio[stock] = (new_volume, old_price, new_total)
-                        # old_price so it is possible to calculate margin for future sells
+                        # the reward is the gain on the price times the number of shares sold
+                        reward_base = ((price - old_price) * volume)
+                        reward = htan_custom(reward_base, 1 / HTAN_REWARD_SIGMA)
 
-                    # update money with gain/loss from sell
-                    money += total
+                        # if all shares for the stock have been sold delete stock from portfolio
+                        # otherwise update the values (new_volume, old_price, new_total)
+                        new_volume = old_volume - volume
+                        if new_volume <= 0:
+                            del portfolio[stock]
+                        else:
 
+                            new_total = - (new_volume * old_price)
+                            # the asset (selling power) is still
+                            # the old price (which is the avg of all the buying prices normalised on the volumes)
+                            # times the new amount of stocks held
+
+                            portfolio[stock] = (new_volume, old_price, new_total)
+                            # old_price so it is possible to calculate margin for future sells
+
+                        # update profit with reward from sell
+                        profit += reward_base
+    '''
     assets = 0
     for s in portfolio:
+        print str(s) + " " + str(portfolio[s])
         assets += portfolio[s][2]
 
     # assets values are negative for holdings
-    performances[player] = (money - assets) / 1000
+    print "assets", assets
+    print "profit", profit
+    print "performance", profit - assets
+    raw_input()
 
+    performances[player] = (profit - assets) / 1000 OLD '''
 
-outFileNames = open('results/performances_names.csv', 'w')
-outFileIds   = open('results/performances_ids.csv', 'w')
-print
-for pl in sorted(performances.items(), key=operator.itemgetter(1)):
-    print str(pl[0]) + ': ' + str(pl[1])
-    outFileNames.write(str(pl[0] + ',' + str(pl[1]) + '\n'))
-    outFileIds.write(str(players.index(pl[0])) + ',' + str(pl[1]) + '\n')
-print
-outFileNames.close()
-outFileIds.close()
-print 'saved in ' + outFileNames
-print 'saved in ' + outFileIds
+    performances[player] = profit
+    print profit
 
+save_performances('results/stats/performances', performances)
 
-close_DB()
+db.close()
 final_time = (time.time() - t0)
 print("%.2f secs" % final_time)
