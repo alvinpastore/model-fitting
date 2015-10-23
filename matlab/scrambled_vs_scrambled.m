@@ -1,13 +1,14 @@
+% routine for testing scrambled MLEs against each other
+tic
 
-MLE_iter = [0, 1, 2, 3, 4, 5, 6, 7 ,8 ,9];
-
+% import scrambled MLE matrices
+%[Num, MLESCRAMS] = MLE_SCRAM_importer();
+MLE_iter = 1:Num;
 
 % load model results
 current_results = 'res3';
 model = eval(current_results);
 model = model(find(model(:,2) ~= 0),:);
-
-SCRAMBLEDMLE_NAME = 'MLESCRAM';
 
 % count players
 players = unique(model(:,1));
@@ -30,7 +31,8 @@ bts_idx = 1;
 for i = MLE_iter
     
     % scram model first
-    first_scrambled_MLE = eval([SCRAMBLEDMLE_NAME,num2str(i)]);
+    first_scrambled_MLE = MLESCRAMS(i);
+    first_scrambled_MLE = first_scrambled_MLE{1};
     avg_first_scrambled = mean(first_scrambled_MLE(:,5:end).').';
     
     for k = MLE_iter
@@ -41,7 +43,8 @@ for i = MLE_iter
             current_pvalues = zeros(playersAmount,5);
             
             % scram model second
-            second_scrambled_MLE = eval([SCRAMBLEDMLE_NAME,num2str(k)]);
+            second_scrambled_MLE = MLESCRAMS(k);
+            second_scrambled_MLE = second_scrambled_MLE{1};
             avg_second_scrambled = mean(second_scrambled_MLE(:,5:end).').';
             
             for playerID = 0:playersAmount-1
@@ -125,7 +128,8 @@ for playerID = 0:playersAmount-1
     for i = MLE_iter
         
         % load i-th scrambled and calculate averages of MLEs
-        scrambled_MLE = eval([SCRAMBLEDMLE_NAME,num2str(i)]);
+        scrambled_MLE = MLESCRAMS(i);
+        scrambled_MLE = scrambled_MLE{1};
         avg_scrambled = mean(scrambled_MLE(:,5:end).').';
         
         % find player lines
@@ -142,3 +146,6 @@ for playerID = 0:playersAmount-1
         
     end
 end
+clearvars -except MLESCRAMS better_than_scrambled MLEFULL* res3
+
+toc

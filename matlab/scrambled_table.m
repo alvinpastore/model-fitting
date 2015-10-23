@@ -1,6 +1,6 @@
 % %% IMAGESC MODE
 close all;
-scram = rot90(scram_table);
+scram = rot90(better_than_scrambled(1:end-1,:));
 fig_scram = figure();
 hold on;
 [h,w] = size(scram);                         %# Get the matrix size
@@ -10,7 +10,7 @@ axis equal                                   %# Make axes grid sizes equal
 set(gca,'XTick',0.5:5:(w+1),'YTick',0.4:5:(h+1),...  %# Change some axes properties
         'XLim',[1 w+1],'YLim',[1 h+1],...
         'XTickLabel',[1,5,10,15,20,25,30,35,40,45],...
-        'YTickLabel',[1,5,10]);
+        'YTickLabel',0:5:h);
 
 grid off;
 
@@ -33,7 +33,8 @@ set(gcf, 'PaperUnits', 'centimeters');
 set(gcf, 'PaperPosition', [0 0 40 17]); 
 shading flat
 %saveas(gcf,['graphs/paper/scram_table.pdf']);
-print(gcf, '-depsc2', '-loose', 'graphs/paper/scram_table_loose'); % Print the figure in eps (first option) and uncropped (second object)
+file_name = ['graphs/paper/scram',num2str(size(better_than_scrambled,2)),'_table'];
+print(gcf, '-depsc2', '-loose', file_name); % Print the figure in eps (first option) and uncropped (second object)
 %print(gcf, '-dpdf', '-loose', 'graphs/paper/scram_table_loose_pdf'); % Print the figure in eps (first option) and uncropped (second object)
 
 %writeFig300ppi(gcf, 'graphs/paper/scram_table_loose_300');
