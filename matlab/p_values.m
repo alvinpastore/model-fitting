@@ -78,7 +78,8 @@ for i = models
         % find best MLE alternative model
         [alt_best_MLE, alt_best_MLE_line] = min(altern_model(p_lines_alt,5));
         
-        % calculate Likelihood ratio (best precision model)
+        % calculate Likelihood ratio (best precision model) 
+        %TODO isn't this best MLE model????
         chi_value = 2 * (alt_best_MLE - p_best_MLE);
         p_v_MLE = 1-chi2cdf(chi_value,dof);
 

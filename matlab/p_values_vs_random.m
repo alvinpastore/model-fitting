@@ -48,8 +48,6 @@ for i = models
     % initialise performances
     current_pvalues = zeros(playersAmount,6);
     
-    
-    
     % random model lines have alpha = 0 (TODO add AND beta == 0)
     r_MLE_lines = find(model(:,2) == 0); 
     r_MLE = model(r_MLE_lines,5);
