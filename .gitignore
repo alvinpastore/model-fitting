@@ -3,3 +3,9 @@
 *.eps
 
 *.numbers
+
+python/code/results/scrambled_new_experiment/MLE_scram_python/
+
+matlab/results/MLE_scram_matlab/
+
+
