@@ -1,8 +1,9 @@
 % routine for testing scrambled MLEs against RL model
 tic
 
-% import scrambled MLE matrices
-[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer();
+% if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
+% import scrambled MLE matrices, model MLE matrix and resuls matrix
+[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer(1);
 MLE_iter = 1:SCRAM_NUMBER;
 
 % load model results
@@ -23,7 +24,7 @@ playersAmount = size(players,1);
 players_CI = zeros(playersAmount,4);
 
 for playerID = 0:playersAmount-1
-    disp(num2str(playerID));
+    disp(['Player ' , num2str(playerID)]);
     % find player lines in model and MLE results 
     % (second condition to avoid random models where beta = 0)
     player_lines_model = find(model(:,1) == playerID  ); 
