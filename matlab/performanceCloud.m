@@ -55,15 +55,16 @@ for t = THRESHOLDS
         % sort current_res so that the best N models 
         % are available as the first N rows
         current_res = sortrows(current_res,5);
-        
-        
-        
+       
         % get the N best MLE (new version: top N)
         current_res = current_res(1:5,:);
         
         % store best models alpha beta and gamma
-        abg = current_res(1,2:4);
+        abg = current_res(1,2:5);
         
+        % store alpha beta gamma for the alternative models
+        alternative_abgs = current_res(2:end,2:5);
+              
         % store best models MLE (avg)
         minMLE = current_res(1,5);
         
@@ -77,7 +78,7 @@ for t = THRESHOLDS
             % to a matrix of MLES (best N lines)
             % each line summed to itself at each comparison
             % each line is a comparison (sum the line for clopper pearson)
-            MLE_comparison =  MLE_comparison + +(MLE_instance > current_res(2:end,6:end));
+            MLE_comparison =  MLE_comparison + +(MLE_instance >= current_res(2:end,6:end));
             
         end
         
@@ -86,9 +87,19 @@ for t = THRESHOLDS
             comparison = MLE_comparison(jdx,:);
             [phat,pci] = binofit(sum(comparison),1000*1000,alpha);
             if pci(1) > chance_threshold
-                disp('better than better?');
-                disp(pci);
-                disp(phat);
+                
+                
+                
+                FIG_IDX = FIG_IDX + 1;
+                fig = figure(FIG_IDX);
+                hold on;
+                temp = current_res(2:end,6:end);
+                hist([best_MLEs;temp(jdx,:)].',100);
+                tit_temp = {['better than better? player: ', num2str(pid)], [num2str(pci(1)),' ',num2str(phat),' ',num2str(pci(2))],  num2str(abg),  num2str(alternative_abgs(jdx,:))};
+                title(tit_temp);
+                legend({'best','alternative'},'FontSize',20);
+                hold off;
+                
             elseif pci(2) < chance_threshold
                 %disp('statistically worse');
             else
@@ -107,13 +118,19 @@ for t = THRESHOLDS
         
         randomMLE = randomMLEs(find(randomMLEs(:,1) == pid),5);
         % store stats
-        stats = [stats; pid, performances(idx,2), minMLE, randomMLE, abg];
+        stats = [stats; pid, performances(idx,2), minMLE, randomMLE, abg(1:3)];
         
     end
+    
+    %% FIGURE 0 MLE comparison using CP (errorbars)
+    % best model (according to avg) vs next 4 models
+    FIG_IDX = FIG_IDX + 1;
+    fig = figure(FIG_IDX);
     hold on
     errorbar(1:1:size(errorbars,1),errorbars(:,1),errorbars(:,1)-errorbars(:,2),errorbars(:,3)-errorbars(:,1),'bx');
-    plot([0 47],[.5 .5],'r-')
+    plot([0 size(errorbars,1)],[.5 .5],'r-')
     hold off
+    
     % sort players according to performances 
     ranked_performances = sortrows(stats,2);
     
