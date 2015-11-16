@@ -1,6 +1,6 @@
 function [Num, MLESCRAMS, MLEFULL, res3] = MLE_SCRAM_importer(scram_flag)
 
-%script to import all the MLE files (20mins each approx)
+%script to import all the MLE files (20mins each approx by manual import)
 
 tic;
 

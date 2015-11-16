@@ -8,8 +8,9 @@ FIG_IDX = 0;
 dx = 0.15;
 dy = 0.007;
 alpha = 0.01; % 99% confidence
-chance_threshold = 0.5;
- 
+CHANCE_THRESHOLD = 0.5;
+COMPARISON_FACTOR = 0.01;
+
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
 [SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
 
@@ -78,7 +79,10 @@ for t = THRESHOLDS
             % to a matrix of MLES (best N lines)
             % each line summed to itself at each comparison
             % each line is a comparison (sum the line for clopper pearson)
-            MLE_comparison =  MLE_comparison + +(MLE_instance >= current_res(2:end,6:end));
+            % comparison_MLEs is the matrix of MLEs to be compared
+            % incremented of 1/100 of each value
+            comparison_MLEs = current_res(2:end,6:end) + (current_res(2:end,6:end) * COMPARISON_FACTOR);
+            MLE_comparison =  MLE_comparison + +(MLE_instance > comparison_MLEs);
             
         end
         
@@ -86,7 +90,7 @@ for t = THRESHOLDS
         for jdx = 1:4
             comparison = MLE_comparison(jdx,:);
             [phat,pci] = binofit(sum(comparison),1000*1000,alpha);
-            if pci(1) > chance_threshold
+            if pci(1) > CHANCE_THRESHOLD
                 
                 
                 
@@ -95,12 +99,18 @@ for t = THRESHOLDS
                 hold on;
                 temp = current_res(2:end,6:end);
                 hist([best_MLEs;temp(jdx,:)].',100);
-                tit_temp = {['better than better? player: ', num2str(pid)], [num2str(pci(1)),' ',num2str(phat),' ',num2str(pci(2))],  num2str(abg),  num2str(alternative_abgs(jdx,:))};
-                title(tit_temp);
+                tit_temp = {['player: ', num2str(pid)], [num2str(pci(1)),' ',num2str(phat),' ',num2str(pci(2))],  num2str(abg),  num2str(alternative_abgs(jdx,:))};
+                title(tit_temp,'FontSize',20);
                 legend({'best','alternative'},'FontSize',20);
+                %axis([0 22 0 1000]);
                 hold off;
+                set(gcf, 'PaperUnits', 'centimeters');
+                set(gcf, 'PaperPosition', [0 0 40 40]);
+                path = 'graphs/model_MLE_comparison/';
+                fileName = [path, 'player: ', num2str(pid),'p-hat',num2str(phat), '.png'];
+                print(fig, '-dpng', '-loose', fileName);
                 
-            elseif pci(2) < chance_threshold
+            elseif pci(2) < CHANCE_THRESHOLD
                 %disp('statistically worse');
             else
                 disp('statistically same as best');
