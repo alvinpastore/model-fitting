@@ -48,72 +48,75 @@ def replaceName(cn, rNames):
     return cn
 
 
-def random_bins(stocks, b_amount, b_size, bs, n):
+def random_bins(stocks, b_amount, b_size, b_copy, n):
     rand_bins = [[] for _ in xrange(b_amount)]
     bin_idx = 0
-    larger_bins = len(bs) % b_amount
-    # print "larger_bins", larger_bins
+    # determine how many bins need an extra stock
+    larger_bins = len(b_copy) % b_amount
 
     # keep adding to the i-th bin till its full (bin size < stock amount / bins amount)
-    while len(bs) > 0:
-        # print "\nlarger bins", larger_bins
+    while len(b_copy) > 0:
+
+        # if there are still larger bins to populate set the random_bin_size to bin_size + 1
         random_bin_size = b_size + 1 if larger_bins > 0 else b_size
 
-        # print "r bin size", random_bin_size
-
-        while len(rand_bins[bin_idx]) < random_bin_size and len(bs) > 0:
-            random_stock = random.choice(bs.keys())
-            bs.pop(random_stock)
+        # < strictly less than because e.g. 3 bins => 36,36,35
+        # to have 36 stocks in a bin start counting from 0 => len(0,...,35) = 36
+        while len(rand_bins[bin_idx]) < random_bin_size and len(b_copy) > 0:
+            random_stock = random.choice(b_copy.keys())
+            b_copy.pop(random_stock)
             rand_bins[bin_idx].append((random_stock, stocks[random_stock]))
 
         bin_idx += 1
         larger_bins -= 1
 
-
-    write_bins(rootdir + "risk_classified_stocks/" + str(bins_amount) + "/uniform_random_"
+    write_bins(rootdir + "std_classified_stocks/" + str(bins_amount) + "/uniform_random_"
                + str(bins_amount) + "_" + str(n) + ".txt", rand_bins)
+
+
+def get_risk_type_string(risk_type):
+    if risk_type == "r":
+        return "risk"
+    elif risk_type == "b":
+        return "beta"
+    elif risk_type == "s":
+        return "std"
+    else:
+        raw_input("error: risk type not valid")
+        return -1
+
 
 ''' MAIN '''
 # date of last transactions 27 May 2014
 
-if len(sys.argv) < 2:
-    print 'Usage: python stockClassifier.py bins_amount [n] (generate n random bins)\n'
+if len(sys.argv) < 3:
+    print 'Usage: python stockClassifier.py [r|b|s] (risk measure type) bins_amount [n] (generate n random bins)\n'
 else:
-    print 'The ordered bins are buggy: 107/4: 4bins of 26 and 1 of 3'
-    print 'Random bins are fine 3 bins of 27 and one of 26'
 
     all_stock = {}
     highest_std = 8582946964.77
-    bins_amount = int(sys.argv[1])
-    RANDOM = int(sys.argv[2]) if len(sys.argv) > 2 else False
-
+    risk_measure_type = get_risk_type_string(sys.argv[1])  # r for risk, b for beta only, s for std only
+    bins_amount = int(sys.argv[2])
+    RANDOM = int(sys.argv[3]) if len(sys.argv) > 3 else False
     rootdir = '../../data/'
     betas = read_betas(rootdir + 'betas.txt')
     bin_size = int(math.floor(len(betas) / bins_amount))
 
+    # e.g. for 3 bins -> {0: [], 1: [], 2: []}
     bins = {i: [] for i in xrange(bins_amount)}
 
+    print 'Risk Measure type is', risk_measure_type
+    print 'The ordered bins are buggy: 107/4: 4bins of 26 and 1 of 3'
+    print 'Random bins are fine 3 bins of 27 and one of 26\n'
+
     """
-    International Consolidated Airlines Group Plc
-    International Consolidated Air
-
-    Marks&Spencer Group
-    Marks&amp;Spencer Group
-
-    Tate & Lyle
-    Tate &amp; Lyle
-
-    Legal & General
-    Legal &amp; General
-
-    Smith & Nephew
-    Smith &amp; Nephew
-
-    Sports Direct International Plc
-    Sports Direct International Pl
-
-    Whitbread A
-    Whitbread 'A'
+    International Consolidated Airlines Group Plc     International Consolidated Air
+    Marks&Spencer Group    Marks&amp;Spencer Group
+    Tate & Lyle    Tate &amp; Lyle
+    Legal & General    Legal &amp; General
+    Smith & Nephew    Smith &amp; Nephew
+    Sports Direct International Plc    Sports Direct International Pl
+    Whitbread A    Whitbread 'A'
     """
     repNames = {"International Consolidated Airlines Group Plc": "International Consolidated Air",
                 "&": "&amp;",
@@ -121,7 +124,7 @@ else:
                 "Whitbread A": "Whitbread 'A'"
                 }
 
-    for folder, subs, files in os.walk(rootdir):
+    for folder, subs, files in os.walk(rootdir + "historical_data"):
 
         for fileName in files:
             if "csv" in fileName:
@@ -156,20 +159,20 @@ else:
                     # code was run the first time to estimate the highest std dev (8582946964.77)
                     # highest_std = max([stddev,highest_std]) estimate highest stdev (to normalise)
 
-                    # TODO improve the measure including a moving window of the return average
-                    # ## oneYearPrice = float(content[250].split(",")[4])    #date corresponds to 30-May-2013
-                    # ## lastPrice = float(content[1].split(",")[4])
+                    # riskiness is the absolute value of the product of beta of the company
+                    # and std dev of the price in the last year
 
-                    # the rate of gain (positive or negative) is defined as the difference of the
-                    # current price with the price one year ago divided by the old price
-                    # (alternatively the rate of gain can be defined as current / year -1)
-                    # ##gainRate = (lastPrice - oneYearPrice) / (oneYearPrice)
-                    # print "gain rate:",gainRate
-
-                    # riskiness is the absolute value of the combination of beta of the company
-                    # and std dev of the price in the last three years
                     print companyName
-                    riskiness = abs(betas[companyName] * stddev / highest_std)
+
+                    if risk_measure_type == "risk":
+                        riskiness = abs(betas[companyName] * stddev / highest_std)
+                    elif risk_measure_type == "beta":
+                        riskiness = betas[companyName]
+                    elif risk_measure_type == "std":
+                        riskiness = stddev / highest_std
+                    else:
+                        raw_input("risk type not valid")
+                        riskiness = -1
 
                     # pool of all stocks riskiness to plot distribution
                     all_stock[companyName] = riskiness
@@ -194,9 +197,9 @@ else:
 
     if RANDOM:
         for i in range(0, RANDOM):
-            b_copy = betas.copy()
-            random_bins(all_stock, bins_amount, bin_size, b_copy, i)
+            random_bins(all_stock, bins_amount, bin_size, betas.copy(), i)
     else:
         # Save bins to file
-        write_bins(rootdir + "risk_classified_stocks/" + str(bins_amount) +
-                   "/uniform_" + str(bins_amount) + ".txt", stock_bins)
+        output_filename = rootdir + risk_measure_type + "_classified_stocks/" \
+            + str(bins_amount) + "/uniform_" + str(bins_amount) + ".txt"
+        write_bins(output_filename, stock_bins)
