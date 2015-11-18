@@ -7,15 +7,6 @@ import random
 import math
 
 ''' FUNCTIONS '''
-# generator of chunks for the bins
-
-
-def chunks(l, n):
-    # generator of chunks for the bins
-    """ Yield successive n-sized chunks from l.
-    """
-    for i in xrange(0, len(l), n):
-        yield l[i: i + n]
 
 
 def write_bins(file_path, sbins):
@@ -54,7 +45,7 @@ def random_bins(stocks, b_amount, b_size, b_copy, n):
     # determine how many bins need an extra stock
     larger_bins = len(b_copy) % b_amount
 
-    # keep adding to the i-th bin till its full (bin size < stock amount / bins amount)
+    # keep adding to the i-th bin until its full (bin size < stock amount / bins amount)
     while len(b_copy) > 0:
 
         # if there are still larger bins to populate set the random_bin_size to bin_size + 1
@@ -177,29 +168,38 @@ else:
                     # pool of all stocks riskiness to plot distribution
                     all_stock[companyName] = riskiness
 
-                    ''' This unbalances the bins size
-                    # extends to all number of bins
-                    # riskiness into j-th bin if in range [j/N, j+1/N]
-                    for j in xrange(binsAmount + 1):
-                        if j / binsAmount < riskiness  < (j + 1) / binsAmount:
-                                    bins[j].append((companyName, riskiness))
-
-                    '''
-
-    # sort all the stocks according to their riskiness
-    sorted_stocks = sorted(all_stock.items(), key=operator.itemgetter(1))
-    stock_bins = list(chunks(sorted_stocks, bin_size))
-
-    # for b in stock_bins:
-    #     print len(b)
-    #     print b
-    #     print
-
     if RANDOM:
         for i in range(0, RANDOM):
             random_bins(all_stock, bins_amount, bin_size, betas.copy(), i)
+
     else:
+        # sort all the stocks according to their riskiness
+        sorted_stocks = sorted(all_stock.items(), key=operator.itemgetter(1))
+
+        stock_bins = [[] for _ in xrange(bins_amount)]
+        bin_idx = 0
+        # determine how many bins need an extra stock
+        larger_bins = len(betas) % bins_amount
+
+        # keep adding to the i-th bin until its full (bin size < stock amount / bins amount)
+        while len(betas) > 0:
+
+            # if there are still larger bins to populate set the random_bin_size to bin_size + 1
+            stock_bin_size = bin_size + 1 if larger_bins > 0 else bin_size
+
+            # < strictly less than because e.g. 3 bins => 36,36,35
+            # to have 36 stocks in a bin start counting from 0 => len(0,...,35) = 36
+            while len(stock_bins[bin_idx]) < stock_bin_size and len(betas) > 0:
+                # get the stock with the lowest riskiness still in the list
+                popped_stock = sorted_stocks.pop(0)
+                stock_bins[bin_idx].append(popped_stock)
+                betas.pop(popped_stock[0])
+
+            bin_idx += 1
+            larger_bins -= 1
+
         # Save bins to file
         output_filename = rootdir + risk_measure_type + "_classified_stocks/" \
             + str(bins_amount) + "/uniform_" + str(bins_amount) + ".txt"
+
         write_bins(output_filename, stock_bins)
