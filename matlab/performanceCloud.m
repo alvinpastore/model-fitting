@@ -9,7 +9,7 @@ dx = 0.15;
 dy = 0.007;
 alpha = 0.01; % 99% confidence
 CHANCE_THRESHOLD = 0.5;
-COMPARISON_FACTOR = 0.01;
+COMPARISON_FACTOR = 0.01; % tolerance level 
 
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
 [SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
@@ -81,8 +81,8 @@ for t = THRESHOLDS
             % each line is a comparison (sum the line for clopper pearson)
             % comparison_MLEs is the matrix of MLEs to be compared
             % incremented of 1/100 of each value
-            comparison_MLEs = current_res(2:end,6:end) + (current_res(2:end,6:end) * COMPARISON_FACTOR);
-            MLE_comparison =  MLE_comparison + +(MLE_instance > comparison_MLEs);
+            comparison__alternative_MLEs = current_res(2:end,6:end) + (current_res(2:end,6:end) * COMPARISON_FACTOR);
+            MLE_comparison =  MLE_comparison + +(MLE_instance > comparison__alternative_MLEs);
             
         end
         
