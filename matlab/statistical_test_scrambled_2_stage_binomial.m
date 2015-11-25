@@ -3,7 +3,7 @@ tic
 
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer(1);
+[SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
 MLE_iter = 1:SCRAM_NUMBER;
 
 % load model results
@@ -16,7 +16,8 @@ model = model(find(model(:,2) ~= 0),:);
 OFFSET = 100;
 alpha = 0.01; % 99% confidence
 iterations = 1000;
-
+COMPARISON_FACTOR = 0.05; % tolerance level 
+TOLERANCE = -1;
 % count players
 players = unique(model(:,1));
 playersAmount = size(players,1);
@@ -24,6 +25,7 @@ playersAmount = size(players,1);
 players_CI = zeros(playersAmount,4);
 
 for playerID = 0:playersAmount-1
+        
     disp(['Player ' , num2str(playerID)]);
     % find player lines in model and MLE results 
     % (second condition to avoid random models where beta = 0)
@@ -62,8 +64,13 @@ for playerID = 0:playersAmount-1
     
     % logical comparison of each value from model_MLE with all scrambles
     for MLE_instance = model_MLE_line(:,1:end-1)
-        MLE_comparison(row_idx,:) = MLE_instance < scrambled_MLE_line;
-        
+        if TOLERANCE > 0
+            MLE_comparison(row_idx,:) = MLE_instance < scrambled_MLE_line + (scrambled_MLE_line * COMPARISON_FACTOR);
+        elseif TOLERANCE < 0
+            MLE_comparison(row_idx,:) = MLE_instance < scrambled_MLE_line - (scrambled_MLE_line * COMPARISON_FACTOR);
+        elseif TOLERANCE == 0
+            MLE_comparison(row_idx,:) = MLE_instance < scrambled_MLE_line;
+        end
         % apply binomial CI test (clopper-pearson) at results of comparison
         [phat, pci] = binofit(sum(MLE_comparison(row_idx,:)),SCRAM_NUMBER * iterations,alpha);
         
