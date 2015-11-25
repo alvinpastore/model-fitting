@@ -50,7 +50,7 @@ for playerID = 0:playersAmount-1
 end
 close all;
 fit = sortrows(fit,-3);
-path = 'graphs/paper/new/';
+path = 'graphs/presentation/';
 size_X = 20;
 size_Y = 15;
 %%%%%%%%% RANDOM PLOTs %%%%%%%%%%%%
@@ -58,34 +58,27 @@ size_Y = 15;
 %% RANDOM MLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% first half
 rand1_comparison = figure();
 hold on;
-bar(fit(1:23,2),'FaceColor',[0.7,0.7,0.7]);
-plot(1:1:23,fit(1:23,3),'--k');
+
+bar(fit(:,2),'FaceColor',[0.7,0.7,0.7]);
+plot(1:1:length(fit),fit(1:length(fit),3),'-.r','LineWidth',4);
+
 hold off;
-xlabel('Players','FontSize',20);
-ylabel('MLE','FontSize',20);
-axis([0 24 0 30])
+%xlabel('Players','FontSize',20);
+%ylabel('MLE','FontSize',20);
+axis([0 47 0 30])
 set(gca,'FontSize',20);
 set(gca,'XTick',[1,5,10,15,20,25,30,35,40,45],...  
-        'XTickLabel',[1,5,10,15,20,25,30,35,40,45]);
+        'XTickLabel',[]);%[1,5,10,15,20,25,30,35,40,45]);
     
+set(gca,'YTick',[0,10,20,30],...  
+    'YTickLabel',[]);
 set(gcf, 'PaperUnits', 'centimeters');
 set(gcf, 'PaperPosition', [0 0 size_X size_Y]);
 saveas(gcf,[path,'vsRandom1.eps']);
 print(gcf, '-depsc2', '-loose', [path,'vsRandom1_loose']);
 %% RANDOM MLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% second half
-rand2_comparison = figure();
-hold on;
-bar(24:1:length(fit),fit(24:length(fit),2),'FaceColor',[0.7,0.7,0.7]);
-plot(24:1:length(fit),fit(24:length(fit),3),'--k');
-hold off;
-xlabel('Players','FontSize',20);
-ylabel('MLE','FontSize',20);
-axis([23 length(fit)+1 0 30])
-set(gca,'FontSize',20);
-set(gcf, 'PaperUnits', 'centimeters');
-set(gcf, 'PaperPosition', [0 0 size_X size_Y]);
-saveas(gcf,[path,'vsRandom2.eps'])
-print(gcf, '-depsc2', '-loose', [path,'vsRandom2_loose']);
+
+
 %%%%%%%%%% RANDOM Likelihood - RATIO %%%%%%%%%%
 % 
 % rand2_comparison = figure();
@@ -119,9 +112,9 @@ signif_y_2 = sig2(signif_x_2-23)*asterisk_offset;
 nogamma1_comparison = figure();
 hold on;
 
-bar(fit(1:23,2),'FaceColor',[0.7,0.7,0.7]);
+bar(fit(:,2),'FaceColor',[0.7,0.7,0.7]);
 
-scatter( 1:1:23 , fit(1:23,4), ...
+scatter( 1:1:46 , fit(:,4), ...
 100 , [0.2,0.2,0.2],...
 'filled','d','MarkerEdgeColor',[0,0,0],...
 'LineWidth',.5); 
@@ -142,15 +135,10 @@ set(gcf, 'PaperPosition', [0 0 size_X size_Y]);
 saveas(gcf,[path,'vsNogammaAlt1.eps']);
 print(gcf, '-depsc2', '-loose', [path,'vsNogammaAlt1_loose']);
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % second half
-nogamma2_comparison = figure();
-hold on;
 
-bar(24:1:length(fit),fit(24:end,2),'FaceColor',[0.7,0.7,0.7]);
 
-scatter( 24:1:length(fit) , fit(24:end,4), ...
-100 , [0.2,0.2,0.2],...
-'filled','d','MarkerEdgeColor',[0,0,0],...
-'LineWidth',.5);  
+
+
 
 plot(signif_x_2 , signif_y_2,'k*','MarkerSize',15);
 
