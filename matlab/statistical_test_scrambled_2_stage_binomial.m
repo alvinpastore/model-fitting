@@ -1,9 +1,10 @@
 % routine for testing scrambled MLEs against RL model
 tic
 
+
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
+[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer(1);
 MLE_iter = 1:SCRAM_NUMBER;
 
 % load model results
@@ -12,12 +13,12 @@ model = model(find(model(:,2) ~= 0),:);
 
 
 % offset = amount of models in gridsearch
-% = 5alphas X 4betas X 5gammas
+% = 5alpha_confidences X 4betas X 5gammas
 OFFSET = 100;
-alpha = 0.01; % 99% confidence
+alpha_confidence = 0.01; % 99% confidence
 iterations = 1000;
 COMPARISON_FACTOR = 0.05; % tolerance level 
-TOLERANCE = -1;
+TOLERANCE = 0;
 % count players
 players = unique(model(:,1));
 playersAmount = size(players,1);
@@ -72,7 +73,7 @@ for playerID = 0:playersAmount-1
             MLE_comparison(row_idx,:) = MLE_instance < scrambled_MLE_line;
         end
         % apply binomial CI test (clopper-pearson) at results of comparison
-        [phat, pci] = binofit(sum(MLE_comparison(row_idx,:)),SCRAM_NUMBER * iterations,alpha);
+        [phat, pci] = binofit(sum(MLE_comparison(row_idx,:)),SCRAM_NUMBER * iterations,alpha_confidence);
         
         % if the Confidence Interval is above 0.5 threshold 
         % the MLE instance is stat. sign. better than scrambled
@@ -85,7 +86,7 @@ for playerID = 0:playersAmount-1
     
     
     % apply binomial CI test (clopper-pearson) at MLE instances outcomes
-    [phat, pci] = binofit(sum(MLE_results_player),size(MLE_results_player,2),alpha);
+    [phat, pci] = binofit(sum(MLE_results_player),size(MLE_results_player,2),alpha_confidence);
     
     players_CI(playerID+1,:) = [playerID phat pci(1) pci(2)];
     
