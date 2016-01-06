@@ -289,11 +289,12 @@ for t = THRESHOLDS
     set(gca,'FontSize',20);
     %axis([-6e+03 2e+04 0 1.05]);
     hold off;
-    %if SAVE_FIG
-    %    set(gcf, 'PaperUnits', 'centimeters');
-    %    set(gcf, 'PaperPosition', [0 0 40 40]);
-    %    path = 'graphs/stats/performance_cloud/';
-    %    fileName = [path, 'performance_vs_gamma_t_',num2str(t),'.png'];
-    %    print(fig, '-dpng', '-loose', fileName); 
-    %end
+    
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 40 40]);
+        path = 'graphs/stats/performance_cloud/';
+        fileName = [path, 'performance_vs_gamma_t_',num2str(t),'.png'];
+        print(fig, '-dpng', '-loose', fileName); 
+    end
 end
