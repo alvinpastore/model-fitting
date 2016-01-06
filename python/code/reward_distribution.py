@@ -5,6 +5,7 @@ from datetime import datetime
 import numpy as np
 import time
 
+
 def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
@@ -100,7 +101,3 @@ db.close()
 
 print str(rew_counter) + " rewards"
 print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
-
-
-
-
