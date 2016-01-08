@@ -1,0 +1,152 @@
+ranked 
+0 Johnson Matthey
+1 Kingfisher
+0 Randgold Resources Ltd
+0 United Utilities Group
+1 Tullow Oil Plc
+1 AMEC Plc
+0 Aggreko
+1 Tullow Oil Plc
+2 Lloyds Banking Group Plc
+2 GlaxoSmithKline
+2 Aviva Plc
+0 Reed Elsevier Plc
+1 Carnival Plc
+2 Royal Bank of Scotland Group
+0 G4S Plc
+2 Glencore
+0 British Land
+2 Aberdeen Asset Management Plc
+scrambled 1
+0 Johnson Matthey
+1 Kingfisher
+1 Randgold Resources Ltd
+0 United Utilities Group
+1 Tullow Oil Plc
+2 AMEC Plc
+0 Aggreko
+1 Tullow Oil Plc
+1 Lloyds Banking Group Plc
+0 GlaxoSmithKline
+1 Aviva Plc
+2 Reed Elsevier Plc
+2 Carnival Plc
+1 Royal Bank of Scotland Group
+2 G4S Plc
+1 Glencore
+2 British Land
+2 Aberdeen Asset Management Plc
+scrambled 2
+1 Johnson Matthey
+0 Kingfisher
+1 Randgold Resources Ltd
+1 United Utilities Group
+0 Tullow Oil Plc
+0 AMEC Plc
+0 Aggreko
+0 Tullow Oil Plc
+1 Lloyds Banking Group Plc
+1 GlaxoSmithKline
+0 Aviva Plc
+0 Reed Elsevier Plc
+2 Carnival Plc
+1 Royal Bank of Scotland Group
+2 G4S Plc
+1 Glencore
+2 British Land
+0 Aberdeen Asset Management Plc
+scrambled 3
+0 Johnson Matthey
+1 Kingfisher
+2 Randgold Resources Ltd
+2 United Utilities Group
+2 Tullow Oil Plc
+1 AMEC Plc
+0 Aggreko
+2 Tullow Oil Plc
+2 Lloyds Banking Group Plc
+1 GlaxoSmithKline
+0 Aviva Plc
+2 Reed Elsevier Plc
+2 Carnival Plc
+2 Royal Bank of Scotland Group
+2 G4S Plc
+1 Glencore
+2 British Land
+2 Aberdeen Asset Management Plc
+scrambled 4
+2 Johnson Matthey
+2 Kingfisher
+2 Randgold Resources Ltd
+0 United Utilities Group
+1 Tullow Oil Plc
+0 AMEC Plc
+1 Aggreko
+1 Tullow Oil Plc
+1 Lloyds Banking Group Plc
+2 GlaxoSmithKline
+1 Aviva Plc
+1 Reed Elsevier Plc
+0 Carnival Plc
+0 Royal Bank of Scotland Group
+2 G4S Plc
+1 Glencore
+2 British Land
+1 Aberdeen Asset Management Plc
+scrambled 5
+2 Johnson Matthey
+1 Kingfisher
+2 Randgold Resources Ltd
+0 United Utilities Group
+0 Tullow Oil Plc
+1 AMEC Plc
+0 Aggreko
+0 Tullow Oil Plc
+1 Lloyds Banking Group Plc
+2 GlaxoSmithKline
+2 Aviva Plc
+2 Reed Elsevier Plc
+2 Carnival Plc
+1 Royal Bank of Scotland Group
+2 G4S Plc
+2 Glencore
+1 British Land
+2 Aberdeen Asset Management Plc
+beta
+1 Johnson Matthey
+2 Kingfisher
+0 Randgold Resources Ltd
+0 United Utilities Group
+1 Tullow Oil Plc
+0 AMEC Plc
+1 Aggreko
+1 Tullow Oil Plc
+2 Lloyds Banking Group Plc
+0 GlaxoSmithKline
+2 Aviva Plc
+0 Reed Elsevier Plc
+1 Carnival Plc
+2 Royal Bank of Scotland Group
+0 G4S Plc
+2 Glencore
+1 British Land
+2 Aberdeen Asset Management Plc
+std
+0 Johnson Matthey
+1 Kingfisher
+1 Randgold Resources Ltd
+0 United Utilities Group
+1 Tullow Oil Plc
+1 AMEC Plc
+0 Aggreko
+1 Tullow Oil Plc
+2 Lloyds Banking Group Plc
+2 GlaxoSmithKline
+2 Aviva Plc
+1 Reed Elsevier Plc
+1 Carnival Plc
+2 Royal Bank of Scotland Group
+0 G4S Plc
+2 Glencore
+0 British Land
+1 Aberdeen Asset Management Plc
