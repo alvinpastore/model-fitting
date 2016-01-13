@@ -3,11 +3,11 @@ close all;
 %run statistical_test_scrambled_2_stage_binomial first ?
 
 THRESHOLDS = [0 0.5];
-SAVE_FIG = 0;
-FIG_IDX = 0;
-dx = 0.15;
+SAVE_FIG = 0;   % 0 does not save figures, 1 saves figures
+FIG_IDX = 0;    % starting point for the figure index
+dx = 0.15;      % shift for the player numbers on the datapoints
 dy = 0.007;
-alpha = 0.01; % 99% confidence
+alpha_confidence = 0.01;   % 99% confidence
 CHANCE_THRESHOLD = 0.5;
 COMPARISON_FACTOR = 0.01; % tolerance level 
 
@@ -89,7 +89,7 @@ for t = THRESHOLDS
         % each line is a model
         for jdx = 1:4
             comparison = MLE_comparison(jdx,:);
-            [phat,pci] = binofit(sum(comparison),1000*1000,alpha);
+            [phat,pci] = binofit(sum(comparison),1000*1000,alpha_confidence);
             if pci(1) > CHANCE_THRESHOLD
                 
                 
