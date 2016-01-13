@@ -37,7 +37,7 @@ def get_next_state(wealth):
 
 def read_stock_file(b_type, b_amount):
     file_number = -1
-    path = "../../data/risk_classified_stocks/" + str(b_amount) + "/"
+    path = "../../data/" + results_subfolder + "_classified_stocks/" + str(b_amount) + "/"
     if 'u' in b_type:
         path += 'uniform_'
     elif 's' in b_type:
@@ -166,13 +166,14 @@ def load_parameters(file_name):
 t0 = time.time()
 
 if len(sys.argv) < 6:
-    print 'Usage: python modelFitForward.py   N   C  u[rX]|s[rX]  B  S\n' \
+    print 'Usage: python modelFitForward.py   N   C  u[rX]|s[rX]  B  t  S\n' \
           'N = number of iterations for averaging\n'\
           'C = number of max transactions to consider (min = 16, max = 107)\n' \
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random\n' \
           'X = random file number\n' \
           'B = number of bins\n' \
+          't = type of risk classification [risk|beta|std]' \
           'S = number of states (2 or 3 for this version, 3 needs implementing)'
 
 elif int(sys.argv[2]) < 16 or int(sys.argv[2]) > 107:
@@ -194,7 +195,9 @@ else:
     CAP = int(sys.argv[2])
     bin_type = sys.argv[3]
     nActions = int(sys.argv[4])
-    nStates  = int(sys.argv[5])
+    nStates  = int(sys.argv[6])
+
+    results_subfolder = sys.argv[5]
 
     warnings.simplefilter("error", RuntimeWarning)
 
@@ -272,7 +275,7 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('results/MLE_' +
+    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_' +
                     str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
 
     for player in players:
@@ -480,6 +483,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/Negative_' + save_filename + '.csv')
+    saveMLEs('results/' + results_subfolder + '_classified/Negative_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
