@@ -17,7 +17,7 @@ def get_next_state(wealth):
             return 0  # poor
         else:
             return 1  # rich
-    elif nState == 3:
+    elif nStates == 3:
         # TODO implement 3 states
         print
         print wealth
@@ -298,7 +298,6 @@ else:
 
                     # running variance setup
                     # Knuth Welford
-
                     # https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
                     n = 0
                     mean, MLE_mean = 0, 0
