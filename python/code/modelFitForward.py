@@ -298,6 +298,7 @@ else:
 
                     # running variance setup
                     # Knuth Welford
+
                     # https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
                     n = 0
                     mean, MLE_mean = 0, 0
