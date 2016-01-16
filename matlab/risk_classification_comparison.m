@@ -1,7 +1,9 @@
 
 tic;
-
+RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the first time)
 LOAD_MLEs = 0; % 1 if models and MLE need loading
+SINGLE_FIGURES = 0; % FLAG to plot errorbar figures singularly
+MULTI_FIGURE = 1 % FLAG to plot cumulative errorbar figure 
 % offset = amount of models in gridsearch
 % = 5alpha X 4betas X 5gammas
 OFFSET = 100;
@@ -30,20 +32,24 @@ playersAmount = size(players,1);
 % structure to store the simple avgMLE simple_avgMLE_comparison 
 simple_avgMLE_comparison = zeros(playersAmount,3);
 
-
 % structures to store the p-value and CIs for each simple_avgMLE_comparison and for each player
 players_errorbars_rvb = zeros(playersAmount,4);
 players_errorbars_rvs = zeros(playersAmount,4);
 players_errorbars_bvs = zeros(playersAmount,4);
+players_errorbars_bvr = zeros(playersAmount,4);
+players_errorbars_svb = zeros(playersAmount,4);
+players_errorbars_svr = zeros(playersAmount,4);
 
 % vectors to store MLE lines
 risk_MLE_line   = zeros(1,iterations);
 beta_MLE_line   = zeros(1,iterations);
 stddev_MLE_line = zeros(1,iterations);
-if 0
+if RUN_ANALYSIS
+    
     % for every player calculate best model and compare with beta and stddev
     for playerID = 0:playersAmount-1
         disp(playerID);
+        
         % search for player best model using avgMLE
         risk_lines = find(risk_classified(:,1) == playerID); 
         [risk_best_MLE, risk_best_MLE_line]  = min(risk_classified(risk_lines,5));
@@ -73,10 +79,11 @@ if 0
 
         % structure to save the outcome of the three simple_avgMLE_comparison (rvb,rvs,bvs)
         % each row is the outcome of the simple_avgMLE_comparisons (1 if stat sign, 0 otherwise)
-        MLE_results_player = zeros(3,iterations);
+        MLE_results_player = zeros(6,iterations);
 
         % 1,2)compare each MLE instance in risk_MLE_line vs all MLE instances in beta_MLE_line and stddev_MLE_line 
-        % 3)  compare each MLE instance in beta_MLE_line vs all MLE instances in stddev_MLE_line
+        % 3,4)compare each MLE instance in beta_MLE_line vs all MLE instances in stddev_MLE_line and risk_MLE_line
+        % 5,6)compare each MLE instance in stddev_MLE_line vs all MLE instances in risk_MLE_line and beta_MLE_line 
         for MLE_instance_idx = 1:1:iterations
 
             % 1)
@@ -109,6 +116,34 @@ if 0
             if min(phat,min(pci)) > 0.5
                 MLE_results_player(3,MLE_instance_idx) = 1;
             end
+            
+            % 4)
+            % compare beta vs risk and same as before
+            MLE_simple_avgMLE_comparison = beta_MLE_instance < risk_MLE_line;
+            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+
+            if min(phat,min(pci)) > 0.5
+                MLE_results_player(4,MLE_instance_idx) = 1;
+            end
+            
+            % 5)
+            % compare stddev vs risk and same as before
+            stddev_MLE_instance = stddev_MLE_line(MLE_instance_idx);
+            MLE_simple_avgMLE_comparison = stddev_MLE_instance < risk_MLE_line;
+            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+
+            if min(phat,min(pci)) > 0.5
+                MLE_results_player(5,MLE_instance_idx) = 1;
+            end
+            
+            % 6)
+            % compare stddev vs beta and same as before
+            MLE_simple_avgMLE_comparison = stddev_MLE_instance < beta_MLE_line;
+            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+
+            if min(phat,min(pci)) > 0.5
+                MLE_results_player(6,MLE_instance_idx) = 1;
+            end
 
         end
 
@@ -116,12 +151,18 @@ if 0
         [phat1, pci1] = binofit(sum(MLE_results_player(1,:)),iterations,alpha_confidence);
         [phat2, pci2] = binofit(sum(MLE_results_player(2,:)),iterations,alpha_confidence);
         [phat3, pci3] = binofit(sum(MLE_results_player(3,:)),iterations,alpha_confidence);
+        [phat4, pci4] = binofit(sum(MLE_results_player(4,:)),iterations,alpha_confidence);
+        [phat5, pci5] = binofit(sum(MLE_results_player(5,:)),iterations,alpha_confidence);
+        [phat6, pci6] = binofit(sum(MLE_results_player(6,:)),iterations,alpha_confidence);
 
         % store p values and confidence intervals for each player
         players_errorbars_rvb(playerID+1,:) = [playerID, phat1, pci1(1), pci1(2)];
         players_errorbars_rvs(playerID+1,:) = [playerID, phat2, pci2(1), pci2(2)];
         players_errorbars_bvs(playerID+1,:) = [playerID, phat3, pci3(1), pci3(2)];
-
+        players_errorbars_bvr(playerID+1,:) = [playerID, phat4, pci4(1), pci4(2)];
+        players_errorbars_svb(playerID+1,:) = [playerID, phat5, pci5(1), pci5(2)];
+        players_errorbars_svr(playerID+1,:) = [playerID, phat6, pci6(1), pci6(2)];
+        
         % store avg MLE values and simple_avgMLE_comparison p-vaules
         simple_avgMLE_comparison(playerID + 1,:) = [risk_best_MLE beta_best_MLE stddev_best_MLE];
         
@@ -147,57 +188,59 @@ hold off
 
 %% errorbars graphs %%
 
-fig2 = figure(2);
-hold on
-[sorted_CI_rvb, sort_idx] = sortrows(players_errorbars_rvb,2);
-% x axis is the same for all (1:1:46) but the actual order is in sort_idx
-errorbar(players_errorbars_rvb(:,1),sorted_CI_rvb(:,2),...
-    sorted_CI_rvb(:,2)-sorted_CI_rvb(:,3),...
-    sorted_CI_rvb(:,4)-sorted_CI_rvb(:,2));
-title('Risk vs Beta','FontSize',FONT_SIZE);
-plot([0,46],[0.5,0.5],'r-');
-axis([-1 46 0 1]);
-labels = num2str(sorted_CI_rvb(:,1));
-set(gca,'Xtick',0:1:45,'XTickLabel',labels);
-xlabel('Player ID');
-ylabel('Probability');
-set(gca,'FontSize',FONT_SIZE);
-hold off
+if SINGLE_FIGURES 
+    fig2 = figure(2);
+    hold on
+    [sorted_CI_rvb, sort_idx] = sortrows(players_errorbars_rvb,2);
+    % x axis is the same for all (1:1:46) but the actual order is in sort_idx
+    errorbar(players_errorbars_rvb(:,1),sorted_CI_rvb(:,2),...
+        sorted_CI_rvb(:,2)-sorted_CI_rvb(:,3),...
+        sorted_CI_rvb(:,4)-sorted_CI_rvb(:,2));
+    title('Risk vs Beta','FontSize',FONT_SIZE);
+    plot([0,46],[0.5,0.5],'r-');
+    axis([-1 46 0 1]);
+    labels = num2str(sorted_CI_rvb(:,1));
+    set(gca,'Xtick',0:1:45,'XTickLabel',labels);
+    xlabel('Player ID');
+    ylabel('Probability');
+    set(gca,'FontSize',FONT_SIZE);
+    hold off
 
 
-fig3 = figure(3);
-hold on
-sorted_CI_rvs = sortrows(players_errorbars_rvs,2);
-errorbar(players_errorbars_rvb(:,1),sorted_CI_rvs(:,2),...
-    sorted_CI_rvs(:,2)-sorted_CI_rvs(:,3),...
-    sorted_CI_rvs(:,4)-sorted_CI_rvs(:,2));
-title('Risk vs Std Dev','FontSize',FONT_SIZE);
-plot([0,46],[0.5,0.5],'r-');
-axis([-1 46 0 1]);
-labels = num2str(sorted_CI_rvs(:,1));
-set(gca,'Xtick',0:1:45,'XTickLabel',labels);
-xlabel('Player ID');
-ylabel('Probability');
-set(gca,'FontSize',FONT_SIZE);
-hold off
+    fig3 = figure(3);
+    hold on
+    sorted_CI_rvs = sortrows(players_errorbars_rvs,2);
+    errorbar(players_errorbars_rvb(:,1),sorted_CI_rvs(:,2),...
+        sorted_CI_rvs(:,2)-sorted_CI_rvs(:,3),...
+        sorted_CI_rvs(:,4)-sorted_CI_rvs(:,2));
+    title('Risk vs Std Dev','FontSize',FONT_SIZE);
+    plot([0,46],[0.5,0.5],'r-');
+    axis([-1 46 0 1]);
+    labels = num2str(sorted_CI_rvs(:,1));
+    set(gca,'Xtick',0:1:45,'XTickLabel',labels);
+    xlabel('Player ID');
+    ylabel('Probability');
+    set(gca,'FontSize',FONT_SIZE);
+    hold off
 
 
 
-fig4 = figure(4);
-hold on
-sorted_CI_bvs = sortrows(players_errorbars_bvs,2);
-errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(:,2),...
-    sorted_CI_bvs(:,2)-sorted_CI_bvs(:,3),...
-    sorted_CI_bvs(:,4)-sorted_CI_bvs(:,2));
-title('Beta vs Std Dev','FontSize',FONT_SIZE);
-plot([0,46],[0.5,0.5],'r-');
-axis([-1 46 0 1]);
-labels = num2str(sorted_CI_bvs(:,1));
-set(gca,'Xtick',0:1:45,'XTickLabel',labels);
-xlabel('Player ID');
-ylabel('Probability');
-set(gca,'FontSize',FONT_SIZE);
-hold off
+    fig4 = figure(4);
+    hold on
+    sorted_CI_bvs = sortrows(players_errorbars_bvs,2);
+    errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(:,2),...
+        sorted_CI_bvs(:,2)-sorted_CI_bvs(:,3),...
+        sorted_CI_bvs(:,4)-sorted_CI_bvs(:,2));
+    title('Beta vs Std Dev','FontSize',FONT_SIZE);
+    plot([0,46],[0.5,0.5],'r-');
+    axis([-1 46 0 1]);
+    labels = num2str(sorted_CI_bvs(:,1));
+    set(gca,'Xtick',0:1:45,'XTickLabel',labels);
+    xlabel('Player ID');
+    ylabel('Probability');
+    set(gca,'FontSize',FONT_SIZE);
+    hold off
+end
 
 %% graph for all comparisons errorbars together (sorted according to rvb)
 fig5 = figure(5);
@@ -213,6 +256,18 @@ e2 = errorbar(players_errorbars_rvb(:,1),sorted_CI_rvs(sort_idx,2),...
     sorted_CI_rvs(sort_idx,4)-sorted_CI_rvs(sort_idx,2),'x');
 
 e3 = errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(sort_idx,2),...
+    sorted_CI_bvs(sort_idx,2)-sorted_CI_bvs(sort_idx,3),...
+    sorted_CI_bvs(sort_idx,4)-sorted_CI_bvs(sort_idx,2),'x');
+
+e4 = errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(sort_idx,2),...
+    sorted_CI_bvs(sort_idx,2)-sorted_CI_bvs(sort_idx,3),...
+    sorted_CI_bvs(sort_idx,4)-sorted_CI_bvs(sort_idx,2),'x');
+
+e5 = errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(sort_idx,2),...
+    sorted_CI_bvs(sort_idx,2)-sorted_CI_bvs(sort_idx,3),...
+    sorted_CI_bvs(sort_idx,4)-sorted_CI_bvs(sort_idx,2),'x');
+
+e6 = errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(sort_idx,2),...
     sorted_CI_bvs(sort_idx,2)-sorted_CI_bvs(sort_idx,3),...
     sorted_CI_bvs(sort_idx,4)-sorted_CI_bvs(sort_idx,2),'x');
 
