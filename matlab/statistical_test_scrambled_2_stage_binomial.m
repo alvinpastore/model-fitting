@@ -21,6 +21,8 @@ alpha_confidence = 0.01; % 99% confidence
 iterations = 1000;
 COMPARISON_FACTOR = 0.05; % tolerance level 
 TOLERANCE = 0;
+FONT_SIZE = 20;
+
 % count players
 players = unique(model(:,1));
 playersAmount = size(players,1);
@@ -110,7 +112,7 @@ labels = num2str(sorted_CI(:,1));
 set(gca,'Xtick',0:1:46,'XTickLabel',labels);
 xlabel('Player ID');
 ylabel('Probability');
-set(gca,'FontSize',20);
+set(gca,'FontSize',FONT_SIZE);
 hold off;
 %clearvars -except better_than_scrambled MLESCRAMS MLEFULL* res3 players_CI sorted_CI SCRAM_NUMBER model_MLE;
 toc
