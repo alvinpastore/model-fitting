@@ -1,8 +1,8 @@
 close all;
 
-%run statistical_test_scrambled_2_stage_binomial first ?
+%run statistical_test_scrambled_2_stage_binomial first for players_CI 
 
-THRESHOLDS = [0 0.5];
+THRESHOLDS = [0];% 0.5];
 SAVE_FIG = 0;   % 0 does not save figures, 1 saves figures
 FIG_IDX = 0;    % starting point for the figure index
 dx = 0.15;      % shift for the player numbers on the datapoints
@@ -21,8 +21,9 @@ model = res3;
 
 % get the random lines from the model
 randomMLEs = model(find(model(:,2) == 0),:);
-
+% other lines are non-random models
 model = model(find(model(:,2) ~= 0),:);
+
 model = [model(:,1:5), model_MLE(:,5:end-1)];
 
 for t = THRESHOLDS
@@ -37,13 +38,13 @@ for t = THRESHOLDS
     end
     errorbars = [];
     % get the number of players
-    plAmount = size(performances,1);
+    playerAmount = size(performances,1);
 
     % instantiate statistics vectors
     % pid, profit, MLE best, MLE random, alpha, beta, gamma
     stats = [];
 
-    for idx = 1:plAmount
+    for idx = 1:playerAmount
         % get the player ID
         pid = performances(idx,1);
 
@@ -69,17 +70,19 @@ for t = THRESHOLDS
         % store best models MLE (avg)
         minMLE = current_res(1,5);
         
-        % get only the 1000 repetitions (exclude the avg MLE col.5)
+        % get model 1000 MLEs repetitions (exclude the avg MLE col.5)
         best_MLEs = current_res(1,6:end);
         
         MLE_comparison = zeros(size(current_res(2:end,6:end)));
+        
+        randomMLE = randomMLEs(find(randomMLEs(:,1) == pid),5);
         
         for MLE_instance = best_MLEs
             % compare the MLE instance (scalar) 
             % to a matrix of MLES (best N lines)
             % each line summed to itself at each comparison
             % each line is a comparison (sum the line for clopper pearson)
-            % comparison_MLEs is the matrix of MLEs to be compared
+            % comparison__alternative_MLEs is the matrix of MLEs to be compared
             % incremented of 1/100 of each value
             comparison__alternative_MLEs = current_res(2:end,6:end) + (current_res(2:end,6:end) * COMPARISON_FACTOR);
             MLE_comparison =  MLE_comparison + +(MLE_instance > comparison__alternative_MLEs);
@@ -90,10 +93,9 @@ for t = THRESHOLDS
         for jdx = 1:4
             comparison = MLE_comparison(jdx,:);
             [phat,pci] = binofit(sum(comparison),1000*1000,alpha_confidence);
+            
+            
             if pci(1) > CHANCE_THRESHOLD
-                
-                
-                
                 FIG_IDX = FIG_IDX + 1;
                 fig = figure(FIG_IDX);
                 hold on;
@@ -110,6 +112,8 @@ for t = THRESHOLDS
                 fileName = [path, 'player: ', num2str(pid),'p-hat',num2str(phat), '.png'];
                 print(fig, '-dpng', '-loose', fileName);
                 
+                stats = [stats; pid, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,1:end-1)];
+                
             elseif pci(2) < CHANCE_THRESHOLD
                 %disp('statistically worse');
             else
@@ -125,8 +129,6 @@ for t = THRESHOLDS
         % get alpha, beta and gamma param for best model
         %abg = current_res(minMLE_idx,1:3);
         
-        
-        randomMLE = randomMLEs(find(randomMLEs(:,1) == pid),5);
         % store stats
         stats = [stats; pid, performances(idx,2), minMLE, randomMLE, abg(1:3)];
         
@@ -138,8 +140,11 @@ for t = THRESHOLDS
     fig = figure(FIG_IDX);
     hold on
     errorbar(1:1:size(errorbars,1),errorbars(:,1),errorbars(:,1)-errorbars(:,2),errorbars(:,3)-errorbars(:,1),'bx');
-    plot([0 size(errorbars,1)],[.5 .5],'r-')
+    plot([-10 size(errorbars,1)+10],[.5 .5],'r-','LineWidth',4)
+    axis([-10 200 0 0.6]);
     hold off
+    xlabel('Models');
+    ylabel('Probability');
     
     % sort players according to performances 
     ranked_performances = sortrows(stats,2);
