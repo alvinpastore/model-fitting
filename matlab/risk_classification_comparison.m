@@ -1,7 +1,7 @@
 
 tic;
 RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the first time)
-LOAD_MLEs = 1; % 1 if models and MLE need loading
+LOAD_MLEs = 0; % 1 if models and MLE need loading
 SIMPLE_FIGURE = 0; % simple avgMLE value comparison
 MULTI_FIGURE = 1; % FLAG to plot cumulative errorbar figure 
 PARTIAL_FIGURES = 1; % FLAG to plot errorbar figures singularly
@@ -197,16 +197,6 @@ if MULTI_FIGURE
     fig2 = figure();
     hold on
     
-    title('Risk v Beta vs Std Dev','FontSize',FONT_SIZE);
-    plot([0,46],[0.5,0.5],'r-');
-    axis([-1 46 -0.05 1.05]);
-    labels = num2str(sorted_CI_bvs(:,1));
-    set(gca,'Xtick',0:1:45,'XTickLabel',labels);
-    xlabel('Player ID');
-    ylabel('Probability');
-    set(gca,'FontSize',FONT_SIZE);
-    set(gca,'xgrid','on')
-    
     [sorted_CI_rvb, sort_idx] = sortrows(players_errorbars_rvb,1);  
     sorted_CI_rvs = sortrows(players_errorbars_rvs,2);
     sorted_CI_bvs = sortrows(players_errorbars_bvs,2);
@@ -237,7 +227,16 @@ if MULTI_FIGURE
     e6 = errorbar(players_errorbars_rvb(:,1),sorted_CI_svr(sort_idx,2),...
         sorted_CI_svr(sort_idx,2)-sorted_CI_svr(sort_idx,3),...
         sorted_CI_svr(sort_idx,4)-sorted_CI_svr(sort_idx,2),'og','MarkerSize',MARKER_SIZE);
-        
+    
+    title('Risk v Beta vs Std Dev','FontSize',FONT_SIZE);
+    plot([0,46],[0.5,0.5],'r-');
+    axis([-1 46 -0.05 1.05]);
+    labels = num2str(sorted_CI_bvs(:,1));
+    set(gca,'Xtick',0:1:45,'XTickLabel',labels);
+    xlabel('Player ID');
+    ylabel('Probability');
+    set(gca,'FontSize',FONT_SIZE);
+    set(gca,'xgrid','on')
     hleg = legend([e1 e2 e3 e4 e5 e6],...
         {'Risk v Beta','Risk v Stddev', 'Beta v Stddev',...
         'Beta v Risk','Stddev v Beta','Stddev v Risk'});
