@@ -19,8 +19,8 @@ model = model(find(model(:,2) ~= 0),:);
 OFFSET = 100;
 alpha_confidence = 0.01; % 99% confidence
 iterations = 1000;
-COMPARISON_FACTOR = 0.05; % tolerance level 
-TOLERANCE = 0;
+COMPARISON_FACTOR = 0; % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
+
 FONT_SIZE = 20;
 
 % count players
@@ -73,13 +73,8 @@ for playerID = 0:playersAmount-1
     
     % logical comparison of each value from model_MLE with all scrambles
     for MLE_instance = model_MLE_line 
-        if TOLERANCE > 0
-            MLE_comparison = MLE_instance < scrambled_MLE_line + (scrambled_MLE_line * COMPARISON_FACTOR);
-        elseif TOLERANCE < 0
-            MLE_comparison = MLE_instance < scrambled_MLE_line - (scrambled_MLE_line * COMPARISON_FACTOR);
-        elseif TOLERANCE == 0
-            MLE_comparison = MLE_instance < scrambled_MLE_line;
-        end
+        
+        MLE_comparison = MLE_instance < scrambled_MLE_line + (scrambled_MLE_line * COMPARISON_FACTOR);
         
         % apply binomial CI test (clopper-pearson) at results of comparison
         [phat, pci] = binofit(sum(MLE_comparison),SCRAM_NUMBER * iterations,alpha_confidence);
