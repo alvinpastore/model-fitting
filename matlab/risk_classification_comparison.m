@@ -173,7 +173,7 @@ end
 close all;
 
 %% plot simple avg MLE simple_avgMLE_comparison
-if SIMPLE_COMPARISON_FIGURE
+if SIMPLE_FIGURE
     fig1 = figure();
     hold on
     plot(1:1:playersAmount,simple_avgMLE_comparison(:,1),'bx','LineWidth',4);
