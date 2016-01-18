@@ -17,7 +17,7 @@ def get_next_state(wealth):
             return 0  # poor
         else:
             return 1  # rich
-    elif nState == 3:
+    elif nStates == 3:
         # TODO implement 3 states
         print
         print wealth
