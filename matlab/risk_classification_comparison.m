@@ -4,13 +4,13 @@ RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the f
 LOAD_MLEs = 0; % 1 if models and MLE need loading
 SIMPLE_FIGURE = 0; % simple avgMLE value comparison
 MULTI_FIGURE = 1; % FLAG to plot cumulative errorbar figure 
-PARTIAL_FIGURES = 1; % FLAG to plot errorbar figures singularly
+PARTIAL_FIGURES = 0; % FLAG to plot errorbar figures singularly
 % offset = amount of models in gridsearch
 % = 5alpha X 4betas X 5gammas
 OFFSET = 100;
 alpha_confidence = 0.01; % 99% confidence
 iterations = 1000;
-FONT_SIZE = 16;
+FONT_SIZE = 25;
 MARKER_SIZE = 10;
 
 if LOAD_MLEs
@@ -197,36 +197,31 @@ if MULTI_FIGURE
     fig2 = figure();
     hold on
     
-    [sorted_CI_rvb, sort_idx] = sortrows(players_errorbars_rvb,1);  
-    sorted_CI_rvs = sortrows(players_errorbars_rvs,2);
-    sorted_CI_bvs = sortrows(players_errorbars_bvs,2);
-    sorted_CI_bvr = sortrows(players_errorbars_bvr,2);
-    sorted_CI_svb = sortrows(players_errorbars_svb,2);
-    sorted_CI_svr = sortrows(players_errorbars_svr,2);
+    [sorted_CI_rvb, sort_idx] = sortrows(players_errorbars_rvb,3);  
     
-    e1 = errorbar(players_errorbars_rvb(:,1),sorted_CI_rvb(sort_idx,2),...
-        sorted_CI_rvb(sort_idx,2)-sorted_CI_rvb(sort_idx,3),...
-        sorted_CI_rvb(sort_idx,4)-sorted_CI_rvb(sort_idx,2),'xr','MarkerSize',MARKER_SIZE);
+    e1 = errorbar(players_errorbars_rvb(:,1),players_errorbars_rvb(sort_idx,2),...
+        players_errorbars_rvb(sort_idx,2)-players_errorbars_rvb(sort_idx,3),...
+        players_errorbars_rvb(sort_idx,4)-players_errorbars_rvb(sort_idx,2),'x-r','MarkerSize',MARKER_SIZE);
 
-    e2 = errorbar(players_errorbars_rvb(:,1),sorted_CI_rvs(sort_idx,2),...
-        sorted_CI_rvs(sort_idx,2)-sorted_CI_rvs(sort_idx,3),...
-        sorted_CI_rvs(sort_idx,4)-sorted_CI_rvs(sort_idx,2),'or','MarkerSize',MARKER_SIZE);
+    e2 = errorbar(players_errorbars_rvb(:,1),players_errorbars_rvs(sort_idx,2),...
+        players_errorbars_rvs(sort_idx,2)-players_errorbars_rvs(sort_idx,3),...
+        players_errorbars_rvs(sort_idx,4)-players_errorbars_rvs(sort_idx,2),'or','MarkerSize',MARKER_SIZE);
 
-    e3 = errorbar(players_errorbars_rvb(:,1),sorted_CI_bvs(sort_idx,2),...
-        sorted_CI_bvs(sort_idx,2)-sorted_CI_bvs(sort_idx,3),...
-        sorted_CI_bvs(sort_idx,4)-sorted_CI_bvs(sort_idx,2),'*b','MarkerSize',MARKER_SIZE);
+    e3 = errorbar(players_errorbars_rvb(:,1),players_errorbars_bvs(sort_idx,2),...
+        players_errorbars_bvs(sort_idx,2)-players_errorbars_bvs(sort_idx,3),...
+        players_errorbars_bvs(sort_idx,4)-players_errorbars_bvs(sort_idx,2),'*b','MarkerSize',MARKER_SIZE);
 
-    e4 = errorbar(players_errorbars_rvb(:,1),sorted_CI_bvr(sort_idx,2),...
-        sorted_CI_bvr(sort_idx,2)-sorted_CI_bvr(sort_idx,3),...
-        sorted_CI_bvr(sort_idx,4)-sorted_CI_bvr(sort_idx,2),'xb','MarkerSize',MARKER_SIZE);
+    e4 = errorbar(players_errorbars_rvb(:,1),players_errorbars_bvr(sort_idx,2),...
+        players_errorbars_bvr(sort_idx,2)-players_errorbars_bvr(sort_idx,3),...
+        players_errorbars_bvr(sort_idx,4)-players_errorbars_bvr(sort_idx,2),'xb','MarkerSize',MARKER_SIZE);
 
-    e5 = errorbar(players_errorbars_rvb(:,1),sorted_CI_svb(sort_idx,2),...
-        sorted_CI_svb(sort_idx,2)-sorted_CI_svb(sort_idx,3),...
-        sorted_CI_svb(sort_idx,4)-sorted_CI_svb(sort_idx,2),'*g','MarkerSize',MARKER_SIZE);
+    e5 = errorbar(players_errorbars_rvb(:,1),players_errorbars_svb(sort_idx,2),...
+        players_errorbars_svb(sort_idx,2)-players_errorbars_svb(sort_idx,3),...
+        players_errorbars_svb(sort_idx,4)-players_errorbars_svb(sort_idx,2),'*g','MarkerSize',MARKER_SIZE);
 
-    e6 = errorbar(players_errorbars_rvb(:,1),sorted_CI_svr(sort_idx,2),...
-        sorted_CI_svr(sort_idx,2)-sorted_CI_svr(sort_idx,3),...
-        sorted_CI_svr(sort_idx,4)-sorted_CI_svr(sort_idx,2),'og','MarkerSize',MARKER_SIZE);
+    e6 = errorbar(players_errorbars_rvb(:,1),players_errorbars_svr(sort_idx,2),...
+        players_errorbars_svr(sort_idx,2)-players_errorbars_svr(sort_idx,3),...
+        players_errorbars_svr(sort_idx,4)-players_errorbars_svr(sort_idx,2),'og','MarkerSize',MARKER_SIZE);
     
     title('Risk v Beta vs Std Dev','FontSize',FONT_SIZE);
     plot([0,46],[0.5,0.5],'r-');
@@ -236,7 +231,7 @@ if MULTI_FIGURE
     xlabel('Player ID');
     ylabel('Probability');
     set(gca,'FontSize',FONT_SIZE);
-    set(gca,'xgrid','on')
+    set(gca,'xgrid','on');
     hleg = legend([e1 e2 e3 e4 e5 e6],...
         {'Risk v Beta','Risk v Stddev', 'Beta v Stddev',...
         'Beta v Risk','Stddev v Beta','Stddev v Risk'});
@@ -248,25 +243,33 @@ end
 
 if PARTIAL_FIGURES 
     best_measure_count = zeros(1,3);
+    risk_count = [];
+    beta_count = [];
+    stddev_count = [];
+    
     for playerID = 1:playersAmount
                 
         % compare risk vs beta AND stddev
-        if min(players_errorbars_rvb(playerID,2:end)) > 0.5 &&...
-           min(players_errorbars_rvs(playerID,2:end)) > 0.5 
+        if max(players_errorbars_rvb(playerID,2:end)) > 0.5 &&...
+           max(players_errorbars_rvs(playerID,2:end)) > 0.5 
             best_measure_count(1) = best_measure_count(1) + 1;
+            risk_count = [risk_count playerID-1];
         end
         
         % compare beta vs risk AND stddev
-        if min(players_errorbars_bvr(playerID,2:end)) > 0.5 &&...
-           min(players_errorbars_bvs(playerID,2:end)) > 0.5
+        if max(players_errorbars_bvr(playerID,2:end)) > 0.5 &&...
+           max(players_errorbars_bvs(playerID,2:end)) > 0.5
             best_measure_count(2) = best_measure_count(2) + 1;
+            beta_count = [beta_count playerID-1];
         end
         
         % compare stddev vs risk AND beta
-        if min(players_errorbars_svr(playerID,2:end)) > 0.5 &&...
-           min(players_errorbars_svb(playerID,2:end)) > 0.5
+        if max(players_errorbars_svr(playerID,2:end)) > 0.5 &&...
+           max(players_errorbars_svb(playerID,2:end)) > 0.5
             best_measure_count(3) = best_measure_count(3) + 1;
+            stddev_count = [stddev_count playerID-1];
         end
+        
     end
     
     disp(['risk ',num2str(best_measure_count(1)),...
@@ -294,6 +297,7 @@ if PARTIAL_FIGURES
     xlabel('Player ID');
     ylabel('Probability');
     set(gca,'FontSize',FONT_SIZE);
+    set(gca,'xgrid','on');
     hold off
     
     % figure beta vs rest
@@ -317,6 +321,7 @@ if PARTIAL_FIGURES
     xlabel('Player ID');
     ylabel('Probability');
     set(gca,'FontSize',FONT_SIZE);
+    set(gca,'xgrid','on');
     hold off
 
     % figure stddev vs rest
@@ -340,6 +345,7 @@ if PARTIAL_FIGURES
     xlabel('Player ID');
     ylabel('Probability');
     set(gca,'FontSize',FONT_SIZE);
+    set(gca,'xgrid','on');
     hold off
 end
 
