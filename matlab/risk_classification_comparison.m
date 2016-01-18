@@ -1,17 +1,28 @@
 
 tic;
-RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the first time)
+
+% -- script features
 LOAD_MLEs = 0; % 1 if models and MLE need loading
+RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the first time)
+
+% -- figure flags
 SIMPLE_FIGURE = 0; % simple avgMLE value comparison
 MULTI_FIGURE = 1; % FLAG to plot cumulative errorbar figure 
-PARTIAL_FIGURES = 0; % FLAG to plot errorbar figures singularly
-% offset = amount of models in gridsearch
-% = 5alpha X 4betas X 5gammas
+PARTIAL_FIGURES = 1; % FLAG to plot errorbar figures singularly
+SAVE_FIG = 1; % FLAG to save figures in png format
+
+% -- script variables
+% offset = amount of models in gridsearch => 5alpha X 4betas X 5gammas
 OFFSET = 100;
 alpha_confidence = 0.01; % 99% confidence
 iterations = 1000;
-FONT_SIZE = 25;
-MARKER_SIZE = 10;
+COMPARISON_FACTOR = 0.05; % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
+
+% Markdown static values
+FONT_SIZE = 26;
+MARKER_SIZE = 15;
+PRINT_WIDTH = 80;
+PRINT_HEIGHT = 50;
 
 if LOAD_MLEs
     risk_classified   = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
@@ -91,7 +102,7 @@ if RUN_ANALYSIS
             % 1)
             % compare risk vs beta and apply binomial CI test (clopper-pearson) at results of simple_avgMLE_comparison
             risk_MLE_instance = risk_MLE_line(MLE_instance_idx); % getting risk MLEs
-            MLE_simple_avgMLE_comparison = risk_MLE_instance < beta_MLE_line;
+            MLE_simple_avgMLE_comparison = risk_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
 
             % if the Confidence Interval is above 0.5 threshold 
@@ -102,7 +113,7 @@ if RUN_ANALYSIS
 
             % 2)
             % compare risk vs stddev and same as before
-            MLE_simple_avgMLE_comparison = risk_MLE_instance < stddev_MLE_line;
+            MLE_simple_avgMLE_comparison = risk_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
@@ -112,7 +123,7 @@ if RUN_ANALYSIS
             % 3)
             % compare beta vs stddev and same as before
             beta_MLE_instance = beta_MLE_line(MLE_instance_idx);
-            MLE_simple_avgMLE_comparison = beta_MLE_instance < stddev_MLE_line;
+            MLE_simple_avgMLE_comparison = beta_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
@@ -121,7 +132,7 @@ if RUN_ANALYSIS
             
             % 4)
             % compare beta vs risk and same as before
-            MLE_simple_avgMLE_comparison = beta_MLE_instance < risk_MLE_line;
+            MLE_simple_avgMLE_comparison = beta_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
@@ -131,7 +142,7 @@ if RUN_ANALYSIS
             % 5)
             % compare stddev vs risk and same as before
             stddev_MLE_instance = stddev_MLE_line(MLE_instance_idx);
-            MLE_simple_avgMLE_comparison = stddev_MLE_instance < risk_MLE_line;
+            MLE_simple_avgMLE_comparison = stddev_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
@@ -140,7 +151,7 @@ if RUN_ANALYSIS
             
             % 6)
             % compare stddev vs beta and same as before
-            MLE_simple_avgMLE_comparison = stddev_MLE_instance < beta_MLE_line;
+            MLE_simple_avgMLE_comparison = stddev_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
@@ -174,7 +185,7 @@ close all;
 
 %% plot simple avg MLE simple_avgMLE_comparison
 if SIMPLE_FIGURE
-    fig1 = figure();
+    fig_simple = figure();
     hold on
     plot(1:1:playersAmount,simple_avgMLE_comparison(:,1),'bx','LineWidth',4);
     plot(1:1:playersAmount,simple_avgMLE_comparison(:,2),'ro','LineWidth',4);
@@ -188,13 +199,21 @@ if SIMPLE_FIGURE
             'XTickLabel',[0,5,10,15,20,25,30,35,40,45],...
             'FontSize',20);
     hold off
+    
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGTH]);
+        path = 'graphs/stats/risk_classification_comparison/';
+        fileName = [path, 'simple_avgMLE_comparison-',datestr(datetime),'.png'];
+        print(fig_simple, '-dpng', '-loose', fileName); 
+    end
 end
 
 %% errorbars graphs %%
 
 if MULTI_FIGURE
     %% graph for all comparisons errorbars together (sorted according to rvb)
-    fig2 = figure();
+    fig_all = figure();
     hold on
     
     [sorted_CI_rvb, sort_idx] = sortrows(players_errorbars_rvb,3);  
@@ -238,46 +257,61 @@ if MULTI_FIGURE
     
     set(hleg,'position',[0.18,0.68,0.2,0.2]) ;
     hold off
+
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/risk_classification_comparison/';
+        fileName = [path, 'all_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
+        print(fig_all, '-dpng', '-loose', fileName); 
+    end
 end
 
 
 if PARTIAL_FIGURES 
-    best_measure_count = zeros(1,3);
+
     risk_count = [];
     beta_count = [];
     stddev_count = [];
     
     for playerID = 1:playersAmount
                 
+        % comparison on the phat and not on the extremes 
+        % (confidence intervals errorbars)
+        
         % compare risk vs beta AND stddev
-        if max(players_errorbars_rvb(playerID,2:end)) > 0.5 &&...
-           max(players_errorbars_rvs(playerID,2:end)) > 0.5 
-            best_measure_count(1) = best_measure_count(1) + 1;
+        if players_errorbars_rvb(playerID,3) >= 0.5 &&...
+           players_errorbars_rvs(playerID,3) >= 0.5 
             risk_count = [risk_count playerID-1];
         end
         
         % compare beta vs risk AND stddev
-        if max(players_errorbars_bvr(playerID,2:end)) > 0.5 &&...
-           max(players_errorbars_bvs(playerID,2:end)) > 0.5
-            best_measure_count(2) = best_measure_count(2) + 1;
+        if players_errorbars_bvr(playerID,3) >= 0.5 &&...
+           players_errorbars_bvs(playerID,3) >= 0.5
             beta_count = [beta_count playerID-1];
         end
         
         % compare stddev vs risk AND beta
-        if max(players_errorbars_svr(playerID,2:end)) > 0.5 &&...
-           max(players_errorbars_svb(playerID,2:end)) > 0.5
-            best_measure_count(3) = best_measure_count(3) + 1;
+        if players_errorbars_svr(playerID,3) >= 0.5 &&...
+           players_errorbars_svb(playerID,3) >= 0.5
             stddev_count = [stddev_count playerID-1];
         end
         
     end
     
-    disp(['risk ',num2str(best_measure_count(1)),...
-          ' beta ',num2str(best_measure_count(2)),...
-          ' stddev ',num2str(best_measure_count(3))]);
+    disp(['risk ',num2str(size(risk_count,2)),...
+          ' beta ',num2str(size(beta_count,2)),...
+          ' stddev ',num2str(size(stddev_count,2))]);
     
+    clear_indication_players = [risk_count beta_count stddev_count];
+    clear_indication_players = unique(sort(clear_indication_players));
+    
+    disp('Players with a clear indication')
+    disp(clear_indication_players);
+    disp(['Total ',num2str(size(clear_indication_players,2))]);
+      
     % figure risk vs rest
-    fig3 = figure();
+    fig_risk = figure();
     hold on
     [sorted_CI_rvb, sort_idx1] = sortrows(players_errorbars_rvb,2);
 
@@ -300,8 +334,16 @@ if PARTIAL_FIGURES
     set(gca,'xgrid','on');
     hold off
     
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/risk_classification_comparison/';
+        fileName = [path, 'risk_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
+        print(fig_risk, '-dpng', '-loose', fileName); 
+    end
+    
     % figure beta vs rest
-    fig4 = figure();
+    fig_beta = figure();
     hold on
     [sorted_CI_bvr,sort_idx2] = sortrows(players_errorbars_bvr,2);
     
@@ -324,8 +366,16 @@ if PARTIAL_FIGURES
     set(gca,'xgrid','on');
     hold off
 
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/risk_classification_comparison/';
+        fileName = [path, 'beta_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
+        print(fig_beta, '-dpng', '-loose', fileName); 
+    end
+    
     % figure stddev vs rest
-    fig5 = figure();
+    fig_stddev = figure();
     hold on
     [sorted_CI_svr, sort_idx3] = sortrows(players_errorbars_svb,2);
     
@@ -347,6 +397,15 @@ if PARTIAL_FIGURES
     set(gca,'FontSize',FONT_SIZE);
     set(gca,'xgrid','on');
     hold off
+    
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/risk_classification_comparison/';
+        fileName = [path, 'stddev_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
+        print(fig_stddev, '-dpng', '-loose', fileName); 
+    end
+    
 end
 
 toc;
