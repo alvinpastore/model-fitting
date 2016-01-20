@@ -213,11 +213,12 @@ else:
     print
     '''
     print 'Version history \n' \
+          '5.0.0 fixed bug portfolio was not re-initialised at each iteration\n' \
           '4.0.0 fixed bug (new_volume * old_price changes the sign of the total). added negative sign\n' \
           '3.4.0 parameters are loaded from fitting.cfg configuration file\n' \
           '3.3.1 saving precision in % directly (to keep consistency with stdev)\n' \
-          '3.3.0 calculating variance on the go and storing it in the csv\n' \
-          'current columns: id, alpha, beta, gamma, MLE, Precision mean, Precision std, transactions amount\n' \
+          '3.3.0 calculating variance on the go and storing it in the csv.
+            current columns: id, alpha, beta, gamma, MLE, Precision mean, Precision std, transactions amount\n' \
           '3.2.0 number of states can be passed as parameter of the script, 3 states still needs developing\n' \
           '3.1.0 changed states to 3 as uniform discretisation of htan bound profit ]-1,+1[\n' \
           '3.0.0 changed states to 2 because money cannot be used as a proxy for states,\n' \
@@ -275,7 +276,7 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_' +
+    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_Portfolio_' +
                     str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
 
     for player in players:
@@ -285,9 +286,6 @@ else:
 
         # retrieve the transactions for each player
         transactions = db.select_transactions('transactions', player)
-
-        # store the stocks purchased for future estimation of reward
-        portfolio = dict()
 
         for alpha in Alpha:
             for beta in Betas:
@@ -315,6 +313,9 @@ else:
                         profit = 0
                         state = 1
 
+                        # store the stocks purchased for future estimation of reward
+                        portfolio = dict()
+
                         # Measures set-up
                         tempMLE = 0
                         actionsAmount = 0
@@ -335,8 +336,8 @@ else:
                                     stock       = str(transaction[4])
                                     volume      = int(transaction[5])
                                     total       = float(transaction[7])
-                                    # price       = float(transaction[6])
-                                    # deprecated: decimal precision incorrect for average price calculation
+                                    # price       = float(transaction[6]) DEPRECATED...
+                                    # ... decimal precision incorrect for average price calculation
                                     price = abs(total / volume)
 
                                     if 'Buy' in a_type and stock:
@@ -483,6 +484,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/' + results_subfolder + '_classified/Negative_' + save_filename + '.csv')
+    saveMLEs('results/' + results_subfolder + '_classified/Negative_Portfolio_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'

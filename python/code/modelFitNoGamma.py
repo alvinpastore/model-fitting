@@ -176,6 +176,7 @@ else:
 
     print
     print 'Version history \n' \
+          '5.0.0 fixed bug portfolio was not re-initialised at each iteration\n' \
           '2.0.0 fixed bug where money was not reset after iteration\n' \
           '1.6.0 fixed bug on actions selection (extended to nActions)\n' \
           '1.5.0 adapted code for 4/5 bins\n' \
@@ -208,9 +209,6 @@ else:
         # retrieve the transactions for each player
         transactions = db.select_transactions('transactions', player)
 
-        # store the stocks purchased for future estimation of reward
-        portfolio = dict()
-
         for alpha in Alpha:
             for beta in Betas:
 
@@ -223,6 +221,9 @@ else:
                     Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
                     money = 100000
                     state = 1
+
+                    # store the stocks purchased for future estimation of reward
+                    portfolio = dict()
 
                     # Measures set-up
                     tempMLE = 0
@@ -366,7 +367,7 @@ else:
 
     save_filename = build_filename()
     # TODO  remove NEW from filename
-    saveMLEs('results/results_NEW' + save_filename + '.csv')
+    saveMLEs('results/results_NEW_Portfolio' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + 'minutes'
 
