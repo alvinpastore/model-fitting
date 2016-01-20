@@ -2,14 +2,15 @@
 tic;
 
 % -- script features
-LOAD_MLEs = 0; % 1 if models and MLE need loading
+LOAD_MLEs = 1; % 1 if models and MLE need loading
 RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the first time)
 
 % -- figure flags
-SIMPLE_FIGURE = 0; % simple avgMLE value comparison
+SIMPLE_FIGURE = 1; % simple avgMLE value comparison
 MULTI_FIGURE = 1; % FLAG to plot cumulative errorbar figure 
 PARTIAL_FIGURES = 1; % FLAG to plot errorbar figures singularly
-SAVE_FIG = 1; % FLAG to save figures in png format
+SAVE_FIG = 0; % FLAG to save figures in png format
+path = 'graphs/stats/risk_classification_comparison_Portfolio/';
 
 % -- script variables
 % offset = amount of models in gridsearch => 5alpha X 4betas X 5gammas
@@ -24,18 +25,19 @@ MARKER_SIZE = 15;
 PRINT_WIDTH = 80;
 PRINT_HEIGHT = 50;
 
+
 if LOAD_MLEs
-    risk_classified   = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    risk_classified   = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
     risk_classified = risk_classified(find(risk_classified(:,2) ~= 0),:);
-    risk_MLE          = csvread('results/MLE_model/MLE_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');
+    risk_MLE          = csvread('results/MLE_model/MLE_Portfolio_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');
 
-    beta_classified   = csvread('results/after_money_1k/_beta_classified/Negative_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    beta_classified   = csvread('results/after_money_1k/_beta_classified/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
     beta_classified = beta_classified(find(beta_classified(:,2) ~= 0),:);
-    beta_MLE          = csvread('results/MLE_model/beta_classified/MLE_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');    
+    beta_MLE          = csvread('results/MLE_model/beta_classified/MLE_Portfolio_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');    
 
-    stddev_classified = csvread('results/after_money_1k/_std_dev_classified/Negative_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    stddev_classified = csvread('results/after_money_1k/_std_dev_classified/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
     stddev_classified = stddev_classified(find(stddev_classified(:,2) ~= 0),:);
-    stddev_MLE        = csvread('results/MLE_model/stddev_classified/MLE_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');         
+    stddev_MLE        = csvread('results/MLE_model/stddev_classified/MLE_Portfolio_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');         
 end
 
 % count players
@@ -85,12 +87,12 @@ if RUN_ANALYSIS
         corresponding_MLE_line = risk_best_MLE_line + (playerID * OFFSET);
         stddev_MLE_line = stddev_MLE(corresponding_MLE_line,5:end-1); 
 
-        % structure to save the simple_avgMLE_comparisons, at each iterations
+        % structure to save the MLE_line_comparisons, at each iterations
         % it stores the outcome of the simple_avgMLE_comparison of a MLE instance 
         % against all the 1000 MLEs of the alternative classification
-        MLE_simple_avgMLE_comparison = zeros(1,iterations);
+        MLE_line_comparison = zeros(1,iterations);
 
-        % structure to save the outcome of the three simple_avgMLE_comparison (rvb,rvs,bvs)
+        % temporary in-loop structure to save the outcome of the comparisons 
         % each row is the outcome of the simple_avgMLE_comparisons (1 if stat sign, 0 otherwise)
         MLE_results_player = zeros(6,iterations);
         
@@ -102,8 +104,8 @@ if RUN_ANALYSIS
             % 1)
             % compare risk vs beta and apply binomial CI test (clopper-pearson) at results of simple_avgMLE_comparison
             risk_MLE_instance = risk_MLE_line(MLE_instance_idx); % getting risk MLEs
-            MLE_simple_avgMLE_comparison = risk_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
-            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+            MLE_line_comparison = risk_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
+            [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
             % if the Confidence Interval is above 0.5 threshold 
             % the MLE instance is stat. sign. better than alternative
@@ -113,8 +115,8 @@ if RUN_ANALYSIS
 
             % 2)
             % compare risk vs stddev and same as before
-            MLE_simple_avgMLE_comparison = risk_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
-            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+            MLE_line_comparison = risk_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
+            [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
                 MLE_results_player(2,MLE_instance_idx) = 1;
@@ -123,8 +125,8 @@ if RUN_ANALYSIS
             % 3)
             % compare beta vs stddev and same as before
             beta_MLE_instance = beta_MLE_line(MLE_instance_idx);
-            MLE_simple_avgMLE_comparison = beta_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
-            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+            MLE_line_comparison = beta_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
+            [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
                 MLE_results_player(3,MLE_instance_idx) = 1;
@@ -132,8 +134,8 @@ if RUN_ANALYSIS
             
             % 4)
             % compare beta vs risk and same as before
-            MLE_simple_avgMLE_comparison = beta_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
-            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+            MLE_line_comparison = beta_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
+            [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
                 MLE_results_player(4,MLE_instance_idx) = 1;
@@ -142,8 +144,8 @@ if RUN_ANALYSIS
             % 5)
             % compare stddev vs risk and same as before
             stddev_MLE_instance = stddev_MLE_line(MLE_instance_idx);
-            MLE_simple_avgMLE_comparison = stddev_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
-            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+            MLE_line_comparison = stddev_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
+            [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
                 MLE_results_player(5,MLE_instance_idx) = 1;
@@ -151,8 +153,8 @@ if RUN_ANALYSIS
             
             % 6)
             % compare stddev vs beta and same as before
-            MLE_simple_avgMLE_comparison = stddev_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
-            [phat, pci] = binofit(sum(MLE_simple_avgMLE_comparison), iterations,alpha_confidence);
+            MLE_line_comparison = stddev_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
+            [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
             if min(phat,min(pci)) > 0.5
                 MLE_results_player(6,MLE_instance_idx) = 1;
@@ -187,10 +189,10 @@ close all;
 if SIMPLE_FIGURE
     fig_simple = figure();
     hold on
-    plot(1:1:playersAmount,simple_avgMLE_comparison(:,1),'bx','LineWidth',4);
-    plot(1:1:playersAmount,simple_avgMLE_comparison(:,2),'ro','LineWidth',4);
-    plot(1:1:playersAmount,simple_avgMLE_comparison(:,3),'g*','LineWidth',4);
-    [hleg1, hobj1] = legend({'risk','beta','stddev'},'FontSize',20);
+    plot(1:1:playersAmount,simple_avgMLE_comparison(:,1),'bx-','LineWidth',4,'MarkerSize',MARKER_SIZE);
+    plot(1:1:playersAmount,simple_avgMLE_comparison(:,2),'ro-','LineWidth',4,'MarkerSize',MARKER_SIZE);
+    plot(1:1:playersAmount,simple_avgMLE_comparison(:,3),'g*-','LineWidth',4,'MarkerSize',MARKER_SIZE);
+    [hleg1, hobj1] = legend({'risk','beta','stddev'},'FontSize',FONT_SIZE);
     set(hleg1,'position',[0.18 0.68 0.15 0.2])
     title('MLE simple avgMLE comparison for stock classification methods');
     ylabel('Model Fitness (MLE)');
@@ -202,8 +204,7 @@ if SIMPLE_FIGURE
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
-        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGTH]);
-        path = 'graphs/stats/risk_classification_comparison/';
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
         fileName = [path, 'simple_avgMLE_comparison-',datestr(datetime),'.png'];
         print(fig_simple, '-dpng', '-loose', fileName); 
     end
@@ -245,7 +246,7 @@ if MULTI_FIGURE
     title('Risk v Beta vs Std Dev','FontSize',FONT_SIZE);
     plot([0,46],[0.5,0.5],'r-');
     axis([-1 46 -0.05 1.05]);
-    labels = num2str(sorted_CI_bvs(:,1));
+    labels = num2str(sorted_CI_rvb(:,1));
     set(gca,'Xtick',0:1:45,'XTickLabel',labels);
     xlabel('Player ID');
     ylabel('Probability');
@@ -261,7 +262,6 @@ if MULTI_FIGURE
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = 'graphs/stats/risk_classification_comparison/';
         fileName = [path, 'all_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
         print(fig_all, '-dpng', '-loose', fileName); 
     end
@@ -337,7 +337,6 @@ if PARTIAL_FIGURES
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = 'graphs/stats/risk_classification_comparison/';
         fileName = [path, 'risk_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
         print(fig_risk, '-dpng', '-loose', fileName); 
     end
@@ -369,7 +368,6 @@ if PARTIAL_FIGURES
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = 'graphs/stats/risk_classification_comparison/';
         fileName = [path, 'beta_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
         print(fig_beta, '-dpng', '-loose', fileName); 
     end
@@ -401,7 +399,6 @@ if PARTIAL_FIGURES
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = 'graphs/stats/risk_classification_comparison/';
         fileName = [path, 'stddev_vs_all-CF',num2str(COMPARISON_FACTOR),'-',datestr(datetime),'.png'];
         print(fig_stddev, '-dpng', '-loose', fileName); 
     end
