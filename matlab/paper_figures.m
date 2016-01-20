@@ -19,7 +19,7 @@ fullmodel = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_P
 model = fullmodel(find(fullmodel(:,2) ~= 0),:);
 
 % load nogamma results
-nogamma = csvread('results/after_money_1k/_nogamma/profit_states/results_NEW_Portfolio25cap_3act_1000rep_0.1-1_alpha10-40_beta_noGamma_u.csv');
+nogamma = csvread('results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
 %results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
 nogamma = nogamma(find(nogamma(:,2) ~= 0),:);
 
