@@ -2,14 +2,22 @@ close all;
 
 %run statistical_test_scrambled_2_stage_binomial first for players_CI 
 
-THRESHOLDS = [0];% 0.5];
-SAVE_FIG = 0;   % 0 does not save figures, 1 saves figures
-FIG_IDX = 0;    % starting point for the figure index
-dx = 0.15;      % shift for the player numbers on the datapoints
-dy = 0.007;
-alpha_confidence = 0.01;   % 99% confidence
-CHANCE_THRESHOLD = 0.5;
-COMPARISON_FACTOR = 0.01; % tolerance level 
+THRESHOLDS = [0];% 0.5];  % threshold for considering players whose MLE significative ??
+SAVE_FIG = 1;             % 0 does not save figures, 1 saves figures
+
+alpha_confidence = 0.01;  % 99% confidence
+COMPARISON_FACTOR = 0.01; % tolerance level
+CHANCE_THRESHOLD = 0.5;   % probability threshold for chance 
+MLE_THRESHOLD = 5;        % consider only players who are RL (arbitrary)
+% markup for figures
+FIG_IDX = 0;              % starting point for the figure index
+dx = 0.25;                % shift for the player numbers on the datapoints
+dy = -0.25;
+FONT_SIZE = 30;             
+ID_TEXT_SIZE = 20;
+PRINT_WIDTH = 80;
+PRINT_HEIGHT = 50;
+MARKER_SIZE = 100;
 
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
 [SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
@@ -18,6 +26,16 @@ COMPARISON_FACTOR = 0.01; % tolerance level
 perfs = sortrows(csvread('results/stats/performances/profit_performances.csv',0,1,[0,1,45,2]),1);
 % load model results (merge with the full MLE file (1000 iterations)
 model = res3;
+
+% load nogamma results
+MLE_NOGAMMA = csvread('results/MLE_model/nogamma/MLE_Portfolio_[0.0]_1000_u.csv');
+nogamma = csvread('results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
+nogamma = nogamma(find(nogamma(:,2) ~= 0),:);
+
+% these files are needed to find performance_fit 
+% (now generated in paper_figures.m)
+% TODO MODIFY 0.05 into a static value
+no_gamma_players = performance_fit(find(performance_fit(:,5) < 0.05));
 
 % get the random lines from the model
 randomMLEs = model(find(model(:,2) == 0),:);
@@ -29,27 +47,31 @@ model = [model(:,1:5), model_MLE(:,5:end-1)];
 for t = THRESHOLDS
     
     % get the performances subset (above threshold)
-    % (remove players whos MLE is not significative)
+    % (remove players whose MLE is not significative)
     performances = []; %it's ok to populate dinamycally as it is at most 46 players
     for idx = 1:size(perfs,1)
         if players_CI(idx,3) >= t
             performances = [performances; perfs(idx,:)];
         end
     end
+    
+    % structure to save the p-hat and p-ci 
     errorbars = [];
+    
     % get the number of players
     playerAmount = size(performances,1);
 
     % instantiate statistics vectors
-    % pid, profit, MLE best, MLE random, alpha, beta, gamma
+    % playerID, profit, MLE best, MLE random, alpha, beta, gamma
     stats = [];
-
+    nogamma_stats = [];
+    
     for idx = 1:playerAmount
         % get the player ID
-        pid = performances(idx,1);
+        playerID = performances(idx,1);
 
         % find player MLEs in results file
-        pl_lines = find(model(:,1) == pid);
+        pl_lines = find(model(:,1) == playerID);
 
         % get the columns [alpha, beta, gamma, MLE]
         current_res = model(pl_lines, 1:end);
@@ -61,11 +83,11 @@ for t = THRESHOLDS
         % get the N best MLE (new version: top N)
         current_res = current_res(1:5,:);
         
-        % store best models alpha beta and gamma
-        abg = current_res(1,2:5);
+        % store best models alpha beta and gamma and MLE
+        abg = current_res(1,2:4);
         
         % store alpha beta gamma for the alternative models
-        alternative_abgs = current_res(2:end,2:5);
+        alternative_abgs = current_res(2:end,2:4);
               
         % store best models MLE (avg)
         minMLE = current_res(1,5);
@@ -75,7 +97,7 @@ for t = THRESHOLDS
         
         MLE_comparison = zeros(size(current_res(2:end,6:end)));
         
-        randomMLE = randomMLEs(find(randomMLEs(:,1) == pid),5);
+        randomMLE = randomMLEs(find(randomMLEs(:,1) == playerID),5);
         
         for MLE_instance = best_MLEs
             % compare the MLE instance (scalar) 
@@ -83,8 +105,11 @@ for t = THRESHOLDS
             % each line summed to itself at each comparison
             % each line is a comparison (sum the line for clopper pearson)
             % comparison__alternative_MLEs is the matrix of MLEs to be compared
-            % incremented of 1/100 of each value
+            % incremented of 1/100 of each value (COMPARISON_FACTOR)
             comparison__alternative_MLEs = current_res(2:end,6:end) + (current_res(2:end,6:end) * COMPARISON_FACTOR);
+            % the comparison sign is > because MLE is better lower 
+            % (if the MLE_instance of the best model is higher than 
+            % the alternative it means the alternative is actually better)
             MLE_comparison =  MLE_comparison + +(MLE_instance > comparison__alternative_MLEs);
             
         end
@@ -95,30 +120,38 @@ for t = THRESHOLDS
             [phat,pci] = binofit(sum(comparison),1000*1000,alpha_confidence);
             
             
-            if pci(1) > CHANCE_THRESHOLD
+             if pci(1) > CHANCE_THRESHOLD
                 FIG_IDX = FIG_IDX + 1;
                 fig = figure(FIG_IDX);
                 hold on;
                 temp = current_res(2:end,6:end);
                 hist([best_MLEs;temp(jdx,:)].',100);
-                tit_temp = {['player: ', num2str(pid)], [num2str(pci(1)),' ',num2str(phat),' ',num2str(pci(2))],  num2str(abg),  num2str(alternative_abgs(jdx,:))};
+                tit_temp = {['player: ', num2str(playerID)], [num2str(pci(1)),' ',num2str(phat),' ',num2str(pci(2))],  num2str(abg),  num2str(alternative_abgs(jdx,:))};
                 title(tit_temp,'FontSize',20);
                 legend({'best','alternative'},'FontSize',20);
                 %axis([0 22 0 1000]);
                 hold off;
-                set(gcf, 'PaperUnits', 'centimeters');
-                set(gcf, 'PaperPosition', [0 0 40 40]);
-                path = 'graphs/model_MLE_comparison/';
-                fileName = [path, 'player: ', num2str(pid),'p-hat',num2str(phat), '.png'];
-                print(fig, '-dpng', '-loose', fileName);
+%                 if SAVE_FIG
+%                     set(gcf, 'PaperUnits', 'centimeters');
+%                     set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+%                     path = 'graphs/model_MLE_comparison/portfolio/';
+%                     fileName = [path, 'player: ', num2str(playerID),'p-hat',num2str(phat), '.png'];
+%                     print(fig, '-dpng', '-loose', fileName);
+%                 end
+                if minMLE < MLE_THRESHOLD
+                    stats = [stats; playerID, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,:)];
+                end
                 
-                stats = [stats; pid, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,1:end-1)];
+                % if player is a nogamma player...
+                if sum(find(playerID==no_gamma_players)) > 0
+                    nogamma_stats = [nogamma_stats; playerID, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,:)];
+                end
                 
             elseif pci(2) < CHANCE_THRESHOLD
                 %disp('statistically worse');
             else
                 disp('statistically same as best');
-            end
+             end
             
             errorbars = [errorbars; phat, pci];
         end
@@ -130,8 +163,14 @@ for t = THRESHOLDS
         %abg = current_res(minMLE_idx,1:3);
         
         % store stats
-        stats = [stats; pid, performances(idx,2), minMLE, randomMLE, abg(1:3)];
+        if minMLE < MLE_THRESHOLD
+            stats = [stats; playerID, performances(idx,2), minMLE, randomMLE, abg];
+        end
         
+        % if player is a nogamma player...
+        if sum(find(playerID==no_gamma_players)) > 0
+            nogamma_stats = [nogamma_stats; playerID, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,:)];
+        end
     end
     
     %% FIGURE 0 MLE comparison using CP (errorbars)
@@ -141,16 +180,19 @@ for t = THRESHOLDS
     hold on
     errorbar(1:1:size(errorbars,1),errorbars(:,1),errorbars(:,1)-errorbars(:,2),errorbars(:,3)-errorbars(:,1),'bx');
     plot([-10 size(errorbars,1)+10],[.5 .5],'r-','LineWidth',4)
-    axis([-10 200 0 0.6]);
+    axis([-10 200 0 0.75]);%(max(errorbars) + 0.1 * max(errorbars))]);
     hold off
     xlabel('Models');
     ylabel('Probability');
-    
-    % sort players according to performances 
-    ranked_performances = sortrows(stats,2);
+    set(gca,'FontSize',FONT_SIZE);
     
     %% FIGURE 1 profit VS MLE
     
+    % sort players according to performances 
+    %ranked_performances = sortrows(stats,2);
+    ranked_performances = sortrows(nogamma_stats,2);
+    
+        
     % on the x-axis there is profit
     x = ranked_performances(:,2);
     
@@ -169,8 +211,8 @@ for t = THRESHOLDS
     hold on;
     
     % plot players MLE vs profit
-    scatter(x, y_best, 'bo');
-    labels_text = text(x + dx, y_best+dy ,labels,'FontSize',15);
+    scatter(x, y_best,MARKER_SIZE, 'bo');
+    labels_text = text(x + dx, y_best+dy ,labels,'FontSize',ID_TEXT_SIZE);
     
     % plot line for random MLE (not much info added as all MLE are better)
     plot(x,y_random,'s-r');
@@ -186,14 +228,14 @@ for t = THRESHOLDS
     disp(title_text);
     ylabel('Model Fitness (MLE)');
     xlabel('Player Performance (profit)');
-    set(gca,'FontSize',20);
+    set(gca,'FontSize',FONT_SIZE);
     
     hold off
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
-        set(gcf, 'PaperPosition', [0 0 40 40]);
-        path = 'graphs/stats/performance_cloud/';
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/performance_cloud/portfolio/';
         fileName = [path, 'performance_vs_MLE_t_',num2str(t),'.png'];
         print(fig, '-dpng', '-loose', fileName); 
     end
@@ -210,8 +252,8 @@ for t = THRESHOLDS
     hold on;
     
     % plot alpha vs profit
-    scatter(x, y_alpha, 'bo');
-    l = text(x + dx, y_alpha+dy ,labels,'FontSize',15);
+    scatter(x, y_alpha,MARKER_SIZE, 'bo');
+    l = text(x + dx/10, y_alpha + dy/10 ,labels,'FontSize',ID_TEXT_SIZE);
     
     % draw the regression line
     lsline;
@@ -223,13 +265,13 @@ for t = THRESHOLDS
     title(title_text);
     ylabel('Alpha');
     xlabel('Player Performance (profit)');
-    set(gca,'FontSize',20);
+    set(gca,'FontSize',FONT_SIZE);
     axis([-6e+03 2e+04 0.45 1.05]);
     hold off;
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
-        set(gcf, 'PaperPosition', [0 0 40 40]);
-        path = 'graphs/stats/performance_cloud/';
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/performance_cloud/portfolio/';
         fileName = [path, 'performance_vs_alpha_t_',num2str(t),'.png'];
         print(fig, '-dpng', '-loose', fileName); 
     end
@@ -245,8 +287,8 @@ for t = THRESHOLDS
     hold on;
     
     % plot alpha vs profit
-    scatter(x, z_gamma, 'bo');
-    l = text(x + dx, z_gamma+dy ,labels,'FontSize',15);
+    scatter(x, z_gamma,MARKER_SIZE, 'bo');
+    l = text(x + dx/10, z_gamma + dy/10 ,labels,'FontSize',ID_TEXT_SIZE);
     
     % draw the regression line
     lsline;
@@ -258,13 +300,13 @@ for t = THRESHOLDS
     title(title_text);
     ylabel('Gamma');
     xlabel('Player Performance (profit)');
-    set(gca,'FontSize',20);
-    axis([-6e+03 2e+04 0 1.05]);
+    set(gca,'FontSize',FONT_SIZE);
+    axis([-6.5e+03 2e+04 -0.1 1.1]);
     hold off;
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
-        set(gcf, 'PaperPosition', [0 0 40 40]);
-        path = 'graphs/stats/performance_cloud/';
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/performance_cloud/portfolio/';
         fileName = [path, 'performance_vs_gamma_t_',num2str(t),'.png'];
         print(fig, '-dpng', '-loose', fileName); 
     end
@@ -276,8 +318,8 @@ for t = THRESHOLDS
     hold on;
     
     % plot alpha vs profit
-    scatter3(y_alpha, z_gamma, x,'bo');
-    %l = text(y_alpha + dy, z_gamma+dy, x + dx ,labels,'FontSize',15);
+    scatter3(y_alpha, z_gamma, x,MARKER_SIZE,'bo');
+    %l = text(y_alpha + dy, z_gamma+dy, x + dx ,labels,'FontSize',ID_TEXT_SIZE);
     
     % draw the regression line
     %lsline;
@@ -291,15 +333,17 @@ for t = THRESHOLDS
     xlabel('Alpha');
     ylabel('Gamma');
     zlabel('Player Performance (profit)');
-    set(gca,'FontSize',20);
+    set(gca,'FontSize',FONT_SIZE);
     %axis([-6e+03 2e+04 0 1.05]);
+    axis([-0.1 1.1 -0.1 1.1 (min(x)-min(x)*0.1) (max(x)+max(x)*0.1)])
+    grid
     hold off;
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
-        set(gcf, 'PaperPosition', [0 0 40 40]);
-        path = 'graphs/stats/performance_cloud/';
-        fileName = [path, 'performance_vs_gamma_t_',num2str(t),'.png'];
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = 'graphs/stats/performance_cloud/portfolio/';
+        fileName = [path, 'performance_vs_gamma_vs_alpha_t_',num2str(t),'.png'];
         print(fig, '-dpng', '-loose', fileName); 
     end
 end
