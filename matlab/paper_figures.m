@@ -1,18 +1,26 @@
 
 tic;
 
-PAPER = 1;
-PRESENTATION = 0;
-size_X = 20;
-size_Y = 15;
+% FLAGS for figure save folders
+PAPER = 0;          % 1 to save pictures to PAPER folder
+PRESENTATION = 0;   % 1 to save to presentation folder (paper has priority, needs to be 0)
+
+% print figures dimensions
+PRINT_WIDTH = 20;
+PRINT_HEIGHT = 15;
+
+% markup static values
 FONT_SIZE = 20;
+MARKER_SIZE = 15;
 ASTERISK_OFFSET = 23;
+
 % res3 are the results for the fullmodel
-fullmodel = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+fullmodel = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
 model = fullmodel(find(fullmodel(:,2) ~= 0),:);
 
 % load nogamma results
-nogamma = csvread('results/after_money_1k/_nogamma/profit_states/results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
+nogamma = csvread('results/after_money_1k/_nogamma/profit_states/results_NEW_Portfolio25cap_3act_1000rep_0.1-1_alpha10-40_beta_noGamma_u.csv');
+%results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
 nogamma = nogamma(find(nogamma(:,2) ~= 0),:);
 
 % degrees of freedom = 3-2 = 1
@@ -60,9 +68,9 @@ close all;
 performance_fit = sortrows(performance_fit,-3);
 
 if PAPER
-    path = 'graphs/paper/new/';
+    path = 'graphs/paper/new/portfolio/';
 elseif PRESENTATION
-    path = 'graphs/presentation/';
+    path = 'graphs/presentation/portfolio/';
 end
 
 %%%%%%%%% RANDOM PLOTs %%%%%%%%%%%%
@@ -80,7 +88,7 @@ set(gca,'FontSize',FONT_SIZE);
 
 if PRESENTATION || PAPER
     set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 size_X size_Y]);
+    set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
     saveas(gcf,[path,'vsRandom_full.eps']);
     print(gcf, '-depsc2', '-loose', [path,'vsRandom_full_loose']);
 end
@@ -100,7 +108,7 @@ set(gca,'XTick',[1,5,10,15,20,25,30,35,40,45],...
     
 if PRESENTATION || PAPER
     set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 size_X size_Y]);
+    set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
     saveas(gcf,[path,'vsRandom_half1.eps']);
     print(gcf, '-depsc2', '-loose', [path,'vsRandom_half1_loose']);
 end
@@ -118,7 +126,7 @@ set(gca,'FontSize',FONT_SIZE);
 
 if PRESENTATION || PAPER
     set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 size_X size_Y]);
+    set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
     saveas(gcf,[path,'vsRandom_half2.eps'])
     print(gcf, '-depsc2', '-loose', [path,'vsRandom_half2_loose']);
 end
@@ -145,6 +153,9 @@ significative = performance_fit(:,5) < 0.05;
 sig1 = significative(1:23);
 sig2 = significative(24:end);
 
+signif_all_x = find(significative > 0);
+signif_all_y = significative(signif_all_x) * ASTERISK_OFFSET;
+
 signif_x_1 = find(sig1 > 0);
 signif_y_1 = sig1(signif_x_1) * ASTERISK_OFFSET; 
 
@@ -162,7 +173,7 @@ plot( 1:1:46 , performance_fit(:,4), ...
 '-.g','MarkerEdgeColor',[0,0,0],...
 'LineWidth',4); 
 
-plot(signif_x_1 , signif_y_1,'k*','MarkerSize',15);
+plot(signif_all_x , signif_all_y,'k*','MarkerSize',MARKER_SIZE);
 
 hold off;
 
@@ -177,7 +188,7 @@ set(gca,'XTick',[1,5,10,15,20,25,30,35,40,45],'YTick',0:5:25,...
 
 if PRESENTATION || PAPER
     set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 size_X size_Y]); 
+    set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]); 
     saveas(gcf,[path,'vsNogammaAlt1.eps']);
     print(gcf, '-depsc2', '-loose', [path,'vsNogammaAlt1_loose']);
 end
@@ -192,7 +203,7 @@ plot( 1:1:23 , performance_fit(1:23,4), ...
 '-.g','MarkerEdgeColor',[0,0,0],...
 'LineWidth',4); 
 
-plot(signif_x_1 , signif_y_1,'k*','MarkerSize',15);
+plot(signif_x_1 , signif_y_1,'k*','MarkerSize',MARKER_SIZE);
 
 hold off;
 
@@ -206,7 +217,7 @@ set(gca,'XTick',[1,5,10,15,20,25,30,35,40,45],'YTick',0:5:25,...
         'XTickLabel',[]);
 if PRESENTATION || PAPER
     set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 size_X size_Y]); 
+    set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]); 
     saveas(gcf,[path,'vsNogammaAlt1.eps']);
     print(gcf, '-depsc2', '-loose', [path,'vsNogammaAlt1_loose']);
 end
@@ -220,7 +231,7 @@ plot( 24:1:length(performance_fit) , performance_fit(24:end,4), ...
 '-.g','MarkerEdgeColor',[0,0,0],...
 'LineWidth',4);  
 
-plot(signif_x_2 , signif_y_2,'k*','MarkerSize',15);
+plot(signif_x_2 , signif_y_2,'k*','MarkerSize',MARKER_SIZE);
 
 hold off;
 
@@ -234,7 +245,7 @@ set(gca,'XTick',0:5:46,'YTick',0:5:25,...
         'XTickLabel',[]);
 if PRESENTATION || PAPER
     set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 size_X size_Y]); 
+    set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]); 
     saveas(gcf,[path,'vsNogammaAlt2.eps']);
     print(gcf, '-depsc2', '-loose', [path,'vsNogammaAlt2_loose']);
 end
