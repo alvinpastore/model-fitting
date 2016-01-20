@@ -2,22 +2,23 @@
 tic;
 
 % -- script features
-LOAD_MLEs = 1; % 1 if models and MLE need loading
-RUN_ANALYSIS = 1;% 1 run the analysys. 0 only figures (after analysis done the first time)
+LOAD_MLEs = 1;          % 1 if models and MLE need loading
+RUN_ANALYSIS = 1;       % 1 run the analysys. 0 only figures (after analysis done the first time)
 
 % -- figure flags
-SIMPLE_FIGURE = 1; % simple avgMLE value comparison
-MULTI_FIGURE = 1; % FLAG to plot cumulative errorbar figure 
-PARTIAL_FIGURES = 1; % FLAG to plot errorbar figures singularly
-SAVE_FIG = 0; % FLAG to save figures in png format
+SIMPLE_FIGURE = 1;      % simple avgMLE value comparison
+MULTI_FIGURE = 1;       % FLAG to plot cumulative errorbar figure 
+PARTIAL_FIGURES = 1;    % FLAG to plot errorbar figures singularly
+SAVE_FIG = 0;           % FLAG to save figures in png format
 path = 'graphs/stats/risk_classification_comparison_Portfolio/';
 
 % -- script variables
 % offset = amount of models in gridsearch => 5alpha X 4betas X 5gammas
 OFFSET = 100;
-alpha_confidence = 0.01; % 99% confidence
+alpha_confidence = 0.01;    % 99% confidence
 iterations = 1000;
-COMPARISON_FACTOR = 0.05; % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
+COMPARISON_FACTOR = 0.05;   % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
+CHANCE_THRESHOLD = 0.5;     % probability threshold for chance
 
 % Markdown static values
 FONT_SIZE = 26;
@@ -109,7 +110,7 @@ if RUN_ANALYSIS
 
             % if the Confidence Interval is above 0.5 threshold 
             % the MLE instance is stat. sign. better than alternative
-            if min(phat,min(pci)) > 0.5
+            if min(phat,min(pci)) > CHANCE_THRESHOLD
                 MLE_results_player(1,MLE_instance_idx) = 1;
             end
 
@@ -118,7 +119,7 @@ if RUN_ANALYSIS
             MLE_line_comparison = risk_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
-            if min(phat,min(pci)) > 0.5
+            if min(phat,min(pci)) > CHANCE_THRESHOLD
                 MLE_results_player(2,MLE_instance_idx) = 1;
             end
 
@@ -128,7 +129,7 @@ if RUN_ANALYSIS
             MLE_line_comparison = beta_MLE_instance < stddev_MLE_line + (stddev_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
-            if min(phat,min(pci)) > 0.5
+            if min(phat,min(pci)) > CHANCE_THRESHOLD
                 MLE_results_player(3,MLE_instance_idx) = 1;
             end
             
@@ -137,7 +138,7 @@ if RUN_ANALYSIS
             MLE_line_comparison = beta_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
-            if min(phat,min(pci)) > 0.5
+            if min(phat,min(pci)) > CHANCE_THRESHOLD
                 MLE_results_player(4,MLE_instance_idx) = 1;
             end
             
@@ -147,7 +148,7 @@ if RUN_ANALYSIS
             MLE_line_comparison = stddev_MLE_instance < risk_MLE_line + (risk_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
-            if min(phat,min(pci)) > 0.5
+            if min(phat,min(pci)) > CHANCE_THRESHOLD
                 MLE_results_player(5,MLE_instance_idx) = 1;
             end
             
@@ -156,7 +157,7 @@ if RUN_ANALYSIS
             MLE_line_comparison = stddev_MLE_instance < beta_MLE_line + (beta_MLE_line * COMPARISON_FACTOR);
             [phat, pci] = binofit(sum(MLE_line_comparison), iterations,alpha_confidence);
 
-            if min(phat,min(pci)) > 0.5
+            if min(phat,min(pci)) > CHANCE_THRESHOLD
                 MLE_results_player(6,MLE_instance_idx) = 1;
             end
 
@@ -280,20 +281,20 @@ if PARTIAL_FIGURES
         % (confidence intervals errorbars)
         
         % compare risk vs beta AND stddev
-        if players_errorbars_rvb(playerID,3) >= 0.5 &&...
-           players_errorbars_rvs(playerID,3) >= 0.5 
+        if players_errorbars_rvb(playerID,3) >= CHANCE_THRESHOLD &&...
+           players_errorbars_rvs(playerID,3) >= CHANCE_THRESHOLD 
             risk_count = [risk_count playerID-1];
         end
         
         % compare beta vs risk AND stddev
-        if players_errorbars_bvr(playerID,3) >= 0.5 &&...
-           players_errorbars_bvs(playerID,3) >= 0.5
+        if players_errorbars_bvr(playerID,3) >= CHANCE_THRESHOLD &&...
+           players_errorbars_bvs(playerID,3) >= CHANCE_THRESHOLD
             beta_count = [beta_count playerID-1];
         end
         
         % compare stddev vs risk AND beta
-        if players_errorbars_svr(playerID,3) >= 0.5 &&...
-           players_errorbars_svb(playerID,3) >= 0.5
+        if players_errorbars_svr(playerID,3) >= CHANCE_THRESHOLD &&...
+           players_errorbars_svb(playerID,3) >= CHANCE_THRESHOLD
             stddev_count = [stddev_count playerID-1];
         end
         
