@@ -153,7 +153,7 @@ significative = performance_fit(:,5) < 0.05;
 sig1 = significative(1:23);
 sig2 = significative(24:end);
 
-signif_all_x = find(significative > 0);
+signif_all_x = performance_fit(find(significative > 0));
 signif_all_y = significative(signif_all_x) * ASTERISK_OFFSET;
 
 signif_x_1 = find(sig1 > 0);
