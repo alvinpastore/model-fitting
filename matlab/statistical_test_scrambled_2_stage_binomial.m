@@ -17,9 +17,10 @@ model = model(find(model(:,2) ~= 0),:);
 % offset = amount of models in gridsearch
 % = 5alpha X 4betas X 5gammas
 OFFSET = 100;
-alpha_confidence = 0.01; % 99% confidence
+alpha_confidence = 0.01;    % 99% confidence
 iterations = 1000;
-COMPARISON_FACTOR = 0; % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
+COMPARISON_FACTOR = 0;      % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
+CHANCE_THRESHOLD = 0.5;     % probability threshold for chance
 
 FONT_SIZE = 20;
 
@@ -81,7 +82,7 @@ for playerID = 0:playersAmount-1
         
         % if the Confidence Interval is above 0.5 threshold 
         % the MLE instance is stat. sign. better than scrambled
-        if min(phat,min(pci)) > 0.5
+        if min(phat,min(pci)) > CHANCE_THRESHOLD
             MLE_results_player(row_idx) = 1;
         end
         
