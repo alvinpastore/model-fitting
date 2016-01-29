@@ -165,7 +165,7 @@ def load_parameters(file_name):
 
 t0 = time.time()
 
-if len(sys.argv) < 6:
+if len(sys.argv) < 7:
     print 'Usage: python modelFitForward.py   N   C  u[rX]|s[rX]  B  t  S\n' \
           'N = number of iterations for averaging\n'\
           'C = number of max transactions to consider (min = 16, max = 107)\n' \
