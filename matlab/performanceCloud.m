@@ -10,7 +10,6 @@ COMPARISON_FACTOR = 0.01; % tolerance level
 CHANCE_THRESHOLD = 0.5;   % probability threshold for chance 
 MLE_THRESHOLD = 5;        % consider only players who are RL (arbitrary)
 % markup for figures
-FIG_IDX = 0;              % starting point for the figure index
 dx = 0.25;                % shift for the player numbers on the datapoints
 dy = -0.25;
 FONT_SIZE = 30;             
@@ -31,6 +30,9 @@ model = res3;
 MLE_NOGAMMA = csvread('results/MLE_model/nogamma/MLE_Portfolio_[0.0]_1000_u.csv');
 nogamma = csvread('results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
 nogamma = nogamma(find(nogamma(:,2) ~= 0),:);
+
+% load performances [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma]
+performance_fit = paper_figures(0,0);
 
 % these files are needed to find performance_fit 
 % (now generated in paper_figures.m)
@@ -121,8 +123,7 @@ for t = THRESHOLDS
             
             
              if pci(1) > CHANCE_THRESHOLD
-                FIG_IDX = FIG_IDX + 1;
-                fig = figure(FIG_IDX);
+                fig = figure();
                 hold on;
                 temp = current_res(2:end,6:end);
                 hist([best_MLEs;temp(jdx,:)].',100);
@@ -175,8 +176,7 @@ for t = THRESHOLDS
     
     %% FIGURE 0 MLE comparison using CP (errorbars)
     % best model (according to avg) vs next 4 models
-    FIG_IDX = FIG_IDX + 1;
-    fig = figure(FIG_IDX);
+    fig = figure();
     hold on
     errorbar(1:1:size(errorbars,1),errorbars(:,1),errorbars(:,1)-errorbars(:,2),errorbars(:,3)-errorbars(:,1),'bx');
     plot([-10 size(errorbars,1)+10],[.5 .5],'r-','LineWidth',4)
@@ -205,9 +205,8 @@ for t = THRESHOLDS
     
     % calculate regression coefficient R and p-value
     [R,P]=corrcoef(x,y_best);
-    
-    FIG_IDX = FIG_IDX + 1;
-    fig = figure(FIG_IDX);
+
+    fig = figure();
     hold on;
     
     % plot players MLE vs profit
@@ -247,8 +246,7 @@ for t = THRESHOLDS
     y_alpha = ranked_performances(:,5);
     [R,P]=corrcoef(x,y_alpha);
     
-    FIG_IDX = FIG_IDX + 1;
-    fig = figure(FIG_IDX);
+    fig = figure();
     hold on;
     
     % plot alpha vs profit
@@ -282,8 +280,7 @@ for t = THRESHOLDS
     z_gamma = ranked_performances(:,7);
     [R,P]=corrcoef(x,z_gamma);
     
-    FIG_IDX = FIG_IDX + 1;
-    fig = figure(FIG_IDX);
+    fig = figure();
     hold on;
     
     % plot alpha vs profit
@@ -313,8 +310,7 @@ for t = THRESHOLDS
     
     %% FIGURE 4 profit VS alpha VS gamma
     
-    FIG_IDX = FIG_IDX + 1;
-    fig = figure(FIG_IDX);
+    fig = figure();
     hold on;
     
     % plot alpha vs profit
