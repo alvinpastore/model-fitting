@@ -50,7 +50,8 @@ for t = THRESHOLDS
     
     % get the performances subset (above threshold)
     % (remove players whose MLE is not significative)
-    performances = []; %it's ok to populate dinamycally as it is at most 46 players
+    %it's ok to populate dinamycally as it is at most 46 players
+    performances = []; 
     for idx = 1:size(perfs,1)
         if players_CI(idx,3) >= t
             performances = [performances; perfs(idx,:)];
@@ -277,6 +278,7 @@ for t = THRESHOLDS
     %% FIGURE 3 profit VS gamma
        
     % on the y-axis there is gamma 
+    % called z_gamma because it's used in 3d plot together with y_alpha
     z_gamma = ranked_performances(:,7);
     [R,P]=corrcoef(x,z_gamma);
     
