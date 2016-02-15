@@ -1,18 +1,17 @@
 % routine for testing scrambled MLEs against RL model
 tic
 
-% TODO rewrite so that scrams are loaded one at a time to reduce memory consumption
+% TODO might rewrite so that scrams are loaded one at a time to reduce memory consumption
 
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer(1);
+[SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
 MLE_iter = 1:SCRAM_NUMBER;
 
 % load model results
 model = res3;
 % remove random models
 model = model(find(model(:,2) ~= 0),:);
-
 
 % offset = amount of models in gridsearch
 % = 5alpha X 4betas X 5gammas
@@ -60,18 +59,15 @@ for playerID = 0:playersAmount-1
         scrambled_MLE_line(1, current_index:i*iterations) = scrambled_MLE(corresponding_MLE_line,5:end-1); % end-1 because of trailing 0 
     end
     
-    % structure: rows are the model MLE instances
-    % columns are comparison of MLE instance with other scrambleds MLEs
-    MLE_comparison = zeros(SCRAM_NUMBER * iterations);
     row_idx = 1;
-    
+ 
     % binary vectors, 1 if phat+-CI > 0.5, 0 otherwise
     MLE_results_player = zeros(1,iterations);
     
     % removed indexing for the loop. test if it works TODO
     % check: do I need mle_comparison to be a matrix (use a vector and
     % re-populate over and over
-    
+       
     % logical comparison of each value from model_MLE with all scrambles
     for MLE_instance = model_MLE_line 
         
@@ -93,7 +89,7 @@ for playerID = 0:playersAmount-1
     [phat, pci] = binofit(sum(MLE_results_player),size(MLE_results_player,2),alpha_confidence);
     
     players_CI(playerID+1,:) = [playerID phat pci(1) pci(2)];
-    
+
 end
 
 
