@@ -9,6 +9,8 @@ alpha_confidence = 0.01;  % 99% confidence
 COMPARISON_FACTOR = 0.01; % tolerance level
 CHANCE_THRESHOLD = 0.5;   % probability threshold for chance 
 MLE_THRESHOLD = 5;        % consider only players who are RL (arbitrary)
+P_VALUE_THRESHOLD = 0.05; % p-value threshold
+
 % markup for figures
 dx = 0.25;                % shift for the player numbers on the datapoints
 dy = -0.25;
@@ -36,8 +38,7 @@ performance_fit = paper_figures(0,0);
 
 % these files are needed to find performance_fit 
 % (now generated in paper_figures.m)
-% TODO MODIFY 0.05 into a static value
-no_gamma_players = performance_fit(find(performance_fit(:,5) < 0.05));
+no_gamma_players = performance_fit(find(performance_fit(:,5) < P_VALUE_THRESHOLD));
 
 % get the random lines from the model
 randomMLEs = model(find(model(:,2) == 0),:);
