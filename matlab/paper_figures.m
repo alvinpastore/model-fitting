@@ -313,6 +313,6 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     % set(gcf, 'PaperUnits', 'centimeters');
     % set(gcf, 'PaperPosition', [0 0 35 25]); %x_width=10cm y_width=15cm
     % saveas(gcf,['graphs/paper/vsNogamma2.png']);
-
+    disp('paper_figures')
     toc
 end

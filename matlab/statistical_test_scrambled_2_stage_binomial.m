@@ -105,5 +105,6 @@ ylabel('Probability');
 set(gca,'FontSize',FONT_SIZE);
 hold off;
 %clearvars -except better_than_scrambled MLESCRAMS MLEFULL* res3 players_CI sorted_CI SCRAM_NUMBER model_MLE;
+disp('statistica_test_scrambled_2_stage_binomial');
 toc
 

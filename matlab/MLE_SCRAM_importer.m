@@ -29,6 +29,6 @@ function [Num, MLESCRAMS, MLEFULL, res3] = MLE_SCRAM_importer(scram_flag)
     varlist = {'FolderName', 'D', 'i'};
     clear (varlist{:});
     clear varlist;
-
+    disp('MLE_SCRAM_importer');
     toc
 end
