@@ -5,13 +5,11 @@ tic
 
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer(1);
+[SCRAM_NUMBER, MLESCRAMS, model_MLE, model] = MLE_SCRAM_importer(1);
 MLE_iter = 1:SCRAM_NUMBER;
 
-% load model results
-model = res3;
 % remove random models
-model = model(find(model(:,2) ~= 0),:);
+model = model(model(:,2) ~= 0,:);
 
 % offset = amount of models in gridsearch
 % = 5alpha X 4betas X 5gammas

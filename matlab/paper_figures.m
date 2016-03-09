@@ -24,12 +24,12 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
 
     % res3 are the results for the fullmodel
     fullmodel = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
-    model = fullmodel(find(fullmodel(:,2) ~= 0),:);
+    model = fullmodel(fullmodel(:,2) ~= 0,:);
 
     % load nogamma results
     nogamma = csvread('results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
     %results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
-    nogamma = nogamma(find(nogamma(:,2) ~= 0),:);
+    nogamma = nogamma(nogamma(:,2) ~= 0,:);
 
     % degrees of freedom = 3-2 = 1
     dof = 1;
@@ -48,7 +48,7 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     for playerID = 0:playersAmount-1
 
         % search for player random MLE
-        random_MLE = fullmodel(find(fullmodel(:,1) == playerID & fullmodel(:,2) == 0),5); 
+        random_MLE = fullmodel(fullmodel(:,1) == playerID & fullmodel(:,2) == 0,5); 
 
         % search for player best model MLE
         model_lines = find(model(:,1) == playerID); 

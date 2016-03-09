@@ -30,7 +30,7 @@ model = res3;
 % load nogamma results
 MLE_NOGAMMA = csvread('results/MLE_model/nogamma/MLE_Portfolio_[0.0]_1000_u.csv');
 nogamma = csvread('results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
-nogamma = nogamma(find(nogamma(:,2) ~= 0),:);
+nogamma = nogamma(nogamma(:,2) ~= 0,:);
 
 % load performances [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma]
 performance_fit = paper_figures(0,0);
@@ -40,9 +40,9 @@ performance_fit = paper_figures(0,0);
 no_gamma_players = performance_fit(find(performance_fit(:,5) < P_VALUE_THRESHOLD));
 
 % get the random lines from the model
-randomMLEs = model(find(model(:,2) == 0),:);
+randomMLEs = model(model(:,2) == 0,:);
 % other lines are non-random models
-model = model(find(model(:,2) ~= 0),:);
+model = model(model(:,2) ~= 0,:);
 
 model = [model(:,1:5), model_MLE(:,5:end-1)];
 
@@ -100,7 +100,7 @@ for t = THRESHOLDS
         
         MLE_comparison = zeros(size(current_res(2:end,6:end)));
         
-        randomMLE = randomMLEs(find(randomMLEs(:,1) == playerID),5);
+        randomMLE = randomMLEs(randomMLEs(:,1) == playerID,5);
         
         for MLE_instance = best_MLEs
             % compare the MLE instance (scalar) 
