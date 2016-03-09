@@ -1,19 +1,19 @@
 %run statistical_test_scrambled_2_stage_binomial first for players_CI 
 tic;
 close all;
-SIGNIFICANCE_THRESHOLD = 0;% 0.5;      % threshold for considering players whose MLE significative
-SAVE_FIG = 0;             % 0 does not save figures, 1 saves figures
-FIGURES = [0,0,0,0,0];    % boolean vector of flags for figures 
-                          % [MLE_comparison with errorbars, profit V MLE, profit V alpha, profit V gamma, profit V alpha V gamma]
+SIGNIFICANCE_THRESHOLD = 0; % threshold for considering players whose MLE significative (other potential value 0.5)
+SAVE_FIG = 0;               % flag to handle figure saving on disk (0 does NOT save figures, 1 saves figures)
+FIGURES = [0,0,0,1,0];      % boolean vector of flags for figures 
+                            % [MLE_comparison with errorbars, profit V MLE, profit V alpha, profit V gamma, profit V alpha V gamma]
                           
-alpha_confidence = 0.01;  % 99% confidence
-COMPARISON_FACTOR = 0.01; % tolerance level
-CHANCE_THRESHOLD = 0.5;   % probability threshold for chance 
-MLE_THRESHOLD = 10;       % consider only players who are RL (arbitrary choice, highest [23.288897])
-P_VALUE_THRESHOLD = 0.05; % p-value threshold
+alpha_confidence = 0.01;    % 99% confidence
+COMPARISON_FACTOR = 0.01;   % tolerance level
+CHANCE_THRESHOLD = 0.5;     % probability threshold for chance 
+MLE_THRESHOLD = 10;         % consider only players who are RL (arbitrary choice, highest [23.288897])
+P_VALUE_THRESHOLD = 0.05;   % p-value threshold
 
 % markup for figures
-dx = 0.25;                % shift for the player numbers on the datapoints
+dx = 0.25;                  % shift for the player numbers on the datapoints
 dy = -0.25;
 FONT_SIZE = 30;             
 ID_TEXT_SIZE = 20;
@@ -39,7 +39,8 @@ performance_fit = paper_figures(0,0);
 
 % these files are needed to find performance_fit 
 % (now generated in paper_figures.m)
-no_gamma_players = performance_fit(find(performance_fit(:,5) < P_VALUE_THRESHOLD));
+% get the players for which the RL model is SS better than NG
+full_RL_players = performance_fit(find(performance_fit(:,5) < P_VALUE_THRESHOLD));
 
 % get the random lines from the model
 randomMLEs = model(model(:,2) == 0,:);
@@ -146,7 +147,7 @@ for idx = 1:playerAmount
             end
 
             % if player is a nogamma player...
-            if sum(find(playerID==no_gamma_players)) > 0
+            if sum(find(playerID == full_RL_players)) > 0
                 nogamma_stats = [nogamma_stats; playerID, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,:)];
             end
 
@@ -170,7 +171,7 @@ for idx = 1:playerAmount
     end
 
     % if player is a nogamma player...
-    if sum(find(playerID==no_gamma_players)) > 0
+    if sum(find(playerID == full_RL_players)) > 0
         nogamma_stats = [nogamma_stats; playerID, performances(idx,2), minMLE, randomMLE, alternative_abgs(jdx,:)];
     end
 end
@@ -287,6 +288,10 @@ end
 if FIGURES(4)
     % on the y-axis there is gamma 
     y_gamma = ranked_performances(:,7);
+    
+    % set to 0 gamma for players whose RL model is not SS better than NG
+    asd
+    
     [R,P]=corrcoef(x,y_gamma);
 
     figure();
