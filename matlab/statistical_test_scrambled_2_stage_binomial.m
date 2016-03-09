@@ -5,7 +5,7 @@ tic
 
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, res3] = MLE_SCRAM_importer(0);
+[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer(1);
 MLE_iter = 1:SCRAM_NUMBER;
 
 % load model results

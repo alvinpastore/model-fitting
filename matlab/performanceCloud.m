@@ -1,7 +1,6 @@
-close all;
-
 %run statistical_test_scrambled_2_stage_binomial first for players_CI 
 
+close all;
 THRESHOLDS = [0];% 0.5];  % threshold for considering players whose MLE significative ??
 SAVE_FIG = 1;             % 0 does not save figures, 1 saves figures
 

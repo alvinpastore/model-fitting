@@ -1,4 +1,3 @@
-
 %% Print an image in 300ppi with white background
 
 function writeFig300ppi(figNo, fileName)
