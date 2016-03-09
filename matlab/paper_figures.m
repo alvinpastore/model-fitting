@@ -31,9 +31,11 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     %results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
     nogamma = nogamma(nogamma(:,2) ~= 0,:);
 
-    % degrees of freedom = 3-2 = 1
-    dof = 1;
-
+    % degrees of freedom = 
+    % number of params of bigger model - number of params of nested model
+    rnd_dof = 3-1;
+    ng_dof = 3-2;
+    
     % count players
     players = unique(model(:,1));
     playersAmount = size(players,1);
@@ -61,12 +63,12 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
         % calculate p-value (likelihood ratio)
         % calculate Likelihood ratio (best MLE model)
         chi_value_random = 2 * (random_MLE - model_MLE);
-        p_rand_MLE = 1-chi2cdf(chi_value_random,dof);
+        p_rand_MLE = 1-chi2cdf(chi_value_random,rnd_dof);
 
         % calculate p-value (likelihood ratio)
         % calculate Likelihood ratio (best MLE model)
         chi_value_nogamma = 2 * (nogamma_MLE - model_MLE);
-        p_nog_MLE = 1-chi2cdf(chi_value_nogamma,dof);
+        p_nog_MLE = 1-chi2cdf(chi_value_nogamma,ng_dof);
 
         % populate performances matrix
         performance_fit(playerID+1,:) = [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma];
