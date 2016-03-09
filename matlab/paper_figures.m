@@ -1,4 +1,5 @@
 %% script to generate and save figures for both paper or presentation versions
+%% [performance_fit] = paper_figures(paper_save,presentation_save)
 %% also used to load the performance_fit matrix
 %% [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma]
 function [performance_fit] = paper_figures(paper_save,presentation_save)
