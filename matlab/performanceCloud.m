@@ -1,9 +1,8 @@
-%run statistical_test_scrambled_2_stage_binomial first for players_CI 
 tic;
 close all;
-SIGNIFICANCE_THRESHOLD = 0; % threshold for considering players whose MLE significative (other potential value 0.5)
+SIGNIFICANCE_THRESHOLD = 0; % threshold for considering players better than scrambled (0 all players, 0.5 above chance (same as scrabled))
 SAVE_FIG = 0;               % flag to handle figure saving on disk (0 does NOT save figures, 1 saves figures)
-FIGURES = [0,0,0,1,0];      % boolean vector of flags for figures 
+FIGURES = [0,1,0,1,0];      % boolean vector of flags for figures 
                             % [MLE_comparison with errorbars, profit V MLE, profit V alpha, profit V gamma, profit V alpha V gamma]
                           
 alpha_confidence = 0.01;    % 99% confidence
@@ -49,15 +48,23 @@ model = model(model(:,2) ~= 0,:);
 
 model = [model(:,1:5), model_MLE(:,5:end-1)];
 
-% get the performances subset 
-% players whos lower errorbar is above the threshold
-% (remove players whose MLE is not significative)
-%it's ok to populate dinamycally as it is at most 46 players
-performances = []; 
-for idx = 1:size(perfs,1)
-    if players_CI(idx,3) >= SIGNIFICANCE_THRESHOLD
-        performances = [performances; perfs(idx,:)];
+if SIGNIFICANCE_THRESHOLD > 0
+    % load players confidence intervals (generated in
+    % statistical_test_scrambled_2_stage_binomial.m
+    players_CI = csvwrite('results/stats/players_CI.csv',players_CI);
+
+    % get the performances subset 
+    % players whos lower errorbar is above the threshold
+    % (remove players whose MLE is not significative)
+    %it's ok to populate dinamycally as it is at most 46 players
+    performances = []; 
+    for idx = 1:size(perfs,1)
+        if players_CI(idx,3) >= SIGNIFICANCE_THRESHOLD
+            performances = [performances; perfs(idx,:)];
+        end
     end
+else
+    performances = perfs;
 end
 
 % get the number of players
@@ -227,7 +234,7 @@ if FIGURES(2)
     lsline;
 
     % title, labels, font
-    title_text = ['Performance VS MLE - ', num2str(t), ' threshold - R = ',num2str(R(1,2))];
+    title_text = ['Performance VS MLE - ', num2str(SIGNIFICANCE_THRESHOLD), ' threshold - R = ',num2str(R(1,2))];
     title_text = [title_text, '- R2 = ',num2str(R(1,2)^2)];
     title_text = [title_text,' - p = ',num2str(P(1,2))];
     title(title_text);
@@ -265,7 +272,7 @@ if FIGURES(3)
     lsline;
 
     % title, labels, font
-    title_text = ['Performance VS alpha - ', num2str(t), ' threshold - R = ',num2str(R(1,2))];
+    title_text = ['Performance VS alpha - ', num2str(SIGNIFICANCE_THRESHOLD), ' threshold - R = ',num2str(R(1,2))];
     title_text = [title_text, '- R2 = ',num2str(R(1,2)^2)];
     title_text = [title_text,' - p = ',num2str(P(1,2))];
     title(title_text);
@@ -308,7 +315,7 @@ if FIGURES(4)
     lsline;
 
     % title, labels, font
-    title_text = ['Performance VS gamma - ', num2str(t), ' threshold - R = ',num2str(R(1,2))];
+    title_text = ['Performance VS gamma - ', num2str(SIGNIFICANCE_THRESHOLD), ' threshold - R = ',num2str(R(1,2))];
     title_text = [title_text, '- R2 = ',num2str(R(1,2)^2)];
     title_text = [title_text,' - p = ',num2str(P(1,2))];
     title(title_text);
