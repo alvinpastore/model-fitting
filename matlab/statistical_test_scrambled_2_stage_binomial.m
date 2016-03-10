@@ -1,11 +1,9 @@
 % routine for testing scrambled MLEs against RL model
 tic
 
-% TODO might rewrite so that scrams are loaded one at a time to reduce memory consumption
-
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS, model_MLE, model] = MLE_SCRAM_importer(1);
+[SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, model] = MLE_SCRAM_importer(0);
 MLE_iter = 1:SCRAM_NUMBER;
 
 % remove random models
@@ -91,6 +89,7 @@ for playerID = 0:playersAmount-1
 end
 
 
+
 sorted_CI = sortrows(players_CI,2);
 
 close all;
@@ -105,6 +104,7 @@ ylabel('Probability');
 set(gca,'FontSize',FONT_SIZE);
 hold off;
 %clearvars -except better_than_scrambled MLESCRAMS MLEFULL* res3 players_CI sorted_CI SCRAM_NUMBER model_MLE;
+csvwrite('results/stats/players_CI.csv',players_CI);
 disp('statistica_test_scrambled_2_stage_binomial');
 toc
 
