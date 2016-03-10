@@ -200,7 +200,6 @@ if FIGURES(2)
     ranked_performances = sortrows(stats,2);
     %ranked_performances = sortrows(nogamma_stats,2);
 
-
     % on the x-axis there is profit
     x = ranked_performances(:,2);
 
@@ -287,19 +286,23 @@ end
 %% FIGURE 4 profit VS gamma
 if FIGURES(4)
     % on the y-axis there is gamma 
-    y_gamma = ranked_performances(:,7);
+    % 0 gamma for players whose RL model is not SS better than NG
+    y_gamma = zeros(size(x,1),1);
     
-    % set to 0 gamma for players whose RL model is not SS better than NG
-    asd
+    % ia is the index of the RL players in the ranked_performances matrix
+    [~,ia,~] = intersect(ranked_performances(:,1),full_RL_players);
+    
+    % find the gamma != 0 for the full RL players and plot the rest on gamma = 0
+    y_gamma(ia) = ranked_performances(ia,7);   
     
     [R,P]=corrcoef(x,y_gamma);
 
     figure();
     hold on;
 
-    % plot alpha vs profit
+    % plot gamma vs profit
     scatter(x, y_gamma,MARKER_SIZE, 'bo');
-    l = text(x + dx/10, y_gamma + dy/10 ,labels,'FontSize',ID_TEXT_SIZE);
+    text(x + dx/10, y_gamma + dy/10 ,labels,'FontSize',ID_TEXT_SIZE);
 
     % draw the regression line
     lsline;
