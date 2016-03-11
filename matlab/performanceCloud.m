@@ -2,7 +2,7 @@ tic;
 close all;
 SIGNIFICANCE_THRESHOLD = 0; % threshold for considering players better than scrambled (0 all players, 0.5 above chance (same as scrabled))
 SAVE_FIG = 0;               % flag to handle figure saving on disk (0 does NOT save figures, 1 saves figures)
-FIGURES = [0,1,0,1,0];      % boolean vector of flags for figures 
+FIGURES = [0,0,0,0,0];      % boolean vector of flags for figures 
                             % [MLE_comparison with errorbars, profit V MLE, profit V alpha, profit V gamma, profit V alpha V gamma]
                           
 alpha_confidence = 0.01;    % 99% confidence
@@ -51,7 +51,7 @@ model = [model(:,1:5), model_MLE(:,5:end-1)];
 if SIGNIFICANCE_THRESHOLD > 0
     % load players confidence intervals (generated in
     % statistical_test_scrambled_2_stage_binomial.m
-    players_CI = csvwrite('results/stats/players_CI.csv',players_CI);
+    players_CI = csvread('results/stats/players_CI.csv');
 
     % get the performances subset 
     % players whos lower errorbar is above the threshold
