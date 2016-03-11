@@ -9,7 +9,7 @@ RUN_ANALYSIS = 1;       % 1 run the analysys. 0 only figures (after analysis don
 SIMPLE_FIGURE = 1;      % simple avgMLE value comparison
 MULTI_FIGURE = 1;       % FLAG to plot cumulative errorbar figure 
 PARTIAL_FIGURES = 1;    % FLAG to plot errorbar figures singularly
-SAVE_FIG = 0;           % FLAG to save figures in png format
+SAVE_FIG = 1;           % FLAG to save figures in png format
 path = 'graphs/stats/risk_classification_comparison_Portfolio/';
 
 % -- script variables
