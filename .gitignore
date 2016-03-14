@@ -6,6 +6,8 @@
 
 *.m~
 
+.spyder*
+
 python/code/results/scrambled_new_experiment/
 python/code/results/negative_bug_experiment/
 matlab/results/MLE_scram_matlab/
