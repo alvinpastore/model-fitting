@@ -73,7 +73,7 @@ def htan_custom(xx, factor):
 t0 = time.time()
 
 if len(sys.argv) < 3:
-    print 'Usage: python modelFitHistograms.py  C  B\n' \
+    print 'Usage: python model_fit_histograms.py  C  B\n' \
           'C = number of max transactions to consider (min = 16, max = 107)\n' \
           'B = number of bins'
 

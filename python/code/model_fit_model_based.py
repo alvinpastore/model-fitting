@@ -4,31 +4,40 @@ import random
 import numpy as np
 from datetime import datetime
 import time
-from math import log
+from math import log, sqrt
 import warnings
 from DatabaseHandler import DatabaseHandler
 ''' ---- FUNCTIONS ---- '''
 
 
-def get_next_state(wealth, pfolio):
-    # at the end of each player trial check the total amount of money
-    for s in pfolio:
-        # add total value of remaining stocks to money
-        # (- because sign of total in portfolio is negative for assets)
-        wealth -= float(pfolio[s][2])
+def get_next_state(wealth):
+    # wealth is the profit up to this moment (calculated as sum of rewards)
+    if nStates == 2:
+        if wealth < 0:
+            return 0  # poor
+        else:
+            return 1  # rich
+    elif nStates == 3:
+        # TODO implement 3 states
+        print
+        print wealth
+        w = htan_custom(wealth, 1 / 10)
+        print w
 
-    if wealth < 60000:
-        return 0  # poor
-    elif wealth <= 100000:
-        return 1  # mid
-    else:  # wealth > 100000
-        return 2  # rich
-
+        if w < - 1 / 3:
+            print 'poor'
+            return 0  # poor
+        elif w < 1 / 3:
+            print 'mid'
+            return 1  # mid
+        else:  # w > 1/3
+            print 'rich'
+            return 2  # rich
 
 
 def read_stock_file(b_type, b_amount):
     file_number = -1
-    path = "../../data/risk_classified_stocks/"
+    path = "../../data/" + results_subfolder + "_classified_stocks/" + str(b_amount) + "/"
     if 'u' in b_type:
         path += 'uniform_'
     elif 's' in b_type:
@@ -42,6 +51,7 @@ def read_stock_file(b_type, b_amount):
         print file_number
 
     path += str(b_amount) + '.txt' if file_number < 0 else str(b_amount) + '_' + str(file_number) + '.txt'
+    print 'stock file: ', path
 
     stocks = dict()
     risk_idx = -1
@@ -68,10 +78,12 @@ def select_action(temporaryMLE):
 
     while term_idx < nActions:
         bin_idx += terms[term_idx]
-        term_idx += 1
+
         if random_dice < bin_idx:
-            MLE_act = term_idx - 1
+            MLE_act = term_idx
             break
+
+        term_idx += 1
 
     if terms[MLE_act] > 0:
         temporaryMLE += log(terms[MLE_act])
@@ -83,22 +95,33 @@ def select_action(temporaryMLE):
 
 def saveMLEs(fileName):
     comma = ' , '
-    outFile = open(fileName, 'w')
-    for n in sorted(MLEs):
-        outFile.write(str(players.index(n)) + comma + comma + comma + comma + str(randomMLEs[n]) + comma +
-                      str(1 / nActions) + comma + str(MLEs[n][min(Alpha)][min(Betas)][min(Gamma)][2]) + '\n')
-        for a in sorted(MLEs[n]):
-            for b in sorted(MLEs[n][a]):
-                for g in sorted(MLEs[n][a][b]):
+    out_file = open(fileName, 'w')
+    for nth in sorted(MLEs):
+        out_file.write(str(players.index(nth)) + comma
+                       + '0' + comma
+                       + '0' + comma
+                       + '0' + comma
+                       + str(randomMLEs[nth]) + comma
+                       + '0' + comma
+                       + str(1 / nActions * 100) + comma
+                       + '0' + comma
+                       + str(MLEs[nth][min(Alpha)][min(Betas)][min(Gamma)][4]) + '\n')
+
+        for a in sorted(MLEs[nth]):
+            for b in sorted(MLEs[nth][a]):
+                for g in sorted(MLEs[nth][a][b]):
 
                     # print 'MLE[' + str(players.index(n)) + '-' + str(n) + '][' + str(a) + '][' + str(b) + '] = ' + \
                     #       str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][0]) + ',' + str(MLEs[n][a][b][2])
 
-                    outFile.write(str(players.index(n)) + comma + str(a) + comma + str(b) + comma + str(g) +
-                                  comma + str(MLEs[n][a][b][g][0]) +
-                                  comma + str(MLEs[n][a][b][g][1]) +
-                                  comma + str(MLEs[n][a][b][g][2]) + '\n')
-    outFile.close()
+                    out_file.write(str(players.index(nth)) + comma + str(a) + comma + str(b) + comma + str(g) +
+                                   comma + str(MLEs[nth][a][b][g][0]) +        # MLE
+                                   comma + str(MLEs[nth][a][b][g][1]) +        # MLE stdev
+                                   comma + str(MLEs[nth][a][b][g][2]) +        # Prec
+                                   comma + str(MLEs[nth][a][b][g][3]) +        # Stdev
+                                   comma + str(MLEs[nth][a][b][g][4]) + '\n')  # actionsAmount
+
+    out_file.close()
     print 'saved in ' + str(fileName)
 
 
@@ -113,8 +136,8 @@ def printMLEs():
                           ' MLE: ' + str(MLEs[pl][a][b][g][0]) + ' P: ' + str(MLEs[pl][a][b][g][1])
 
 
-def htan_custom(factor):
-    return (1 - np.exp(- reward_base * factor)) / (1 + np.exp(- reward_base * factor))
+def htan_custom(xx, factor):
+    return (1 - np.exp(- xx * factor)) / (1 + np.exp(- xx * factor))
 
 
 def build_filename():
@@ -127,19 +150,31 @@ def build_filename():
     fn += '_' + bin_type
     return fn
 
+
+def load_parameters(file_name):
+    abg = []
+    with open(file_name, 'r') as configuration:
+        for line in configuration:
+            if line[0] != '#':
+                line = map(float, line.rstrip().split('=')[1].split(','))
+                abg.append(line)
+    return abg
+
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 t0 = time.time()
 
-if len(sys.argv) < 5:
-    print 'Usage: python modelFitForward.py   N   C  u[rX]|s[rX]  B\n' \
+if len(sys.argv) < 7:
+    print 'Usage: python model_fit.py   N   C  u[rX]|s[rX]  B  t  S\n' \
           'N = number of iterations for averaging\n'\
           'C = number of max transactions to consider (min = 16, max = 107)\n' \
           'u = uniform risk distribution [r] random\n' \
           's = skewed  risk distribution [r] random\n' \
           'X = random file number\n' \
-          'B = number of bins'
+          'B = number of bins\n' \
+          't = type of risk classification [risk|beta|std]' \
+          'S = number of states (2 or 3 for this version, 3 needs implementing)'
 
 elif int(sys.argv[2]) < 16 or int(sys.argv[2]) > 107:
     print 'C = number of max transactions to consider (min = 16, max = 107)'
@@ -153,17 +188,16 @@ elif sys.argv[3].strip("0123456789") not in ['u', 'ur', 's', 'sr']:
 else:
 
     ''' SETUP '''
-    HTAN_SIGMA = 500
-    Alpha = [0.1, 0.25, 0.5, 0.75, 1]
-    Betas = [10, 20, 30, 40]
-    Gamma = [0.01, 0.25, 0.5, 0.75, 0.999]
+    HTAN_REWARD_SIGMA = 500
+    Alpha, Betas, Gamma = load_parameters('fitting.cfg')
 
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
     bin_type = sys.argv[3]
-    nStates  = 3
-    nActions = int(sys.argv[4])  # number of bins is the same of number of actions
-    total_sell_trans = dict()
+    nActions = int(sys.argv[4])
+    nStates  = int(sys.argv[6])
+
+    results_subfolder = sys.argv[5]
 
     warnings.simplefilter("error", RuntimeWarning)
 
@@ -177,7 +211,18 @@ else:
     players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
     print
+    '''
     print 'Version history \n' \
+          '5.0.0 fixed bug portfolio was not re-initialised at each iteration\n' \
+          '4.0.0 fixed bug (new_volume * old_price changes the sign of the total). added negative sign\n' \
+          '3.4.0 parameters are loaded from fitting.cfg configuration file\n' \
+          '3.3.1 saving precision in % directly (to keep consistency with stdev)\n' \
+          '3.3.0 calculating variance on the go and storing it in the csv.
+            current columns: id, alpha, beta, gamma, MLE, Precision mean, Precision std, transactions amount\n' \
+          '3.2.0 number of states can be passed as parameter of the script, 3 states still needs developing\n' \
+          '3.1.0 changed states to 3 as uniform discretisation of htan bound profit ]-1,+1[\n' \
+          '3.0.0 changed states to 2 because money cannot be used as a proxy for states,\n' \
+          'using accumulated reward as proxy for state discretisation (above 0 rich, below 0 poor)\n' \
           '2.0.0 fixed bug where money was not reset after iteration\n' \
           '1.6.0 fixed bug on actions selection (extended to nActions)\n' \
           '1.5.1 adapting code for 5 bins\n' \
@@ -214,9 +259,11 @@ else:
           '0.7.2 saving 1000 iterations \n' \
           '0.7.1 fixed bug in update rule (gamma = 0 not 1) \n' \
           '0.7.0 reward through custom hyperbolic tangent function \n'
-
+    '''
     print 'nIterations', nIterations
     print 'total players: ' + str(len(players))
+
+    print "alphas " + str(Alpha) + "\nbetas " + str(Betas) + "\ngammas " + str(Gamma)
 
     # data structure that contains the MLEs
     MLEs = dict()
@@ -229,6 +276,9 @@ else:
 
     randomMLEs = dict()
 
+    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_Portfolio_' +
+                    str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
+
     for player in players:
         ti = time.time()
 
@@ -236,8 +286,6 @@ else:
 
         # retrieve the transactions for each player
         transactions = db.select_transactions('transactions', player)
-        # store the stocks purchased for future estimation of reward
-        portfolio = dict()
 
         for alpha in Alpha:
             for beta in Betas:
@@ -246,12 +294,27 @@ else:
                     avgMLE = 0
                     avg_correct_actions = 0
 
+                    # running variance setup
+                    # Knuth Welford
+                    # https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm
+                    n = 0
+                    mean, MLE_mean = 0, 0
+                    M2, MLE_M2 = 0, 0
+
+                    MLE_dist.write('\n' + str(players.index(player)) + ', '
+                                   + str(alpha) + ', '
+                                   + str(beta)  + ', '
+                                   + str(gamma) + ', ')
+
                     for iteration in xrange(nIterations):
 
                         # RL set-up
                         Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
-                        money = 100000
+                        profit = 0
                         state = 1
+
+                        # store the stocks purchased for future estimation of reward
+                        portfolio = dict()
 
                         # Measures set-up
                         tempMLE = 0
@@ -273,11 +336,12 @@ else:
                                     stock       = str(transaction[4])
                                     volume      = int(transaction[5])
                                     total       = float(transaction[7])
-                                    # price       = float(transaction[6])
-                                    # deprecated: decimal precision incorrect for average price calculation
+                                    # price       = float(transaction[6]) DEPRECATED...
+                                    # ... decimal precision incorrect for average price calculation
                                     price = abs(total / volume)
 
                                     if 'Buy' in a_type and stock:
+
                                         # save the stocks that have been purchased
                                         if stock in portfolio:
                                             old_volume = portfolio[stock][0]
@@ -290,16 +354,18 @@ else:
                                         else:
                                             portfolio[stock] = (volume, price, total)
 
+                                        ''' NO NEED TO CHANGE STATE SINCE IT DEPENDS ON PROFIT CHANGE
+                                        (only sells can modify it)
                                         # deduct money spent to purchase stock
                                         # (+ sign because the sign of the total is negative for purchases)
-                                        money += total
+                                        # money += total
 
-                                        next_state = get_next_state(money, portfolio)
+                                        # next_state = get_next_state(money, portfolio)
+                                        '''
 
                                     elif 'Sell' in a_type and stock:
 
                                         if stock not in portfolio:
-                                            print ':::::::::::::::::::::::::::::::::::::::::::::::'
                                             print player
                                             print 'stock', stock
                                             print 'portfolio', portfolio
@@ -314,7 +380,7 @@ else:
 
                                             # the reward is the gain on the price times the number of shares sold
                                             reward_base = ((price - old_price) * volume)
-                                            reward = htan_custom(1 / HTAN_SIGMA)
+                                            reward = htan_custom(reward_base, 1 / HTAN_REWARD_SIGMA)
 
                                             # if all shares for the stock have been sold delete stock from portfolio
                                             # otherwise update the values (new_volume, old_price, new_total)
@@ -322,13 +388,18 @@ else:
                                             if new_volume <= 0:
                                                 del portfolio[stock]
                                             else:
-                                                portfolio[stock] = (new_volume, old_price, new_volume * old_price)
+                                                new_total = - (new_volume * old_price)
+                                                # the asset (selling power) is still the old price
+                                                # (which is the avg of all the buying prices normalised on the volumes)
+                                                # times the new amount of stocks held
+
+                                                portfolio[stock] = (new_volume, old_price, new_total)
                                                 # old_price so it is possible to calculate margin for future sells
 
-                                            # update money with gain/loss from sell
-                                            money += total
+                                            # update profit with reward from sell
+                                            profit += reward
 
-                                            ''' SoftMax Action Selection '''
+                                            ''' SoftMax Action Selection  - - - - - - - - - - - - - - - - - -'''
                                             terms = [0] * nActions
                                             for a in xrange(nActions):
                                                 try:
@@ -341,9 +412,9 @@ else:
                                                         terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
                                                     # print 'terms calculated with max normalisation', terms
 
-                                                # the following raises except only if the previous try raises except
-                                                denominator = sum(terms)
-                                                terms = np.true_divide(terms, denominator)
+                                            # the following raises except only if the previous try raises except
+                                            denominator = sum(terms)
+                                            terms = np.true_divide(terms, denominator)
 
                                             tempMLE, MLEaction = select_action(tempMLE)
 
@@ -353,7 +424,7 @@ else:
                                                 raw_input(terms)
                                                 break
 
-                                            ''' softmax end '''
+                                            ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
 
                                             # select the action really picked by player
                                             action = stock_risk[stock]
@@ -362,7 +433,7 @@ else:
                                             if MLEaction == action:
                                                 correct_actions += 1
 
-                                            next_state = get_next_state(money, portfolio)
+                                            next_state = get_next_state(profit)
 
                                             ''' Qvalues update '''
                                             TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
@@ -370,86 +441,49 @@ else:
 
                                             state = next_state
 
-                        total_sell_trans[player] = actionsAmount
                         avg_correct_actions += correct_actions
                         avgMLE += tempMLE
 
-                    avg_correct_actions /= nIterations
+                        local_precision = correct_actions / actionsAmount * 100
+
+                        # running variance calculations (for precision)
+                        n += 1
+                        delta = local_precision - mean
+                        MLE_delta = tempMLE - MLE_mean
+
+                        mean = mean + delta / n
+                        MLE_mean = MLE_mean + MLE_delta / n
+
+                        M2 = M2 + delta * (local_precision - mean)
+                        MLE_M2 = MLE_M2 + MLE_delta * (tempMLE - MLE_mean)
+
+                        MLE_dist.write(str(-tempMLE) + ', ')
+
+                    MLE_dist.write('\n')
+
                     avgMLE /= nIterations
                     avgMLE = -avgMLE
                     randMLE = - actionsAmount * log(1 / nActions)
                     randomMLEs[player] = randMLE
 
-                    precision = avg_correct_actions / actionsAmount
+                    precision = avg_correct_actions / (actionsAmount * nIterations) * 100
+                    variance = M2 / n
+                    std_dev = sqrt(variance)
 
-                    MLEs[player][alpha][beta][gamma] = (avgMLE, precision, actionsAmount)
+                    MLE_variance = MLE_M2 / n
+                    MLE_std_dev = sqrt(MLE_variance)
+
+                    MLEs[player][alpha][beta][gamma] = (avgMLE, MLE_std_dev, precision, std_dev, actionsAmount)
 
         print str(actionsAmount) + ' transactions '
 
         print str((time.time() - ti) / 60) + ' minutes'
 
     db.close()
-
+    MLE_dist.close()
     # printMLEs()
 
     save_filename = build_filename()
-    # TODO  remove NEW from filename
-    saveMLEs('results/results_' + save_filename + '.csv')
+    saveMLEs('results/' + results_subfolder + '_classified/Negative_Portfolio_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
-
-# counting transactions
-# temp = 0
-# for p in total_sell_trans:
-#    temp += total_sell_trans[p]
-# print temp
-
-''' OLD SOFTMAX
-
-#TODO divide all terms by highest (normalise only in case of numerical issues)
-terms = [0] * nActions
-
-overflow = False
-for a in xrange(nActions):
-    try:
-        terms[a] = np.exp(Q[state][a] * beta)
-    except RuntimeWarning:
-        print 'action n:', actionsAmount
-        print '\nRuntimeWarning'
-        terms[a] = np.exp(709)
-        overflow = True
-
-if not overflow:
-    try:
-        terms = np.true_divide(terms, sum(terms))
-    except RuntimeWarning:
-        print
-        print 'terms', terms
-        print 'Q[state]', Q[state]
-
-    tempMLE, MLEaction = select_action(tempMLE)
-
-else:
-    MLEaction = int(Q[state].index(max(Q[state])))
-    # print 'iteration', iteration
-    # print 'transaction', actionsAmount
-    # print 'Q[state]', Q[state]
-    # print 'MLEaction', MLEaction
-    # print 'terms', terms
-    if terms[MLEaction] > 0:
-        tempMLE += log(terms[MLEaction])
-    else:
-        tempMLE = 0
-#if tempMLE < 0:
-    # print 'MLE minore di 0         <<<<<<<<<<<<<'
-    # print 'iteration', iteration
-    # print 'transaction', actionsAmount
-    # print 'Q[state]', Q[state]
-    # print 'MLEaction', MLEaction
-    # print 'terms', terms
-
-if tempMLE == 0:
-    print 'MLE maggiore di 0       >>>>>>>>>>>>>>'
-    raw_input('Breaking because of terms(' + str(MLEaction) + ') =' + str(terms[MLEaction]))
-    break
-'''

@@ -1,11 +1,8 @@
 from __future__ import division
 import sys
-import random
 import numpy as np
 from datetime import datetime
 import time
-from math import log
-import warnings
 from DatabaseHandler import DatabaseHandler
 
 

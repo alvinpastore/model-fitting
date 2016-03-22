@@ -11,5 +11,5 @@ bin_type = sys.argv[2]
 nActions = sys.argv[3].split(',')
 
 path = os.path.dirname(os.path.realpath(__file__))
-sp = [subprocess.Popen("python " + path + "/randomPlayer.py " + CAP + " " + bin_type + " " + nAct + " "
+sp = [subprocess.Popen("python " + path + "/random_model_fit.py " + CAP + " " + bin_type + " " + nAct + " "
                        + nIterations, shell=True) for nAct in nActions]

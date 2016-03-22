@@ -43,7 +43,7 @@ def filter_players(all_players, threshold_file):
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 if len(sys.argv) < 4:
-    print 'Usage: python randomPlayer.py   C   B   A   N \n\n' \
+    print 'Usage: python random_model_fit.py   C   B   A   N \n\n' \
           'C = transactions CAP\n' \
           'B = bin type (u for uniform, s for skewed)\n'\
           'A = number of actions\n' \

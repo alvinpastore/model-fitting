@@ -13,6 +13,6 @@ randomBins_begin = int(sys.argv[5])
 randomBins_end = int(sys.argv[6]) + 1  # number of scrambled bins files available
 path = os.path.dirname(os.path.realpath(__file__))
 
-sp = [subprocess.Popen("python " + path + "/modelFitForward.py " + nIterations + " " + CAP + " ur" + str(_) +
+sp = [subprocess.Popen("python " + path + "/model_fit.py " + nIterations + " " + CAP + " ur" + str(_) +
                        " " + nActions + " " + nStates, shell=True) for _ in xrange(randomBins_begin, randomBins_end)]
 

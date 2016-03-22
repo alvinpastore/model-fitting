@@ -35,7 +35,7 @@ def save_performances(file_path, perfs):
 t0 = time.time()
 
 if len(sys.argv) < 2 or int(sys.argv[1]) < 16 or int(sys.argv[1]) > 107:
-    print 'Usage: python performanceCalculator.py   C  \n' \
+    print 'Usage: python performance_calculator.py   C  \n' \
           'C = number of max transactions to consider (min = 16, max = 107)'
 
 CAP = int(sys.argv[1])

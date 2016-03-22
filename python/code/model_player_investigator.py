@@ -133,7 +133,7 @@ def build_filename():
 t0 = time.time()
 
 if len(sys.argv) < 2:
-    print 'Usage: python modelFitForward.py N\n' \
+    print 'Usage: python model_player_investigator.py N\n' \
           'N = number of iterations for averaging'
 
 else:
@@ -165,7 +165,7 @@ else:
 
     print
     print 'Version history \n' \
-          '1.0.0 modified to match modelFitForward structure (extensible bin-size-independent)\n' \
+          '1.0.0 modified to match model_fit structure (extensible bin-size-independent)\n' \
           '0.0.1 Branching code for players testings and investigations'
 
     print 'total players: ' + str(len(players))

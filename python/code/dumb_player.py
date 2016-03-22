@@ -1,11 +1,8 @@
 from __future__ import division
 import sys
-import random
 import numpy as np
-from datetime import datetime
 import time
-from math import log
-import warnings
+
 from DatabaseHandler import DatabaseHandler
 
 ''' ---- FUNCTIONS ---- '''
@@ -46,7 +43,7 @@ def filter_players(all_players, threshold_file):
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 if len(sys.argv) < 4:
-    print 'Usage: python dumbPlayer.py   C   B   A \n\n' \
+    print 'Usage: python dumb_player.py   C   B   A \n\n' \
           'C = transactions CAP\n' \
           'B = bin type (u for uniform, s for skewed)\n'\
           'A = number of actions\n'
