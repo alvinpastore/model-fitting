@@ -2,7 +2,7 @@
 
 Python main routine
 
-Usage: python modelFitForward.py   N   C  u[rX]|s[rX]  B  t  S
+Usage: python model_fit.py   N   C  u[rX]|s[rX]  B  t  S
 
           N = number of iterations for averaging
           C = number of max transactions to consider (min = 16, max = 107)
