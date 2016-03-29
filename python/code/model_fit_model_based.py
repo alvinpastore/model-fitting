@@ -212,7 +212,8 @@ else:
 
     print
     '''
-    print 'Version history \n' \
+    print 'Version history \n
+          '6.0.0 branched to develop model-based' \
           '5.0.0 fixed bug portfolio was not re-initialised at each iteration\n' \
           '4.0.0 fixed bug (new_volume * old_price changes the sign of the total). added negative sign\n' \
           '3.4.0 parameters are loaded from fitting.cfg configuration file\n' \
@@ -276,7 +277,7 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_Portfolio_' +
+    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_ModelBased_' +
                     str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
 
     for player in players:
@@ -309,7 +310,9 @@ else:
                     for iteration in xrange(nIterations):
 
                         # RL set-up
-                        Q = [[0 for x in xrange(nActions)] for x in xrange(nStates)]
+                        Q = [[0 for x1 in xrange(nActions)] for x2 in xrange(nStates)]
+                        R = [[0 for x1 in xrange(nActions)] for x2 in xrange(nStates)]
+                        T = [[[0 for x1 in xrange(nStates)] for x2 in xrange(nActions)] for x3 in xrange(nStates)]
                         profit = 0
                         state = 1
 
@@ -436,8 +439,15 @@ else:
                                             next_state = get_next_state(profit)
 
                                             ''' Qvalues update '''
-                                            TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
-                                            Q[state][action] += alpha * TD_error
+                                            R[state][action] += alpha * (reward - R[state][action])
+                                            T[state][action][next_state] += alpha * (1 - T[state][action][next_state])
+                                            sum_transitions_max_Q = 0
+
+                                            for state_t in xrange(len(T[state][action])):
+                                                T[state][action][state_t] += alpha * (0 - T[state][action][state_t])
+                                                sum_transitions_max_Q += T[state][action][state_t] * max(Q[next_state])
+
+                                            Q[state][action] = R[state][action] + (gamma * sum_transitions_max_Q)
 
                                             state = next_state
 
@@ -484,6 +494,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/' + results_subfolder + '_classified/Negative_Portfolio_' + save_filename + '.csv')
+    saveMLEs('results/' + results_subfolder + '_classified/ModelBased_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
