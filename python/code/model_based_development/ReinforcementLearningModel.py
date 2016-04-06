@@ -2,6 +2,7 @@ import numpy as np
 
 class ReinforcementLearningModel:
 
+    ACTION_TOLERANCE = 0.1 #qvalue difference tolerance in selecting an action (check pick_random_best_action)
     Q = []
     current_state = np.array([0,0])
     next_state = np.array([0,0])
@@ -32,9 +33,6 @@ class ReinforcementLearningModel:
     def set_reward(self,reward):
         self.reward = reward
 
-    def get_reward(self):
-        return self.reward
-
     def update_Q(self):
         #TODO override
         pass
@@ -54,10 +52,18 @@ class ReinforcementLearningModel:
     # and there is very low exploration epsilon, then that action will be picked always (deadlock)
     def pick_random_best_action(self,actions):
         m = max(actions)
-        best_acts = [act_i for act_i,act in enumerate(actions) if act >= (m - m/10)]
-        print actions
-        print best_acts
-        raw_input()
+        # allow for some tolerance to avoid deadlocks
+        if m >= 0:
+            #m -= m/10
+            m -= self.ACTION_TOLERANCE
+        else:
+            #m += m/10
+            m += - self.ACTION_TOLERANCE
+        # print 'm',m
+        best_acts = [act_i for act_i,act in enumerate(actions) if act >= m]
+        # print 'q',actions
+        # print 'b',best_acts
+        # print
         #print 'picked action '+str(best_acts[int(np.floor(np.random.rand() * len(best_acts)))])
         return best_acts[int(np.floor(np.random.rand() * len(best_acts)))]
 
