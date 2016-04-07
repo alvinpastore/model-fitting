@@ -2,8 +2,8 @@ import numpy as np
 
 
 WALL_PENALTY = 10
-STOCHASTIC_PENALTY = 5
-STOCHASTIC_ENV = False
+STOCHASTIC_PENALTY = 10
+STOCHASTIC_PENALTY_PROB = 0.2
 
 def linearize(t, c):
     return int(c * t[0] + t[1])
@@ -23,7 +23,7 @@ def get_next_state(action,state):
         next_state = [state[0]-1, state[1]]     # go up (north)
     return next_state
 
-#TODO these assignments work! don't know why
+#TODO these assignments DO work! don't know why
 def get_reward(next_state,state,world):
     # hitting walls
     if next_state[0] < 0 or next_state[0] > world.shape[0] - 1: #rows
@@ -34,8 +34,8 @@ def get_reward(next_state,state,world):
         next_state[1] = state[1]
     # not hitting walls
     else:
-        if STOCHASTIC_ENV and is_upper_triangle(next_state):
-           if np.random.rand() < 0.2: # 1/10 dont move
+        if STOCHASTIC_PENALTY_PROB and is_upper_triangle(next_state):
+           if np.random.rand() < STOCHASTIC_PENALTY_PROB:
                return - STOCHASTIC_PENALTY
         reward = world[next_state[0]][next_state[1]]
     return reward
