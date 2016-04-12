@@ -3,7 +3,7 @@ import numpy as np
 
 WALL_PENALTY = 10
 STOCHASTIC_PENALTY = 10
-STOCHASTIC_PENALTY_PROB = 0.2
+STOCHASTIC_PENALTY_PROB = 0.1
 
 def linearize(t, c):
     return int(c * t[0] + t[1])
@@ -36,6 +36,8 @@ def get_reward(next_state,state,world):
     else:
         if STOCHASTIC_PENALTY_PROB and is_upper_triangle(next_state):
            if np.random.rand() < STOCHASTIC_PENALTY_PROB:
+               next_state[0] = 0
+               next_state[1] = 0
                return - STOCHASTIC_PENALTY
         reward = world[next_state[0]][next_state[1]]
     return reward
