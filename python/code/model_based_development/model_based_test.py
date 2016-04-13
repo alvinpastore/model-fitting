@@ -201,11 +201,14 @@ if __name__ == '__main__':
         plt.waitforbuttonpress()
 
     if MB:
-        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials'] for i in zip(*steps['mb'])], color='red', label='Model Based')
+        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials']
+                                                 for i in zip(*steps['mb'])], color='red', label='Model Based')
     if QL:
-        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials'] for i in zip(*steps['ql'])], color='green', label='Q-learning')
+        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials']
+                                                 for i in zip(*steps['ql'])], color='green', label='Q-learning')
     if SS:
-        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials'] for i in zip(*steps['ss'])], color='blue', label='Sarsa')
+        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials']
+                                                 for i in zip(*steps['ss'])], color='blue', label='Sarsa')
 
     print 'elapsed time', time.time() - start_time
     if config['INITIAL_POSITION_RANDOM']:
@@ -217,12 +220,14 @@ if __name__ == '__main__':
     # for position,frequency in initial_position_log.iteritems():
     #    print str(position) + " " + str(frequency)
 
-    plt.plot(np.arange(config['episodes']), np.ones(config['episodes'])*avg_steps, color='black', label='average min steps')
+    plt.plot(np.arange(config['episodes']), np.ones(config['episodes'])*avg_steps,
+             color='black', label='average min steps')
     # plt.ylim([0, 400])
     plt.title(" Rand Init: {0} \t Env stochastic penalty: {1} \n"
               " Eps: {2} - k: {3} - Episodes: {4} - Trials: {5} \n"
               " World Size {6}x{7}".
-              format(config['INITIAL_POSITION_RANDOM'], Env.STOCHASTIC_PENALTY_PROB, config['epsilon'], config['k'], config['episodes'], config['trials'], Env.rows, Env.cols))
+              format(config['INITIAL_POSITION_RANDOM'], Env.STOCHASTIC_PENALTY_PROB,
+                     config['epsilon'], config['k'], config['episodes'], config['trials'], Env.rows, Env.cols))
 
     plt.legend()
     plt.show()
@@ -238,5 +243,6 @@ if __name__ == '__main__':
             for trajectory in steps['ss']:
                 plt.plot(np.arange(config['episodes']), trajectory, color='blue', label='Sarsa')
 
-        plt.plot(np.arange(config['episodes']), np.ones(config['episodes'])*((Env.rows/2) + (Env.cols/2) - 1), color='black', label='average min steps')
+        plt.plot(np.arange(config['episodes']), np.ones(config['episodes'])*((Env.rows/2) + (Env.cols/2) - 1),
+                 color='black', label='average min steps')
         plt.show()
