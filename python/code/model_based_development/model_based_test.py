@@ -24,17 +24,17 @@ PLOTS = False
 PLOT_TRAJECTORIES = False
 
 # RL setup
-episodes = 60
-trials = 100
-epsilon = 0.0   # too low exploration can result in deadlocks (check pick_random_best_action() in ReinforcementLearningModel class)
+episodes = 70
+trials = 200
+epsilon = 0.1   # too low exploration can result in deadlocks (check pick_random_best_action() in ReinforcementLearningModel class)
 alpha = 0.1
 gamma = 0.99
-k = 5           # number of states to update for dyna
-initial_Q = 2   # optimism in the face of uncertainty (initialise qvalues high)
+k = 0           # number of states to update for dyna
+initial_Q = 0   # optimism in the face of uncertainty (initialise qvalues high)
 
 # world
-rows = 5
-cols = 5
+rows = 7
+cols = 7
 nStates = rows * cols
 world = np.zeros((rows, cols))
 world[rows-1, cols-1] = 100
@@ -66,7 +66,6 @@ for trial in range(trials):
     for episode in range(episodes):
 
         init_rand_state = Env.randomise_initial_state(cols, rows)
-        init_rand_state = np.array([0, 0])
 
         if str(init_rand_state) in initial_position_log.keys():
             initial_position_log[str(init_rand_state)] += 1
@@ -201,7 +200,6 @@ if SS:
 
 print 'elapsed time', time.time()-start_time
 avg_steps = ((rows/2) + (cols/2) - 1)
-avg_steps = 8
 print 'avg steps to winning state', avg_steps
 
 # for k,v in initial_position_log.iteritems():
