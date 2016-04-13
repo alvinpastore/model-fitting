@@ -12,14 +12,14 @@ class RLEnvironment:
     win_state = None
     nStates = 0
 
-    def __init__(self, wall_penalty, stochastic_penalty, stochastic_penalty_probability, world_file):
+    def __init__(self, wall_penalty, stochastic_penalty, stochastic_penalty_probability, world_file, win_reward):
         self.WALL_PENALTY = wall_penalty
         self.STOCHASTIC_PENALTY = stochastic_penalty
         self.STOCHASTIC_PENALTY_PROB = stochastic_penalty_probability
-        self.read_world_file(world_file)
+        self.read_world_file(world_file, win_reward)
         self.nStates = self.rows * self.cols
 
-    def read_world_file(self, world_file):
+    def read_world_file(self, world_file, win_reward):
         world_structure = []
         with open(world_file, 'r') as wf:
             for row in wf:
@@ -38,7 +38,7 @@ class RLEnvironment:
             for elem in row:
                 if elem == 'O':
                     self.win_state = np.array([world_structure.index(row), row.index(elem)])
-                    self.world[world_structure.index(row), row.index(elem)] = 100
+                    self.world[world_structure.index(row), row.index(elem)] = win_reward
 
     def linearize(self, t, c):
         return int(c * t[0] + t[1])

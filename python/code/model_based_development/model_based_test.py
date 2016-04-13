@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     load_config('config_file')
 
-    Env = RLEnvironment(10, 0, 0, 'world_file')
+    Env = RLEnvironment(10, 0, 0, 'world_file', 100)
 
     steps = {'mb': [], 'ql': [], 'ss': []}
 
