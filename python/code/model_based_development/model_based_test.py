@@ -10,8 +10,8 @@ import RLEnvironment as Env
 
 def plot_figure_update(s, ep, tr, alg, step):
     ax.clear()
-    ax.plot(s[1], s[0], 'xr', markersize=20, color='red')
-    ax.imshow(world, interpolation='nearest')
+    ax.plot(s[1], s[0], 'xr', markersize=30, color='red')
+    ax.imshow(world, interpolation='nearest', cmap=plt.get_cmap('Blues'))
     ax.set_title('Trial: ' + str(tr) + ' - Episode: ' + str(ep) + " - " + str(alg) + " - " + str(step))
     ax.get_xaxis().set_ticks(range(cols))
     ax.get_yaxis().set_ticks(range(rows))
@@ -24,17 +24,18 @@ PLOTS = False
 PLOT_TRAJECTORIES = False
 
 # RL setup
-episodes = 70
-trials = 200
-epsilon = 0.1   # too low exploration can result in deadlocks (check pick_random_best_action() in ReinforcementLearningModel class)
+episodes = 50
+trials = 300
+epsilon = 0.05
 alpha = 0.1
 gamma = 0.99
-k = 0           # number of states to update for dyna
+k = 15          # number of states to update for dyna
 initial_Q = 0   # optimism in the face of uncertainty (initialise qvalues high)
+INITIAL_POSITION_RANDOM = True
 
 # world
-rows = 7
-cols = 7
+rows = 5
+cols = 6
 nStates = rows * cols
 world = np.zeros((rows, cols))
 world[rows-1, cols-1] = 100
@@ -60,12 +61,15 @@ for trial in range(trials):
 
     MB = Dyna(nActions, nStates, initial_Q)
     QL = QLearning(nActions, nStates, initial_Q)
-    SS = Sarsa(nActions, nStates, initial_Q)
+    SS = None#Sarsa(nActions, nStates, initial_Q)
 
     initial_position_log = {}
     for episode in range(episodes):
 
-        init_rand_state = Env.randomise_initial_state(cols, rows)
+        if INITIAL_POSITION_RANDOM:
+            init_rand_state = Env.randomise_initial_state(cols, rows)
+        else:
+            init_rand_state = np.array([0, 0])
 
         if str(init_rand_state) in initial_position_log.keys():
             initial_position_log[str(init_rand_state)] += 1
@@ -100,10 +104,10 @@ for trial in range(trials):
                 next_state_lin = Env.linearize(MB.next_state, cols)
 
                 MB.update_model(state_lin, next_state_lin, MB.action, alpha, MB.reward)
-                MB.update_Q(state_lin, MB.action,alpha, gamma, k, nStates, nActions)
+                MB.update_Q(state_lin, MB.action, alpha, gamma, k, nStates, nActions)
 
                 MB.set_current_state(MB.next_state)
-                #MB.print_Q()
+                # MB.print_Q()
 
                 if PLOTS:
                     plot_figure_update(MB.current_state, episode, trial, 'model based', step_counter)
@@ -116,7 +120,7 @@ for trial in range(trials):
             step_counter = 0
             QL.set_current_state(np.copy(init_rand_state))
 
-            while not Env.is_final_state(QL.current_state,win_state):
+            while not Env.is_final_state(QL.current_state, win_state):
 
                 step_counter += 1
 
@@ -149,7 +153,7 @@ for trial in range(trials):
             step_counter = 0
             SS.set_current_state(np.copy(init_rand_state))
 
-            while not Env.is_final_state(SS.current_state,win_state):
+            while not Env.is_final_state(SS.current_state, win_state):
 
                 step_counter += 1
 
@@ -177,16 +181,15 @@ for trial in range(trials):
 
             ''' SS END '''
 
-
-        #TODO bug changing the first time the episode is half the episodes and stays the same onwards
-        #if episode == episodes/2:
+        # TODO bug changing the first time the episode is half the episodes and stays the same onwards
+        # if episode == episodes/2:
         #    [world, win_state] = Env.change_goal(world)
 
     # store counter for nth trial
     steps['mb'].append(counter_mb)
     steps['ql'].append(counter_ql)
     steps['ss'].append(counter_ss)
-    print 'trial {0} : {1:.3f} sec(s)'.format(trial,time.time() - trial_time)
+    print 'trial {0} : {1:.3f} sec(s)'.format(trial, time.time() - trial_time)
 if PLOTS:
     plt.waitforbuttonpress()
 
@@ -198,17 +201,23 @@ if SS:
     plt.plot(np.arange(episodes), [sum(i)/trials for i in zip(*steps['ss'])], color='blue', label='Sarsa')
 
 
-print 'elapsed time', time.time()-start_time
-avg_steps = ((rows/2) + (cols/2) - 1)
+print 'elapsed time', time.time() - start_time
+if INITIAL_POSITION_RANDOM:
+    avg_steps = ((rows / 2) + (cols / 2) - 1)
+else:
+    avg_steps = rows - 1 + cols - 1
 print 'avg steps to winning state', avg_steps
 
 # for k,v in initial_position_log.iteritems():
 #    print str(k) + " " + str(v)
 
-
 plt.plot(np.arange(episodes), np.ones(episodes)*avg_steps, color='black', label='average min steps')
-#plt.ylim([0, 400])
-plt.title("Environment stochastic penalty: " + str(Env.STOCHASTIC_PENALTY_PROB))
+# plt.ylim([0, 400])
+plt.title(" Rand Init: {0} \t Env stochastic penalty: {1} \n"
+          " Eps: {2} - k: {3} - Episodes: {4} - Trials: {5} \n"
+          " World Size {6}x{7}".
+          format(INITIAL_POSITION_RANDOM, Env.STOCHASTIC_PENALTY_PROB, epsilon, k, episodes, trials, rows, cols))
+
 plt.legend()
 plt.show()
 
