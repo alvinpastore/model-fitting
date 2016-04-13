@@ -1,0 +1,18 @@
+# test setup
+episodes = 50
+trials = 300
+
+# RL setup
+epsilon = 0.05
+alpha = 0.1
+gamma = 0.99
+k = 15
+initial_Q = 0
+
+# Flags (use 0 and 1)
+INITIAL_POSITION_RANDOM = 1
+PLOTS = 0
+PLOT_TRAJECTORIES = 0
+
+# west, south, east, north
+nActions = 4
