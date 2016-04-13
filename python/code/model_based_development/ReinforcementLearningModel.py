@@ -3,7 +3,7 @@ import numpy as np
 
 class ReinforcementLearningModel:
 
-    ACTION_TOLERANCE = 0.0#1 #qvalue difference tolerance in selecting an action (check pick_random_best_action)
+    ACTION_TOLERANCE = 0.0  # 1 #qvalue difference tolerance in selecting an action (check pick_random_best_action)
     Q = []
     current_state = np.array([0, 0])
     next_state = np.array([0, 0])
@@ -47,7 +47,6 @@ class ReinforcementLearningModel:
             print str(i)+'\t {0:.3f}\t{1:.3f}\t{2:.3f}\t{3:.3f}'.format(q[0], q[1], q[2], q[3])
             i += 1
 
-
     # finds the occurrences of the max in a list
     # and returns the index of one of them, randomly
     # if the q_value of an action converges to a value which is higher than the other values
@@ -56,10 +55,10 @@ class ReinforcementLearningModel:
         m = max(actions)
         # allow for some tolerance to avoid deadlocks
         if m >= 0:
-            #m -= m/10
+            # m -= m/10
             m -= self.ACTION_TOLERANCE
         else:
-            #m += m/10
+            # m += m/10
             m += - self.ACTION_TOLERANCE
         # print 'm',m
         best_acts = [act_i for act_i,act in enumerate(actions) if act >= m]
