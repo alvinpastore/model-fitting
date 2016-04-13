@@ -39,10 +39,11 @@ def get_reward(next_state, state, world):
     else:
         if STOCHASTIC_PENALTY_PROB and is_upper_triangle(next_state):
             if np.random.rand() < STOCHASTIC_PENALTY_PROB:
-                # next_state[0] = 0
-                # next_state[1] = 0
-                return - STOCHASTIC_PENALTY
-        reward = world[next_state[0]][next_state[1]]
+                reward = - STOCHASTIC_PENALTY
+                next_state[0] = state[0]
+                next_state[1] = state[1]
+        else:
+            reward = world[next_state[0]][next_state[1]]
     return reward
 
 
