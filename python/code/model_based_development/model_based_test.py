@@ -201,11 +201,11 @@ if __name__ == '__main__':
         plt.waitforbuttonpress()
 
     if MB:
-        plt.plot(np.arange(config['epsilon']), [sum(i)/config['trials'] for i in zip(*steps['mb'])], color='red', label='Model Based')
+        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials'] for i in zip(*steps['mb'])], color='red', label='Model Based')
     if QL:
-        plt.plot(np.arange(config['epsilon']), [sum(i)/config['trials'] for i in zip(*steps['ql'])], color='green', label='Q-learning')
+        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials'] for i in zip(*steps['ql'])], color='green', label='Q-learning')
     if SS:
-        plt.plot(np.arange(config['epsilon']), [sum(i)/config['trials'] for i in zip(*steps['ss'])], color='blue', label='Sarsa')
+        plt.plot(np.arange(config['episodes']), [sum(i)/config['trials'] for i in zip(*steps['ss'])], color='blue', label='Sarsa')
 
     print 'elapsed time', time.time() - start_time
     if config['INITIAL_POSITION_RANDOM']:
