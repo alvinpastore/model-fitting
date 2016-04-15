@@ -48,8 +48,11 @@ class RLEnvironment:
     def linearize(self, t, c):
         return int(c * t[0] + t[1])
 
-    # position anywhere except last row and column (to avoid being positioned on the final state)
+    # position anywhere except on the winning state
     def randomise_initial_state(self, c, r):
+        init_state = np.array([np.random.randint(r-1), np.random.randint(c-1)])
+        while tuple(init_state) == tuple(self.win_state):
+            init_state = np.array([np.random.randint(r-1), np.random.randint(c-1)])
         return np.array([np.random.randint(r-1), np.random.randint(c-1)])
 
     # moves to next state (the check whether the state is a wall or not is in get_reward()
