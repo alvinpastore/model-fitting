@@ -12,15 +12,15 @@ class Dyna(ReinforcementLearningModel):
         self.R = [[0 for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
         self.T = [[[0 for x0 in xrange(n_states)] for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
 
-    def update_Q(self, state, next_state, alpha, gamma, k, nStates, nActions, action):
+    def update_Q(self, state, next_state, alpha, gamma, k, nStates, nActions):
 
         # Update model of the world first
-        self.update_model(state, next_state, action, alpha, self.reward)
+        self.update_model(state, next_state, self.action, alpha, self.reward)
 
         # Q-Values update for experienced state-action pair
         # state is the linear index of the current state
-        sum_transitions_max_q = self.calculate_sum_transitions_max_q(state, action, alpha)
-        self.Q[state][action] = self.R[state][action] + (gamma * sum_transitions_max_q)
+        sum_transitions_max_q = self.calculate_sum_transitions_max_q(state, self.action, alpha)
+        self.Q[state][self.action] = self.R[state][self.action] + (gamma * sum_transitions_max_q)
 
         # Dyna update of k random state-action pairs
         for i in range(k):
