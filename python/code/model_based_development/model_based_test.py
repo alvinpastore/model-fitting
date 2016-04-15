@@ -52,7 +52,7 @@ def exec_episode(model, model_name):
     while not Env.is_final_state(model.current_state, Env.win_state):
         step_counter += 1
 
-        if np.random.rand() < config['epsilon']:
+        if np.random.rand() < model.epsilon:
             model.set_action(int(np.floor(np.random.rand() * config['nActions'])))
         else:
             action = model.pick_random_best_action(model.Q[Env.linearize(model.current_state, Env.cols)])
@@ -67,7 +67,7 @@ def exec_episode(model, model_name):
         state_lin = Env.linearize(model.current_state, Env.cols)
         next_state_lin = Env.linearize(model.next_state, Env.cols)
 
-        model.update_Q(state_lin, next_state_lin, config['alpha'], config['gamma'], config['k'], Env.nStates,
+        model.update_Q(state_lin, next_state_lin, model.alpha, model.gamma, config['k'], Env.nStates,
                        config['nActions'])
 
         model.set_current_state(model.next_state)
@@ -84,6 +84,7 @@ if __name__ == '__main__':
 
     load_config('config_file')
 
+    # Wall penalty, Stochastic penalty, St.pen. probability, world file, win state reward
     Env = RLEnvironment(10, 0, 0, 'world_file', 100)
 
     steps = {'mb': [], 'ql': [], 'ss': []}
@@ -101,9 +102,14 @@ if __name__ == '__main__':
 
         counter = {'mb': [], 'ql': [], 'ss': []}
 
-        MB = Dyna(config['nActions'], Env.nStates, config['initial_Q'])
-        QL = QLearning(config['nActions'], Env.nStates, config['initial_Q'])
-        SS = Sarsa(config['nActions'], Env.nStates, config['initial_Q'])
+        MB = Dyna(config['nActions'], Env.nStates, config['initial_Q'],
+                  config['alpha'], config['gamma'], config['epsilon'])
+
+        QL = QLearning(config['nActions'], Env.nStates, config['initial_Q'],
+                  config['alpha'], config['gamma'], config['epsilon'])
+
+        SS = Sarsa(config['nActions'], Env.nStates, config['initial_Q'],
+                  config['alpha'], config['gamma'], config['epsilon'])
 
         for episode in range(config['episodes']):
 
