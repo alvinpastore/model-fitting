@@ -44,6 +44,40 @@ def load_config(config_file):
                     config[identifier] = int(line[1].strip())
 
 
+def exec_episode(model, model_name):
+
+    step_counter = 0
+    model.set_current_state(np.copy(init_rand_state))
+
+    while not Env.is_final_state(model.current_state, Env.win_state):
+        step_counter += 1
+
+        if np.random.rand() < config['epsilon']:
+            model.set_action(int(np.floor(np.random.rand() * config['nActions'])))
+        else:
+            action = model.pick_random_best_action(model.Q[Env.linearize(model.current_state, Env.cols)])
+            model.set_action(action)
+
+        model.set_next_state(Env.get_next_state(model.action, model.current_state))
+
+        # get_reward moves the agent back if it hits the walls
+        # no idea how. tried to replicate but could not
+        model.set_reward(Env.get_reward(model.next_state, model.current_state, Env.world))
+
+        state_lin = Env.linearize(model.current_state, Env.cols)
+        next_state_lin = Env.linearize(model.next_state, Env.cols)
+
+        model.update_Q(state_lin, next_state_lin, config['alpha'], config['gamma'], config['k'], Env.nStates,
+                       config['nActions'])
+
+        model.set_current_state(model.next_state)
+        # model.print_Q()
+
+        if config['PLOTS']:
+            plot_figure_update(model.current_state, episode, trial, model_name, step_counter)
+
+    counter[model_name].append(step_counter)
+
 if __name__ == '__main__':
 
     start_time = time.time()
@@ -78,106 +112,9 @@ if __name__ == '__main__':
             else:
                 init_rand_state = np.array([0, 0])
 
-            if MB:
-                ''' MB '''
-                step_counter = 0
-                MB.set_current_state(np.copy(init_rand_state))
-
-                while not Env.is_final_state(MB.current_state, Env.win_state):
-                    step_counter += 1
-
-                    if np.random.rand() < config['epsilon']:
-                        MB.set_action(int(np.floor(np.random.rand() * config['nActions'])))
-                    else:
-                        action = MB.pick_random_best_action(MB.Q[Env.linearize(MB.current_state, Env.cols)])
-                        MB.set_action(action)
-
-                    MB.set_next_state(Env.get_next_state(MB.action, MB.current_state))
-
-                    # get_reward moves the agent back if it hits the walls
-                    # no idea how. tried to replicate but could not
-                    MB.set_reward(Env.get_reward(MB.next_state, MB.current_state, Env.world))
-
-                    state_lin = Env.linearize(MB.current_state, Env.cols)
-                    next_state_lin = Env.linearize(MB.next_state, Env.cols)
-
-                    MB.update_Q(state_lin, next_state_lin, config['alpha'], config['gamma'], config['k'], Env.nStates,
-                                config['nActions'], MB.action)
-
-                    MB.set_current_state(MB.next_state)
-                    # MB.print_Q()
-
-                    if config['PLOTS']:
-                        plot_figure_update(MB.current_state, episode, trial, 'model based', step_counter)
-
-                counter['mb'].append(step_counter)
-                ''' MB END '''
-
-            if QL:
-                ''' QL '''
-                step_counter = 0
-                QL.set_current_state(np.copy(init_rand_state))
-
-                while not Env.is_final_state(QL.current_state, Env.win_state):
-
-                    step_counter += 1
-
-                    if np.random.rand() < config['epsilon']:
-                        QL.set_action(int(np.floor(np.random.rand() * config['nActions'])))
-                    else:
-                        action = QL.pick_random_best_action(QL.Q[Env.linearize(QL.current_state, Env.cols)])
-                        QL.set_action(action)
-
-                    QL.set_next_state(Env.get_next_state(QL.action, QL.current_state))
-
-                    QL.set_reward(Env.get_reward(QL.next_state, QL.current_state, Env.world))
-
-                    state_lin = Env.linearize(QL.current_state, Env.cols)
-                    next_state_lin = Env.linearize(QL.next_state, Env.cols)
-
-                    QL.update_Q(state_lin, next_state_lin, QL.action, QL.reward, config['alpha'], config['gamma'])
-
-                    QL.set_current_state(QL.next_state)
-
-                    if config['PLOTS']:
-                        plot_figure_update(QL.current_state, episode, trial, 'qlearning', step_counter)
-
-                counter['ql'].append(step_counter)
-
-                ''' QL END '''
-
-            if SS:
-                ''' SS '''
-                step_counter = 0
-                SS.set_current_state(np.copy(init_rand_state))
-
-                while not Env.is_final_state(SS.current_state, Env.win_state):
-
-                    step_counter += 1
-
-                    if np.random.rand() < config['epsilon']:
-                        SS.set_action(int(np.floor(np.random.rand() * config['nActions'])))
-                    else:
-                        action = SS.pick_random_best_action(SS.Q[Env.linearize(SS.current_state, Env.cols)])
-                        SS.set_action(action)
-
-                    SS.set_next_state(Env.get_next_state(SS.action, SS.current_state))
-
-                    SS.set_reward(Env.get_reward(SS.next_state, SS.current_state, Env.world))
-
-                    state_lin = Env.linearize(SS.current_state, Env.cols)
-                    next_state_lin = Env.linearize(SS.next_state, Env.cols)
-
-                    SS.update_Q(state_lin, next_state_lin, SS.action, SS.reward, config['alpha'], config['gamma'])
-
-                    SS.set_current_state(SS.next_state)
-
-                    if config['PLOTS']:
-                        plot_figure_update(SS.current_state, episode, trial, 'sarsa', step_counter)
-
-                counter['ss'].append(step_counter)
-
-                ''' SS END '''
+            exec_episode(MB, 'mb')
+            exec_episode(QL, 'ql')
+            exec_episode(SS, 'ss')
 
         # store counter for nth trial
         steps['mb'].append(counter['mb'])
@@ -209,13 +146,11 @@ if __name__ == '__main__':
 
     plt.plot(np.arange(config['episodes']), np.ones(config['episodes'])*avg_steps,
              color='black', label='average min steps')
-    # plt.ylim([0, 400])
     plt.title(" Rand Init: {0} \t Env stochastic penalty: {1} \n"
               " Eps: {2} - k: {3} - Episodes: {4} - Trials: {5} \n"
               " World Size {6}x{7}".
               format(config['INITIAL_POSITION_RANDOM'], Env.STOCHASTIC_PENALTY_PROB,
                      config['epsilon'], config['k'], config['episodes'], config['trials'], Env.rows, Env.cols))
-
     plt.legend()
     plt.show()
 
