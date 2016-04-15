@@ -7,10 +7,11 @@ class Dyna(ReinforcementLearningModel):
     R = []
     T = []
 
-    def __init__(self, n_actions, n_states, initial_q):
-        self.Q = [[initial_q for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
+    def __init__(self, n_actions, n_states, initial_q, alpha, gamma, epsilon):
+        super(Dyna, self).__init__(n_actions, n_states, initial_q, alpha, gamma, epsilon)
         self.R = [[0 for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
         self.T = [[[0 for x0 in xrange(n_states)] for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
+
 
     def update_Q(self, state, next_state, alpha, gamma, k, nStates, nActions):
 

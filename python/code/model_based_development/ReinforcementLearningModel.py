@@ -1,17 +1,22 @@
 import numpy as np
 
 
-class ReinforcementLearningModel:
+class ReinforcementLearningModel(object):
 
-    ACTION_TOLERANCE = 0.0  # 1 #qvalue difference tolerance in selecting an action (check pick_random_best_action)
     Q = []
     current_state = np.array([0, 0])
     next_state = np.array([0, 0])
     action = 0
     reward = 0
+    alpha = 0
+    gamma = 0
+    epsilon = 0
 
-    def __init__(self, n_actions, n_states, initial_Q):
-        self.Q = [[initial_Q for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
+    def __init__(self, n_actions, n_states, initial_q, alpha, gamma, epsilon):
+        self.Q = [[initial_q for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
 
     def set_current_state(self, current_state):
         self.current_state = current_state
@@ -51,20 +56,8 @@ class ReinforcementLearningModel:
     # and returns the index of one of them, randomly
     # if the q_value of an action converges to a value which is higher than the other values
     # and there is very low exploration epsilon, then that action will be picked always (deadlock)
-    def pick_random_best_action(self,actions):
+    def pick_random_best_action(self, actions):
         m = max(actions)
-        # allow for some tolerance to avoid deadlocks
-        if m >= 0:
-            # m -= m/10
-            m -= self.ACTION_TOLERANCE
-        else:
-            # m += m/10
-            m += - self.ACTION_TOLERANCE
-        # print 'm',m
-        best_acts = [act_i for act_i,act in enumerate(actions) if act >= m]
-        # print 'q', actions
-        # print 'b', best_acts
-        # print
-        # print 'picked action '+str(best_acts[int(np.floor(np.random.rand() * len(best_acts)))])
+        best_acts = [act_i for act_i, act in enumerate(actions) if act >= m]
         return best_acts[int(np.floor(np.random.rand() * len(best_acts)))]
 
