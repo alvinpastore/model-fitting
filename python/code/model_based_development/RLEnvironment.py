@@ -11,6 +11,7 @@ class RLEnvironment:
     world = None
     win_state = None
     nStates = 0
+    walls = []
 
     def __init__(self, wall_penalty, stochastic_penalty, stochastic_penalty_probability, world_file, win_reward):
         self.WALL_PENALTY = wall_penalty
@@ -35,10 +36,14 @@ class RLEnvironment:
         self.world = np.zeros((self.rows, self.cols))
 
         for row in world_structure:
-            for elem in row:
-                if elem == 'O':
-                    self.win_state = np.array([world_structure.index(row), row.index(elem)])
-                    self.world[world_structure.index(row), row.index(elem)] = win_reward
+            for c in range(len(row)):
+                if row[c] == 'O':
+                    self.win_state = np.array([world_structure.index(row), c])
+                    self.world[world_structure.index(row), c] = win_reward
+                if row[c] == 'W':
+                    self.walls.append((world_structure.index(row), c))
+                    # trick to make the walls look nice in the plot
+                    self.world[world_structure.index(row), c] = - self.WALL_PENALTY*10
 
     def linearize(self, t, c):
         return int(c * t[0] + t[1])
@@ -47,6 +52,7 @@ class RLEnvironment:
     def randomise_initial_state(self, c, r):
         return np.array([np.random.randint(r-1), np.random.randint(c-1)])
 
+    # moves to next state (the check whether the state is a wall or not is in get_reward()
     def get_next_state(self, action, state):
         if action == 0:
             next_state = [state[0], state[1]-1]      # go left (west)
@@ -58,8 +64,10 @@ class RLEnvironment:
             next_state = [state[0]-1, state[1]]     # go up (north)
         return next_state
 
+    # get the reward from the landing state and adjust if it is a wall
     # TODO these assignments DO work! don't know why
     def get_reward(self, next_state, state, world):
+
         # hitting walls
         if next_state[0] < 0 or next_state[0] > world.shape[0] - 1:  # rows
             reward = - self.WALL_PENALTY
@@ -67,6 +75,11 @@ class RLEnvironment:
         elif next_state[1] < 0 or next_state[1] > world.shape[1] - 1:  # cols
             reward = - self.WALL_PENALTY
             next_state[1] = state[1]
+        elif tuple(next_state) in self.walls:
+            reward = - self.WALL_PENALTY
+            next_state[0] = state[0]
+            next_state[1] = state[1]
+
         # not hitting walls
         else:
             if self.STOCHASTIC_PENALTY_PROB and self.is_upper_triangle(next_state):
