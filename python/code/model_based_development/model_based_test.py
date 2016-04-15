@@ -106,10 +106,10 @@ if __name__ == '__main__':
                   config['alpha'], config['gamma'], config['epsilon'])
 
         QL = QLearning(config['nActions'], Env.nStates, config['initial_Q'],
-                  config['alpha'], config['gamma'], config['epsilon'])
+                       config['alpha'], config['gamma'], config['epsilon'])
 
         SS = Sarsa(config['nActions'], Env.nStates, config['initial_Q'],
-                  config['alpha'], config['gamma'], config['epsilon'])
+                   config['alpha'], config['gamma'], config['epsilon'])
 
         for episode in range(config['episodes']):
 
