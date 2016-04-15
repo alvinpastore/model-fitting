@@ -7,18 +7,18 @@ from Dyna import Dyna
 from Sarsa import Sarsa
 from RLEnvironment import RLEnvironment
 
-config = dict()
-config['episodes'] = None
-config['trials'] = None
-config['epsilon'] = None
-config['alpha'] = None
-config['gamma'] = None
-config['k'] = None
-config['initial_Q'] = None
-config['nActions'] = None
-config['PLOTS'] = None
-config['PLOT_TRAJECTORIES'] = None
-config['INITIAL_POSITION_RANDOM'] = None
+config = {
+    'episodes': None,
+    'trials': None,
+    'epsilon': None,
+    'alpha': None,
+    'gamma': None,
+    'k': None,
+    'initial_Q': None,
+    'nActions': None,
+    'PLOTS': None,
+    'PLOT_TRAJECTORIES': None,
+    'INITIAL_POSITION_RANDOM': None}
 
 
 def plot_figure_update(s, ep, tr, alg, step):
@@ -65,26 +65,18 @@ if __name__ == '__main__':
     for trial in range(config['trials']):
         trial_time = time.time()
 
-        counter_mb = []
-        counter_ql = []
-        counter_ss = []
+        counter = {'mb': [], 'ql': [], 'ss': []}
 
         MB = Dyna(config['nActions'], Env.nStates, config['initial_Q'])
         QL = QLearning(config['nActions'], Env.nStates, config['initial_Q'])
         SS = Sarsa(config['nActions'], Env.nStates, config['initial_Q'])
 
-        initial_position_log = {}
         for episode in range(config['episodes']):
 
             if config['INITIAL_POSITION_RANDOM']:
                 init_rand_state = Env.randomise_initial_state(Env.cols, Env.rows)
             else:
                 init_rand_state = np.array([0, 0])
-
-            if str(init_rand_state) in initial_position_log.keys():
-                initial_position_log[str(init_rand_state)] += 1
-            else:
-                initial_position_log[str(init_rand_state)] = 1
 
             if MB:
                 ''' MB '''
@@ -94,12 +86,8 @@ if __name__ == '__main__':
                 while not Env.is_final_state(MB.current_state, Env.win_state):
                     step_counter += 1
 
-                    # if episode > 30:
-                    #     MB.print_Q()
-                    #     raw_input()
-
                     if np.random.rand() < config['epsilon']:
-                        MB.set_action(int(np.floor(np.random.rand() * 4)))
+                        MB.set_action(int(np.floor(np.random.rand() * config['nActions'])))
                     else:
                         action = MB.pick_random_best_action(MB.Q[Env.linearize(MB.current_state, Env.cols)])
                         MB.set_action(action)
@@ -113,8 +101,8 @@ if __name__ == '__main__':
                     state_lin = Env.linearize(MB.current_state, Env.cols)
                     next_state_lin = Env.linearize(MB.next_state, Env.cols)
 
-                    MB.update_model(state_lin, next_state_lin, MB.action, config['alpha'], MB.reward)
-                    MB.update_Q(state_lin, MB.action, config['alpha'], config['gamma'], config['k'], Env.nStates, config['nActions'])
+                    MB.update_Q(state_lin, next_state_lin, config['alpha'], config['gamma'], config['k'], Env.nStates,
+                                config['nActions'], MB.action)
 
                     MB.set_current_state(MB.next_state)
                     # MB.print_Q()
@@ -122,7 +110,7 @@ if __name__ == '__main__':
                     if config['PLOTS']:
                         plot_figure_update(MB.current_state, episode, trial, 'model based', step_counter)
 
-                counter_mb.append(step_counter)
+                counter['mb'].append(step_counter)
                 ''' MB END '''
 
             if QL:
@@ -135,7 +123,7 @@ if __name__ == '__main__':
                     step_counter += 1
 
                     if np.random.rand() < config['epsilon']:
-                        QL.set_action(int(np.floor(np.random.rand() * 4)))
+                        QL.set_action(int(np.floor(np.random.rand() * config['nActions'])))
                     else:
                         action = QL.pick_random_best_action(QL.Q[Env.linearize(QL.current_state, Env.cols)])
                         QL.set_action(action)
@@ -154,7 +142,7 @@ if __name__ == '__main__':
                     if config['PLOTS']:
                         plot_figure_update(QL.current_state, episode, trial, 'qlearning', step_counter)
 
-                counter_ql.append(step_counter)
+                counter['ql'].append(step_counter)
 
                 ''' QL END '''
 
@@ -168,7 +156,7 @@ if __name__ == '__main__':
                     step_counter += 1
 
                     if np.random.rand() < config['epsilon']:
-                        SS.set_action(int(np.floor(np.random.rand() * 4)))
+                        SS.set_action(int(np.floor(np.random.rand() * config['nActions'])))
                     else:
                         action = SS.pick_random_best_action(SS.Q[Env.linearize(SS.current_state, Env.cols)])
                         SS.set_action(action)
@@ -187,15 +175,24 @@ if __name__ == '__main__':
                     if config['PLOTS']:
                         plot_figure_update(SS.current_state, episode, trial, 'sarsa', step_counter)
 
-                counter_ss.append(step_counter)
+                counter['ss'].append(step_counter)
 
                 ''' SS END '''
 
         # store counter for nth trial
-        steps['mb'].append(counter_mb)
-        steps['ql'].append(counter_ql)
-        steps['ss'].append(counter_ss)
+        steps['mb'].append(counter['mb'])
+        steps['ql'].append(counter['ql'])
+        steps['ss'].append(counter['ss'])
+
         print 'trial {0} : {1:.3f} sec(s)'.format(trial, time.time() - trial_time)
+
+    print 'elapsed time', time.time() - start_time
+
+    if config['INITIAL_POSITION_RANDOM']:
+        avg_steps = ((Env.rows / 2) + (Env.cols / 2) - 1)
+    else:
+        avg_steps = Env.rows - 1 + Env.cols - 1
+    print 'avg steps to winning state', avg_steps
 
     if config['PLOTS']:
         plt.waitforbuttonpress()
@@ -209,16 +206,6 @@ if __name__ == '__main__':
     if SS:
         plt.plot(np.arange(config['episodes']), [sum(i)/config['trials']
                                                  for i in zip(*steps['ss'])], color='blue', label='Sarsa')
-
-    print 'elapsed time', time.time() - start_time
-    if config['INITIAL_POSITION_RANDOM']:
-        avg_steps = ((Env.rows / 2) + (Env.cols / 2) - 1)
-    else:
-        avg_steps = Env.rows - 1 + Env.cols - 1
-    print 'avg steps to winning state', avg_steps
-
-    # for position,frequency in initial_position_log.iteritems():
-    #    print str(position) + " " + str(frequency)
 
     plt.plot(np.arange(config['episodes']), np.ones(config['episodes'])*avg_steps,
              color='black', label='average min steps')
