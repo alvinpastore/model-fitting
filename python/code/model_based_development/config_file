@@ -1,12 +1,12 @@
 # test setup
 episodes = 50
-trials = 200
+trials = 300
 
 # RL setup
 epsilon = 0.05
 alpha = 0.1
 gamma = 0.99
-k = 1
+k = 5
 initial_Q = 0
 
 # Flags (use 0 and 1)
