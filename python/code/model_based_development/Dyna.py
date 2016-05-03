@@ -12,7 +12,6 @@ class Dyna(ReinforcementLearningModel):
         self.R = [[0 for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
         self.T = [[[0 for x0 in xrange(n_states)] for x1 in xrange(n_actions)] for x2 in xrange(n_states)]
 
-
     def update_Q(self, state, next_state, alpha, gamma, k, nStates, nActions):
 
         # Update model of the world first
@@ -47,15 +46,17 @@ class Dyna(ReinforcementLearningModel):
         self.R[state][action] += alpha * (reward - self.R[state][action])
         # update the Transition Probability of the tuple T(s,a,s_t+1)
         self.T[state][action][next_state] += alpha * (1 - self.T[state][action][next_state])
-        # decay the T(s,a,s') for all s'
-        self.calculate_sum_transitions_max_q(state, action, alpha)
+
+        # moved into update_Q
+        # # decay the T(s,a,s') for all s'
+        # self.calculate_sum_transitions_max_q(state, action, alpha)
 
     def print_model(self):
         print 'R'
         print ' \t left \t down \t right \t up'
         i = 0
         for r in self.R:
-            print str(i)+' \t {0:.3f}\t{1:.3f}\t{2:.3f}\t{3:.3f}'.format(r[0], r[1], r[2], r[3])
+            print str(i) + ' \t {0:.3f}\t{1:.3f}\t{2:.3f}\t{3:.3f}'.format(r[0], r[1], r[2], r[3])
             i += 1
 
         # TODO finish implementing trans prob print
