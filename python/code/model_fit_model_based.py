@@ -97,15 +97,15 @@ def saveMLEs(fileName):
     comma = ' , '
     out_file = open(fileName, 'w')
     for nth in sorted(MLEs):
-        out_file.write(str(players.index(nth)) + comma
-                       + '0' + comma
-                       + '0' + comma
-                       + '0' + comma
-                       + str(randomMLEs[nth]) + comma
-                       + '0' + comma
-                       + str(1 / nActions * 100) + comma
-                       + '0' + comma
-                       + str(MLEs[nth][min(Alpha)][min(Betas)][min(Gamma)][4]) + '\n')
+        out_file.write(str(players.index(nth)) + comma +
+                       '0' + comma +
+                       '0' + comma +
+                       '0' + comma +
+                       str(randomMLEs[nth]) + comma +
+                       '0' + comma +
+                       str(1 / nActions * 100) + comma +
+                       '0' + comma +
+                       str(MLEs[nth][min(Alpha)][min(Betas)][min(Gamma)][4]) + '\n')
 
         for a in sorted(MLEs[nth]):
             for b in sorted(MLEs[nth][a]):
@@ -302,10 +302,10 @@ else:
                     mean, MLE_mean = 0, 0
                     M2, MLE_M2 = 0, 0
 
-                    MLE_dist.write('\n' + str(players.index(player)) + ', '
-                                   + str(alpha) + ', '
-                                   + str(beta)  + ', '
-                                   + str(gamma) + ', ')
+                    MLE_dist.write('\n' + str(players.index(player)) + ', ' +
+                                   str(alpha) + ', ' +
+                                   str(beta)  + ', ' +
+                                   str(gamma) + ', ')
 
                     for iteration in xrange(nIterations):
 
@@ -461,11 +461,11 @@ else:
                         delta = local_precision - mean
                         MLE_delta = tempMLE - MLE_mean
 
-                        mean = mean + delta / n
-                        MLE_mean = MLE_mean + MLE_delta / n
+                        mean += delta / n
+                        MLE_mean += MLE_delta / n
 
-                        M2 = M2 + delta * (local_precision - mean)
-                        MLE_M2 = MLE_M2 + MLE_delta * (tempMLE - MLE_mean)
+                        M2 += delta * (local_precision - mean)
+                        MLE_M2 += MLE_delta * (tempMLE - MLE_mean)
 
                         MLE_dist.write(str(-tempMLE) + ', ')
 
