@@ -7,3 +7,5 @@ class Sarsa(ReinforcementLearningModel):
         next_action = self.pick_random_best_action(self.Q[next_state])
         td_error = self.reward + (gamma * self.Q[next_state][next_action]) - self.Q[state][self.action]
         self.Q[state][self.action] += + alpha * td_error
+
+        #TODO return action and use it as next action in the next step

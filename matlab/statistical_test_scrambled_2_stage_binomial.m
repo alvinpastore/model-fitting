@@ -43,10 +43,10 @@ for playerID = 0:playersAmount-1
     % find corresponding MLE line in model 
     model_MLE_line = model_MLE(corresponding_MLE_line,5:end-1); % end-1 because of trailing 0
     
-    % find corresponding MLE line in scrambled
+    % create scrams MLEs vector (100k = 100 x 1000 (scrams x iterations))
     scrambled_MLE_line = zeros(1,SCRAM_NUMBER * iterations);
     
-    % create scrams MLEs vector (100k = 100 x 1000 (scrams x iterations))
+    % find corresponding MLE line in scrambled
     for i = MLE_iter % iterate over the 100 scrambled bins
         scrambled_MLE = MLESCRAMS(i);
         scrambled_MLE = scrambled_MLE{1};
