@@ -1,6 +1,6 @@
 # test setup
-episodes = 50
-trials = 300
+episodes = 25
+trials = 1000
 
 # RL setup
 epsilon = 0.05
