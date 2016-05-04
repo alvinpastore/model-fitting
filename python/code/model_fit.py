@@ -106,7 +106,7 @@ def saveMLEs(fileName):
                        str(1 / nActions * 100) + comma +
                        '0' + comma +
                        str(MLEs[nth][min(Alpha)][min(Betas)][min(Gamma)][4]) + '\n')
-        
+
         for a in sorted(MLEs[nth]):
             for b in sorted(MLEs[nth][a]):
                 for g in sorted(MLEs[nth][a][b]):

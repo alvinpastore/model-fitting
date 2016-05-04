@@ -196,6 +196,7 @@ else:
     bin_type = sys.argv[3]
     nActions = int(sys.argv[4])
     nStates  = int(sys.argv[6])
+    k = nStates * nActions - 1  # this is the amount of updates the model based does (on top of the usual update)
 
     results_subfolder = sys.argv[5]
 
@@ -441,13 +442,20 @@ else:
                                             ''' Qvalues update '''
                                             R[state][action] += alpha * (reward - R[state][action])
                                             T[state][action][next_state] += alpha * (1 - T[state][action][next_state])
-                                            sum_transitions_max_Q = 0
 
+                                            sum_transitions_max_Q = 0
                                             for state_t in xrange(len(T[state][action])):
                                                 T[state][action][state_t] += alpha * (0 - T[state][action][state_t])
-                                                sum_transitions_max_Q += T[state][action][state_t] * max(Q[next_state])
+                                                sum_transitions_max_Q += T[state][action][state_t] * max(Q[state_t])
 
                                             Q[state][action] = R[state][action] + (gamma * sum_transitions_max_Q)
+
+                                            """ Dyna updates """
+                                            for k_th_update in range(k):
+                                                s_rand = random.randrange(nStates)
+                                                a_rand = random.randrange(nActions)
+
+                                                Q[s_rand][a_rand] = R[s_rand][a_rand] + (gamma * sum_transitions_max_Q)
 
                                             state = next_state
 
