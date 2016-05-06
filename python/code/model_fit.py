@@ -94,7 +94,7 @@ def select_action(temporaryMLE):
 
 
 def saveMLEs(fileName):
-    comma = ' , '
+    comma = ','
     out_file = open(fileName, 'w')
     for nth in sorted(MLEs):
         out_file.write(str(players.index(nth)) + comma +
