@@ -52,7 +52,7 @@ def save_vectors(filename):
         for pl in sorted(ar_vectors.keys()):
             for srr in ar_vectors[pl]:  # srr = stock_risk_reward tuple
                 print "{0} {1}  \t{2}  {3} ".format(players.index(pl), pl, srr[1], srr[2])
-                outfile.write("{0} , {1} , {2}\n".format(players.index(pl), srr[1], srr[2]))
+                outfile.write("{0},{1},{2}\n".format(players.index(pl), srr[1], srr[2]))
 
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
