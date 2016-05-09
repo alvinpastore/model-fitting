@@ -8,7 +8,8 @@
 %   [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma]
 function [performance_fit] = paper_figures(paper_save,presentation_save)
     tic;
-
+    close all;
+    
     % FLAGS for figure save folders
     PAPER = paper_save;                 % 1 to save pictures to PAPER folder
     PRESENTATION = presentation_save;   % 1 to save to presentation folder (paper has priority, needs to be 0)
@@ -23,11 +24,12 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     ASTERISK_OFFSET = 23;
 
     % res3 are the results for the fullmodel
-    fullmodel = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    fullmodel = csvread('../results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    fullmodel = csvread('../results/after_money_1k/_model_based/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
     model = fullmodel(fullmodel(:,2) ~= 0,:);
 
     % load nogamma results
-    nogamma = csvread('results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
+    nogamma = csvread('../results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
     %results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
     nogamma = nogamma(nogamma(:,2) ~= 0,:);
 
@@ -40,7 +42,7 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     players = unique(model(:,1));
     playersAmount = size(players,1);
 
-    % data structure to hold the performances of all the results available
+    % data structure to hold the p values and chi-values for all the comparisons
     performance_fit = zeros(playersAmount,8);
 
     % column which contains MLE in the results
@@ -74,7 +76,7 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
         performance_fit(playerID+1,:) = [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma];
 
     end
-    close all;
+    
     performance_fit = sortrows(performance_fit,-3);
 
     if PAPER
