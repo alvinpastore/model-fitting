@@ -303,10 +303,10 @@ else:
                     mean, MLE_mean = 0, 0
                     M2, MLE_M2 = 0, 0
 
-                    MLE_dist.write('\n' + str(players.index(player)) + ', ' +
-                                   str(alpha) + ', ' +
-                                   str(beta)  + ', ' +
-                                   str(gamma) + ', ')
+                    MLE_dist.write('\n' + str(players.index(player)) + ',' +
+                                   str(alpha) + ',' +
+                                   str(beta)  + ',' +
+                                   str(gamma))
 
                     for iteration in xrange(nIterations):
 
@@ -475,7 +475,7 @@ else:
                         M2 += delta * (local_precision - mean)
                         MLE_M2 += MLE_delta * (tempMLE - MLE_mean)
 
-                        MLE_dist.write(str(-tempMLE) + ', ')
+                        MLE_dist.write(',' + str(-tempMLE))
 
                     MLE_dist.write('\n')
 
