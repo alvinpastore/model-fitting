@@ -1,4 +1,8 @@
-
+% DEPRECATED
+% calculate and plot the performance of a model against the corresponding random
+% uses precision instead of Maximum Likelihood Estimate (deprecated)
+% Explanation from Daw: there is a mismatch in the forward model prediction. 
+% It is asking too much to fit the exploratory part of the learning
 tic;
 
 
