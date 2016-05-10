@@ -22,21 +22,29 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     FONT_SIZE = 20;
     MARKER_SIZE = 15;
     ASTERISK_OFFSET = 23;
-
-    % res3 are the results for the fullmodel
-    fullmodel = csvread('../results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
-    fullmodel = csvread('../results/after_money_1k/_model_based/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    
+    % column containing MLE in the results
+    MLE_column = 5;
+    
+    MODEL_BASED = 0; % 0 = model free, 1 = model based
+    
+    % degrees of freedom = 
+    % number of params of bigger model - number of params of nested model
+    rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
+    ng_dof = 3-2;   % alpha, beta, gamma 
+    
+    if MODEL_BASED
+        fullmodel = csvread('../results/after_money_1k/_model_based/ModelBased_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    else
+        fullmodel = csvread('../results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+    end
+    
     model = fullmodel(fullmodel(:,2) ~= 0,:);
-
+    
     % load nogamma results
     nogamma = csvread('../results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
     %results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
     nogamma = nogamma(nogamma(:,2) ~= 0,:);
-
-    % degrees of freedom = 
-    % number of params of bigger model - number of params of nested model
-    rnd_dof = 3-1;
-    ng_dof = 3-2;
     
     % count players
     players = unique(model(:,1));
@@ -44,9 +52,6 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
 
     % data structure to hold the p values and chi-values for all the comparisons
     performance_fit = zeros(playersAmount,8);
-
-    % column which contains MLE in the results
-    MLE_column = 5;
 
     % for every player calculate best model and compare with random and nogamma
     for playerID = 0:playersAmount-1
