@@ -1,14 +1,12 @@
-function [Num, MLESCRAMS, MLEFULL, res3] = MLE_SCRAM_importer(scram_flag)
+function [Num, MLESCRAMS] = MLE_SCRAM_importer(scram_flag)
 
-    %script to import all the MLE files (20mins each approx by manual import)
-
+    % script to import all the MLE files (20mins each approx by manual import)
+    % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
+    
     tic;
 
-    % import model CSV MLE 
-    MLEFULL = csvread('results/MLE_model/MLE_Portfolio_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');
-    res3 = csvread('results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
     % count the scrambled MLE files in the experiment folder
-    FolderName = 'results/MLE_scram_matlab/';
+    FolderName = '../results/MLE_scram_matlab/';
     D = dir([FolderName, '/MLE_*.csv']);
     Num = length(D(not([D.isdir])));
 
