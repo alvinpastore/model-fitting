@@ -16,7 +16,7 @@ function [ MLEFULL, model ] = MLE_model_importer( model_type )
         
         MLEFULL = csvread('../results/MLE_model/nogamma/MLE_Portfolio_[0.0]_1000_u.csv');
         model = csvread('../results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
-
+        
     end
 end
 
