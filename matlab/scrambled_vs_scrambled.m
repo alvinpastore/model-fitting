@@ -1,13 +1,16 @@
 % routine for testing scrambled MLEs against each other
+
 tic
 
 % import scrambled MLE matrices
-%[Num, MLESCRAMS] = MLE_SCRAM_importer();
+% if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
+[Num, MLESCRAMS_dummy] = MLE_SCRAM_importer(0);
+[MLEFULL, model] = MLE_model_importer('model_free');
+
 MLE_iter = 1:Num;
 
 % load model results
-current_results = 'res3';
-model = eval(current_results);
+% remove random model lines
 model = model(find(model(:,2) ~= 0),:);
 
 % count players
@@ -15,16 +18,17 @@ players = unique(model(:,1));
 playersAmount = size(players,1);
 
 % offset = amount of models in gridsearch
-% = 5alphas X 4betas X 5gammas
+% 5alphas X 4betas X 5gammas
 OFFSET = 100;
 
 % cell array to hold info about all comparisons
-scram_compare = cell(length(MLE_iter)*length(MLE_iter),1);
+scram_compare = cell(Num * Num,1);
 pv_idx = 1;
 
 % permutations of models minus model with itself (N*N)-N
-PERMUTATIONS = (length(MLE_iter)*length(MLE_iter))-length(MLE_iter);
+PERMUTATIONS = (Num * Num) - Num;
 % save the players who are better than scrambled
+% last row is for the sum (how many players are better than that scram)
 better_than_scrambled = zeros(playersAmount+1,PERMUTATIONS);
 bts_idx = 1;
 
@@ -33,7 +37,9 @@ for i = MLE_iter
     % scram model first
     first_scrambled_MLE = MLESCRAMS(i);
     first_scrambled_MLE = first_scrambled_MLE{1};
-    avg_first_scrambled = mean(first_scrambled_MLE(:,5:end).').';
+    % mean calculates for each col, hence the transpose and re-transpose
+    % to have the mean of each row
+    avg_first_scrambled = mean(first_scrambled_MLE(:,5:end)')';
     
     for k = MLE_iter
         if i ~= k
@@ -45,14 +51,15 @@ for i = MLE_iter
             % scram model second
             second_scrambled_MLE = MLESCRAMS(k);
             second_scrambled_MLE = second_scrambled_MLE{1};
-            avg_second_scrambled = mean(second_scrambled_MLE(:,5:end).').';
+            avg_second_scrambled = mean(second_scrambled_MLE(:,5:end)')';
             
             for playerID = 0:playersAmount-1
 
                 % find player lines
                 player_lines_MLE = find(first_scrambled_MLE(:,1) == playerID);
                 
-                % find best MLE first scrambled model
+                % find best MLE first scrambled model (using mean, this
+                % might not be correct because of CLT not holding true)
                 [first_best_MLE, first_best_MLE_line] = min(avg_first_scrambled(player_lines_MLE,:));
                
                 corresponding_best_MLE_line = first_best_MLE_line + (playerID * OFFSET);
@@ -65,6 +72,7 @@ for i = MLE_iter
                 second_MLE_line = second_scrambled_MLE(corresponding_best_MLE_line,5:end);
                 
                 % calculate p-value 
+                % Wilcoxon rank sum test for equal medians
                 [pv_MLE] = ranksum(first_MLE_line,second_MLE_line);
 
                 current_pvalues(playerID+1,:) = [playerID first_best_MLE second_best_MLE first_best_MLE < second_best_MLE pv_MLE];
@@ -84,11 +92,14 @@ better_than_scrambled(end,:) = sum(better_than_scrambled,1);
 
 disp(better_than_scrambled);
 avg_model = 0.55;
-avg_players = sum(better_than_scrambled(47,:))/length(better_than_scrambled);
+avg_players = sum(better_than_scrambled(47,:)) / length(better_than_scrambled);
 disp(['average players scram_vs_scram ',num2str(avg_players)]);
 avg_percent = avg_players/length(players);
 disp(['average percentage ',num2str(avg_percent)]);
 zeta = 1.96;%2.57;
+
+% TODO -> this normal approximation is probably wrong because the CLT does
+% not hold for this data. Check: wikipedia.org/wiki/Mann?Whitney_U_test#Normal_approximation_and_tie_correction
 
 width = zeta*sqrt( (avg_percent * (1 - avg_percent)) / (length(players) * length(better_than_scrambled) ));
 disp(['width scrambled',num2str(width)]);
@@ -139,6 +150,8 @@ for playerID = 0:playersAmount-1
         [s_best_MLE, best_MLE_line] = min(avg_scrambled(player_lines_MLE,:));
         
         % calculate AIC for best MLE for i-th scrambled 
+        % TODO this might be wrong. s_besst_MLE is negative logL
+        % aicbic wants the logL
         aic_scram = aicbic(s_best_MLE,NUM_PARAM);
         
         % calculate difference and store AIC-DELTA
@@ -146,6 +159,6 @@ for playerID = 0:playersAmount-1
         
     end
 end
-clearvars -except MLESCRAMS better_than_scrambled MLEFULL* res3
+%clearvars -except MLESCRAMS better_than_scrambled MLEFULL* res3
 
 toc
