@@ -3,7 +3,9 @@ tic
 
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS_dummy, model_MLE, model] = MLE_SCRAM_importer(0);
+[SCRAM_NUMBER, MLESCRAMS_dummy] = MLE_SCRAM_importer(0);
+[model_MLE, model] = MLE_model_importer('model_free');
+%[model_MLE, model] = MLE_model_importer('model_based');
 MLE_iter = 1:SCRAM_NUMBER;
 
 % remove random models
@@ -104,7 +106,8 @@ ylabel('Probability');
 set(gca,'FontSize',FONT_SIZE);
 hold off;
 %clearvars -except better_than_scrambled MLESCRAMS MLEFULL* res3 players_CI sorted_CI SCRAM_NUMBER model_MLE;
-csvwrite('results/stats/players_CI.csv',players_CI);
+
+%csvwrite('../results/stats/players_CI.csv',players_CI);
 disp('statistica_test_scrambled_2_stage_binomial');
 toc
 
