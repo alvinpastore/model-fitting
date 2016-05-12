@@ -31,9 +31,7 @@ for playerID = 0:playersAmount-1
     
     disp(['Player ' , num2str(playerID)]);
     % find player lines in model and MLE results 
-    % (second condition to avoid random models where beta = 0)
-    player_lines_model = find(model(:,1) == playerID  ); 
-    player_lines_MLE = find(model_MLE(:,1) == playerID);
+    player_lines_model = find(model(:,1) == playerID); 
 
     % find best MLE full model 
     [p_best_MLE, p_best_MLE_line] = min(model(player_lines_model,5));
@@ -43,7 +41,7 @@ for playerID = 0:playersAmount-1
     corresponding_MLE_line = p_best_MLE_line + (playerID * OFFSET);
 
     % find corresponding MLE line in model 
-    model_MLE_line = model_MLE(corresponding_MLE_line,5:end-1); % end-1 because of trailing 0
+    model_MLE_line = model_MLE(corresponding_MLE_line,5:end);
     
     % create scrams MLEs vector (100k = 100 x 1000 (scrams x iterations))
     scrambled_MLE_line = zeros(1,SCRAM_NUMBER * iterations);
@@ -54,17 +52,13 @@ for playerID = 0:playersAmount-1
         scrambled_MLE = scrambled_MLE{1};
         % append the 1000 scrambled MLEs 
         current_index = 1 + ((i -1) * iterations);
-        scrambled_MLE_line(1, current_index:i*iterations) = scrambled_MLE(corresponding_MLE_line,5:end-1); % end-1 because of trailing 0 
+        scrambled_MLE_line(1, current_index:i*iterations) = scrambled_MLE(corresponding_MLE_line,5:end);
     end
     
     row_idx = 1;
  
     % binary vectors, 1 if phat+-CI > 0.5, 0 otherwise
     MLE_results_player = zeros(1,iterations);
-    
-    % removed indexing for the loop. test if it works TODO
-    % check: do I need mle_comparison to be a matrix (use a vector and
-    % re-populate over and over
        
     % logical comparison of each value from model_MLE with all scrambles
     for MLE_instance = model_MLE_line 
