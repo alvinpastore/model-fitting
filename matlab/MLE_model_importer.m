@@ -1,4 +1,4 @@
-function [ MLEFULL, model ] = MLE_model_importer( model_type )
+function [ MLEFULL, model ] = MLE_model_importer( model_type , k)
 %MLE_MODEL_IMPORTER loads models and MLE csv files 
 %for both model free and model based
 
@@ -9,8 +9,8 @@ function [ MLEFULL, model ] = MLE_model_importer( model_type )
     
     elseif strcmpi(model_type,'model_based')
         
-        MLEFULL = csvread('../results/MLE_model/model_based/MLE_ModelBased_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u.csv');
-        model = csvread('../results/after_money_1k/_model_based/ModelBased_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+        MLEFULL = csvread(['../results/MLE_model/model_based/MLE_ModelBased_[0.01, 0.25, 0.5, 0.75, 0.999]_1000_u_',num2str(k),'k.csv']);
+        model = csvread(['../results/after_money_1k/_model_based/ModelBased_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u_',num2str(k),'k.csv']);
     
     elseif strcmpi(model_type,'no_gamma')
         
