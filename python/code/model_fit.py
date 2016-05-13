@@ -173,7 +173,7 @@ if len(sys.argv) < 7:
           's = skewed  risk distribution [r] random\n' \
           'X = random file number\n' \
           'B = number of bins\n' \
-          't = type of risk classification [risk|beta|std]' \
+          't = type of risk classification [risk|beta|std]\n' \
           'S = number of states (2 or 3 for this version, 3 needs implementing)'
 
 elif int(sys.argv[2]) < 16 or int(sys.argv[2]) > 107:
@@ -276,7 +276,7 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_Portfolio_' +
+    MLE_dist = open('../../results/MLE_model/' + results_subfolder + '_classified/MLE_Portfolio_' +
                     str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
 
     for player in players:
@@ -459,7 +459,7 @@ else:
 
                         MLE_dist.write(',' + str(-tempMLE))
 
-                    MLE_dist.write('\n')
+                    MLE_dist.write('')
 
                     avgMLE /= nIterations
                     avgMLE = -avgMLE
@@ -484,6 +484,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/' + results_subfolder + '_classified/Negative_Portfolio_' + save_filename + '.csv')
+    saveMLEs('../../results/after_money_1k/_' + results_subfolder + '_classified/Negative_Portfolio_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'

@@ -148,6 +148,7 @@ def build_filename():
     fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
     fn += str(min(Gamma)) + '-' + str(max(Gamma)) + '_gamma'
     fn += '_' + bin_type
+    fn += '_' + str(k) + 'k'
     return fn
 
 
@@ -173,7 +174,7 @@ if len(sys.argv) < 7:
           's = skewed  risk distribution [r] random\n' \
           'X = random file number\n' \
           'B = number of bins\n' \
-          't = type of risk classification [risk|beta|std]' \
+          't = type of risk classification [risk|beta|std]\n' \
           'S = number of states (2 or 3 for this version, 3 needs implementing)'
 
 elif int(sys.argv[2]) < 16 or int(sys.argv[2]) > 107:
@@ -196,7 +197,8 @@ else:
     bin_type = sys.argv[3]
     nActions = int(sys.argv[4])
     nStates  = int(sys.argv[6])
-    k = nStates * nActions - 1  # this is the amount of updates the model based does (on top of the usual update)
+    #k = nStates * nActions - 1  # this is the amount of updates the model based does (on top of the usual update)
+    k = 0
 
     results_subfolder = sys.argv[5]
 
@@ -278,8 +280,8 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('results/' + results_subfolder + '_classified/MLE_ModelBased_' +
-                    str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
+    MLE_dist = open('../../results/MLE_model/model_based/MLE_ModelBased_' +
+                    str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '_' + str(k) + 'k.csv', 'w')
 
     for player in players:
         ti = time.time()
@@ -477,7 +479,7 @@ else:
 
                         MLE_dist.write(',' + str(-tempMLE))
 
-                    MLE_dist.write('\n')
+                    MLE_dist.write('')
 
                     avgMLE /= nIterations
                     avgMLE = -avgMLE
@@ -502,6 +504,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('results/' + results_subfolder + '_classified/ModelBased_' + save_filename + '.csv')
+    saveMLEs('../../results/after_money_1k/_model_based/ModelBased_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
