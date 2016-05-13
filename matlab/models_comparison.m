@@ -1,7 +1,7 @@
 tic
 
 [MF_MLE, model_free] = MLE_model_importer('model_free');
-[MB_MLE, model_based] = MLE_model_importer('model_based');
+[MB_MLE, model_based] = MLE_model_importer('model_based',5);
 [NG_MLE, model_nogamma] = MLE_model_importer('no_gamma');
 
 

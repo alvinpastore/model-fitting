@@ -36,7 +36,7 @@ MARKER_SIZE = 100;
 
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
 [SCRAM_NUMBER, MLESCRAMS_dummy] = MLE_SCRAM_importer(0);
-[model_MLE, model] = MLE_model_importer('model_based');
+[model_MLE, model] = MLE_model_importer('model_free');
 
 % load performances 
 perfs = sortrows(csvread('../results/stats/performances/profit_performances.csv',0,1,[0,1,45,2]),1);
