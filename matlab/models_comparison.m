@@ -1,14 +1,16 @@
 tic
 
-[MF_MLE, model_free] = MLE_model_importer('model_free');
-[MB_MLE, model_based] = MLE_model_importer('model_based',5);
-[NG_MLE, model_nogamma] = MLE_model_importer('no_gamma');
+[MF_MLE, model_free] = MLE_model_importer('model_free',5000);
+model_free = model_free(model_free(:,2) ~= 0,:);  % remove random models
 
-
-% remove random models
-model_free = model_free(model_free(:,2) ~= 0,:);
+[MB_MLE, model_based] = MLE_model_importer('model_based',0);
 model_based = model_based(model_based(:,2) ~= 0,:);
-model_nogamma = model_nogamma(model_nogamma(:,2) ~= 0,:);
+% used for testing model free against itself
+%[MB_MLE, model_based] = MLE_model_importer('model_free',5000); 
+
+% extend to no gamma
+%[NG_MLE, model_nogamma] = MLE_model_importer('no_gamma',1000);
+%model_nogamma = model_nogamma(model_nogamma(:,2) ~= 0,:);
 
 
 % offset = amount of models in gridsearch
@@ -91,14 +93,13 @@ for playerID = 0:playersAmount-1
 %     [phat_MB_NG, pci_MB_NG] = binofit(sum(MB_NG_results_player),size(MB_NG_results_player,2),alpha_confidence);
     
     players_CI(playerID+1,:) = [playerID phat_MB_MF pci_MB_MF(1) pci_MB_MF(2)];% phat_MB_NG pci_MB_NG(1) pci_MB_NG(2)];
-    
-    
 end
 
 
 sorted_CI = sortrows(players_CI,2);
 
 close all;
+figure();
 hold on;
 errorbar(players_CI(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2));
 plot([0,47],[0.5,0.5],'r-');
