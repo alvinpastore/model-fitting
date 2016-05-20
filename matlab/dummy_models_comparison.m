@@ -1,18 +1,15 @@
+%% Compare the MLEs of a dummy distribution against itself or other dummy distributions
+% uses a 2 stage binarisation and binomial fit
+% 1) compare every MLE instance to the MLE vector of the alternative model
+% 2) apply binomial fit and get p value and confidence interval
+% 3) if confidence interval is above chance threshold (0.5) mark as better (1)
+% 4) apply binomial fit to the resulting binary vector 
+% 5) store and visualise the p-hat and p-ci 
+
 tic
 
-% load models and remove random models 
-% (lines where the alpha parameter (column 2) is 0
-[MF_MLE, model_free] = MLE_model_importer('model_free',1000);
-model_free = model_free(model_free(:,2) ~= 0,:);  
+% generate model line with distribution 
 
-[MB_MLE, model_based] = MLE_model_importer('model_based',1000,5);
-model_based = model_based(model_based(:,2) ~= 0,:);
-% used for testing model free against itself
-%[MB_MLE, model_based] = MLE_model_importer('model_free',5000); 
-
-% extend to no gamma
-[NG_MLE, model_nogamma] = MLE_model_importer('no_gamma',1000);
-model_nogamma = model_nogamma(model_nogamma(:,2) ~= 0,:);
 
 
 % offset = amount of models in gridsearch

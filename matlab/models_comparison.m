@@ -1,18 +1,26 @@
+%% Compare the MLEs of the best model vs the best model based
+% uses a 2 stage binarisation and binomial fit
+% 1) compare every MLE instance to the MLE vector of the alternative model
+% 2) apply binomial fit and get p value and confidence interval
+% 3) if confidence interval is above chance threshold (0.5) mark as better (1)
+% 4) apply binomial fit to the resulting binary vector 
+% 5) store and visualise the p-hat and p-ci 
+
 tic
 
 % load models and remove random models 
 % (lines where the alpha parameter (column 2) is 0
-[MF_MLE, model_free] = MLE_model_importer('model_free',5000);
+[MF_MLE, model_free] = MLE_model_importer('model_free',1000);
 model_free = model_free(model_free(:,2) ~= 0,:);  
 
-[MB_MLE, model_based] = MLE_model_importer('model_based',0);
+[MB_MLE, model_based] = MLE_model_importer('model_based',1000,5);
 model_based = model_based(model_based(:,2) ~= 0,:);
 % used for testing model free against itself
 %[MB_MLE, model_based] = MLE_model_importer('model_free',5000); 
 
-% extend to no gamma
-[NG_MLE, model_nogamma] = MLE_model_importer('no_gamma',1000);
-model_nogamma = model_nogamma(model_nogamma(:,2) ~= 0,:);
+% % extend to no gamma
+% [NG_MLE, model_nogamma] = MLE_model_importer('no_gamma',1000);
+% model_nogamma = model_nogamma(model_nogamma(:,2) ~= 0,:);
 
 
 % offset = amount of models in gridsearch
@@ -50,11 +58,11 @@ for playerID = 0:playersAmount-1
     corresponding_MLE_line = MB_best_MLE_line + (playerID * OFFSET);
     model_based_MLE_line = MB_MLE(corresponding_MLE_line,5:end);
     
-    % for nogamma
-    player_lines_no_gamma = find(model_nogamma(:,1) == playerID); 
-    [NG_best_MLE, NG_best_MLE_line] = min(model_nogamma(player_lines_no_gamma,5));
-    corresponding_MLE_line = NG_best_MLE_line + (playerID * OFFSET);
-    model_nogamma_MLE_line = NG_MLE(corresponding_MLE_line,5:end);
+%     % for nogamma
+%     player_lines_no_gamma = find(model_nogamma(:,1) == playerID); 
+%     [NG_best_MLE, NG_best_MLE_line] = min(model_nogamma(player_lines_no_gamma,5));
+%     corresponding_MLE_line = NG_best_MLE_line + (playerID * OFFSET);
+%     model_nogamma_MLE_line = NG_MLE(corresponding_MLE_line,5:end);
     
     row_idx = 1;
     % binary vectors, 1 if phat+-CI > 0.5, 0 otherwise
@@ -77,14 +85,14 @@ for playerID = 0:playersAmount-1
         
         %% TEST MB VS NG
         
-        MLE_comparison = MLE_instance < model_nogamma_MLE_line + (model_nogamma_MLE_line * COMPARISON_FACTOR);
-        
-        % apply binomial CI test (clopper-pearson) at results of comparison
-        [phat, pci] = binofit(sum(MLE_comparison),length(model_nogamma_MLE_line),alpha_confidence);
-
-        if min(phat,min(pci)) > CHANCE_THRESHOLD
-            MB_NG_results_player(row_idx) = 1;
-        end
+%         MLE_comparison = MLE_instance < model_nogamma_MLE_line + (model_nogamma_MLE_line * COMPARISON_FACTOR);
+%         
+%         % apply binomial CI test (clopper-pearson) at results of comparison
+%         [phat, pci] = binofit(sum(MLE_comparison),length(model_nogamma_MLE_line),alpha_confidence);
+% 
+%         if min(phat,min(pci)) > CHANCE_THRESHOLD
+%             MB_NG_results_player(row_idx) = 1;
+%         end
         
         row_idx = row_idx + 1;
     end

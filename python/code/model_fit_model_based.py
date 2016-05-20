@@ -198,7 +198,7 @@ else:
     nActions = int(sys.argv[4])
     nStates  = int(sys.argv[6])
     #k = nStates * nActions - 1  # this is the amount of updates the model based does (on top of the usual update)
-    k = 0
+    k = 4
 
     results_subfolder = sys.argv[5]
 
