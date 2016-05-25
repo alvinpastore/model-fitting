@@ -7,6 +7,8 @@
 
 DISCRETISED = 1;
 
+SAVE_FIG = 1;
+
 yellow	=[1,1,0];
 magenta	=[1,0,1];
 cyan	=[0,1,1];
@@ -16,9 +18,13 @@ blue	=[0,0,1];
 white	=[1,1,1];
 black	=[0,0,0];
 
+% load players actions-rewards vectors
+arvectors = csvread('../results/ar_vectors/ar_vectors.csv');
 players = unique(arvectors(:,1));
 playersAmount = size(players,1);
 
+% these thresholds come from the discretisation of the stocks 
+% in 3 bins of riskiness
 lower_t = 0.0655;
 higher_t = 0.1655;
 
@@ -82,11 +88,12 @@ for playerID = 0:playersAmount-1
     set(gca,'FontSize',font_size)
     hold off;
 
-    fileName = ['graph_players_timelines\g-',num2str(playerID),'.png'];
-    %print(gcf, '-dpng', fileName)
-    set(gcf, 'PaperUnits', 'centimeters');
-    set(gcf, 'PaperPosition', [0 0 27 21]); %x_width=10cm y_width=15cm
-    
-    saveas(gcf,fileName);
+    if SAVE_FIG
+        fileName = ['../graphs/graph_players_timelines/g-',num2str(playerID),'.png'];
+        %print(gcf, '-dpng', fileName)
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 27 21]); %x_width=10cm y_width=15cm
+        saveas(gcf,fileName);
+    end
     close(gcf);
 end
