@@ -1,3 +1,9 @@
+% produces graphs representing the timeline of the player interactions
+% x axis is time in transactions discrete steps
+% y axis is action risk in discrete bins 
+% the bubble represent the actions (transactions)
+% the color represent the outcome (red-loss, yellow-even, green-win)
+% the size represent the size of the win/loss
 
 DISCRETISED = 1;
 
