@@ -1,3 +1,5 @@
+% DEPRECARTED (using precision measure)
+
 % Setting for the comparison 
 
 % 4 compare against alternative model (including nogamma)
