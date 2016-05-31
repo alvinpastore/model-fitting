@@ -4,7 +4,8 @@ tic
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
 [SCRAM_NUMBER, MLESCRAMS_dummy] = MLE_SCRAM_importer(0);
-[model_MLE, model] = MLE_model_importer('model_free');
+[model_MLE, model] = MLE_model_importer('model_free',1000);
+
 %[model_MLE, model] = MLE_model_importer('model_based',5);
 MLE_iter = 1:SCRAM_NUMBER;
 
@@ -19,6 +20,7 @@ iterations = 1000;
 COMPARISON_FACTOR = 0;      % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
 CHANCE_THRESHOLD = 0.5;     % probability threshold for chance
 
+SAVE_FIG = 1;
 FONT_SIZE = 20;
 
 % count players
@@ -41,7 +43,7 @@ for playerID = 0:playersAmount-1
     corresponding_MLE_line = p_best_MLE_line + (playerID * OFFSET);
 
     % find corresponding MLE line in model 
-    model_MLE_line = model_MLE(corresponding_MLE_line,5:end);
+    model_MLE_line = model_MLE(corresponding_MLE_line,5:end-1);
     
     % create scrams MLEs vector (100k = 100 x 1000 (scrams x iterations))
     scrambled_MLE_line = zeros(1,SCRAM_NUMBER * iterations);
@@ -52,7 +54,7 @@ for playerID = 0:playersAmount-1
         scrambled_MLE = scrambled_MLE{1};
         % append the 1000 scrambled MLEs 
         current_index = 1 + ((i -1) * iterations);
-        scrambled_MLE_line(1, current_index:i*iterations) = scrambled_MLE(corresponding_MLE_line,5:end);
+        scrambled_MLE_line(1, current_index:i*iterations) = scrambled_MLE(corresponding_MLE_line,5:end-1);
     end
     
     row_idx = 1;
@@ -90,7 +92,8 @@ sorted_CI = sortrows(players_CI,2);
 
 close all;
 hold on;
-errorbar(players_CI(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2));
+eh = errorbar(players_CI(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2),'b');
+set(eh,'linewidth',3)
 plot([0,47],[0.5,0.5],'r-');
 axis([-1 47 0 1]);
 labels = num2str(sorted_CI(:,1));
@@ -101,6 +104,14 @@ set(gca,'FontSize',FONT_SIZE);
 hold off;
 %clearvars -except better_than_scrambled MLESCRAMS MLEFULL* res3 players_CI sorted_CI SCRAM_NUMBER model_MLE;
 
+
+if SAVE_FIG
+    fileName = ['../graphs/model_MLE_comparison/errorbars_ranked_scrambled_Portfolio/comparison_',num2str(COMPARISON_FACTOR),'_factor_',date,'.png'];
+    %print(gcf, '-dpng', fileName)
+    set(gcf, 'PaperUnits', 'centimeters');
+    set(gcf, 'PaperPosition', [0 0 27 21]); %x_width=10cm y_width=15cm
+    saveas(gcf,fileName);
+end
 %csvwrite('../results/stats/players_CI.csv',players_CI);
 disp('statistica_test_scrambled_2_stage_binomial');
 toc
