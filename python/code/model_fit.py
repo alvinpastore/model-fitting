@@ -70,6 +70,7 @@ def filter_players(all_players, threshold_file):
     return list(set(all_players).intersection(set(t_players)))
 
 
+''' deprecated - MLE should be calculated on real action, not softmax action
 def select_action(temporaryMLE):
     random_dice = random.random()
 
@@ -91,6 +92,7 @@ def select_action(temporaryMLE):
         temporaryMLE = 0
 
     return temporaryMLE, MLE_act
+'''
 
 
 def saveMLEs(fileName):
@@ -213,6 +215,7 @@ else:
     print
     '''
     print 'Version history \n' \
+          '6.0.0 fixed bug MLE calculated from simulated actions instead of real action\n' \
           '5.0.0 fixed bug portfolio was not re-initialised at each iteration\n' \
           '4.0.0 fixed bug (new_volume * old_price changes the sign of the total). added negative sign\n' \
           '3.4.0 parameters are loaded from fitting.cfg configuration file\n' \
@@ -276,7 +279,7 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('../../results/MLE_model/' + results_subfolder + '_classified/MLE_Portfolio_' +
+    MLE_dist = open('../../results/MLE_model/' + results_subfolder + '_classified/MLE_REAL_Portfolio_' +
                     str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
 
     for player in players:
@@ -416,22 +419,22 @@ else:
                                             denominator = sum(terms)
                                             terms = np.true_divide(terms, denominator)
 
-                                            tempMLE, MLEaction = select_action(tempMLE)
-
-                                            if tempMLE == 0:
-                                                print 'Breaking because of prob(' + str(MLEaction) + ') = ' \
-                                                      + str(terms[MLEaction])
-                                                raw_input(terms)
-                                                break
-
-                                            ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
-
                                             # select the action really picked by player
                                             action = stock_risk[stock]
 
+                                            tempMLE += log(terms[action])
+
+                                            # if tempMLE == 0:
+                                            #     print 'Breaking because of prob(' + str(MLEaction) + ') = ' \
+                                            #           + str(terms[MLEaction])
+                                            #     raw_input(terms)
+                                            #     break
+
+                                            ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
+
                                             # Precision calculation (counting correctly predicted actions)
-                                            if MLEaction == action:
-                                                correct_actions += 1
+                                            # if MLEaction == action:
+                                            #     correct_actions += 1
 
                                             next_state = get_next_state(profit)
 
@@ -484,6 +487,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('../../results/after_money_1k/_' + results_subfolder + '_classified/Negative_Portfolio_' + save_filename + '.csv')
+    saveMLEs('../../results/after_money_1k/_' + results_subfolder + '_classified/Negative_Portfolio_REAL_' + save_filename + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
