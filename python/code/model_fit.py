@@ -146,20 +146,15 @@ def build_filename():
     fn = str(CAP) + 'cap_'
     fn += str(nActions) + 'act_'
     fn += str(nIterations) + 'rep_'
-    fn += str(min(Alpha)) + '-' + str(max(Alpha)) + '_alpha'
-    fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
-    fn += str(min(Gamma)) + '-' + str(max(Gamma)) + '_gamma'
     fn += '_' + bin_type
     return fn
 
 
-def load_parameters(file_name):
-    abg = []
-    with open(file_name, 'r') as configuration:
-        for line in configuration:
-            if line[0] != '#':
-                line = map(float, line.rstrip().split('=')[1].split(','))
-                abg.append(line)
+def load_parameters():
+    abg = list()
+    abg.append(list(np.arange(0.01, 1, 0.01)))
+    abg.append(list(np.delete(np.arange(0, 50, 5), 0)))
+    abg.append(list(np.arange(0, 0.99, 0.01)))
     return abg
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
@@ -191,7 +186,8 @@ else:
 
     ''' SETUP '''
     HTAN_REWARD_SIGMA = 500
-    Alpha, Betas, Gamma = load_parameters('fitting.cfg')
+    Alpha, Betas, Gamma = load_parameters()
+    DATE_TIME = str(datetime.now())
 
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
@@ -280,7 +276,7 @@ else:
     randomMLEs = dict()
 
     MLE_dist = open('../../results/MLE_model/' + results_subfolder + '_classified/MLE_REAL_Portfolio_' +
-                    str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '.csv', 'w')
+                    str(bin_type) + '_' + DATE_TIME + '.csv', 'w')
 
     for player in players:
         ti = time.time()
@@ -422,13 +418,11 @@ else:
                                             # select the action really picked by player
                                             action = stock_risk[stock]
 
-                                            tempMLE += log(terms[action])
+                                            if terms[action] > 0:
+                                                tempMLE += log(terms[action])
+                                            else:
 
-                                            # if tempMLE == 0:
-                                            #     print 'Breaking because of prob(' + str(MLEaction) + ') = ' \
-                                            #           + str(terms[MLEaction])
-                                            #     raw_input(terms)
-                                            #     break
+                                                tempMLE = -100
 
                                             ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
 
@@ -487,6 +481,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('../../results/after_money_1k/_' + results_subfolder + '_classified/Negative_Portfolio_REAL_' + save_filename + '.csv')
+    saveMLEs('../../results/after_money_1k/_' + results_subfolder + '_classified/Negative_Portfolio_REAL_' + save_filename + '_' + DATE_TIME + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'

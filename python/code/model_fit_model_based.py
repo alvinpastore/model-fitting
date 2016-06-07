@@ -69,7 +69,7 @@ def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
 
-
+''' deprecated - MLE should be calculated on real action, not softmax action
 def select_action(temporaryMLE):
     random_dice = random.random()
 
@@ -91,7 +91,7 @@ def select_action(temporaryMLE):
         temporaryMLE = 0
 
     return temporaryMLE, MLE_act
-
+'''
 
 def saveMLEs(fileName):
     comma = ','
@@ -144,21 +144,16 @@ def build_filename():
     fn = str(CAP) + 'cap_'
     fn += str(nActions) + 'act_'
     fn += str(nIterations) + 'rep_'
-    fn += str(min(Alpha)) + '-' + str(max(Alpha)) + '_alpha'
-    fn += str(min(Betas)) + '-' + str(max(Betas)) + '_beta'
-    fn += str(min(Gamma)) + '-' + str(max(Gamma)) + '_gamma'
     fn += '_' + bin_type
     fn += '_' + str(k) + 'k'
     return fn
 
 
-def load_parameters(file_name):
-    abg = []
-    with open(file_name, 'r') as configuration:
-        for line in configuration:
-            if line[0] != '#':
-                line = map(float, line.rstrip().split('=')[1].split(','))
-                abg.append(line)
+def load_parameters():
+    abg = list()
+    abg.append(list(np.arange(0.01, 1, 0.01)))
+    abg.append(list(np.delete(np.arange(0, 50, 5), 0)))
+    abg.append(list(np.arange(0, 0.99, 0.01)))
     return abg
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
@@ -191,6 +186,7 @@ else:
     ''' SETUP '''
     HTAN_REWARD_SIGMA = 500
     Alpha, Betas, Gamma = load_parameters('fitting.cfg')
+    DATE_TIME = str(datetime.now())
 
     nIterations = int(sys.argv[1])
     CAP = int(sys.argv[2])
@@ -215,7 +211,8 @@ else:
 
     print
     '''
-    print 'Version history \n
+    print 'Version history \n' \
+          '7.0.0 fixed bug MLE calculated from simulated actions instead of real action\n' \
           '6.0.0 branched to develop model-based' \
           '5.0.0 fixed bug portfolio was not re-initialised at each iteration\n' \
           '4.0.0 fixed bug (new_volume * old_price changes the sign of the total). added negative sign\n' \
@@ -281,7 +278,7 @@ else:
     randomMLEs = dict()
 
     MLE_dist = open('../../results/MLE_model/model_based/MLE_ModelBased_' +
-                    str(Gamma) + '_' + str(nIterations) + '_' + str(bin_type) + '_' + str(k) + 'k.csv', 'w')
+                    str(bin_type) + '_' + str(k) + 'k' + '_' + DATE_TIME + '.csv', 'w')
 
     for player in players:
         ti = time.time()
@@ -422,22 +419,20 @@ else:
                                             denominator = sum(terms)
                                             terms = np.true_divide(terms, denominator)
 
-                                            tempMLE, MLEaction = select_action(tempMLE)
-
-                                            if tempMLE == 0:
-                                                print 'Breaking because of prob(' + str(MLEaction) + ') = ' \
-                                                      + str(terms[MLEaction])
-                                                raw_input(terms)
-                                                break
-
-                                            ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
-
                                             # select the action really picked by player
                                             action = stock_risk[stock]
 
+                                            if terms[action] > 0:
+                                                tempMLE += log(terms[action])
+                                            else:
+
+                                                tempMLE = -100
+
+                                            ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
+
                                             # Precision calculation (counting correctly predicted actions)
-                                            if MLEaction == action:
-                                                correct_actions += 1
+                                            # if MLEaction == action:
+                                            #    correct_actions += 1
 
                                             next_state = get_next_state(profit)
 
@@ -504,6 +499,6 @@ else:
     # printMLEs()
 
     save_filename = build_filename()
-    saveMLEs('../../results/after_money_1k/_model_based/ModelBased_' + save_filename + '.csv')
+    saveMLEs('../../results/after_money_1k/_model_based/ModelBased_' + save_filename + '_' + DATE_TIME + '.csv')
 
     print 'total: ' + str((time.time() - t0) / 60) + ' minutes'
