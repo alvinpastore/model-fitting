@@ -34,15 +34,16 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     ng_dof = 3-2;   % alpha, beta, gamma 
     
     if MODEL_BASED
-        fullmodel = csvread('../results/after_money_1k/_model_based/ModelBased_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+        [MLE_full, fullmodel] = MLE_model_importer('model_based',1000);
     else
-        fullmodel = csvread('../results/after_money_1k/_fullModel_2states_profit/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.01-0.999_gamma_u.csv');
+        [MLE_full, fullmodel] = MLE_model_importer('model_free',100);
     end
     
     model = fullmodel(fullmodel(:,2) ~= 0,:);
     
     % load nogamma results
-    nogamma = csvread('../results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
+    [MLE_nog, nogamma] = MLE_model_importer('no_gamma',1000);
+    %nogamma = csvread('../results/after_money_1k/_nogamma/profit_states/Negative_Portfolio_25cap_3act_1000rep_0.1-1.0_alpha10.0-40.0_beta0.0-0.0_gamma_u.csv');
     %results_25cap_3act_1000rep_0.1-1_alpha10-40_beta0-0_gamma_u.csv');
     nogamma = nogamma(nogamma(:,2) ~= 0,:);
     
