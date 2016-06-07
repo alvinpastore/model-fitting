@@ -36,14 +36,14 @@ MARKER_SIZE = 100;
 
 % import scrambled MLE matrices, model MLE matrix and resuls matrix
 [SCRAM_NUMBER, MLESCRAMS_dummy] = MLE_SCRAM_importer(0);
-[model_MLE, model] = MLE_model_importer('model_free');
+[model_MLE, model] = MLE_model_importer('model_free',100);
 
 % load performances 
 perfs = sortrows(csvread('../results/stats/performances/profit_performances.csv',0,1,[0,1,45,2]),1);
 
 % load nogamma results
-[MLE_NOGAMMA, nogamma] = MLE_model_importer('no_gamma');
-nogamma = nogamma(nogamma(:,2) ~= 0,:);
+%[MLE_NOGAMMA, nogamma] = MLE_model_importer('no_gamma');
+%nogamma = nogamma(nogamma(:,2) ~= 0,:);
 
 % load performances [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma]
 performance_fit = paper_figures(0,0);
