@@ -146,7 +146,7 @@ def build_filename():
     fn = str(CAP) + 'cap_'
     fn += str(nActions) + 'act_'
     fn += str(nIterations) + 'rep_'
-    fn += '_' + bin_type
+    fn += bin_type
     return fn
 
 
@@ -276,6 +276,7 @@ else:
     randomMLEs = dict()
 
     MLE_dist = open('../../results/MLE_model/' + results_subfolder + '_classified/MLE_REAL_Portfolio_' +
+                    str(CAP) + 'cap_' +
                     str(bin_type) + '_' + DATE_TIME + '.csv', 'w')
 
     for player in players:

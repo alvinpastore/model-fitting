@@ -144,7 +144,7 @@ def build_filename():
     fn = str(CAP) + 'cap_'
     fn += str(nActions) + 'act_'
     fn += str(nIterations) + 'rep_'
-    fn += '_' + bin_type
+    fn += bin_type
     fn += '_' + str(k) + 'k'
     return fn
 
@@ -278,6 +278,7 @@ else:
     randomMLEs = dict()
 
     MLE_dist = open('../../results/MLE_model/model_based/MLE_ModelBased_' +
+                    str(CAP) + 'cap_' +
                     str(bin_type) + '_' + str(k) + 'k' + '_' + DATE_TIME + '.csv', 'w')
 
     for player in players:
