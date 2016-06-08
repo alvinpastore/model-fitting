@@ -4,7 +4,7 @@
 rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
 
 close all;
-[MLEs, model] = MLE_model_importer('model_free',1);
+[MLEs, model] = MLE_model_importer('model_free',25);
 
 random = model(model(:,2) == 0,:);
 model = model(model(:,2) ~= 0,:);
@@ -44,7 +44,7 @@ transactions = plot_values(:,7);
 scatter(plot_values(:,1), random_MLEs, 70, 'xr');
 hold on
 scatter(plot_values(:,1), model_MLEs, 70, 'ob');
-axis([-1 46 0 30])
+%axis([-1 46 0 30])
 grid on
 grid minor
 
@@ -59,5 +59,6 @@ p_rand_MLE = 1-chi2cdf(chi_value_random, rnd_dof);
 % likelihood ratio test matlab
 [h,pValue,stat,cValue] = lratiotest(random_MLEs,model_MLEs, rnd_dof);
 
-
+aic_comparison = aic<raic;
+bic_comparison = bic<rbic;
 
