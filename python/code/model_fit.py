@@ -150,11 +150,13 @@ def build_filename():
     return fn
 
 
-def load_parameters():
+def load_parameters(lim):
     abg = list()
-    abg.append(list(np.arange(0.01, 1, 0.01)))
-    abg.append(list(np.delete(np.arange(0, 50, 5), 0)))
-    abg.append(list(np.arange(0, 0.99, 0.01)))
+    abg.append(list(np.arange(lim['a'][0], lim['a'][1], lim['a'][2])))
+    temp_beta = np.arange(lim['b'][0], lim['b'][1], lim['b'][2])
+    temp_beta[0] = 1
+    abg.append(list(temp_beta))
+    abg.append(list(np.arange(lim['g'][0], lim['g'][1], lim['g'][2])))
     return abg
 
 ''' ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~------~~~~~~~~~~~~~~~~~~~~ '''
@@ -186,7 +188,16 @@ else:
 
     ''' SETUP '''
     HTAN_REWARD_SIGMA = 500
-    Alpha, Betas, Gamma = load_parameters()
+
+    limits = dict()
+    # limits['a'] = (0.01, 1.01, 0.01)
+    # limits['b'] = (0, 50, 5)
+    # limits['g'] = (0, 1, 0.01)
+    limits['a'] = (0.01, 1.01, 0.3)
+    limits['b'] = (0, 150, 25)
+    limits['g'] = (0, 1, 0.3)
+    Alpha, Betas, Gamma = load_parameters(limits)
+
     DATE_TIME = str(datetime.now())
 
     nIterations = int(sys.argv[1])
@@ -399,31 +410,43 @@ else:
                                             # update profit with reward from sell
                                             profit += reward
 
-                                            ''' SoftMax Action Selection  - - - - - - - - - - - - - - - - - -'''
-                                            terms = [0] * nActions
-                                            for a in xrange(nActions):
-                                                try:
-                                                    terms[a] = np.exp(Q[state][a] * beta)
-                                                except RuntimeWarning:
-
-                                                    # print 'RuntimeWarning: ' \
-                                                    #      'overflow encountered at transaction', actionsAmount
-                                                    for act in xrange(nActions):
-                                                        terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
-                                                    # print 'terms calculated with max normalisation', terms
-
-                                            # the following raises except only if the previous try raises except
-                                            denominator = sum(terms)
-                                            terms = np.true_divide(terms, denominator)
-
+                                            ''' SoftMax Action Selection NEW - - - - - - - - - - - - - - - - - -'''
                                             # select the action really picked by player
                                             action = stock_risk[stock]
 
-                                            if terms[action] > 0:
-                                                tempMLE += log(terms[action])
-                                            else:
+                                            denominator = 0
+                                            for a in xrange(nActions):
+                                                denominator += np.exp(beta * Q[state][a])
 
-                                                tempMLE = -100
+                                            tempMLE += beta * Q[state][action] - log(denominator)
+
+                                            ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
+
+                                            ''' SoftMax Action Selection OLD - - - - - - - - - - - - - - - - - -'''
+                                            # terms = [0] * nActions
+                                            # for a in xrange(nActions):
+                                            #     try:
+                                            #         terms[a] = np.exp(Q[state][a] * beta)
+                                            #     except RuntimeWarning:
+                                            #
+                                            #         # print 'RuntimeWarning: ' \
+                                            #         #      'overflow encountered at transaction', actionsAmount
+                                            #         for act in xrange(nActions):
+                                            #             terms[a] = np.exp(beta * (Q[state][act] - max(Q[state])))
+                                            #         # print 'terms calculated with max normalisation', terms
+                                            #
+                                            # # the following raises except only if the previous try raises except
+                                            # denominator = sum(terms)
+                                            # terms = np.true_divide(terms, denominator)
+                                            #
+                                            # # select the action really picked by player
+                                            # action = stock_risk[stock]
+                                            #
+                                            # if terms[action] > 0:
+                                            #     tempMLE += log(terms[action])
+                                            # else:
+                                            #
+                                            #     tempMLE = -100
 
                                             ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
 
