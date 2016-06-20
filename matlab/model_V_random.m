@@ -1,10 +1,11 @@
 %script to compare best model (set of param) vs random MLE
+% this script might be deprecated since introducing 
 
 % number of params of bigger model - number of params of nested model
 rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
 
 close all;
-[MLEs, model] = MLE_model_importer('model_free',25);
+[MLEs, model] = MLE_model_importer('model_free',25,3,'2016-06-13');
 
 random = model(model(:,2) == 0,:);
 model = model(model(:,2) ~= 0,:);
@@ -17,7 +18,7 @@ plot_values = zeros(playersAmount,7);
 
 
 for playerID = 0:playersAmount-1
-   
+
     disp(['Player ' , num2str(playerID)]);
     % find player lines in model and MLE results 
     player_lines_model = find(model(:,1) == playerID); 
@@ -30,9 +31,7 @@ for playerID = 0:playersAmount-1
     
     % save playerID, alpha, beta, gamma and MLE of best model, randomMLE, transactions number
     plot_values(playerID+1,:) = [player_subresults(p_best_MLE_line,1:5) random(playerID+1,5) player_subresults(p_best_MLE_line,9)];
-    
 
-    
 end
 
 random_MLEs = plot_values(:,6);
