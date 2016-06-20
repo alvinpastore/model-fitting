@@ -1,11 +1,11 @@
-function [ MLEFULL, model ] = MLE_model_importer( model_type , cap, date, k)
+function [ MLEFULL, model ] = MLE_model_importer( model_type , cap, act, date, k)
 %MLE_MODEL_IMPORTER loads models and MLE csv files 
 %for both model free and model based
     disp(['importing model: ',model_type]);
     tic
     if strcmpi(model_type,'model_free')
         
-        filename = ['MLE_REAL_Portfolio_',num2str(cap),'cap_u_',date,'.csv'];
+        filename = ['MLE_REAL_Portfolio_',num2str(cap),'cap_',num2str(act),'act_u_',date,'.csv'];
         MLEFULL = csvread(['../results/MLE_model/risk_classified/',filename]);
         filename = ['Negative_Portfolio_REAL_',num2str(cap),'cap_3act_1rep_u_',date,'.csv'];
         model = csvread(['../results/after_money_1k/_risk_classified/',filename]);
