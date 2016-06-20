@@ -124,7 +124,7 @@ def saveMLEs(fileName):
                                    comma + str(MLEs[nth][a][b][g][4]) + '\n')  # actionsAmount
 
     out_file.close()
-    print 'saved in ' + str(fileName)
+    print 'Model results saved in ' + str(fileName)
 
 
 def printMLEs():
@@ -190,12 +190,12 @@ else:
     HTAN_REWARD_SIGMA = 500
 
     limits = dict()
-    # limits['a'] = (0.01, 1.01, 0.01)
-    # limits['b'] = (0, 50, 5)
-    # limits['g'] = (0, 1, 0.01)
-    limits['a'] = (0.01, 1.01, 0.3)
-    limits['b'] = (0, 150, 25)
-    limits['g'] = (0, 1, 0.3)
+    limits['a'] = (0.01, 1.01, 0.01)
+    limits['b'] = (0, 50, 5)
+    limits['g'] = (0, 1, 0.01)
+    #limits['a'] = (0.01, 1.01, 0.3)
+    #limits['b'] = (0, 150, 25)
+    #limits['g'] = (0, 1, 0.3)
     Alpha, Betas, Gamma = load_parameters(limits)
 
     DATE_TIME = str(datetime.now())
@@ -286,9 +286,10 @@ else:
 
     randomMLEs = dict()
 
-    MLE_dist = open('../../results/MLE_model/' + results_subfolder + '_classified/MLE_REAL_Portfolio_' +
-                    str(CAP) + 'cap_' +
-                    str(bin_type) + '_' + DATE_TIME + '.csv', 'w')
+    MLE_filename = '../../results/MLE_model/' + results_subfolder + '_classified/MLE_REAL_Portfolio_' +\
+                   str(CAP) + 'cap_' + str(nActions) + 'act_' + str(bin_type) + '_' + DATE_TIME + '.csv'
+
+    MLE_dist = open(MLE_filename, 'w')
 
     for player in players:
         ti = time.time()
@@ -502,6 +503,7 @@ else:
 
     db.close()
     MLE_dist.close()
+    print 'MLEs saved in ' + str(MLE_filename)
     # printMLEs()
 
     save_filename = build_filename()
