@@ -4,58 +4,36 @@
 % number of params of bigger model - number of params of nested model
 rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
 
-close all;
-
-% LOAD THE GENERIC MODEL TO IMPORT RANDOM MLE AND TRANSACTIONS NUMBER 
-% TODO - improve
-[MLEs, model] = MLE_model_importer('model_free',25,3,'2016-06-13');
-
-random = model(model(:,2) == 0,:);
-model = model(model(:,2) ~= 0,:);
-
-% count players
-players = unique(model(:,1));
-playersAmount = size(players,1);
-
-plot_values = zeros(playersAmount,7);
-
-for playerID = 0:playersAmount-1
-   
-    
-    disp(['Player ' , num2str(playerID)]);
-    % find player lines in model and MLE results 
-    player_lines_model = find(model(:,1) == playerID); 
-    
-    % create a subset of the results for the player
-    player_subresults = model(player_lines_model,:);
-    
-    % find best MLE full model 
-    [p_best_MLE, p_best_MLE_line] = min(player_subresults(:,5));
-    
-    % save playerID, alpha, beta, gamma and MLE of best model, randomMLE, transactions number
-    plot_values(playerID+1,:) = [player_subresults(p_best_MLE_line,1:5) random(playerID+1,5) player_subresults(p_best_MLE_line,9)];
-
-end
-
-% LOAD THE GRAD DESC MODEL TO TEST
-
-restricted = '10act';
-%restricted = 'un';
-CAP = 25;
+%restricted = '10act'; restr_trans = 10;
+restricted = 'un'; restr_trans = 0;
+CAP = 107;
 nActions = 5;
+nogamma = '_nogamma';
 
-model = csvread(['../results/gradient_descent/', restricted ,'_restricted/grad_desc_',num2str(CAP),'CAP_',num2str(nActions),'act.csv']);
+% the original amount of transactions
+% depends only on the CAP (not restriction yet)
+transactions_number = csvread(['../results/stats/transactions_number_',num2str(CAP),'CAP.csv']);
 
-model = [model plot_values(:,6:7)];
-
-%random_MLEs = plot_values(:,6);
-random_MLEs = -(plot_values(:,7)-10) * log(1/nActions);
-
-%model_MLEs = plot_values(:,5);
-model_MLEs = model(:,5);
+% the random MLE value is calculated based on 
+% the number of actions and the number of transactions
+random_MLEs = - (transactions_number - restr_trans) * log(1 / nActions);
 
 % number of observations (for calculating BIC)
-transactions = plot_values(:,7);
+% the original number of transactions minus the restriction (training)
+transactions = transactions_number - restr_trans;
+
+close all;
+
+% LOAD THE GRAD DESC MODEL TO TEST
+model_file = ['../results/gradient_descent/', restricted ,'_restricted/grad_desc_',num2str(CAP),'CAP_',num2str(nActions),'act',nogamma,'.csv'];
+disp(['using file: ',model_file]);
+model = csvread(model_file);
+model = [model random_MLEs transactions_number];
+
+playersAmount = size(model,1);
+
+% the model MLE is derived from the grad desc results (model)
+model_MLEs = model(:,5);
 
 scatter(model(:,1), random_MLEs, 70, 'xr');
 hold on
@@ -77,3 +55,14 @@ p_rand_MLE = 1-chi2cdf(chi_value_random, rnd_dof);
 
 aic_comparison = aic<raic;
 bic_comparison = bic<rbic;
+
+% get only the players and the models better than random
+better_than_random = model.*(repmat(h,1,7));
+better_than_random(all(better_than_random==0,2),:) = [];
+
+plot(better_than_random(:,1),better_than_random(:,5),'g*');
+title(['Model: CAP',num2str(CAP),' nActions',num2str(nActions),' ',restricted ,'-restricted'])
+xlabel('Player ID') 
+ylabel('MLE') 
+legend('Random','Model','Significant','Location','best')
+set(gca,'FontSize',20);
