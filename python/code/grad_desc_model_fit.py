@@ -171,9 +171,11 @@ def model_fit(parameters, *args):
                         for a in xrange(nActions):
                             denominator += np.exp(beta * Q[state][a])
 
-                        # for the calculation of MLE consider only from the n-th action (-1 because count starts from 0)
-                        if actionsAmount > (RESTRICTED_ACTION_LIMIT - 1):
+                        # for the calculation of MLE consider only from the n-th action
+                        # (does not need -1 because increment is in the loop)
+                        if actionsAmount > RESTRICTED_ACTION_LIMIT:
                             MLE += beta * Q[state][action] - log(denominator)
+
                         ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
                         next_state = get_next_state(profit)
 
@@ -182,6 +184,7 @@ def model_fit(parameters, *args):
                         Q[state][action] += alpha * TD_error
 
                         state = next_state
+
     return -MLE
 
 
@@ -216,6 +219,7 @@ if __name__ == '__main__':
 
     # bounds
     bounds = ((0.0001, 1), (0, 50), (0, 0.9999))
+    #bounds = ((0.0001, 1), (0, 50), (0, 0)) add nogamma to the filename
 
     MLEs = []
     params = []
