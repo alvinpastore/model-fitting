@@ -8,8 +8,8 @@ rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
 restricted = 'un'; restr_trans = 0;
 CAP = 107;
 nActions = 5;
-nogamma = '_nogamma';
-
+nogamma = '';%'_nogamma';
+algorithm = 'sarsa';%'qlearning';
 % the original amount of transactions
 % depends only on the CAP (not restriction yet)
 transactions_number = csvread(['../results/stats/transactions_number_',num2str(CAP),'CAP.csv']);
@@ -25,7 +25,7 @@ transactions = transactions_number - restr_trans;
 close all;
 
 % LOAD THE GRAD DESC MODEL TO TEST
-model_file = ['../results/gradient_descent/', restricted ,'_restricted/grad_desc_',num2str(CAP),'CAP_',num2str(nActions),'act',nogamma,'.csv'];
+model_file = ['../results/gradient_descent/', restricted ,'_restricted/',algorithm,'/grad_desc_',num2str(CAP),'CAP_',num2str(nActions),'act',nogamma,'.csv'];
 disp(['using file: ',model_file]);
 model = csvread(model_file);
 model = [model random_MLEs transactions_number];
