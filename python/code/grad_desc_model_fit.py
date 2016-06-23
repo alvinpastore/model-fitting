@@ -83,12 +83,12 @@ def model_fit(parameters, *args):
 
     # Measures set-up
     MLE = 0
-    actionsAmount = 0
+    actions_amount = 0
 
     for transaction in transactions:
 
         # CAP transactions amount
-        if actionsAmount < CAP:
+        if actions_amount < CAP:
 
             # get only buy/sell actions
             if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
@@ -137,7 +137,7 @@ def model_fit(parameters, *args):
                         break
                     else:
 
-                        actionsAmount += 1
+                        actions_amount += 1
                         old_volume = portfolio[stock][0]
                         old_price = portfolio[stock][1]
                         old_total = portfolio[stock][2]
@@ -173,38 +173,60 @@ def model_fit(parameters, *args):
 
                         # for the calculation of MLE consider only from the n-th action
                         # (does not need -1 because increment is in the loop)
-                        if actionsAmount > RESTRICTED_ACTION_LIMIT:
+                        if actions_amount > RESTRICTED_ACTION_LIMIT:
                             MLE += beta * Q[state][action] - log(denominator)
 
                         ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
                         next_state = get_next_state(profit)
 
-                        ''' Qvalues update '''
-                        TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
-                        Q[state][action] += alpha * TD_error
+                        if ALGORITHM_TYPE == 'qlearning':
+                            ''' QLearning update '''
+                            TD_error = (reward + (gamma * max(Q[next_state])) - Q[state][action])
+                            Q[state][action] += alpha * TD_error
+
+                        elif ALGORITHM_TYPE == 'sarsa':
+                            ''' Sarsa update'''
+                            if actions_amount < len(transactions_list[str(players.index(player))]):
+                                # actions_amount is the index of the next action (incremented already within the loop)
+                                next_action = stock_risk[transactions_list[str(players.index(player))][actions_amount]]
+                                future_term = gamma * Q[next_state][next_action]
+                            else:
+                                future_term = 0
+
+                            TD_error = (reward + future_term - Q[state][action])
+                            Q[state][action] += alpha * TD_error
 
                         state = next_state
 
     return -MLE
 
 
-def test_f(params):
-    x1, x2 = params
-    return x1**2 + x2**2
+def read_transactions_file(trans_filename):
+    trans_list = dict()
+    with open(trans_filename, 'r') as trans_file:
+        temp_list = trans_file.readlines()
+        for line in temp_list:
+            t_line = [elem.strip() for elem in line.split(',')]
+            if len(t_line) > 1:
+                trans_list[t_line[0]] = t_line[1:]
+
+    return trans_list
 
 if __name__ == '__main__':
 
-    CAP = 25
+    HTAN_REWARD_SIGMA = 500
     results_subfolder = 'risk'
     bin_type = 'u'
-    nActions = 5
     nStates = 2
-    HTAN_REWARD_SIGMA = 500
-    RESTRICTED_ACTION_LIMIT = 10
+    nActions = 5
+    CAP = 107
+    RESTRICTED_ACTION_LIMIT = 0
+    ALGORITHM_TYPE = 'sarsa'
 
     # Read the stocks previously classified according to their risk
     stock_risk = read_stock_file(bin_type, nActions, results_subfolder)
 
+    transactions_list = read_transactions_file('../../data/players_transactions.csv')
     # connect to DB
     db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
@@ -224,7 +246,7 @@ if __name__ == '__main__':
     MLEs = []
     params = []
     restricted_type = 'un' if RESTRICTED_ACTION_LIMIT <= 0 else str(RESTRICTED_ACTION_LIMIT) + 'act'
-    results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/'
+    results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/'
     filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act.csv'
     MLE_file = open(filename, 'w')
 
@@ -233,7 +255,7 @@ if __name__ == '__main__':
     print 'act:', nActions
     print 'restricted:', RESTRICTED_ACTION_LIMIT
     print 'saving in ', filename
-
+    t1 = time.time()
     for player in players:
         ti = time.time()
 
@@ -255,7 +277,6 @@ if __name__ == '__main__':
 
         print MLEs[players.index(player)]
         print params[players.index(player)]
-        print
         MLE_file.write(str(players.index(player)) + ',' +
                        str(params[players.index(player)][0]) + ',' +
                        str(params[players.index(player)][1]) + ',' +
@@ -263,5 +284,5 @@ if __name__ == '__main__':
                        str(MLEs[players.index(player)]) + '\n')
 
         print str(time.time() - ti) + ' seconds'
-
+    print 'total ' + str(time.time() - t1) + ' seconds'
     MLE_file.close()
