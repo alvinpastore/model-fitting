@@ -61,8 +61,8 @@ def random_bins(stocks, b_amount, b_size, b_copy, n):
         bin_idx += 1
         larger_bins -= 1
 
-    write_bins(rootdir + "std_classified_stocks/" + str(bins_amount) + "/uniform_random_"
-               + str(bins_amount) + "_" + str(n) + ".txt", rand_bins)
+    write_bins(rootdir + "risk_classified_stocks/" + str(bins_amount) + "/uniform_random_" +
+               str(bins_amount) + "_" + str(n) + ".txt", rand_bins)
 
 
 def get_risk_type_string(risk_type):
