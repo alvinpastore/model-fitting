@@ -1,134 +1,125 @@
-% routine for testing scrambled MLEs against RL model
-% routine for testing Bernoulli CI for scrambled vs ranked
-
-DEPRECATED
+% routine for testing scrambled bins MLEs against RL model MLEs
+% MLES generated with gradient descent (deterministic)
+% comparison via BIC
 
 tic
+close all;
 
+RESTRICTED = 0;
+ALGORITHM = 'qlearning';
+CAP = 25;
+N_ACTIONS = 3;
+ALPHA_CONFIDENCE = 0.01; % 99% confidence
+FONT_SIZE = 20;
+LINE_WIDTH = 0.5;
 % import scrambled MLE matrices
-[SCRAM_NUMBER, MLESCRAMS, model_MLE, res3] = MLE_SCRAM_importer();
-MLE_iter = 1:SCRAM_NUMBER;
+[scrambles_number, scrambles] = MLE_SCRAM_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
+scram_iterator = 1:scrambles_number;
 
 
 % load model results
-model = res3;
-model = model(find(model(:,2) ~= 0),:);
-
+model = MLE_model_importer(0, 'qlearning', 25, 3);
+model_MLEs = model(:,5);
 
 % count players
 players = unique(model(:,1));
-playersAmount = size(players,1);
+players_number = size(players,1);
 
-% offset = amount of models in gridsearch
-% = 5alphas X 4betas X 5gammas
-OFFSET = 100;
+% the original amount of transactions
+% depends only on the CAP (not restriction yet)
+transactions_number = csvread(['../results/stats/transactions_number_',num2str(CAP),'CAP.csv']);
+% the amount of transactions after removing the ones not used to calculate MLE
+transactions = transactions_number - RESTRICTED;
 
-alpha = 0.01; % 99% confidence
+% the random MLE value is calculated based on 
+% the number of actions and the number of transactions
+random_MLEs = - transactions * log(1 / N_ACTIONS);
+[rnd_aic,rnd_bic] = aicbic(-random_MLEs, ones(players_number,1), transactions);
 
-% cell array to hold info about all comparisons
-pvalues = cell(length(MLE_iter),1);
-pv_idx = 1;
+% structure to save the comparisons results
+model_v_scram_aic  = zeros(players_number,scrambles_number);
+model_v_scram_bic  = zeros(players_number,scrambles_number);
+scram_v_random_aic = zeros(players_number,scrambles_number);
+scram_v_random_bic = zeros(players_number,scrambles_number);
 
-% save the players who are better than scrambled
-better_than_scrambled = zeros(playersAmount+1,length(MLE_iter));
+% calculate aic and bic for RL model (3 parameters)
+[mod_aic,mod_bic] = aicbic(-model_MLEs, ones(players_number,1)*3, transactions);
 
-for i = MLE_iter 
-    disp(['iteration ',num2str(i)]);
-    scrambled_MLE = MLESCRAMS(i);
+% COMPARE RANKED VS SCRAMBLED AND
+% FIND BEST SCRAMBLED COMPARED TO RANDOM
+
+for i = scram_iterator 
+    disp(['comparison with scrambled bin ',num2str(i)]);
+    scrambled_MLE = scrambles(i);
     scrambled_MLE = scrambled_MLE{1};
     
-    avg_scrambled_model = mean(scrambled_MLE(:,5:end).').';
+    scrambled_MLEs = scrambled_MLE(:,5);
     
-    % initialise performances structure
-    % [ID,  model_MLE, mean_MLE, median_MLE, mean_scram_MLE_corr, median_scram_MLE_corr, pvalue, mean_scram_MLE_best, median_scram_MLE_best, pvalue, modelMLE < mean_scram_MLE_corr, modelMLE < mean_scram_MLE_best] 
-    current_pvalues = zeros(playersAmount,12);
+    % calculate aic and bic for scrambled model (3 parameters)
+    [scr_aic,scr_bic] = aicbic(-scrambled_MLEs, ones(players_number,1)*3, transactions);
     
-    for playerID = 0:playersAmount-1
-        %disp(num2str(playerID));
-        % find player lines in model and MLE results 
-        % (second condition to avoid random models where beta = 0)
-        player_lines_model = find(model(:,1) == playerID  ); 
-        
-        player_lines_MLE = find(model_MLE(:,1) == playerID);
-        
-        % find best MLE full model 
-        [p_best_MLE, p_best_MLE_line] = min(model(player_lines_model,5));
-        
-        % p_best_MLE_line is relative to the lines of playerID
-        % the offset is the amount of lines (100) for each player
-        corresponding_MLE_line = p_best_MLE_line + (playerID * OFFSET);
-        
-        % find corresponding MLE line in model 
-        model_MLE_line = model_MLE(corresponding_MLE_line,5:end);
-        %l_sort = model_MLE(corresponding_MLE_line,1:15)
-        
-        % find corresponding MLE line in scrambled
-        scrambled_MLE_line = scrambled_MLE(corresponding_MLE_line,5:end-1);  % end-1 because of trailing 0???
-        %l_scram_corr = scrambled_MLE(corresponding_MLE_line,1:15)
-        
-        % find best MLE scrambled model
-        [s_best_MLE, s_best_MLE_line] = min(avg_scrambled_model(player_lines_MLE,:));
-        corresponding_best_MLE_line = s_best_MLE_line + (playerID * OFFSET);
-        scrambled_best_MLE_line = scrambled_MLE(corresponding_best_MLE_line,5:end);
-        %l_scram_best = scrambled_MLE(corresponding_best_MLE_line,1:15)
-        
-        % calculate p-value for corresponding MLE scrambled
-        [p_corr] = ranksum(model_MLE_line,scrambled_MLE_line);
-        
-        % calculate p-value for best MLE scrambled
-        [p_best] = ranksum(model_MLE_line,scrambled_best_MLE_line);
-        
-        % The p-value <0.05 indicates that ranksum rejects the 
-        % null hypothesis of equal medians at the default 5% significance level.
-        %disp([num2str(playerID), '  ' ,num2str(p_corr),'  ', num2str(p_best)]);
-        
-        %if sum(isnan(model_MLE_line))>0
-        %    disp('sortedMLEline');
-        %end
-        %if sum(isnan(scrambled_MLE_line))>0 
-        %    disp('scrambledMLEline');
-        %end
-        %if sum(isnan(scrambled_best_MLE_line))>0 
-        %    disp('scrambledBEstMLE');
-        %end
+    model_v_scram_aic(:,i) = mod_aic < scr_aic;
+    model_v_scram_bic(:,i) = mod_bic < scr_bic;
 
-        current_pvalues(playerID+1,:) = [playerID p_best_MLE mean(model_MLE_line) median(model_MLE_line) mean(scrambled_MLE_line) median(scrambled_MLE_line) p_corr mean(scrambled_best_MLE_line) median(scrambled_best_MLE_line) p_best p_best_MLE < mean(scrambled_MLE_line) p_best_MLE < mean(scrambled_best_MLE_line)];
-        
-    end
-    
-    % 1 for players better than best scrambled with statistical significance
-    better_than_scrambled(:,i) = [current_pvalues(:,12) & current_pvalues(:,10) < 0.05; sum(current_pvalues(:,12))];
-    
-    pvalues{pv_idx} = current_pvalues;
-    pv_idx = pv_idx + 1;
+    scram_v_random_aic(:,i) = scr_aic < rnd_aic;
+    scram_v_random_bic(:,i) = scr_bic < rnd_bic;
     
 end
 
+% calculate for each player if the ranked bins are better than the
+% scrambled ones and give a confidence interval (phat, pci)
+% apply binomial CI test (clopper-pearson) at results of comparison
+[phat_a, pci_a] = binofit(sum(model_v_scram_aic,2),scrambles_number,ALPHA_CONFIDENCE);
+[phat_b, pci_b] = binofit(sum(model_v_scram_bic,2),scrambles_number,ALPHA_CONFIDENCE);
 
-players_CI = zeros(playersAmount,4);
+% [pID, phatAIC, pciAIC1, pciAIC2, phatBIC, pciBIC1, pciBIC2]
+rank_v_scram_result = [model(:,1), phat_a, pci_a, phat_b, pci_b];
 
-for playerID = 1:playersAmount
-    
-    % count stat.sig. scrambles (white # out of total)
-    player_prob = sum(better_than_scrambled(playerID,:));
-    [phat,pci] = binofit(player_prob,SCRAM_NUMBER,alpha);
-    players_CI(playerID,:) = [playerID-1 phat pci(1) pci(2)];
-
-end
-
-sorted_CI = sortrows(players_CI,2);
-
-close all;
+%% ranked vs scrambled
+subplot(2,1,1)
+% plot aic results
+sorted_CI = sortrows(rank_v_scram_result,2);
 hold on;
-errorbar(players_CI(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2));
+eh = errorbar(rank_v_scram_result(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2),'b');
+set(eh,'linewidth',LINE_WIDTH)
 plot([0,47],[0.5,0.5],'r-');
 axis([-1 47 0 1]);
 labels = num2str(sorted_CI(:,1));
-set(gca,'Xtick',0:1:45,'XTickLabel',labels);
+set(gca,'Xtick',0:1:46,'XTickLabel',labels);
 xlabel('Player ID');
 ylabel('Probability');
-set(gca,'FontSize',20);
+set(gca,'FontSize',FONT_SIZE);
+title('AIC comparison');
 hold off;
 
-clearvars -except MLESCRAMS better_than_scrambled MLEFULL res3 model_MLE players_CI sorted_CI SCRAM_NUMBER;
+subplot(2,1,2)
+% plot bic results
+sorted_CI = sortrows(rank_v_scram_result,5);
+hold on;
+eh = errorbar(rank_v_scram_result(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2),'g');
+set(eh,'linewidth',LINE_WIDTH)
+plot([0,47],[0.5,0.5],'r-');
+axis([-1 47 0 1]);
+labels = num2str(sorted_CI(:,1));
+set(gca,'Xtick',0:1:46,'XTickLabel',labels);
+xlabel('Player ID');
+ylabel('Probability');
+set(gca,'FontSize',FONT_SIZE);
+title('BIC comparison');
+hold off;
+
+%% scrambled vs random
+figure();
+title('SCRAMBLES VS RANDOM');
+subplot(2,1,1);
+bar(1:scrambles_number, sum(scram_v_random_aic));
+axis([-1 101 0 46]);
+set(gca,'FontSize',FONT_SIZE);
+subplot(2,1,2);
+bar(1:scrambles_number, sum(scram_v_random_bic));
+xlabel('Scramble ID');
+ylabel('Frequency better than random (players)');
+axis([-1 101 0 46]);
+set(gca,'FontSize',FONT_SIZE);
+
 toc
