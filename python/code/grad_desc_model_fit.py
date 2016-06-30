@@ -214,75 +214,100 @@ def read_transactions_file(trans_filename):
 
 if __name__ == '__main__':
 
-    HTAN_REWARD_SIGMA = 500
-    results_subfolder = 'risk'
-    bin_type = 'u'
-    nStates = 2
-    nActions = 5
-    CAP = 107
-    RESTRICTED_ACTION_LIMIT = 0
-    ALGORITHM_TYPE = 'sarsa'
+    if len(sys.argv) != 8:
+        print 'Usage: python grad_desc_model_fit.py CAP u[rX]|s[rX] na ns rc ral at\n' \
+              'CAP = number of max transactions to consider (min = 16, max = 107)\n' \
+              'u   = uniform risk distribution [r] random\n' \
+              's   = skewed  risk distribution [r] random\n' \
+              'X   = random file number\n' \
+              'na  = number of actions\n' \
+              'ns  = number of states\n' \
+              'rc  = type of risk classification [risk|beta|std]\n' \
+              'ral = number of transactions to skip for MLE calculation\n' \
+              'at  = algorithm type [qlearning|sarsa]\n'
+    else:
+        # 25 u 3 2 risk 0 qlearning
 
-    # Read the stocks previously classified according to their risk
-    stock_risk = read_stock_file(bin_type, nActions, results_subfolder)
 
-    transactions_list = read_transactions_file('../../data/players_transactions.csv')
-    # connect to DB
-    db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
+        HTAN_REWARD_SIGMA = 500
 
-    # retrieve players
-    db_players = db.select_players('transactions')
-    players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
+        CAP = int(sys.argv[1])
+        bin_type = sys.argv[2]
+        nActions = int(sys.argv[3])
+        nStates  = int(sys.argv[4])
+        results_subfolder = sys.argv[5]
+        RESTRICTED_ACTION_LIMIT = int(sys.argv[6])
+        ALGORITHM_TYPE = sys.argv[7]
 
-    # guess points (start of search space)
-    gps = [(0, 0, 0), (0, 0, 0.5), (0, 0, 1), (0, 25, 0), (0, 25, 0.5), (0, 25, 1), (0, 50, 0), (0, 50, 0.5), (0, 50, 1),
-          (0.5, 0, 0), (0.5, 0, 0.5), (0.5, 0, 1), (0.5, 25, 0), (0.5, 25, 0.5), (0.5, 25, 1), (0.5, 50, 0), (0.5, 50, 0.5), (0.5, 50, 1),
-          (1, 0, 0), (1, 0, 0.5), (1, 0, 1), (1, 25, 0), (1, 25, 0.5), (1, 25, 1), (1, 50, 0), (1, 50, 0.5), (1, 50, 1)]
+        # Read the stocks previously classified according to their risk
+        stock_risk = read_stock_file(bin_type, nActions, results_subfolder)
 
-    # bounds
-    bounds = ((0.0001, 1), (0, 50), (0, 0.9999))
-    #bounds = ((0.0001, 1), (0, 50), (0, 0)) add nogamma to the filename
+        transactions_list = read_transactions_file('../../data/players_transactions.csv')
+        # connect to DB
+        db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
-    MLEs = []
-    params = []
-    restricted_type = 'un' if RESTRICTED_ACTION_LIMIT <= 0 else str(RESTRICTED_ACTION_LIMIT) + 'act'
-    results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/'
-    filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act.csv'
-    MLE_file = open(filename, 'w')
+        # retrieve players
+        db_players = db.select_players('transactions')
+        players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-    print 'testing with: '
-    print 'CAP:', CAP
-    print 'act:', nActions
-    print 'restricted:', RESTRICTED_ACTION_LIMIT
-    print 'saving in ', filename
-    t1 = time.time()
-    for player in players:
-        ti = time.time()
+        # guess points (start of search space)
+        gps = [(0, 0, 0), (0, 0, 0.5), (0, 0, 1), (0, 25, 0), (0, 25, 0.5), (0, 25, 1), (0, 50, 0), (0, 50, 0.5), (0, 50, 1),
+              (0.5, 0, 0), (0.5, 0, 0.5), (0.5, 0, 1), (0.5, 25, 0), (0.5, 25, 0.5), (0.5, 25, 1), (0.5, 50, 0), (0.5, 50, 0.5), (0.5, 50, 1),
+              (1, 0, 0), (1, 0, 0.5), (1, 0, 1), (1, 25, 0), (1, 25, 0.5), (1, 25, 1), (1, 50, 0), (1, 50, 0.5), (1, 50, 1)]
 
-        MLEs.append(1000)  # placeholders
-        params.append([])
+        # bounds
+        bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
+        #bounds = ((0.0001, 1), (0, 50), (0, 0)) add nogamma to the filename
 
-        print '\n' + str(players.index(player)) + ' : ' + str(player)
+        MLEs = []
+        params = []
+        restricted_type = 'un' if RESTRICTED_ACTION_LIMIT <= 0 else str(RESTRICTED_ACTION_LIMIT) + 'act'
+        results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/'
+        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act_' + bin_type + '.csv'
+        MLE_file = open(filename, 'w')
 
-        # retrieve the transactions for each player
-        transactions = db.select_transactions('transactions', player)
+        print 'Fitting with: '
+        print 'CAP:', CAP
+        print 'act:', nActions
+        print 'restricted:', RESTRICTED_ACTION_LIMIT
+        print 'saving in ', filename
+        t1 = time.time()
+        for player in players:
 
-        for gp in gps:
+            for times in xrange(36):
+                MLEs.append(9999)
+                params.append([-1, -1, -1])
 
-            result = minimize(model_fit, gp, bounds=bounds, tol=1e-18)
+            if players.index(player) >= 0:
+                ti = time.time()
 
-            if result['success'] and result['fun'] < MLEs[players.index(player)]:
-                MLEs[players.index(player)] = result['fun']
-                params[players.index(player)] = list(result['x'])
+                MLEs.append(9999)  # placeholders
+                params.append([-1, -1, -1])
 
-        print MLEs[players.index(player)]
-        print params[players.index(player)]
-        MLE_file.write(str(players.index(player)) + ',' +
-                       str(params[players.index(player)][0]) + ',' +
-                       str(params[players.index(player)][1]) + ',' +
-                       str(params[players.index(player)][2]) + ',' +
-                       str(MLEs[players.index(player)]) + '\n')
+                print '\n' + str(players.index(player)) + ' : ' + str(player)
 
-        print str(time.time() - ti) + ' seconds'
-    print 'total ' + str(time.time() - t1) + ' seconds'
-    MLE_file.close()
+                # retrieve the transactions for each player
+                transactions = db.select_transactions('transactions', player)
+
+                for gp in gps:
+
+                    result = minimize(model_fit, gp, bounds=bounds, tol=1e-18)
+
+                    if result['success'] and result['fun'] < MLEs[players.index(player)]:
+                        MLEs[players.index(player)] = result['fun']
+                        params[players.index(player)] = list(result['x'])
+                    else:
+                        pass
+
+                print MLEs[players.index(player)]
+                print params[players.index(player)]
+
+                MLE_file.write(str(players.index(player)) + ',' +
+                               str(params[players.index(player)][0]) + ',' +
+                               str(params[players.index(player)][1]) + ',' +
+                               str(params[players.index(player)][2]) + ',' +
+                               str(MLEs[players.index(player)]) + '\n')
+
+                print str(time.time() - ti) + ' seconds'
+        print 'total ' + str(time.time() - t1) + ' seconds'
+        MLE_file.close()
