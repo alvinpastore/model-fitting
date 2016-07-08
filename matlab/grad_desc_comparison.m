@@ -1,15 +1,19 @@
 % script to compare best model (set of param) 
 % found using stochastic gradient descent vs random MLE
 
+ASTERISK_OFFSET = 30;
+MARKER_SIZE = 15;
+FONT_SIZE = 20;
+
 % number of params of bigger model - number of params of nested model
 rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
 
 %restricted = '10act'; restr_trans = 10;
 restricted = 'un'; restr_trans = 0;
-CAP = 107;
-nActions = 5;
+CAP = 25;
+nActions = 3;
 nogamma = '';%'_nogamma';
-algorithm = 'sarsa';%'qlearning';
+algorithm = 'qlearning';
 % the original amount of transactions
 % depends only on the CAP (not restriction yet)
 transactions_number = csvread(['../results/stats/transactions_number_',num2str(CAP),'CAP.csv']);
@@ -42,7 +46,7 @@ scatter(model(:,1), model_MLEs, 70, 'ob');
 grid on
 grid minor
 
-% calculate aic for RL models
+% calculate aic and bic for RL models and for random models
 [aic,bic] = aicbic(-model_MLEs, ones(playersAmount,1)*3, transactions);
 [raic,rbic] = aicbic(-random_MLEs, ones(playersAmount,1), transactions);
 
@@ -66,3 +70,22 @@ xlabel('Player ID')
 ylabel('MLE') 
 legend('Random','Model','Significant','Location','best')
 set(gca,'FontSize',20);
+
+
+% MLE comparison paper figure 
+significative = find(aic_comparison > 0);
+
+
+figure();
+hold on;
+bar(model_MLEs,'FaceColor',[0.7,0.7,0.7]);
+plot(1:1:length(random_MLEs),random_MLEs,'dr','LineWidth',MARKER_SIZE);
+plot(significative , ASTERISK_OFFSET,'k*','MarkerSize',MARKER_SIZE);
+hold off;
+xlabel('Players','FontSize',FONT_SIZE);
+ylabel('MLE','FontSize',FONT_SIZE);
+axis([0 47 0 35])
+set(gca,'FontSize',FONT_SIZE);
+title('Reinforcement Learning vs Random model');
+set(gca,'XTick',1:1:46,'XTickLabel',[0:1:45]);
+legend('RL Model','Random Model','Significant','Location','best')
