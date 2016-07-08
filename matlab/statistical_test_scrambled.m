@@ -91,9 +91,9 @@ ylabel('Probability');
 set(gca,'FontSize',FONT_SIZE);
 title('AIC comparison');
 hold off;
-
+% 
 subplot(2,1,2)
-% plot bic results
+% % plot bic results
 sorted_CI = sortrows(rank_v_scram_result,5);
 hold on;
 eh = errorbar(rank_v_scram_result(:,1),sorted_CI(:,2),sorted_CI(:,2)-sorted_CI(:,3),sorted_CI(:,4)-sorted_CI(:,2),'g');
@@ -110,16 +110,22 @@ hold off;
 
 %% scrambled vs random
 figure();
-title('SCRAMBLES VS RANDOM');
-subplot(2,1,1);
+
+%subplot(2,1,1);
 bar(1:scrambles_number, sum(scram_v_random_aic));
-axis([-1 101 0 46]);
+xlabel('Scramble ID');
+ylabel('Frequency better than random (players)');
+axis([0 scrambles_number 0 46]);
 set(gca,'FontSize',FONT_SIZE);
-subplot(2,1,2);
+title('SCRAMBLES VS RANDOM AIC');
+%subplot(2,1,2);
+figure();
+
 bar(1:scrambles_number, sum(scram_v_random_bic));
 xlabel('Scramble ID');
 ylabel('Frequency better than random (players)');
-axis([-1 101 0 46]);
+axis([0 scrambles_number 0 46]);
 set(gca,'FontSize',FONT_SIZE);
+title('SCRAMBLES VS RANDOM BIC');
 
 toc
