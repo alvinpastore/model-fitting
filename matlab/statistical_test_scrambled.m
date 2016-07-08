@@ -12,13 +12,14 @@ N_ACTIONS = 3;
 ALPHA_CONFIDENCE = 0.01; % 99% confidence
 FONT_SIZE = 20;
 LINE_WIDTH = 0.5;
+SAVE_CONFIDENCE_INTERVALS = 0; % saves confidence intervals in players_CI.csv in results/stats folder
 % import scrambled MLE matrices
 [scrambles_number, scrambles] = MLE_SCRAM_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
 scram_iterator = 1:scrambles_number;
 
 
 % load model results
-model = MLE_model_importer(0, 'qlearning', 25, 3);
+model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
 model_MLEs = model(:,5);
 
 % count players
@@ -74,6 +75,10 @@ end
 
 % [pID, phatAIC, pciAIC1, pciAIC2, phatBIC, pciBIC1, pciBIC2]
 rank_v_scram_result = [model(:,1), phat_a, pci_a, phat_b, pci_b];
+
+if SAVE_CONFIDENCE_INTERVALS
+    csvwrite('../results/stats/players_CI.csv',rank_v_scram_result);
+end
 
 %% ranked vs scrambled
 subplot(2,1,1)
