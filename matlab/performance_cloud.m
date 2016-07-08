@@ -1,4 +1,6 @@
 % routine for generating the following figures (and possibly save them)
+
+
 % 1
 % MLE_comparison using CP (errorbars)
 % best model (according to avg) vs next 4 models
@@ -22,7 +24,7 @@ FIGURES = [1,1,1,1,1];      % boolean vector of flags for figures
 alpha_confidence = 0.01;    % 99% confidence
 COMPARISON_FACTOR = 0.01;   % tolerance level
 CHANCE_THRESHOLD = 0.5;     % probability threshold for chance 
-MLE_THRESHOLD = 10;         % consider only players who are RL (arbitrary choice, highest [23.288897])
+MLE_THRESHOLD = 10;         % consider only players who are RL (arbitrary choice, highest [23.288897]) %TODO check if this still holds after graddesc
 P_VALUE_THRESHOLD = 0.05;   % p-value threshold
 
 % markup for figures
@@ -34,19 +36,25 @@ PRINT_WIDTH = 80;
 PRINT_HEIGHT = 50;
 MARKER_SIZE = 100;
 
-% import scrambled MLE matrices, model MLE matrix and resuls matrix
-[SCRAM_NUMBER, MLESCRAMS_dummy] = MLE_SCRAM_importer(0);
-[model_MLE, model] = MLE_model_importer('model_free',100);
+RESTRICTED = 0;
+ALGORITHM = 'qlearning';
+CAP = 25;
+N_ACTIONS = 3;
+
+% import scrambled MLE 
+[scrambles_number, scrambles] = MLE_SCRAM_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
+
+% load model results
+model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
 
 % load performances 
+% (0,1 reading offset to avoid string names)
 perfs = sortrows(csvread('../results/stats/performances/profit_performances.csv',0,1,[0,1,45,2]),1);
-
-% load nogamma results
-%[MLE_NOGAMMA, nogamma] = MLE_model_importer('no_gamma');
-%nogamma = nogamma(nogamma(:,2) ~= 0,:);
 
 % load performances [playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma]
 performance_fit = paper_figures(0,0);
+% populate performances matrix
+[playerID model_MLE random_MLE nogamma_MLE p_nog_MLE p_rand_MLE chi_value_random chi_value_nogamma];
 
 % these files are needed to find performance_fit 
 % (now generated in paper_figures.m)
@@ -62,7 +70,7 @@ model = [model(:,1:5), model_MLE(:,5:end-1)];
 
 if SIGNIFICANCE_THRESHOLD > 0
     % load players confidence intervals (generated in
-    % statistical_test_scrambled_2_stage_binomial.m
+    % statistical_test_scrambled.m
     players_CI = csvread('results/stats/players_CI.csv');
 
     % get the performances subset 
