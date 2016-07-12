@@ -1,11 +1,16 @@
-function [ model ] = MLE_model_importer( restricted , algorithm, CAP, nActions)
+function [ model ] = MLE_model_importer( restricted , algorithm, CAP, nActions,noGamma)
     %% script to import best model MLE and parameters generated via gradient descent
     % restricted    = the number of transactions skipped for the MLE calculation. 
     %                 using 0 will automatically search in un_restricted folder.
     % algorithm     = the algorithm used to generated the MLEs (qlearning/sarsa)
     % CAP           = transactions CAP
     % nActions      = number of actions 
+    % noGamma       = '_nogamma' flag (used as a string for the filename)
     tic
+    
+    if nargin < 5
+        noGamma = '';
+    end
     
     if restricted == 0
         restricted = 'un_';
@@ -14,7 +19,7 @@ function [ model ] = MLE_model_importer( restricted , algorithm, CAP, nActions)
     end
     
     folder_path = ['../results/gradient_descent/',restricted,'restricted/',algorithm,'/'];
-    file_path = [folder_path, 'grad_desc_',num2str(CAP),'CAP_',num2str(nActions),'act.csv'];
+    file_path = [folder_path, 'grad_desc_',num2str(CAP),'CAP_',num2str(nActions),'act',noGamma,'.csv'];
     disp(['importing model: ',file_path]);
     model = csvread(file_path);
         
