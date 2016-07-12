@@ -1,4 +1,6 @@
 %% script to generate and save figures for both paper or presentation versions
+% DEPRECATED AFTER GRADIENT DESCENT RESULTS - 
+% PAPER FiGURE GENERATED IN grad_desc_comparison.m
 %   usage:
 %   [performance_fit] = paper_figures(paper_save,presentation_save)
 %   paper_save and presentation_save are both flags 
