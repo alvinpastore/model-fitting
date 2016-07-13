@@ -1,16 +1,17 @@
 %% script to compare best model (set of param found using stochastic gradient descent) 
 % vs random model
 % vs noGamma model
-function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS)
+function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,SAVE_FIG)
 
-    ASTERISK_OFFSET = 30;
+    % markup for figures
     MARKER_SIZE = 15;
     FONT_SIZE = 20;
+    PRINT_WIDTH = 80;
+    PRINT_HEIGHT = 50;
 
     % number of params of bigger model - number of params of nested model
     rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
     ngm_dof = 3-2;  % alpha, beta, gamma, VS alpha, beta
-    nogamma = '';%'_nogamma';
     
     % the original amount of transactions
     % depends only on the CAP (not restriction yet)
@@ -26,9 +27,8 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
 
     close all;
 
+    
     % LOAD THE GRAD DESC MODELs TO TEST
-    model_file = ['../results/gradient_descent/', RESTRICTED ,'_restricted/',ALGORITHM,'/grad_desc_',num2str(CAP),'CAP_',num2str(N_ACTIONS),'act',nogamma,'.csv'];
-    disp(['using file: ',model_file]);
     model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
     model = [model random_MLEs transactions_number];
     model_MLEs = model(:,5);
@@ -57,11 +57,11 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     bic_comparison = bic < rbic;
 
     % get only the players and the models better than random
-    better_than_random = model.*(repmat(h,1,7));
+    better_than_random = model.*(repmat(bic_comparison,1,7));
     better_than_random(all(better_than_random==0,2),:) = [];
     
     %% General comparison figure
-    figure();
+    fig0 = figure();
     scatter(model(:,1), random_MLEs, 70, 'xr');
     hold on
     scatter(model(:,1), model_MLEs, 70, 'ob');
@@ -78,20 +78,29 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     %% MLE comparison paper figure v RANDOM
     significative = find(bic_comparison > 0);
  
-    figure();
+    fig1 = figure();
     hold on;
     bar(model_MLEs,'FaceColor',[0.7,0.7,0.7]);
     plot(1:1:length(random_MLEs),random_MLEs,'dr','LineWidth',MARKER_SIZE);
-    plot(significative , ASTERISK_OFFSET,'k*','MarkerSize',MARKER_SIZE);
+    plot(significative , max(random_MLEs) + max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
     ylabel('MLE','FontSize',FONT_SIZE);
-    axis([0 47 0 35])
+    axis([0 47 0 max(random_MLEs) + max(random_MLEs)/10])
     set(gca,'FontSize',FONT_SIZE);
     title('Reinforcement Learning vs Random model');
     set(gca,'XTick',1:1:46,'XTickLabel',0:1:45);
-    legend('RL Model','Random Model','Significant','Location','best')
+    legend('RL Full Model','Random Model','Significant','Location','best')
     
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = '../graphs/paper/';
+        fileName = [path, 'vs_Random_',num2str(RESTRICTED),'restricted'];
+        fileName = [fileName,'_',ALGORITHM];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        print(fig1, '-dpng', '-loose', fileName); 
+    end
     
     %% MLE comparison paper figure v NOGAMMA
     % likelihood ratio test matlab
@@ -102,17 +111,26 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     
     significative = find(bic_comparison > 0);
 
-    figure();
+    fig2 = figure();
     hold on;
     bar(model_MLEs,'FaceColor',[0.7,0.7,0.7]);
     plot(1:1:length(noGamma_MLEs),noGamma_MLEs,'dg','LineWidth',MARKER_SIZE);
-    plot(significative , ASTERISK_OFFSET,'k*','MarkerSize',MARKER_SIZE);
+    plot(significative , max(noGamma_MLEs)+max(noGamma_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
     ylabel('MLE','FontSize',FONT_SIZE);
-    axis([0 47 0 35])
+    axis([0 47 0 max(noGamma_MLEs)+max(noGamma_MLEs)/10])
     set(gca,'FontSize',FONT_SIZE);
-    title('Reinforcement Learning vs Random model');
+    title('Full RL vs NoGamma RL model');
     set(gca,'XTick',1:1:46,'XTickLabel',0:1:45);
-    legend('RL Model','Random Model','Significant','Location','best')
-
+    legend('RL Full Model','NoGamma Model','Significant','Location','best')
+    
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = '../graphs/paper/';
+        fileName = [path, 'vs_noGamma_',num2str(RESTRICTED),'restricted'];
+        fileName = [fileName,'_',ALGORITHM];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        print(fig2, '-dpng', '-loose', fileName); 
+    end
