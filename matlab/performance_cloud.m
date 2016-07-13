@@ -19,7 +19,6 @@ SAVE_FIG = 1;               % flag to handle figure saving on disk (0 does NOT s
 FIGURES = [1,1,1,1,1];      % boolean vector of flags for figures 
                             % [profit V MLE, profit V alpha, profit V gamma, profit V beta, profit V alpha V gamma]
                           
-alpha_confidence = 0.01;    % 99% confidence
 COMPARISON_FACTOR = 0.01;   % tolerance level
 CHANCE_THRESHOLD = 0.5;     % probability threshold for chance 
 MLE_THRESHOLD = 10;         % consider only players who are RL (arbitrary choice, highest [23.288897]) %TODO check if this still holds after graddesc
@@ -41,7 +40,7 @@ N_ACTIONS = 3;
 
 % load model results
 % [playerID alpha beta gamma MLE randomMLE transactions]
-[better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS);
+[better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,0);
 
 % load performances 
 % (0,1 reading offset to avoid string names)
@@ -318,7 +317,7 @@ if FIGURES(4)
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
         path = '../graphs/stats/performance_cloud/';
-        fileName = [path, 'performance_vs_gamma_restr',num2str(RESTRICTED)];
+        fileName = [path, 'performance_vs_beta_restr',num2str(RESTRICTED)];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
         print(fig4_1, '-dpng', '-loose', fileName); 
