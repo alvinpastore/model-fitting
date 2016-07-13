@@ -15,7 +15,7 @@ function [ model ] = MLE_model_importer( restricted , algorithm, CAP, nActions,n
     if restricted == 0
         restricted = 'un_';
     else
-        restricted = num2str(restricted);
+        restricted = [num2str(restricted),'act_'];
     end
     
     folder_path = ['../results/gradient_descent/',restricted,'restricted/',algorithm,'/'];
