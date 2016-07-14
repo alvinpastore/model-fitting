@@ -72,36 +72,71 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     title(['Model: CAP',num2str(CAP),' nActions',num2str(N_ACTIONS),' ',RESTRICTED ,'-restricted'])
     xlabel('Player ID') 
     ylabel('MLE') 
-    legend('Random','Model','Significant','Location','best')
-    set(gca,'FontSize',20);
+    legend('Random','Model','Significant','Location','SouthEast')
+    set(gca,'FontSize',FONT_SIZE);
     
     %% MLE comparison paper figure v RANDOM
-    significative = find(bic_comparison > 0);
- 
-    fig1 = figure();
+    
+    fig_data = [model_MLEs, random_MLEs, bic_comparison > 0, model(:,1)];
+    fig_data = sortrows(fig_data,1);
+    significant_players = find(fig_data(:,3) > 0);
+    
+    fig1_1 = figure();
     hold on;
-    bar(model_MLEs,'FaceColor',[0.7,0.7,0.7]);
-    plot(1:1:length(random_MLEs),random_MLEs,'dr','LineWidth',MARKER_SIZE);
-    plot(significative , max(random_MLEs) + max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
+    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);
+    plot(1:1:playersAmount,fig_data(:,2),'dr','LineWidth',MARKER_SIZE);
+    plot(significant_players , max(random_MLEs) + max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
     ylabel('MLE','FontSize',FONT_SIZE);
     axis([0 47 0 max(random_MLEs) + max(random_MLEs)/10])
     set(gca,'FontSize',FONT_SIZE);
     title('Reinforcement Learning vs Random model');
-    set(gca,'XTick',1:1:46,'XTickLabel',0:1:45);
-    legend('RL Full Model','Random Model','Significant','Location','best')
+    set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
+    legend('RL Full Model','Random Model','Significant','Location','SouthEast')
+    grid
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
         path = '../graphs/paper/';
-        fileName = [path, 'vs_Random_',num2str(RESTRICTED),'restricted'];
+        fileName = [path, 'MLE_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
-        print(fig1, '-dpng', '-loose', fileName); 
+        print(fig1_1, '-dpng', '-loose', fileName); 
     end
     
+    % bic figure
+    
+    fig_data = [bic, rbic, bic_comparison > 0, model(:,1)];
+    fig_data = sortrows(fig_data,1);
+    significant_players = find(fig_data(:,3) > 0);
+    
+    fig1_2 = figure();
+    hold on;
+    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);
+    %plot(1:1:playersAmount,bic,'dk','LineWidth',MARKER_SIZE);
+    plot(1:1:playersAmount,fig_data(:,2),'dr','LineWidth',MARKER_SIZE);
+    plot(significant_players , max(bic)+max(bic)/20,'k*','MarkerSize',MARKER_SIZE);
+    hold off;
+    xlabel('Players','FontSize',FONT_SIZE);
+    ylabel('BIC','FontSize',FONT_SIZE);
+    axis([0 47 0 max(bic)+max(bic)/10])
+    set(gca,'FontSize',FONT_SIZE);
+    title('Reinforcement Learning vs Random model');
+    set(gca,'XTick',1:1:46,'XTickLabel',0:1:45);
+    legend('RL Full Model','Random Model','Significant','Location','SouthEast')
+    grid%set(gca,'ygrid','on')
+    
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = '../graphs/paper/';
+        fileName = [path, 'BIC_vs_Random_',num2str(RESTRICTED),'restricted'];
+        fileName = [fileName,'_',ALGORITHM];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        print(fig1_2, '-dpng', '-loose', fileName); 
+    end
     %% MLE comparison paper figure v NOGAMMA
     % likelihood ratio test matlab
     [h,pValue,stat,cValue] = lratiotest(noGamma_MLEs,model_MLEs, ngm_dof);
@@ -109,28 +144,64 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     aic_comparison = aic < naic;
     bic_comparison = bic < nbic;
     
-    significative = find(bic_comparison > 0);
+    fig_data = [model_MLEs, noGamma_MLEs, bic_comparison > 0, model(:,1)];
+    fig_data = sortrows(fig_data,1);
+    significant_players = find(fig_data(:,3) > 0);
 
-    fig2 = figure();
+    fig2_1 = figure();
     hold on;
-    bar(model_MLEs,'FaceColor',[0.7,0.7,0.7]);
-    plot(1:1:length(noGamma_MLEs),noGamma_MLEs,'dg','LineWidth',MARKER_SIZE);
-    plot(significative , max(noGamma_MLEs)+max(noGamma_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
+    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);
+    plot(1:1:playersAmount,fig_data(:,2),'dg','LineWidth',MARKER_SIZE);
+    plot(significant_players , max(noGamma_MLEs)+max(noGamma_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
     ylabel('MLE','FontSize',FONT_SIZE);
     axis([0 47 0 max(noGamma_MLEs)+max(noGamma_MLEs)/10])
     set(gca,'FontSize',FONT_SIZE);
     title('Full RL vs NoGamma RL model');
-    set(gca,'XTick',1:1:46,'XTickLabel',0:1:45);
-    legend('RL Full Model','NoGamma Model','Significant','Location','best')
+    set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
+    legend('RL Full Model','NoGamma Model','Significant','Location','SouthEast')
+    grid
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
         path = '../graphs/paper/';
-        fileName = [path, 'vs_noGamma_',num2str(RESTRICTED),'restricted'];
+        fileName = [path, 'MLE_vs_noGamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
-        print(fig2, '-dpng', '-loose', fileName); 
+        print(fig2_1, '-dpng', '-loose', fileName); 
+    end
+
+    % bic figure
+    
+    fig_data = [bic, nbic, bic_comparison > 0, model(:,1)];
+    fig_data = sortrows(fig_data,1);
+    significant_players = find(fig_data(:,3) > 0);
+    
+    
+    fig2_2 = figure();
+    hold on;
+    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);
+    %plot(1:1:playersAmount,bic,'dk','LineWidth',MARKER_SIZE);
+    plot(1:1:playersAmount,fig_data(:,2),'dg','LineWidth',MARKER_SIZE);
+    plot(significant_players , max(bic)+max(bic)/20,'k*','MarkerSize',MARKER_SIZE);
+    hold off;
+    xlabel('Players','FontSize',FONT_SIZE);
+    ylabel('BIC','FontSize',FONT_SIZE);
+    axis([0 47 0 max(bic)+max(bic)/10])
+    set(gca,'FontSize',FONT_SIZE);
+    title('Full RL vs NoGamma RL model');
+    set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
+    legend('RL Full Model','Random Model','Significant','Location','SouthEast')
+    grid%set(gca,'ygrid','on')
+    
+    if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = '../graphs/paper/';
+        fileName = [path, 'BIC_vs_noGamma_',num2str(RESTRICTED),'restricted'];
+        fileName = [fileName,'_',ALGORITHM];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        print(fig2_2, '-dpng', '-loose', fileName); 
     end
