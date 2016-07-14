@@ -46,7 +46,7 @@ db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 # retrieve players
 db_players = db.select_players('transactions')
 players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
-profit = 0
+
 HTAN_REWARD_SIGMA = 500
 performances = dict()
 
@@ -169,7 +169,7 @@ for player in players:
     performances[player] = profit
     print profit
 
-save_performances('results/stats/performances', performances)
+save_performances('../../data/stats/performances', performances)
 
 db.close()
 final_time = (time.time() - t0)
