@@ -257,13 +257,15 @@ if __name__ == '__main__':
 
         # bounds
         bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
-        #bounds = ((0.0001, 1), (0, 50), (0, 0)) add nogamma to the filename
+        #bounds = ((0.0001, 1), (0, 50), (0, 0)) #add nogamma to the filename
 
         MLEs = []
         params = []
         restricted_type = 'un' if RESTRICTED_ACTION_LIMIT <= 0 else str(RESTRICTED_ACTION_LIMIT) + 'act'
         results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/'
-        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act_' + bin_type + '.csv'
+        # specify the type of bin (uniform, uniform random or skewed) only if it is not uniform
+        btype = '_' + bin_type if bin_type != 'u' else ''
+        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act' + btype + '.csv'#'+ '_nogamma.csv'
         MLE_file = open(filename, 'w')
 
         print 'Fitting with: '
