@@ -9,17 +9,19 @@ RESTRICTED = 0;
 ALGORITHM = 'qlearning';
 CAP = 25;
 N_ACTIONS = 3;
+RISK_MEASURE = 'risk';
 ALPHA_CONFIDENCE = 0.01; % 99% confidence
 FONT_SIZE = 20;
 LINE_WIDTH = 0.5;
 SAVE_CONFIDENCE_INTERVALS = 0; % saves confidence intervals in players_CI.csv in results/stats folder
+SAVE_FIG = 1;
 % import scrambled MLE matrices
 [scrambles_number, scrambles] = MLE_SCRAM_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
 scram_iterator = 1:scrambles_number;
 
 
 % load model results
-model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS);
+model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS, RISK_MEASURE);
 model_MLEs = model(:,5);
 
 % count players
@@ -81,6 +83,7 @@ if SAVE_CONFIDENCE_INTERVALS
 end
 
 %% ranked vs scrambled
+fig1 = figure();
 subplot(2,1,1)
 % plot aic results
 sorted_CI = sortrows(rank_v_scram_result,2);
@@ -112,19 +115,28 @@ ylabel('Probability');
 set(gca,'FontSize',FONT_SIZE);
 title('BIC comparison');
 hold off;
-
+if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = '../graphs/stats/risk_classification/';
+        fileName = [path, RISK_MEASURE, '_vs_Scrambled_',num2str(RESTRICTED),'restricted'];
+        fileName = [fileName,'_',ALGORITHM];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        print(fig1, '-dpng', '-loose', fileName); 
+end
+    
 %% scrambled vs random
-figure();
+fig2 = figure();
 
-%subplot(2,1,1);
+subplot(2,1,1);
 bar(1:scrambles_number, sum(scram_v_random_aic));
 xlabel('Scramble ID');
-ylabel('Frequency better than random (players)');
+%ylabel('Frequency better than random (players)');
 axis([0 scrambles_number 0 46]);
 set(gca,'FontSize',FONT_SIZE);
 title('SCRAMBLES VS RANDOM AIC');
-%subplot(2,1,2);
-figure();
+subplot(2,1,2);
+%figure();
 
 bar(1:scrambles_number, sum(scram_v_random_bic));
 xlabel('Scramble ID');
@@ -132,5 +144,13 @@ ylabel('Frequency better than random (players)');
 axis([0 scrambles_number 0 46]);
 set(gca,'FontSize',FONT_SIZE);
 title('SCRAMBLES VS RANDOM BIC');
-
+if SAVE_FIG
+        set(gcf, 'PaperUnits', 'centimeters');
+        set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+        path = '../graphs/stats/risk_classification/';
+        fileName = [path,num2str(scrambles_number),'_Scrambles_vs_Random_',num2str(RESTRICTED),'restricted'];
+        fileName = [fileName,'_',ALGORITHM];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        print(fig2, '-dpng', '-loose', fileName); 
+end
 toc
