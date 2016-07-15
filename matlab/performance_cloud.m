@@ -37,14 +37,15 @@ RESTRICTED = 0;
 ALGORITHM = 'qlearning';
 CAP = 25;
 N_ACTIONS = 3;
+RISK_MEASURE = 'risk';
 
 % load model results
 % [playerID alpha beta gamma MLE randomMLE transactions]
-[better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,0);
+[better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,0);
 
 % load performances 
 % (0,1 reading offset to avoid string names)
-performances = sortrows(csvread('../results/stats/performances/profit_performances.csv',0,1,[0,1,45,2]),1);
+performances = sortrows(csvread('../data/profit_performances.csv',0,1,[0,1,45,2]),1);
 
 % get the number of players
 playerAmount = size(performances,1);
