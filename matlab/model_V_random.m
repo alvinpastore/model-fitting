@@ -1,7 +1,9 @@
 %script to compare best model (set of param) vs random MLE
-% this script might be deprecated since introducing 
+% this script might be deprecated since introducing grad_desc_comparison.m
+%  ERROR IN THE NUMBER OF PARAMS
 
 % number of params of bigger model - number of params of nested model
+%  ERROR IN THE NUMBER OF PARAMS (random = 0)
 rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
 
 close all;

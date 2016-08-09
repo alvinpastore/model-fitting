@@ -1,5 +1,6 @@
 %% script to generate and save figures for both paper or presentation versions
-% DEPRECATED AFTER GRADIENT DESCENT RESULTS - 
+% DEPRECATED AFTER GRADIENT DESCENT RESULTS - ERROR IN THE NUMBER OF PARAMS
+% 
 % PAPER FiGURE GENERATED IN grad_desc_comparison.m
 %   usage:
 %   [performance_fit] = paper_figures(paper_save,presentation_save)
@@ -30,7 +31,7 @@ function [performance_fit] = paper_figures(paper_save,presentation_save)
     
     MODEL_BASED = 0; % 0 = model free, 1 = model based
     
-    % degrees of freedom = 
+    % degrees of freedom =  ERROR IN THE NUMBER OF PARAMS (random = 0)
     % number of params of bigger model - number of params of nested model
     rnd_dof = 3-1;  % alpha, beta, gamma, (k) VS beta
     ng_dof = 3-2;   % alpha, beta, gamma 
