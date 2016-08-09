@@ -45,10 +45,7 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     % count players
     playersAmount = size(model,1);    
 
-    % calculate aic and bic for RL models and for random models
-%     [aic,bic]   = aicbic(-model_MLEs, ones(playersAmount,1)*3, transactions);   % 3 param
-%     [naic,nbic] = aicbic(-noGamma_MLEs, ones(playersAmount,1)*2, transactions); % 2 param
-%     [raic,rbic] = aicbic(-random_MLEs, ones(playersAmount,1), transactions);    % 1 param
+
     
     %% NOGAMMA V RANDOM
     % test the simpler model (nogamma) against the random model
@@ -59,21 +56,6 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     % likelihood ratio test matlab
     [lrt_comparison,pValue,stat,cValue] = lratiotest(random_MLEs,noGamma_MLEs, ngm_rnd_dof);
     
-%     aic_comparison = (raic-aic)>2;
-%     bic_comparison = (rbic-bic)>2;
-
-%     % get only the players and the models better than random
-%     if strcmp(COMPARISON_MEASURE,'AIC')
-%         comparison = aic_comparison;
-%         ic = aic; ric = raic;
-%     elseif strcmp(COMPARISON_MEASURE,'BIC')
-%         comparison = bic_comparison;
-%         ic = bic; ric = rbic;
-%     elseif strcmp(COMPARISON_MEASURE,'LRT')
-%         comparison = lrt_comparison;
-%         ic = aic; ric = raic; % LRT uses aic as a measure for the plot
-%     end
-%     
     comparison = lrt_comparison;
     ng_better_than_random = noGamma.*(repmat(comparison,1,7));
     ng_better_than_random(all(ng_better_than_random==0,2),:) = [];
@@ -125,58 +107,12 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
         print(fig1_1, '-dpng', '-loose', fileName); 
     end
     
-    % bic figure
-%     
-%     fig_data = [ic, ric, comparison > 0, model(:,1)];
-%     fig_data = sortrows(fig_data,1);
-%     significant_players = find(fig_data(:,3) > 0);
-%     
-%     fig1_2 = figure();
-%     hold on;
-%     bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);
-%     %plot(1:1:playersAmount,bic,'dk','LineWidth',MARKER_SIZE);
-%     plot(1:1:playersAmount,fig_data(:,2),'dr','LineWidth',MARKER_SIZE);
-%     plot(significant_players , max(ic)+max(ic)/20,'k*','MarkerSize',MARKER_SIZE);
-%     hold off;
-%     xlabel('Players','FontSize',FONT_SIZE);
-%     ylabel(COMPARISON_MEASURE,'FontSize',FONT_SIZE);
-%     axis([0 47 0 max(ic)+max(ic)/10])
-%     set(gca,'FontSize',FONT_SIZE);
-%     title('Reinforcement Learning vs Random model');
-%     set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
-%     legend('RL Full Model','Random Model','Significant','Location','SouthEast')
-%     grid%set(gca,'ygrid','on')
-%     
-%     if SAVE_FIG
-%         set(gcf, 'PaperUnits', 'centimeters');
-%         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-%         path = '../graphs/paper/';
-%         fileName = [path, COMPARISON_MEASURE,'_vs_Random_',num2str(RESTRICTED),'restricted'];
-%         fileName = [fileName,'_',ALGORITHM];
-%         fileName = [fileName,'_',RISK_MEASURE];
-%         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
-%         print(fig1_2, '-dpng', '-loose', fileName); 
-%     end
-%     
+
     %% RL MODEL V NOGAMMA
     % test the more complex model (RL) against the simpler model (nogamma) 
     
     % likelihood ratio test matlab
     [lrt_comparison,pValue,stat,cValue] = lratiotest(noGamma_MLEs,model_MLEs, rlm_ngm_dof);
-
-%     aic_comparison = (naic-aic)>2;
-%     bic_comparison = (nbic-bic)>2;
-%     
-%     if strcmp(COMPARISON_MEASURE,'AIC')
-%         comparison = aic_comparison;
-%         ic = aic; nic = naic;
-%     elseif strcmp(COMPARISON_MEASURE,'BIC')
-%         comparison = bic_comparison;
-%         ic = bic; nic = nbic;
-%     elseif strcmp(COMPARISON_MEASURE,'LRT')
-%         comparison = lrt_comparison;
-%         ic = aic; nic = naic; % LRT uses aic as a measure for the plot
-%     end
     
     comparison = lrt_comparison;
     fig_data = [model_MLEs, noGamma_MLEs, comparison > 0, model(:,1)];
@@ -208,59 +144,11 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
         print(fig2_1, '-dpng', '-loose', fileName); 
     end
 
-    % bic figure
-%     
-%     fig_data = [ic, nic, comparison > 0, model(:,1)];
-%     fig_data = sortrows(fig_data,1);
-%     significant_players = find(fig_data(:,3) > 0);
-%     
-%     
-%     fig2_2 = figure();
-%     hold on;
-%     bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);
-%     %plot(1:1:playersAmount,bic,'dk','LineWidth',MARKER_SIZE);
-%     plot(1:1:playersAmount,fig_data(:,2),'dg','LineWidth',MARKER_SIZE);
-%     plot(significant_players , max(ic)+max(ic)/20,'k*','MarkerSize',MARKER_SIZE);
-%     hold off;
-%     xlabel('Players','FontSize',FONT_SIZE);
-%     ylabel(COMPARISON_MEASURE,'FontSize',FONT_SIZE);
-%     axis([0 47 0 max(ic)+max(ic)/10])
-%     set(gca,'FontSize',FONT_SIZE);
-%     title('Full RL vs NoGamma RL model');
-%     set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
-%     legend('RL Full Model','Random Model','Significant','Location','SouthEast')
-%     grid%set(gca,'ygrid','on')
-%     
-%     if SAVE_FIG
-%         set(gcf, 'PaperUnits', 'centimeters');
-%         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-%         path = '../graphs/paper/';
-%         fileName = [path, COMPARISON_MEASURE,'_vs_noGamma_',num2str(RESTRICTED),'restricted'];
-%         fileName = [fileName,'_',ALGORITHM];
-%         fileName = [fileName,'_',RISK_MEASURE];
-%         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
-%         print(fig2_2, '-dpng', '-loose', fileName); 
-%     end
-
-    %% RL MODEL V NOGAMMA
+    %% RL MODEL V RANDOM
     % test the more complex model (RL) against the random model
 
     [lrt_comparison,pValue,stat,cValue] = lratiotest(random_MLEs,model_MLEs, rlm_rnd_dof);
 
-%     aic_comparison = (naic-aic)>2;
-%     bic_comparison = (nbic-bic)>2;
-%     
-%     if strcmp(COMPARISON_MEASURE,'AIC')
-%         comparison = aic_comparison;
-%         ic = aic; nic = naic;
-%     elseif strcmp(COMPARISON_MEASURE,'BIC')
-%         comparison = bic_comparison;
-%         ic = bic; nic = nbic;
-%     elseif strcmp(COMPARISON_MEASURE,'LRT')
-%         comparison = lrt_comparison;
-%         ic = aic; nic = naic; % LRT uses aic as a measure for the plot
-%     end
-    
     comparison = lrt_comparison;
     better_than_random = model.*(repmat(comparison,1,7));
     better_than_random(all(better_than_random==0,2),:) = [];
