@@ -33,9 +33,9 @@ def get_next_state(wealth):
             return 2  # rich
 
 
-def read_stock_file(b_type, b_amount, res_subfolder):
+def read_stock_file(b_type, b_amount, risk_measure):
     file_number = -1
-    path = "../../data/" + res_subfolder + "_classified_stocks/" + str(b_amount) + "/"
+    path = "../../data/" + risk_measure + "_classified_stocks/" + str(b_amount) + "/"
     if 'u' in b_type:
         path += 'uniform_'
     elif 's' in b_type:
@@ -235,12 +235,12 @@ if __name__ == '__main__':
         bin_type = sys.argv[2]
         nActions = int(sys.argv[3])
         nStates  = int(sys.argv[4])
-        results_subfolder = sys.argv[5]
+        risk_measure = sys.argv[5]
         RESTRICTED_ACTION_LIMIT = int(sys.argv[6])
         ALGORITHM_TYPE = sys.argv[7]
 
         # Read the stocks previously classified according to their risk
-        stock_risk = read_stock_file(bin_type, nActions, results_subfolder)
+        stock_risk = read_stock_file(bin_type, nActions, risk_measure)
 
         transactions_list = read_transactions_file('../../data/players_transactions.csv')
         # connect to DB
@@ -256,16 +256,16 @@ if __name__ == '__main__':
               (1, 0, 0), (1, 0, 0.5), (1, 0, 1), (1, 25, 0), (1, 25, 0.5), (1, 25, 1), (1, 50, 0), (1, 50, 0.5), (1, 50, 1)]
 
         # bounds
-        bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
-        #bounds = ((0.0001, 1), (0, 50), (0, 0)) #add nogamma to the filename
+        #bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
+        bounds = ((0.0001, 2), (0, 50), (0, 0)) #add nogamma to the filename
 
         MLEs = []
         params = []
         restricted_type = 'un' if RESTRICTED_ACTION_LIMIT <= 0 else str(RESTRICTED_ACTION_LIMIT) + 'act'
-        results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/'
+        results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/' + risk_measure + '/'
         # specify the type of bin (uniform, uniform random or skewed) only if it is not uniform
         btype = '_' + bin_type if bin_type != 'u' else ''
-        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act' + btype + '.csv'#'+ '_nogamma.csv'
+        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act' + btype + '_nogamma.csv'
         MLE_file = open(filename, 'w')
 
         print 'Fitting with: '
