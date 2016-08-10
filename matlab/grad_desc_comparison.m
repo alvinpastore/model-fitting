@@ -9,9 +9,9 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     MARKER_SIZE = 15;
     THRESHOLD_SIZE = 5;
     FONT_SIZE = 20;
-    PRINT_WIDTH = 80;
-    PRINT_HEIGHT = 50;
-    
+    PRINT_WIDTH = 20;
+    PRINT_HEIGHT = 15;
+    SAVE_FOLDER = '../graphs/paper_correction/';
     % number of params of bigger model - number of params of nested model
     % nogamma vs random
     ngm_rnd_dof = 2-0;  % alpha, beta VS random(no param)
@@ -63,32 +63,17 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     ng_better_than_random = noGamma.*(repmat(comparison,1,7));
     ng_better_than_random(all(ng_better_than_random==0,2),:) = [];
 
-%     
-    %% General comparison figure
-%     fig0 = figure();
-%     scatter(model(:,1), random_MLEs, 70, 'xr');
-%     hold on
-%     scatter(model(:,1), model_MLEs, 70, 'ob');
-%     %axis([-1 46 0 30])
-%     grid on
-%     grid minor
-%     plot(better_than_random(:,1),better_than_random(:,5),'g*');
-%     title(['Model: CAP',num2str(CAP),' nActions',num2str(N_ACTIONS),' ',RESTRICTED ,'-restricted'])
-%     xlabel('Player ID') 
-%     ylabel('MLE') 
-%     legend('Random','Model','Significant','Location','SouthEast')
-%     set(gca,'FontSize',FONT_SIZE);
     
-    %% MLE comparison paper figure v RANDOM
-    % fig 1_1 shows the MLE values
+    % MLE comparison paper figure v RANDOM
+    % fig 1_1 shows the MLE values (same as original paper)
     fig_data = [noGamma_MLEs, random_MLEs, comparison > 0, model(:,1)];
-    fig_data = sortrows(fig_data,1);
+    fig_data = sortrows(fig_data,-2);
     significant_players = find(fig_data(:,3) > 0);
     
     fig1_1 = figure();
     hold on;
-    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                           % NoGamma as grey bars
-    plot(1:1:playersAmount,fig_data(:,2),'dr','LineWidth',MARKER_SIZE);     % Random as red dashes
+    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                       % NoGamma as grey bars
+    plot(1:1:playersAmount,fig_data(:,2),'--k','LineWidth',3);          % Random as black dashed line
     plot(significant_players , max(random_MLEs) + max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
@@ -97,14 +82,15 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     set(gca,'FontSize',FONT_SIZE);
     title('NoGamma model vs Random model');
     set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
-    legend('NoGamma Model','Random Model','Significant','Location','SouthEast')
-    grid
+%     h_legend = legend('NoGamma Model','Random Model','Significant','Location','SouthEast');
+%     set(h_legend,'FontSize',FONT_SIZE);
+%     grid
     
     if SAVE_FIG 
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = '../graphs/paper/';
-        fileName = [path, 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
+        
+        fileName = [SAVE_FOLDER, 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
         print(fig1_1, '-dpng', '-loose', fileName); 
@@ -127,23 +113,25 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     set(gca,'FontSize',FONT_SIZE);
     title('NoGamma model vs Random model - Likelihood Ratio Test');
     set(gca,'XTick',1:1:46,'XTickLabel',fig_data_diff(:,3));
-    legend('LRT statistic','Significance Threshold','Significant Player','Location','NorthWest')
-    grid
+%     h_legent = legend('LRT statistic','Significance Threshold','Significant Player','Location','NorthWest');
+%     set(h_legend,'FontSize',FONT_SIZE);
+%     grid
     
     if SAVE_FIG 
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = '../graphs/paper/LRT/';
-        fileName = [path, 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
+        
+        fileName = [SAVE_FOLDER,'LRT/'. 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
         print(fig1_2, '-dpng', '-loose', fileName); 
     end
+    
     
     %% RL MODEL V NOGAMMA
     % test the more complex model (RL) against the simpler model (nogamma) 
     
-    % likelihood ratio test matlab
+    % fig 1_2 shows the MLE values (same as original paper)
     [comparison,pValue,stat,cValue] = lratiotest(-model_MLEs,-noGamma_MLEs, rlm_ngm_dof);
     
     fig_data = [model_MLEs, noGamma_MLEs, comparison > 0, model(:,1)];
@@ -153,7 +141,7 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     fig2_1 = figure();
     hold on;
     bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                       % RL model as grey bars
-    plot(1:1:playersAmount,fig_data(:,2),'dg','LineWidth',MARKER_SIZE); % NoGamma as green dashes
+    plot(1:1:playersAmount,fig_data(:,2),'dk','MarkerSize',MARKER_SIZE,'MarkerFaceColor','k');   % NoGamma as black diamond
     plot(significant_players , max(noGamma_MLEs)+max(noGamma_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
@@ -162,14 +150,15 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     set(gca,'FontSize',FONT_SIZE);
     title('Full RL vs NoGamma model');
     set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
-    legend('RL Full Model','NoGamma Model','Significant','Location','SouthEast')
-    grid
+%     h_legend = legend('RL Full Model','NoGamma Model','Significant','Location','SouthEast');
+%     set(h_legend,'FontSize',FONT_SIZE);
+%     grid
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = '../graphs/paper/';
-        fileName = [path, 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
+
+        fileName = [SAVE_FOLDER, 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
         print(fig2_1, '-dpng', '-loose', fileName); 
@@ -192,16 +181,17 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     set(gca,'FontSize',FONT_SIZE);
     title('RL model vs NoGamma model - Likelihood Ratio Test');
     set(gca,'XTick',1:1:46,'XTickLabel',fig_data_diff(:,3));
-    legend('LRT statistic','Significance Threshold','Significant Player','Location','NorthWest')
-    grid
-    
+%     h_legend = legend('LRT statistic','Significance Threshold','Significant Player','Location','NorthWest');
+%     set(h_legend,'FontSize',FONT_SIZE);
+%     grid
+     
     if SAVE_FIG 
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = '../graphs/paper/LRT/';
-        fileName = [path, 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
+        
+        fileName = [SAVE_FOLDER,'LRT/, 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
         print(fig2_2, '-dpng', '-loose', fileName); 
     end
 
@@ -229,14 +219,15 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     set(gca,'FontSize',FONT_SIZE);
     title('Full RL vs Random model');
     set(gca,'XTick',1:1:46,'XTickLabel',fig_data(:,4));
-    legend('RL Full Model','Random Model','Significant','Location','SouthEast')
-    grid
+%     h_legend = legend('RL Full Model','Random Model','Significant','Location','SouthEast');
+%     set(h_legend,'FontSize',FONT_SIZE);
+%     grid
     
     if SAVE_FIG
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = '../graphs/paper/';
-        fileName = [path, 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
+
+        fileName = [SAVE_FOLDER, 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
         print(fig3_1, '-dpng', '-loose', fileName); 
@@ -259,15 +250,17 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     set(gca,'FontSize',FONT_SIZE);
     title('RL model vs Random - Likelihood Ratio Test');
     set(gca,'XTick',1:1:46,'XTickLabel',fig_data_diff(:,3));
-    legend('LRT statistic','Significance Threshold','Significant Player','Location','NorthWest')
-    grid
+%     h_legend = legend('LRT statistic','Significance Threshold','Significant Player','Location','NorthWest');
+%     set(h_legend,'FontSize',FONT_SIZE);
+%     grid
     
     if SAVE_FIG 
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
-        path = '../graphs/paper/LRT/';
-        fileName = [path, 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
+
+        fileName = [SAVE_FOLDER,'LRT/, 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
         print(fig3_2, '-dpng', '-loose', fileName); 
     end
+    
