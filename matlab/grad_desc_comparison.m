@@ -6,10 +6,10 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     close all;
     
     % markup for figures
-    MARKER_SIZE = 15;
+    MARKER_SIZE = 7;
     THRESHOLD_SIZE = 5;
     FONT_SIZE = 20;
-    PRINT_WIDTH = 30;
+    PRINT_WIDTH = 20;
     PRINT_HEIGHT = 15;
     SAVE_FOLDER = '../graphs/paper_correction/';
     % number of params of bigger model - number of params of nested model
@@ -65,13 +65,14 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     % MLE comparison paper figure v RANDOM
     % fig 1_1 shows the MLE values (same as original paper)
     fig_data = [noGamma_MLEs, random_MLEs, comparison > 0, model(:,1)];
-    fig_data = sortrows(fig_data,-2);
+    %fig_data = sortrows(fig_data,-2);
     significant_players = find(fig_data(:,3) > 0);
     
     fig1_1 = figure();
     hold on;
     bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                       % NoGamma as grey bars
-    plot(1:1:playersAmount,fig_data(:,2),'--k','LineWidth',3);          % Random as black dashed line
+    %plot(1:1:playersAmount,fig_data(:,2),'--k','LineWidth',2);          % Random as black dashed line
+    plot(1:1:playersAmount,fig_data(:,2),'dk','MarkerSize',MARKER_SIZE,'LineWidth',2);         % Random as hollow diamonds
     plot(significant_players , max(random_MLEs) + max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
@@ -96,7 +97,7 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     
     % fig 1_2 shows the LRT for NOGAMMA V RANDOM comparison
     fig_data_diff = [2*(random_MLEs - noGamma_MLEs), comparison > 0 , model(:,1)];
-    fig_data_diff = sortrows(fig_data_diff,1);
+    %fig_data_diff = sortrows(fig_data_diff,-1);
     significant_players = find(fig_data_diff(:,2) > 0);
     
     fig1_2 = figure();
@@ -129,17 +130,18 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     %% RL MODEL V NOGAMMA
     % test the more complex model (RL) against the simpler model (nogamma) 
     
-    % fig 1_2 shows the MLE values (same as original paper)
+    % fig 2_1 shows the MLE values (same as original paper)
     [comparison,pValue,stat,cValue] = lratiotest(-model_MLEs,-noGamma_MLEs, rlm_ngm_dof);
     
     fig_data = [model_MLEs, noGamma_MLEs, comparison > 0, model(:,1)];
-    fig_data = sortrows(fig_data,-2);
+    
+    %fig_data = sortrows(fig_data,-2);
     significant_players = find(fig_data(:,3) > 0);
 
     fig2_1 = figure();
     hold on;
     bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                       % RL model as grey bars
-    plot(1:1:playersAmount,fig_data(:,2),'dk','MarkerFaceColor','k');   % NoGamma as black diamond
+    plot(1:1:playersAmount,fig_data(:,2),'dk','MarkerSize',MARKER_SIZE,'MarkerFaceColor','k');   % NoGamma as black diamond
     plot(significant_players , max(noGamma_MLEs)+max(noGamma_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
@@ -164,7 +166,7 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     
     % fig 2_2 shows the LRT for RL MODEL V NOGAMMA comparison
     fig_data_diff = [2*(noGamma_MLEs - model_MLEs), comparison > 0 , model(:,1)];
-    fig_data_diff = sortrows(fig_data_diff,1);
+    %fig_data_diff = sortrows(fig_data_diff,-1);
     significant_players = find(fig_data_diff(:,2) > 0);
     
     fig2_2 = figure();
@@ -195,20 +197,21 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
 
     %% RL MODEL V RANDOM
     % test the more complex model (RL) against the random model
-
+    
+    % fig 3_1 shows the MLE values (same as original paper)
     [comparison,pValue,stat,cValue] = lratiotest(-model_MLEs,-random_MLEs, rlm_rnd_dof);
     
     better_than_random = model.*(repmat(comparison,1,7));
     better_than_random(all(better_than_random==0,2),:) = [];
     
     fig_data = [model_MLEs, random_MLEs, comparison > 0, model(:,1)];
-    fig_data = sortrows(fig_data,-2);
+    %fig_data = sortrows(fig_data,-2);
     significant_players = find(fig_data(:,3) > 0);
 
     fig3_1 = figure();
     hold on;
-    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                       % RL model as grey bars
-    plot(1:1:playersAmount,fig_data(:,2),'--k','LineWidth',3);          % Random as black dashed line
+    bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                                      % RL model as grey bars
+    plot(1:1:playersAmount,fig_data(:,2),'dk','MarkerSize',MARKER_SIZE,'LineWidth',2);          % Random as hollow diamonds
     plot(significant_players , max(random_MLEs)+max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
@@ -231,9 +234,9 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
         print(fig3_1, '-dpng', '-loose', fileName); 
     end
     
-    % fig 2_2 shows the LRT for RL MODEL V NOGAMMA comparison
+    % fig 3_2 shows the LRT for RL MODEL V NOGAMMA comparison
     fig_data_diff = [2*(random_MLEs - model_MLEs), comparison > 0 , model(:,1)];
-    fig_data_diff = sortrows(fig_data_diff,1);
+    %fig_data_diff = sortrows(fig_data_diff,-1);
     significant_players = find(fig_data_diff(:,2) > 0);
     
     fig3_2 = figure();
