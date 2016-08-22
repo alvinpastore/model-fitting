@@ -34,9 +34,10 @@ def filter_players(all_players, threshold_file):
 
 
 def calculate_risk():
-    print "Loading the stock riskiness dictionary..."
+    print "Loading the stock risk dictionary using " + risk_type
     risk_dict = dict()
-    risk_classified_stock_file = "../../data/risk_classified_stocks/uniform_" + nActions + ".csv"
+    risk_classified_stock_file = "../../data/" + risk_type + "_classified_stocks/" +\
+                                 nActions + "/uniform_" + nActions + ".txt"
     with open(risk_classified_stock_file, 'r') as risk_file:
         content = risk_file.readlines()
         for line in content:
@@ -60,99 +61,100 @@ def save_vectors(filename):
 t0 = time.time()
 
 if len(sys.argv) < 3:
-    print "usage: python arVectors CAP nActions"
+    print "usage: python actions_rewards_vectors.py CAP nActions risk_type"
+else:
+    HTAN_SIGMA = 500
+    CAP = int(sys.argv[1])
+    nActions = sys.argv[2]  # read as a string so it can be used in the stock risk filename
+    risk_type = sys.argv[3]
+    ar_vectors = dict()
+    stock_risk = calculate_risk()
 
-HTAN_SIGMA = 500
-CAP = int(sys.argv[1])
-nActions = sys.argv[2]  # read as a string so it can be used in the stock risk filename
-ar_vectors = dict()
-stock_risk = calculate_risk()
+    # connect to DB
+    db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
-# connect to DB
-db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
+    # retrieve players
+    db_players = db.select_players('transactions')
+    players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-# retrieve players
-db_players = db.select_players('transactions')
-players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
+    for player in players:
+        # retrieve the transactions for each player
+        transactions = db.select_transactions('transactions', player)
+        # store the stocks purchased for future estimation of reward
+        portfolio = dict()
+        actionsAmount = 0
+        ar_vectors[player] = list()
 
-for player in players:
-    # retrieve the transactions for each player
-    transactions = db.select_transactions('transactions', player)
-    # store the stocks purchased for future estimation of reward
-    portfolio = dict()
-    actionsAmount = 0
-    ar_vectors[player] = list()
+        for transaction in transactions:
 
-    for transaction in transactions:
+            # CAP transactions amount
+            if CAP and actionsAmount < CAP:
 
-        # CAP transactions amount
-        if CAP and actionsAmount < CAP:
+                # get only buy/sell actions
+                if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
+                    name        = str(transaction[1])
+                    date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
+                    date        = datetime.strptime(date_string, '%Y %m %d')
+                    a_type      = str(transaction[3])
+                    stock       = str(transaction[4])
+                    volume      = int(transaction[5])
+                    total       = float(transaction[7])
+                    # price       = float(transaction[6])
+                    # deprecated: decimal precision incorrect for average price calculation
+                    price = abs(total / volume)
 
-            # get only buy/sell actions
-            if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
-                name        = str(transaction[1])
-                date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
-                date        = datetime.strptime(date_string, '%Y %m %d')
-                a_type      = str(transaction[3])
-                stock       = str(transaction[4])
-                volume      = int(transaction[5])
-                total       = float(transaction[7])
-                # price       = float(transaction[6])
-                # deprecated: decimal precision incorrect for average price calculation
-                price = abs(total / volume)
-
-                if 'Buy' in a_type and stock:
-                    # save the stocks that have been purchased
-                    if stock in portfolio:
-                        old_volume = portfolio[stock][0]
-                        old_price  = portfolio[stock][1]
-                        old_total  = portfolio[stock][2]
-                        new_volume = volume + old_volume
-                        new_price  = abs((total + old_total) / (volume + old_volume))
-                        new_total  = old_total + total
-                        portfolio[stock] = (new_volume, new_price, new_total)
-                    else:
-                        portfolio[stock] = (volume, price, total)
-
-                elif 'Sell' in a_type and stock:
-
-                    if stock not in portfolio:
-                        print ':::::::::::::::::::::::::::::::::::::::::::::::'
-                        print player
-                        print 'stock', stock
-                        print 'portfolio', portfolio
-                        # messed up player
-                        break
-                    else:
-
-                        actionsAmount += 1
-                        old_volume = portfolio[stock][0]
-                        old_price  = portfolio[stock][1]
-                        old_total  = portfolio[stock][2]
-
-                        # the reward is the gain on the price times the number of shares sold
-                        reward_base = ((price - old_price) * volume)
-
-                        reward = htan_custom(1 / HTAN_SIGMA)
-
-                        # store in the action_reward vector the stock's name, riskiness and the reward obtained
-                        ar_vectors[player].append((stock, stock_risk[stock], reward))
-
-                        # if all shares for the stock have been sold delete stock from portfolio
-                        # otherwise update the values (new_volume, old_price, new_total)
-                        new_volume = old_volume - volume
-                        if new_volume <= 0:
-                            del portfolio[stock]
+                    if 'Buy' in a_type and stock:
+                        # save the stocks that have been purchased
+                        if stock in portfolio:
+                            old_volume = portfolio[stock][0]
+                            old_price  = portfolio[stock][1]
+                            old_total  = portfolio[stock][2]
+                            new_volume = volume + old_volume
+                            new_price  = abs((total + old_total) / (volume + old_volume))
+                            new_total  = old_total + total
+                            portfolio[stock] = (new_volume, new_price, new_total)
                         else:
-                            # the asset (selling power) is still
-                            # the old price is avg of all the buying prices normalised on the volumes
-                            # times the new amount of stocks held
-                            portfolio[stock] = (new_volume, old_price, new_volume * old_price)
-                            # old_price so it is possible to calculate margin for future sells
-db.close()
+                            portfolio[stock] = (volume, price, total)
 
-save_vectors("../../results/ar_vectors/ar_vectors.txt")
+                    elif 'Sell' in a_type and stock:
 
-print "there are " + str(len(ar_vectors)) + " action vectors\n"
+                        if stock not in portfolio:
+                            print ':::::::::::::::::::::::::::::::::::::::::::::::'
+                            print player
+                            print 'stock', stock
+                            print 'portfolio', portfolio
+                            # messed up player
+                            break
+                        else:
 
-print 'total: ' + str((time.time() - t0)) + 'seconds'
+                            actionsAmount += 1
+                            old_volume = portfolio[stock][0]
+                            old_price  = portfolio[stock][1]
+                            old_total  = portfolio[stock][2]
+
+                            # the reward is the gain on the price times the number of shares sold
+                            reward_base = ((price - old_price) * volume)
+
+                            reward = htan_custom(1 / HTAN_SIGMA)
+
+                            # store in the action_reward vector the stock's name, riskiness and the reward obtained
+                            ar_vectors[player].append((stock, stock_risk[stock], reward))
+
+                            # if all shares for the stock have been sold delete stock from portfolio
+                            # otherwise update the values (new_volume, old_price, new_total)
+                            new_volume = old_volume - volume
+                            if new_volume <= 0:
+                                del portfolio[stock]
+                            else:
+                                # the asset (selling power) is still
+                                # the old price is avg of all the buying prices normalised on the volumes
+                                # times the new amount of stocks held
+                                portfolio[stock] = (new_volume, old_price, new_volume * old_price)
+                                # old_price so it is possible to calculate margin for future sells
+    db.close()
+
+    save_vectors("../../results/ar_vectors/ar_vectors_" + risk_type + ".txt")
+
+    print "there are " + str(len(ar_vectors)) + " action vectors\n"
+
+    print 'total: ' + str((time.time() - t0)) + 'seconds'
