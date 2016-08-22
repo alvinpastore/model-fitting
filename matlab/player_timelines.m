@@ -7,26 +7,32 @@
 
 DISCRETISED = 1;
 
+risk_type = 'beta';
 SAVE_FIG = 1;
 
 yellow	=[1,1,0];
 magenta	=[1,0,1];
 cyan	=[0,1,1];
-red=	[1,0,0];
+red     =[1,0,0];
 green	=[0,1,0];
 blue	=[0,0,1];
 white	=[1,1,1];
 black	=[0,0,0];
 
 % load players actions-rewards vectors
-arvectors = csvread('../results/ar_vectors/ar_vectors.csv');
+arvectors = csvread(['../results/ar_vectors/ar_vectors_',risk_type,'.csv']);
 players = unique(arvectors(:,1));
 playersAmount = size(players,1);
 
 % these thresholds come from the discretisation of the stocks 
-% in 3 bins of riskiness
-lower_t = 0.0655;
-higher_t = 0.1655;
+% in 3 bins of risk using beta or risk
+if strcmp(risk_type,'risk')
+    lower_t = 0.0655;
+    higher_t = 0.1655;
+elseif strcmp(risk_type,'beta')
+    lower_t = 0.86;
+    higher_t = 1.10;
+end
 
 risk = arvectors(:,2);
 if DISCRETISED
@@ -45,7 +51,7 @@ if DISCRETISED
 end
 
 for playerID = 0:playersAmount-1
-    disp(playerID);
+    disp(playerID+1);
     
     player_lines = find(arvectors(:,1) == playerID); 
     risk_vector = risk(player_lines,2);
@@ -75,7 +81,7 @@ for playerID = 0:playersAmount-1
     ch.Label.String = 'Reward / Punishment';
     ch.FontSize = font_size;
     
-    title(['Player: ',num2str(playerID)],'FontSize',font_size + 5);
+    title(['Player: ',num2str(playerID+1)],'FontSize',font_size + 5);
     xlabel('Transaction','FontSize',font_size);
     ylabel('Risk','FontSize',font_size);
     %axis([0 (size(player_lines,1) + 3) -0.09 1]);
@@ -89,7 +95,7 @@ for playerID = 0:playersAmount-1
     hold off;
 
     if SAVE_FIG
-        fileName = ['../graphs/graph_players_timelines/g-',num2str(playerID),'.png'];
+        fileName = ['../graphs/graph_players_timelines/g-',num2str(playerID+1),'_',risk_type,'.png'];
         %print(gcf, '-dpng', fileName)
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 27 21]); %x_width=10cm y_width=15cm
