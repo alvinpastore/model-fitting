@@ -12,6 +12,7 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     PRINT_WIDTH = 20;
     PRINT_HEIGHT = 15;
     SAVE_FOLDER = '../graphs/paper_correction/';
+    ALPHA_CONFIDENCE = 0.01; % 99% confidence
     % number of params of bigger model - number of params of nested model
     % nogamma vs random
     ngm_rnd_dof = 2-0;  % alpha, beta VS random(no param)
@@ -211,7 +212,7 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
     fig3_1 = figure();
     hold on;
     bar(fig_data(:,1),'FaceColor',[0.7,0.7,0.7]);                                      % RL model as grey bars
-    plot(1:1:playersAmount,fig_data(:,2),'dk','MarkerSize',MARKER_SIZE,'LineWidth',2);          % Random as hollow diamonds
+    plot(1:1:playersAmount,fig_data(:,2),'+k','MarkerSize',MARKER_SIZE,'LineWidth',2);          % Random as hollow diamonds
     plot(significant_players , max(random_MLEs)+max(random_MLEs)/20,'k*','MarkerSize',MARKER_SIZE);
     hold off;
     xlabel('Players','FontSize',FONT_SIZE);
@@ -265,3 +266,25 @@ function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,
         print(fig3_2, '-dpng', '-loose', fileName); 
     end
     
+% population model statistical test
+[phat, pci] = binofit(size(better_than_random,1),playersAmount,ALPHA_CONFIDENCE);
+fig4 = figure();
+hold on;
+eh1 = errorbar(1, phat, phat - pci(1), pci(2) - phat, 'b.');
+eh1.LineWidth = 5;
+eh1.MarkerSize = 30;
+plot([0,2],[0.5,0.5],'r-');
+axis([0.5 1.5 0 0.6]);
+xlabel('Population');
+ylabel('Probability');
+set(gca,'FontSize',FONT_SIZE);
+set(gca,'Ytick',0:0.25:1);
+set(gca,'XtickLabels',[]);
+hold off;
+
+set(gcf, 'PaperUnits', 'centimeters');
+set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
+fileName = [SAVE_FOLDER,'Population_statistic',num2str(RESTRICTED),'restricted'];
+fileName = [fileName,'_',ALGORITHM];
+fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+print(fig4, '-dpng', '-loose', fileName); 
