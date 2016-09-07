@@ -1,10 +1,25 @@
+from __future__ import division
 from DatabaseHandler import DatabaseHandler
 from datetime import datetime
+import numpy as np
+
+
+def htan_custom(xx, factor):
+    return (1 - np.exp(- xx * factor)) / (1 + np.exp(- xx * factor))
 
 
 def filter_players(all_players, threshold_file):
     t_players = [line.rstrip('\n') for line in open(threshold_file, 'r')]
     return list(set(all_players).intersection(set(t_players)))
+
+
+def get_next_state(wealth):
+    # wealth is the profit up to this moment (calculated as sum of rewards)
+    if wealth < 0:
+        return 0  # poor
+    else:
+        return 1  # rich
+
 
 # connect to DB
 db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
@@ -16,10 +31,10 @@ players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 filename = '../../data/player_transaction_outcomes.csv'
 transaction_outcomes = open(filename, 'w')
 
-CAP = 25
+CAP = 107
+HTAN_REWARD_SIGMA = 500
 
 for player in players:
-
 
     # retrieve the transactions for each player
     transactions = db.select_transactions('transactions', player)
@@ -28,17 +43,17 @@ for player in players:
 
     # store the stocks purchased for future estimation of reward
     portfolio = dict()
-    actionsAmount = 0
+    actions_amount = 0
     profit = 0
 
     for transaction in transactions:
 
-
         # CAP transactions amount
-        if actionsAmount < CAP:
+        if actions_amount < CAP:
 
             # get only buy/sell actions
             if 'Buy' in transaction[3] or 'Sell' in transaction[3]:
+
                 name = str(transaction[1])
                 date_string = str(transaction[2]).split(' ')[0].replace('-', ' ')
                 date = datetime.strptime(date_string, '%Y %m %d')
@@ -74,13 +89,14 @@ for player in players:
                         break
                     else:
 
-                        actionsAmount += 1
+                        actions_amount += 1
                         old_volume = portfolio[stock][0]
                         old_price = portfolio[stock][1]
                         old_total = portfolio[stock][2]
 
                         # the reward is the gain on the price times the number of shares sold
                         reward_base = ((price - old_price) * volume)
+                        reward = htan_custom(reward_base, 1 / HTAN_REWARD_SIGMA)
 
                         transaction_outcomes.write(',' + str(reward_base))
 
@@ -100,10 +116,13 @@ for player in players:
                             # old_price so it is possible to calculate margin for future sells
 
                         # update profit with reward from sell
-                        profit += reward_base
+                        profit += reward
+
+                        next_state = get_next_state(profit)
+                        print 'reward: ' + str(reward) + ' \t state: ' + str(next_state)
 
     print str(players.index(player)) + ' : ' + str(player) + ' ' + str(profit)
-
+    print
     transaction_outcomes.write('\n')
 
 transaction_outcomes.close()

@@ -228,7 +228,6 @@ if __name__ == '__main__':
     else:
         # 25 u 3 2 risk 0 qlearning
 
-
         HTAN_REWARD_SIGMA = 500
 
         CAP = int(sys.argv[1])
