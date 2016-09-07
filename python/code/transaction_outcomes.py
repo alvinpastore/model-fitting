@@ -21,6 +21,18 @@ def get_next_state(wealth):
         return 1  # rich
 
 
+# LEGACY function from performance_calculator.py (deleted)
+# DEPRECATED 2.0.0 using profit(relative) instead of money (absolute wealth)
+# def save_performances(file_path, perfs):
+#     perf_file = open(file_path + '/profit_performances.csv', 'w')
+#
+#     for pl in sorted(perfs.items(), key=operator.itemgetter(1)):
+#         print str(players.index(pl[0])) + '\t' + str(pl[0]) + '\t' + str(pl[1])
+#         perf_file.write(str(pl[0]) + ',' + str(players.index(pl[0])) + ',' + str(pl[1]) + '\n')
+#
+#     perf_file.close()
+
+
 # connect to DB
 db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 
@@ -28,8 +40,12 @@ db = DatabaseHandler('localhost', 'root', 'root', 'virtualtrader')
 db_players = db.select_players('transactions')
 players = sorted(filter_players(db_players, '../../data/players_threshold.txt'))
 
-filename = '../../data/player_transaction_outcomes.csv'
-transaction_outcomes = open(filename, 'w')
+data_path = '../../data/'
+transaction_outcomes_filename = data_path + 'player_transaction_outcomes.csv'
+profit_performances_filename  = data_path + 'profit_performancestest.csv'
+
+transaction_outcomes = open(transaction_outcomes_filename, 'w')
+profit_performances = open(profit_performances_filename, 'w')
 
 CAP = 107
 HTAN_REWARD_SIGMA = 500
@@ -45,6 +61,7 @@ for player in players:
     portfolio = dict()
     actions_amount = 0
     profit = 0
+    profit_base = 0
 
     for transaction in transactions:
 
@@ -117,11 +134,13 @@ for player in players:
 
                         # update profit with reward from sell
                         profit += reward
+                        profit_base += reward_base
 
                         next_state = get_next_state(profit)
                         print 'reward: ' + str(reward) + ' \t state: ' + str(next_state)
 
-    print str(players.index(player)) + ' : ' + str(player) + ' ' + str(profit)
+    profit_performances.write(str(players.index(player)) + ',' + str(profit_base) + '\n')
+    print str(players.index(player)) + ' : ' + str(player) + ' profit_htan ' + str(profit) + ' profit_base ' + str(profit_base)
     print
     transaction_outcomes.write('\n')
 
