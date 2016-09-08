@@ -2,7 +2,7 @@
 % NoGamma vs Random model
 % RL model vs NoGamma model
 % RL model vs Random model
-function [better_than_random,model] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,SAVE_FIG)
+function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,SAVE_FIG)
     close all;
     
     % markup for figures
