@@ -215,7 +215,6 @@ if __name__ == '__main__':
               'ral = number of transactions to skip for MLE calculation\n' \
               'at  = algorithm type [qlearning|sarsa]\n'
     else:
-        # 25 u 3 2 risk 0 qlearning
 
         HTAN_REWARD_SIGMA = 500
 
@@ -244,8 +243,8 @@ if __name__ == '__main__':
               (0.5, 0, 0), (0.5, 0, 0.5), (0.5, 0, 1), (0.5, 25, 0), (0.5, 25, 0.5), (0.5, 25, 1), (0.5, 50, 0), (0.5, 50, 0.5), (0.5, 50, 1),
               (1, 0, 0), (1, 0, 0.5), (1, 0, 1), (1, 25, 0), (1, 25, 0.5), (1, 25, 1), (1, 50, 0), (1, 50, 0.5), (1, 50, 1)]
 
-        # bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
-        bounds = ((0.0001, 2), (0, 50), (0, 0))  # add nogamma to the filename
+        # bounds = ((0.0001, 2), (0, 50), (0, 0.9999)); gamma_filename = ''
+        bounds = ((0.0001, 2), (0, 50), (0, 0)); gamma_filename = '_nogamma'
 
         MLEs = []
         params = []
@@ -255,7 +254,9 @@ if __name__ == '__main__':
 
         # specify the type of bin (uniform, uniform random or skewed) only if it is not uniform
         btype = '_' + bin_type if bin_type != 'u' else ''
-        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act' + btype + '_nogamma.csv'
+        filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act' + \
+                   btype + gamma_filename + '.csv'
+
         MLE_file = open(filename, 'w')
 
         print 'Fitting with: '
