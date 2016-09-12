@@ -8,29 +8,18 @@ from math import log
 import sys
 
 
-def get_next_state(wealth):
+def get_next_state(wealth, last_reward):
     # wealth is the profit up to this moment (calculated as sum of rewards)
-    if nStates == 2:
+    if states_type == 'profit':
         if wealth < 0:
-            return 0  # poor
+            return 0  # poor if profit (accumulated with sales) is negative
         else:
-            return 1  # rich
-    elif nStates == 3:
-        # TODO implement 3 states
-        print
-        print wealth
-        w = htan_custom(wealth, 1 / 10)
-        print w
-
-        if w < - 1 / 3:
-            print 'poor'
-            return 0  # poor
-        elif w < 1 / 3:
-            print 'mid'
-            return 1  # mid
-        else:  # w > 1/3
-            print 'rich'
-            return 2  # rich
+            return 1  # rich if profit is positive (or 0)
+    elif states_type == 'reward':
+        if last_reward < 0:
+            return 0  # negative if last transaction was negative
+        else:
+            return 1  # positive if last transaction was positive or 0
 
 
 def read_stock_file(b_type, b_amount, risk_measure):
@@ -177,7 +166,7 @@ def model_fit(parameters, *args):
                             MLE += beta * Q[state][action] - log(denominator)
 
                         ''' softmax end ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~'''
-                        next_state = get_next_state(profit)
+                        next_state = get_next_state(profit, reward)
 
                         if ALGORITHM_TYPE == 'qlearning':
                             ''' QLearning update '''
@@ -215,13 +204,13 @@ def read_transactions_file(trans_filename):
 if __name__ == '__main__':
 
     if len(sys.argv) != 8:
-        print 'Usage: python grad_desc_model_fit.py CAP u[rX]|s[rX] na ns rc ral at\n' \
+        print 'Usage: python grad_desc_model_fit.py CAP u[rX]|s[rX] na st rc ral at\n' \
               'CAP = number of max transactions to consider (min = 16, max = 107)\n' \
               'u   = uniform risk distribution [r] random\n' \
               's   = skewed  risk distribution [r] random\n' \
               'X   = random file number\n' \
               'na  = number of actions\n' \
-              'ns  = number of states\n' \
+              'st  = states type [profit|reward]\n' \
               'rc  = type of risk classification [risk|beta|std]\n' \
               'ral = number of transactions to skip for MLE calculation\n' \
               'at  = algorithm type [qlearning|sarsa]\n'
@@ -233,7 +222,8 @@ if __name__ == '__main__':
         CAP = int(sys.argv[1])
         bin_type = sys.argv[2]
         nActions = int(sys.argv[3])
-        nStates  = int(sys.argv[4])
+        nStates  = 2
+        states_type = sys.argv[4]
         risk_measure = sys.argv[5]
         RESTRICTED_ACTION_LIMIT = int(sys.argv[6])
         ALGORITHM_TYPE = sys.argv[7]
@@ -254,14 +244,15 @@ if __name__ == '__main__':
               (0.5, 0, 0), (0.5, 0, 0.5), (0.5, 0, 1), (0.5, 25, 0), (0.5, 25, 0.5), (0.5, 25, 1), (0.5, 50, 0), (0.5, 50, 0.5), (0.5, 50, 1),
               (1, 0, 0), (1, 0, 0.5), (1, 0, 1), (1, 25, 0), (1, 25, 0.5), (1, 25, 1), (1, 50, 0), (1, 50, 0.5), (1, 50, 1)]
 
-        # bounds
-        #bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
-        bounds = ((0.0001, 2), (0, 50), (0, 0)) #add nogamma to the filename
+        # bounds = ((0.0001, 2), (0, 50), (0, 0.9999))
+        bounds = ((0.0001, 2), (0, 50), (0, 0))  # add nogamma to the filename
 
         MLEs = []
         params = []
         restricted_type = 'un' if RESTRICTED_ACTION_LIMIT <= 0 else str(RESTRICTED_ACTION_LIMIT) + 'act'
-        results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + ALGORITHM_TYPE + '/' + risk_measure + '/'
+        results_path = '../../results/gradient_descent/' + restricted_type  + '_restricted/' + \
+                       ALGORITHM_TYPE + '/' + risk_measure + '/' + states_type + '/'
+
         # specify the type of bin (uniform, uniform random or skewed) only if it is not uniform
         btype = '_' + bin_type if bin_type != 'u' else ''
         filename = results_path + 'grad_desc_' + str(CAP) + 'CAP_'  + str(nActions) + 'act' + btype + '_nogamma.csv'
@@ -273,17 +264,16 @@ if __name__ == '__main__':
         print 'restricted:', RESTRICTED_ACTION_LIMIT
         print 'saving in ', filename
         t1 = time.time()
-        for player in players:
 
-            for times in xrange(36):
-                MLEs.append(9999)
-                params.append([-1, -1, -1])
+        # instantiate data structures and populate with place holders
+        for times in xrange(len(players)):
+            MLEs.append(9999)
+            params.append([-1, -1, -1])
+
+        for player in players:
 
             if players.index(player) >= 0:
                 ti = time.time()
-
-                MLEs.append(9999)  # placeholders
-                params.append([-1, -1, -1])
 
                 print '\n' + str(players.index(player)) + ' : ' + str(player)
 
