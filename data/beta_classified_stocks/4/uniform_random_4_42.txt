@@ -1,0 +1,111 @@
+27
+British Sky Broadcasting Group~0.6175341974
+Prudential~1.3992887549
+BHP Billiton Plc~1.2874561247
+Travis Perkins Plc~1.2630323355
+Reed Elsevier Plc~0.7217709456
+Smith &amp; Nephew~0.8055034833
+London Stock Exchange Group~1.0850460656
+International Consolidated Air~1.3851118667
+Admiral Group Plc~0.5677173239
+Pearson~0.6353953245
+Smiths Group Plc~0.9857029494
+HSBC Holdings Plc~1.0683109824
+BAE Systems~0.8899012936
+Severn Trent~0.6577750017
+Croda International~0.8624918349
+Centrica Plc~0.4548895494
+Legal &amp; General~1.0850554697
+Intu Properties~0.8625788155
+Serco Group~0.3961846876
+Friends Life Group~0.8986384023
+AMEC Plc~0.7754271385
+Royal Bank of Scotland Group~1.4694466032
+Aggreko~0.9061661826
+British American Tobacco Plc~0.9575322851
+Mondi Plc~1.5285909052
+Hammerson~1.0180111205
+SABMiller Plc~1.233756255
+27
+Anglo American Plc~1.6083863742
+Meggitt Plc~0.8426412696
+Aberdeen Asset Management Plc~1.8614156817
+Imperial Tobacco~0.557887117
+G4S Plc~0.5221777982
+Standard Chartered~1.2781790058
+Rio Tinto~1.3823701646
+TUI Travel Plc~1.1352705265
+Aviva Plc~1.1271771642
+GlaxoSmithKline~0.8326092352
+Sage Group Plc~0.7748102997
+Royal Dutch Shell-A Shs~0.7362021841
+BG Group Plc~1.0056197711
+Rexam Plc~0.9489492426
+Evraz~1.7036776375
+SSE~0.5091014583
+Lloyds Banking Group Plc~1.1061522366
+Standard Life Plc~1.3642416864
+Intertek Group~0.7406525048
+Glencore~1.3692098468
+Babcock Intl Group~0.8458361138
+Tullow Oil Plc~0.9462655357
+InterContinental Hotels Group~1.0832355751
+Tesco~0.7880015691
+Vodafone Group Plc~0.9261171421
+Shire Plc~1.0270952984
+Kingfisher~1.1109288264
+27
+Vedanta Resources Plc~1.4892322229
+IMI~1.0062208533
+CRH~1.5074225408
+Petrofac Ltd~1.087499972
+Old Mutual~1.3897716938
+Kazakhmys Plc~0.1313617422
+Carnival Plc~0.8777041034
+Sports Direct International Pl~0.9829517882
+Wood Group (John)~1.0737378523
+Weir Group~1.0583879707
+Coca-Cola HBC~0.8463056342
+Wolseley~1.2198770193
+Capita~0.7089004172
+BP~0.7765248881
+Schroders Plc~1.3571141423
+Unilever~0.9727825879
+Polymetal International~1.618726551
+British Land~1.0295616638
+Compass Group Plc~0.9545771072
+GKN~1.4310022279
+Land Securities Group~1.0002726287
+Experian~1.0023507996
+ITV Plc~1.1714598299
+Rolls-Royce Holding~0.9638049024
+Barclays~1.2162389824
+WPP Plc~1.2424510311
+Bunzl~0.8079571683
+26
+Associated British Foods Plc~0.819480559
+United Utilities Group~0.6196763053
+ARM Holdings~1.4126180292
+Burberry Group~1.1473023889
+National Grid Plc~0.7471046185
+RSA Insurance Group Plc~0.5912553301
+Diageo Plc~1.001026094
+Melrose Industries~1.1971070228
+Next~0.720828775
+Fresnillo Plc~1.0193285115
+BT Group Plc~0.8578545517
+Morrison Wm Supermarkets~0.6583179962
+Antofagasta~1.2860471699
+Hargreaves Lansdown Plc~1.1309634258
+Marks&amp;Spencer Group~0.9915195102
+Persimmon~1.4858898003
+AstraZeneca Plc~0.8817006393
+Whitbread 'A'~1.0901994939
+Randgold Resources Ltd~0.6393535099
+William Hill~1.0393957408
+Tate &amp; Lyle~0.8082734292
+Reckitt Benckiser Group~0.7887921371
+Sainsbury (J.)~0.7032831712
+Johnson Matthey~0.8620659572
+easyJet Plc~1.4426536902
+Royal Dutch Shell-B Shs~0.7250991694
