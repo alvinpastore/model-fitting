@@ -35,13 +35,14 @@ MARKER_SIZE = 100;
 
 RESTRICTED = 0;
 ALGORITHM = 'qlearning';
+STATE_TYPE = 'profit'; % alternative 'reward'
 CAP = 107;  % alternative 25
 N_ACTIONS = 3;
 RISK_MEASURE = 'beta'; % alternative risk
 
 % load model results
 % [playerID alpha beta gamma MLE randomMLE transactions]
-[better_than_random,model,ng_better_than_random,noGamma] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,0);
+[better_than_random,model,ng_better_than_random,noGamma] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,STATE_TYPE,0);
 close all;
 
 % load performances 

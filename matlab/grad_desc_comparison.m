@@ -2,7 +2,7 @@
 % NoGamma vs Random model
 % RL model vs NoGamma model
 % RL model vs Random model
-function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,SAVE_FIG)
+function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_comparison(RESTRICTED,ALGORITHM,CAP,N_ACTIONS,RISK_MEASURE,STATE_TYPE,SAVE_FIG)
     close all;
     
     % markup for figures
@@ -38,11 +38,11 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
 
     % LOAD THE GRAD DESC MODELs TO TEST
     % RL MODEL
-    model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS,RISK_MEASURE);
+    model = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS, RISK_MEASURE, STATE_TYPE);
     model = [model random_MLEs transactions_number];
     model_MLEs = model(:,5);
     % NoGamma MODEL
-    noGamma = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS,RISK_MEASURE,'_nogamma');
+    noGamma = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS, RISK_MEASURE, STATE_TYPE, '_nogamma');
     noGamma = [noGamma random_MLEs transactions_number];
     noGamma_MLEs = noGamma(:,5);
     
@@ -92,7 +92,8 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
         
         fileName = [SAVE_FOLDER, 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig1_1, '-dpng', '-loose', fileName); 
     end
     
@@ -123,7 +124,8 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
         
         fileName = [SAVE_FOLDER,'LRT/', 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig1_2, '-dpng', '-loose', fileName); 
     end
     
@@ -161,7 +163,8 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
 
         fileName = [SAVE_FOLDER, 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_'];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig2_1, '-dpng', '-loose', fileName); 
     end
     
@@ -192,7 +195,8 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
         
         fileName = [SAVE_FOLDER,'LRT/', 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_'];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig2_2, '-dpng', '-loose', fileName); 
     end
 
@@ -231,7 +235,8 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
 
         fileName = [SAVE_FOLDER, 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig3_1, '-dpng', '-loose', fileName); 
     end
     
@@ -262,7 +267,8 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
 
         fileName = [SAVE_FOLDER,'LRT/', 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig3_2, '-dpng', '-loose', fileName); 
     end
     

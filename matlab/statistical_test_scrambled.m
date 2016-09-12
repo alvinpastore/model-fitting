@@ -8,10 +8,11 @@ close all;
 nogamma_players = [11,18,28,31,33,37,42];
 
 RESTRICTED = 0;
-ALGORITHM = 'qlearning';
-CAP = 107;
+ALGORITHM = 'qlearning'; % alternative 'sarsa'
+CAP = 107; % alternative 25
 N_ACTIONS = 3;
-RISK_MEASURE = 'beta';
+RISK_MEASURE = 'beta'; % alternative 'risk'
+STATE_TYPE =  'profit'; % alternative 'reward'
 ALPHA_CONFIDENCE = 0.01; % 99% confidence
 FONT_SIZE = 20;
 LINE_WIDTH = 0.5;
@@ -30,7 +31,7 @@ scram_iterator = 1:scrambles_number;
 
 
 % load model results (nogamma as it's the simplest model)
-noGamma = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS, RISK_MEASURE,'_nogamma');
+noGamma = MLE_model_importer(RESTRICTED, ALGORITHM, CAP, N_ACTIONS, RISK_MEASURE,STATE_TYPE,'_nogamma');
 noGamma_MLEs = noGamma(:,5);
 
 % count players
@@ -131,7 +132,8 @@ hold off;
         
         fileName = [SAVE_FOLDER, 'ranked_v_scrambled_subset_nogamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
-        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+        fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
+        fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
         print(fig02, '-dpng', '-loose', fileName); 
 end
 
