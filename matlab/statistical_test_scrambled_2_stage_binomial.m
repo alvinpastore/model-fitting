@@ -1,4 +1,5 @@
 % routine for testing scrambled MLEs against RL model
+% DEPRECATED ? 
 tic
 
 % if the MLESCRAMS have been already imported use 0 as input and use a dummy for MLESCRAMS

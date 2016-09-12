@@ -1,5 +1,5 @@
 % routine for testing scrambled MLEs against each other
-
+% DEPRECATED ?
 tic
 
 % import scrambled MLE matrices

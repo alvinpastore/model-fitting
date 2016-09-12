@@ -1,4 +1,5 @@
 %script to compare best model (set of param) vs random MLE
+% DEPRECATED ?
 % this script might be deprecated since introducing grad_desc_comparison.m
 %  ERROR IN THE NUMBER OF PARAMS
 

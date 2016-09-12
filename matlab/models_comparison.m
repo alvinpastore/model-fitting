@@ -1,4 +1,5 @@
 %% Compare the MLEs of the best model vs the best model based
+% DEPRECATED ?
 % uses a 2 stage binarisation and binomial fit
 % 1) compare every MLE instance to the MLE vector of the alternative model
 % 2) apply binomial fit and get p value and confidence interval
