@@ -90,7 +90,7 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
         
-        fileName = [SAVE_FOLDER, 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
+        fileName = [SAVE_FOLDER, num2str(CAP),'CAP/', 'NoGamma_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
         fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
@@ -161,7 +161,7 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
 
-        fileName = [SAVE_FOLDER, 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
+        fileName = [SAVE_FOLDER, num2str(CAP),'CAP/', 'RL_vs_NoGamma_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_'];
         fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
@@ -233,7 +233,7 @@ function [better_than_random,model,ng_better_than_random,noGamma] = grad_desc_co
         set(gcf, 'PaperUnits', 'centimeters');
         set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
 
-        fileName = [SAVE_FOLDER, 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
+        fileName = [SAVE_FOLDER, num2str(CAP),'CAP/', 'RL_vs_Random_',num2str(RESTRICTED),'restricted'];
         fileName = [fileName,'_',ALGORITHM];
         fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
         fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
@@ -292,5 +292,6 @@ set(gcf, 'PaperUnits', 'centimeters');
 set(gcf, 'PaperPosition', [0 0 PRINT_WIDTH PRINT_HEIGHT]);
 fileName = [SAVE_FOLDER,'Population_statistic',num2str(RESTRICTED),'restricted'];
 fileName = [fileName,'_',ALGORITHM];
-fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS),'_',RISK_MEASURE,'.png'];
+fileName = [fileName,'_CAP',num2str(CAP),'_nAct',num2str(N_ACTIONS)];
+fileName = [fileName,'_',RISK_MEASURE,'_',STATE_TYPE,'.png'];
 print(fig4, '-dpng', '-loose', fileName); 
