@@ -1,4 +1,4 @@
-
+% DEPRECATED? 
 tic;
 
 % -- script features
@@ -14,7 +14,7 @@ path = 'graphs/stats/risk_classification_comparison_Portfolio/';
 
 % -- script variables
 % offset = amount of models in gridsearch => 5alpha X 4betas X 5gammas
-OFFSET = 100;
+OFFSET = 100;       %%%% <-- DEPRECATED???
 alpha_confidence = 0.01;    % 99% confidence
 iterations = 1000;
 COMPARISON_FACTOR = 0.05;   % tolerance level (-0.05 or 0.05 for conservative or tolerating, 0 for standard comparison)
