@@ -56,7 +56,7 @@ model_v_scram_bic  = zeros(players_number,scrambles_number);
 % scram_v_random_bic = zeros(players_number,scrambles_number);
 
 % % calculate aic and bic for RL model (3 parameters)
-[mod_aic,mod_bic] = aicbic(-model_MLEs, ones(players_number,1)*ng_dof, transactions);
+[mod_aic,mod_bic] = aicbic(-noGamma_MLEs, ones(players_number,1)*ng_dof, transactions);
 
 % COMPARE RANKED VS SCRAMBLED AND
 % FIND BEST SCRAMBLED COMPARED TO RANDOM
