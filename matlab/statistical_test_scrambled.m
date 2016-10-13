@@ -1,5 +1,5 @@
 % routine for testing scrambled bins MLEs against RL model MLEs
-% MLES generated with gradient descent (deterministic)
+% MLES generated with gradient descent
 % comparison via BIC
 
 tic
