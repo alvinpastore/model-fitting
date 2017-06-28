@@ -4,20 +4,25 @@
 % the bubble represent the actions (transactions)
 % the color represent the outcome (red-loss, yellow-even, green-win)
 % the size represent the size of the win/loss
-
+close all;
 DISCRETISED = 1;
 
 risk_type = 'beta';
 SAVE_FIG = 1;
 
-yellow	=[1,1,0];
+%yellow	=[1,1,0];
+%yellow = [235, 156, 20]/255;
+yellow = [247, 227, 76]/255;
 magenta	=[1,0,1];
 cyan	=[0,1,1];
-red     =[1,0,0];
-green	=[0,1,0];
+%red     =[1,0,0];
+red = [235, 49, 20]/255;
+%green	=[0,1,0];
+green = [92, 209, 81]/255;
 blue	=[0,0,1];
 white	=[1,1,1];
 black	=[0,0,0];
+grey    =[0.4,0.4,0.4];
 
 % load players actions-rewards vectors
 arvectors = csvread(['../results/ar_vectors/ar_vectors_',risk_type,'.csv']);
@@ -60,12 +65,12 @@ for playerID = 0:playersAmount-1
     figure();
     font_size = 20;
     hold on;
-    set(gcf, 'Position', [200 200 1800 1000])
+    set(gcf, 'Position', [200 200 1000 350])
     
     scatter( 1:1:size(player_lines,1) , risk_vector, ...
-    abs(reward_vector)*1500 , reward_vector,...
-    'filled','MarkerEdgeColor',blue,...
-    'LineWidth',2.5);  
+    abs(reward_vector)*2000 , reward_vector,...
+    'filled','MarkerEdgeColor',black,...
+    'LineWidth',3);  
     
     map = [red 
         yellow 
@@ -78,10 +83,10 @@ for playerID = 0:playersAmount-1
     
     ch = colorbar('Ticks',[-0.8,0,0.8],'TickLabels',{'Loss','Even','Gain'});
     caxis([-1, 1]);
-    ch.Label.String = 'Reward / Punishment';
+    ch.Label.String = 'Outcome';
     ch.FontSize = font_size;
     
-    title(['Player: ',num2str(playerID+1)],'FontSize',font_size + 5);
+    title(['Player ',num2str(playerID+1)],'FontSize',font_size + 5);
     xlabel('Transaction','FontSize',font_size);
     ylabel('Risk','FontSize',font_size);
     %axis([0 (size(player_lines,1) + 3) -0.09 1]);
@@ -97,8 +102,8 @@ for playerID = 0:playersAmount-1
     if SAVE_FIG
         fileName = ['../graphs/graph_players_timelines/g-',num2str(playerID+1),'_',risk_type,'.png'];
         %print(gcf, '-dpng', fileName)
-        set(gcf, 'PaperUnits', 'centimeters');
-        set(gcf, 'PaperPosition', [0 0 27 21]); %x_width=10cm y_width=15cm
+        %set(gcf, 'PaperUnits', 'centimeters');
+        %set(gcf, 'PaperPosition', [0 0 20 14]); %x_width=10cm y_width=15cm
         saveas(gcf,fileName);
     end
     close(gcf);
